@@ -1,0 +1,53 @@
+# ---------- Android / Gradle ----------
+*.iml
+.gradle/
+build/
+android-app/build/
+android-app/app/build/
+android-app/captures/
+android-app/local.properties
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+release/
+
+# Keystores: nunca al repositorio
+*.jks
+*.keystore
+
+# ---------- Android Studio / IntelliJ ----------
+.idea/
+!.idea/codeStyles/
+*.hprof
+
+# ---------- Firebase ----------
+# Contiene claves del proyecto: cada integrante lo descarga de la consola
+google-services.json
+.firebase/
+firebase-debug.log
+serviceAccountKey.json
+*-firebase-adminsdk-*.json
+
+# ---------- taxi-service (Node) ----------
+node_modules/
+dist/
+coverage/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ---------- Variables de entorno ----------
+.env
+.env.*
+!.env.example
+
+# ---------- Sistema operativo ----------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
