@@ -141,12 +141,12 @@ OBSERVACIONES = {
     "RF-AH-01": "Los lugares históricos cercanos aún no están en el mockup.",
     "RF-AH-02": "El Storage del Lab 5 es almacenamiento local; la subida a Firebase es del Lab 6.",
     "RF-AH-08": "El mockup existe pero el orden del reporte debe invertirse a menor → mayor.",
-    "RF-AH-10": "Sin este monto no se puede evaluar la regla del taxi gratuito.",
+    "RF-AH-10": "Derivado del enunciado: sin este monto no se puede evaluar la regla del taxi gratuito. No se incluye en el archivo de entrega al profesor.",
     "RF-CL-01": "Faltan en el mockup el tipo de documento y la fecha de nacimiento.",
     "RF-CL-05": "Requiere Firebase Cloud Messaging.",
     "RF-CL-07": "Falta enganchar el chat al bottom navigation.",
     "RF-CL-09": "Necesita Google Maps SDK y la ubicación desde Realtime Database.",
-    "RF-CL-12": "Falta la pantalla en Figma; el hotel ya los registra en RF-AH-01.",
+    "RF-CL-12": "Derivado del enunciado: el hotel ya los registra en RF-AH-01. No se incluye en el archivo de entrega al profesor.",
     "RF-GN-01": "Validar con una transacción; no basta con comprobarlo en el cliente.",
     "RF-GN-02": "Validar con una transacción; no basta con comprobarlo en el cliente.",
     "RF-TX-04": "Requiere transacción para garantizar la exclusividad del pedido.",
@@ -155,14 +155,34 @@ OBSERVACIONES = {
     "RNF-06": "Todo el manejo del fallo vive en TaxiRepository.",
 }
 
+# Requerimientos derivados del enunciado, no enunciados literalmente en él.
+# Se mantienen en la versión interna y se excluyen de la que se entrega al profesor.
+SOLO_INTERNOS = {"RF-AH-10", "RF-CL-12"}
+
+# Precisiones de criterio tomadas literalmente del enunciado del curso.
+CRITERIOS = {
+    "RF-CL-01": "Al completar el formulario con nombres, apellidos, tipo de documento "
+                "(DNI, Pasaporte o Carnet de extranjería), número de documento, fecha de "
+                "nacimiento, correo, teléfono, domicilio y foto, la cuenta queda activa "
+                "sin necesidad de aprobación",
+}
+
 ORDEN_CIERRE = [LAB_NOMBRE[l] for l in LABS]
 
 
-def cargar():
-    """Devuelve el DataFrame maestro ordenado por rol y por cierre."""
+def cargar(derivados=True):
+    """Devuelve el DataFrame maestro ordenado por rol y por cierre.
+
+    derivados=False excluye los requerimientos de SOLO_INTERNOS, que no aparecen
+    literalmente en el enunciado y por eso no se entregan al profesor.
+    """
     df = pd.read_csv(CSV, sep=";", encoding="utf-8-sig").fillna("")
     df = df.drop(columns=[c for c in ("Entregable objetivo", "Depende de") if c in df.columns])
     df = pd.concat([df, pd.DataFrame(NUEVOS)], ignore_index=True).fillna("")
+    if not derivados:
+        df = df[~df["ID"].isin(SOLO_INTERNOS)].reset_index(drop=True)
+    df["Criterio de aceptación"] = df.apply(
+        lambda r: CRITERIOS.get(r["ID"], r["Criterio de aceptación"]), axis=1)
 
     df["Rol"] = df["Actor"].map(ROL_DE_ACTOR)
     df["Fases"] = df["ID"].map(lambda i: "  ·  ".join(FASES[i]))

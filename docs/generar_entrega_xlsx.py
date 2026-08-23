@@ -22,7 +22,7 @@ from requerimientos_estilo import (
 OUT = sys.argv[1] if len(sys.argv) > 1 else \
     r"C:\Users\USUARIO\Desktop\roomtrip\docs\requerimientos-entrega.xlsx"
 
-maestra = D.cargar()
+maestra = D.cargar(derivados=False)
 wb = Workbook()
 
 SUB = "1TEL05 Servicios y Aplicaciones para IoT · PUCP · Semestre 2026-2"
