@@ -138,3 +138,4 @@ Al aceptar el pedido pasa automáticamente a `ASIGNADO`.
 
 El uso de herramientas de IA generativa se declara y cita en
 [`docs/declaracion-ia.md`](docs/declaracion-ia.md), conforme se produce.
+# roomtrip
