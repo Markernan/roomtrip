@@ -89,3 +89,46 @@
 | Taxista | ~5% | Todo salvo el login |
 | Superadmin | 0% | Todas las pantallas |
 | App web taxistas | 0% | Todas las pantallas |
+
+---
+
+## Versión para Excel
+
+El archivo [`requerimientos.csv`](requerimientos.csv) contiene los mismos 45
+requerimientos en formato tabular, listo para abrir en Excel.
+
+- Separador: **punto y coma** (`;`), que es el separador de lista por defecto en Excel
+  en español. Basta con abrirlo con doble clic.
+- Codificación UTF-8 con BOM, para que las tildes y las eñes se vean correctamente.
+
+### Columnas
+
+| Columna | Para qué sirve |
+|---|---|
+| ID | Trazabilidad con el enunciado. `RF-<ROL>-<NN>` y `RNF-<NN>` |
+| Módulo | Agrupación funcional (M1 a M10). Permite filtrar y hacer subtotales |
+| Actor | Rol que ejecuta el requerimiento |
+| Tipo | Funcional / No funcional |
+| Requerimiento | Enunciado en una línea |
+| Criterio de aceptación | Cómo se comprueba que está cumplido |
+| Prioridad | Alta / Media |
+| Entregable objetivo | En qué laboratorio se implementa |
+| Depende de | ID del requerimiento previo. Define el orden de trabajo |
+| Estado | Pendiente / En progreso / Hecho |
+| Mockup | Si el mockup ya existe en Figma |
+
+### Distribución
+
+| Módulo | Requerimientos |
+|---|---|
+| M1 Autenticación | 4 |
+| M2 Gestión de usuarios | 3 |
+| M3 Catálogo | 5 |
+| M4 Reservas | 4 |
+| M5 Pagos y cobros | 3 |
+| M6 Checkout y valoraciones | 1 |
+| M7 Chat | 3 |
+| M8 Taxi | 10 |
+| M9 Reportes y logs | 3 |
+| M10 Calidad (no funcionales) | 9 |
+| **Total** | **45** |

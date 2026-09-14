@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_input_texto"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Entrada"
+                android:textColor="@color/texto_secundario"
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular" />
+            <TextView
+                android:id="@+id/tvFechaEntrada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10 set"
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/borde_input" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Salida"
+                android:textColor="@color/texto_secundario"
+                android:textSize="11sp"
+                android:fontFamily="@font/poppins_regular" />
+            <TextView
+                android:id="@+id/tvFechaSalida"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11 set"
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- RF-GN-01: no se puede reservar si las fechas ya están ocupadas -->
+    <TextView
+        android:id="@+id/tvAlertaConflicto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@color/rojo_alerta_fondo"
+        android:padding="10dp"
+        android:text="Alerta: Rango ocupado/conflicto de reserva"
+        android:textColor="@color/rojo_alerta_texto"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_medium"
+        android:visibility="gone" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Hab. Lux · Cap. 2 adultos, 1 niño"
+        android:textColor="@color/texto_principal"
+        android:textSize="15sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Área 45m² · Vista al Coliseo"
+        android:textColor="@color/texto_secundario"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Precio para 1 noche (10 set - 11 set)"
+        android:textColor="@color/texto_secundario"
+        android:textSize="12sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <TextView
+        android:id="@+id/tvPrecioTotal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="US$83"
+        android:textColor="@color/texto_principal"
+        android:textSize="22sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <Button
+        android:id="@+id/btnReservar"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="20dp"
+        android:text="Reservar"
+        style="@style/Boton.Primario" />
+
+</LinearLayout>

@@ -1,0 +1,35 @@
+apply plugin: "com.android.application"
+
+android {
+    namespace "com.roomtrip.app"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.roomtrip.app"
+        minSdk 34
+        targetSdk 34
+        versionCode 1
+        versionName "0.1"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation "com.google.android.material:material:1.12.0"
+    implementation "androidx.appcompat:appcompat:1.7.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
+    implementation "androidx.recyclerview:recyclerview:1.3.2"
+    implementation "androidx.cardview:cardview:1.0.0"
+    implementation "com.github.bumptech.glide:glide:4.16.0"
+    implementation "com.google.zxing:core:3.5.3"
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingVertical="12dp">
+
+    <ImageView
+        android:id="@+id/ivIconoServicio"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_wifi"
+        android:contentDescription="@null" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="14dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tvNombreServicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wi-Fi de Alta Velocidad"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold" />
+        <TextView
+            android:id="@+id/tvDescripcionServicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Señal en todo el hotel y piso al wi-fi hallianza. Piscina al Aire Libre."
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular" />
+    </LinearLayout>
+
+</LinearLayout>

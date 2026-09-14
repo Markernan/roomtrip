@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Extraídos directamente del Figma vía get_design_context (nodo Home Page 1:8621) -->
+    <color name="fondo_pantalla">#F2F5FA</color>
+    <color name="turquesa">#18C0C1</color>
+    <color name="texto_principal">#1C1B1F</color>
+    <color name="texto_secundario">#625B71</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="negro">#000000</color>
+
+    <!-- Muestreados de las capturas de pantalla (checkout, alertas) -->
+    <color name="verde_claro_fondo">#E8F5E9</color>
+    <color name="verde_exito">#4CAF50</color>
+    <color name="verde_texto">#2E7D32</color>
+    <color name="rojo_alerta_fondo">#FFEBEE</color>
+    <color name="rojo_alerta_texto">#D32F2F</color>
+    <color name="amarillo_estrella">#FFC107</color>
+
+    <color name="sombra">#0D000000</color>
+    <color name="borde_input">#E0E0E0</color>
+</resources>

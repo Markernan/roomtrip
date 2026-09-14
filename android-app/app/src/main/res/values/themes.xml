@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Theme.RoomTrip" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/turquesa</item>
+        <item name="colorPrimaryVariant">@color/turquesa</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+        <item name="colorSecondary">@color/turquesa</item>
+        <item name="colorSecondaryVariant">@color/turquesa</item>
+        <item name="colorOnSecondary">@color/blanco</item>
+        <item name="android:statusBarColor">@color/fondo_pantalla</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <item name="android:windowBackground">@color/fondo_pantalla</item>
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <!-- Botón principal turquesa, esquinas muy redondeadas (28px en Figma -> 28dp) -->
+    <style name="Boton.Primario" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/turquesa</item>
+        <item name="cornerRadius">28dp</item>
+        <item name="android:textColor">@color/blanco</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+    </style>
+
+    <!-- Botón outline (secundario) -->
+    <style name="Boton.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="strokeColor">@color/turquesa</item>
+        <item name="cornerRadius">22dp</item>
+        <item name="android:textColor">@color/turquesa</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <!-- Campo de texto estilo "pill" blanco con sombra, como el buscador del Home -->
+    <style name="CampoTexto" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxCornerRadiusTopStart">16dp</item>
+        <item name="boxCornerRadiusTopEnd">16dp</item>
+        <item name="boxCornerRadiusBottomStart">16dp</item>
+        <item name="boxCornerRadiusBottomEnd">16dp</item>
+        <item name="boxStrokeColor">@color/borde_input</item>
+        <item name="hintTextColor">@color/texto_secundario</item>
+    </style>
+
+</resources>

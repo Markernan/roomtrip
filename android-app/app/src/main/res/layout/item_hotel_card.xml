@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="24dp">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/ivFotoHotel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:background="@drawable/bg_tarjeta_blanca"
+            android:contentDescription="@null" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|start"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_chip_blanco"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_star"
+                android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/tvCalificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="4.8"
+                android:textColor="@color/texto_principal"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvNombreHotel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Hotel Miraflores"
+        android:textColor="@color/texto_principal"
+        android:textSize="22sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <TextView
+        android:id="@+id/tvUbicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Lima, Perú"
+        android:textColor="@color/texto_secundario"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_wallet"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/tvPrecio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="4dp"
+            android:text="S/250 noche"
+            android:textColor="@color/texto_principal"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_semibold" />
+
+        <Button
+            android:id="@+id/btnVerDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="10dp"
+            android:text="Ver Detalles"
+            android:textSize="14sp"
+            style="@style/Boton.Primario" />
+    </LinearLayout>
+
+</LinearLayout>
