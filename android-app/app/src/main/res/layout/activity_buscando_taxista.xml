@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla"
+    android:gravity="center"
+    android:padding="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="RoomTrip"
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/ic_taxi"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Buscando taxista ..."
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <Button
+        android:id="@+id/btnVolverAlInicio"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="56dp"
+        android:text="Volver al inicio"
+        style="@style/Boton.Primario" />
+
+</LinearLayout>

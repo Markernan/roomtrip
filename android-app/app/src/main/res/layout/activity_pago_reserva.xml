@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_pantalla">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="24dp">
+            <ImageView
+                android:id="@+id/btnVolver"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_arrow_back"
+                android:clickable="true"
+                android:focusable="true"
+                android:contentDescription="@null" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="RoomTrip"
+                android:textColor="@color/texto_principal"
+                android:textSize="18sp"
+                android:fontFamily="@font/poppins_bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paga tu reserva"
+            android:textColor="@color/texto_principal"
+            android:textSize="24sp"
+            android:fontFamily="@font/poppins_bold" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="VISA" android:textStyle="italic|bold" android:textSize="16sp"
+                android:textColor="#1A1F71" android:fontFamily="@font/poppins_bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Mastercard" android:textSize="16sp"
+                android:textColor="#EB001B" android:fontFamily="@font/poppins_bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Diners Club" android:textSize="16sp"
+                android:textColor="@color/texto_secundario" android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+
+        <include layout="@layout/campo_registro_generico" android:id="@+id/campoTitular" />
+        <include layout="@layout/campo_registro_generico" android:id="@+id/campoNumeroTarjeta" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoFechaCaducidad"
+                android:layout_width="0dp" android:layout_weight="1" />
+            <View android:layout_width="12dp" android:layout_height="1dp" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoCvc"
+                android:layout_width="0dp" android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="12dp">
+            <CheckBox
+                android:id="@+id/cbGuardarTarjeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="@color/turquesa" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar tarjeta para futuras reservas"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins_regular" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnConfirmarReserva"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="24dp"
+            android:text="Confirmar reserva"
+            style="@style/Boton.Primario" />
+
+    </LinearLayout>
+</ScrollView>

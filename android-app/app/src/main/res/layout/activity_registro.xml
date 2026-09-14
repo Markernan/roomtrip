@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/btnVolver"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_arrow_back"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@null" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="RoomTrip"
+            android:textColor="@color/texto_principal"
+            android:textSize="18sp"
+            android:fontFamily="@font/poppins_bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="24dp"
+            android:paddingBottom="24dp">
+
+            <FrameLayout
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_circulo_gris">
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+
+            <!-- Campos del formulario -->
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoNombres" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoApellidos" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoDocumento" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoFechaNacimiento" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoCorreo" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoTelefono" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoDomicilio" />
+            <include layout="@layout/campo_registro_generico" android:id="@+id/campoContrasena" />
+
+            <Button
+                android:id="@+id/btnRegistrarse"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="16dp"
+                android:text="Registrarse"
+                style="@style/Boton.Primario" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

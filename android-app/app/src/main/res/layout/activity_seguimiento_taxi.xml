@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- TODO: reemplazar por un MapView real (Google Maps SDK) con la ruta y la
+         ubicación del taxista leída de Realtime Database (RF-TX-09 / RF-CL-09). -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E3E8EF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Mapa en tiempo real\n(Google Maps SDK — Lab 7)"
+            android:gravity="center"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <ImageView
+            android:id="@+id/btnVolverMapa"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_margin="16dp"
+            android:padding="6dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="@drawable/bg_circulo_boton_enviar"
+            android:backgroundTint="@color/blanco"
+            android:clickable="true"
+            android:focusable="true"
+            android:contentDescription="@null" />
+    </FrameLayout>
+
+    <!-- Tarjeta con datos del taxista y del servicio -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blanco"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp"
+                android:src="@drawable/ic_location" android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/tvOrigen"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Hotel La Dolce Vita"
+                android:textColor="@color/texto_principal" android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="08:36 AM" android:textColor="@color/texto_secundario" android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp"
+                android:src="@drawable/ic_location" android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/tvDestino"
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Aeropuerto Jorge Chávez"
+                android:textColor="@color/texto_principal" android:textSize="14sp"
+                android:fontFamily="@font/poppins_semibold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="09:10 AM" android:textColor="@color/texto_secundario" android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular" />
+        </LinearLayout>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/borde_input" android:layout_marginVertical="14dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <FrameLayout
+                android:layout_width="44dp" android:layout_height="44dp"
+                android:background="@drawable/bg_circulo_gris">
+                <ImageView android:layout_width="22dp" android:layout_height="22dp"
+                    android:layout_gravity="center" android:src="@drawable/ic_person"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+                android:layout_marginStart="12dp" android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvNombreTaxista"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Paul Martín"
+                    android:textColor="@color/texto_principal" android:textSize="15sp"
+                    android:fontFamily="@font/poppins_semibold" />
+                <TextView
+                    android:id="@+id/tvValoracionTaxista"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="★ 4.8 (API REST)"
+                    android:textColor="@color/texto_secundario" android:textSize="12sp"
+                    android:fontFamily="@font/poppins_regular" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Califica a tu conductor"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular" />
+
+        <RatingBar
+            android:id="@+id/ratingBarTaxista"
+            style="?android:attr/ratingBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:numStars="5"
+            android:rating="0"
+            android:progressTint="@color/amarillo_estrella" />
+
+        <Button
+            android:id="@+id/btnMostrarQr"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:text="Mostrar QR"
+            style="@style/Boton.Primario" />
+    </LinearLayout>
+
+</LinearLayout>

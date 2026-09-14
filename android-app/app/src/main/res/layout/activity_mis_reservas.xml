@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="RoomTrip"
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_margin="16dp"
+        android:background="@drawable/bg_input_texto">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp">
+            <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                android:src="@drawable/ic_search" android:contentDescription="@null" />
+            <EditText
+                android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+                android:layout_marginStart="12dp" android:background="@null"
+                android:hint="Buscar hotel..." android:textColorHint="@color/texto_secundario"
+                android:textColor="@color/texto_principal" android:textSize="15sp"
+                android:fontFamily="@font/poppins_regular" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Mis reservas"
+        android:textColor="@color/texto_principal"
+        android:textSize="20sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMisReservas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingHorizontal="16dp" />
+
+    <include layout="@layout/bottom_nav_bar" />
+
+</LinearLayout>
