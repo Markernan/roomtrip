@@ -245,30 +245,29 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:orientation="horizontal">
 
+                    <!-- Campo para la Descripción del Daño -->
                     <EditText
+                        android:id="@+id/etDamageDescription"
                         android:layout_width="0dp"
-                        android:layout_height="46dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="Televisor dañado"
+                        android:inputType="textCapSentences"
+                        android:textSize="14sp" />
+
+                    <!-- Campo para el Monto (S/) -->
+                    <EditText
+                        android:id="@+id/etDamageAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/bg_input_field"
-                        android:paddingHorizontal="12dp"
-                        android:hint="S/ 0.00"
-                        android:text="S/ 150.00"
+                        android:layout_marginStart="8dp"
+                        android:hint="S/ 150.00"
                         android:inputType="numberDecimal"
                         android:textSize="14sp" />
 
-                    <EditText
-                        android:layout_width="0dp"
-                        android:layout_height="46dp"
-                        android:layout_weight="2"
-                        android:background="@drawable/bg_input_field"
-                        android:paddingHorizontal="12dp"
-                        android:hint="Concepto"
-                        android:text="Televisor dañado"
-                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <EditText
