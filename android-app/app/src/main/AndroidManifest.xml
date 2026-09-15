@@ -11,16 +11,8 @@
         android:label="@string/app_name"
         android:theme="@style/Theme.RoomTrip">
 
-        <!-- Pantallas del Cliente (Configuración Original del Proyecto) -->
-        <activity
-            android:name=".cliente.BienvenidaActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
+        <!-- Pantallas del Cliente (Desactivado como lanzador principal) -->
+        <activity android:name=".cliente.BienvenidaActivity" android:exported="false" />
         <activity android:name=".cliente.RegistroActivity" android:exported="false" />
         <activity android:name=".cliente.HomeActivity" android:exported="false" />
         <activity android:name=".cliente.BuscarHotelActivity" android:exported="false" />
@@ -35,61 +27,28 @@
         <activity android:name=".cliente.PerfilActivity" android:exported="false" />
         <activity android:name=".cliente.ChatActivity" android:exported="false" />
 
-        <!-- Módulo SuperAdmin (Aislado con tema MaterialComponents) -->
-        <activity
-            android:name=".superadmin.LoginActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <!-- SuperAdmin Module -->
+        <activity android:name=".superadmin.LoginActivity" android:exported="false" />
 
+        <!-- DASHBOARD CONFIGURADO COMO LANZADOR INICIAL -->
         <activity
             android:name=".superadmin.DashboardActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
-        <activity
-            android:name=".superadmin.HotelesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.RegistrarHotelActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.UsuariosActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.TaxistasActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.ReportesActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.DetalleHotelReporteActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.AuditoriaActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.DetalleUsuarioActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
-
-        <activity
-            android:name=".superadmin.DetalleHotelAdminActivity"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
+        <activity android:name=".superadmin.HotelesActivity" android:exported="false" />
+        <activity android:name=".superadmin.RegistrarHotelActivity" android:exported="false" />
+        <activity android:name=".superadmin.UsuariosActivity" android:exported="false" />
+        <activity android:name=".superadmin.TaxistasActivity" android:exported="false" />
+        <activity android:name=".superadmin.ReportesActivity" android:exported="false" />
+        <activity android:name=".superadmin.DetalleHotelReporteActivity" android:exported="false" />
+        <activity android:name=".superadmin.AuditoriaActivity" android:exported="false" />
+        <activity android:name=".superadmin.DetalleUsuarioActivity" android:exported="false" />
+        <activity android:name=".superadmin.DetalleHotelAdminActivity" android:exported="false" />
 
     </application>
 
