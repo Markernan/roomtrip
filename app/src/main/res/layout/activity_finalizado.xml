@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- CONTENEDOR PRINCIPAL DE MENSAJE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp">
+
+        <!-- ÍCONO DE ÉXITO -->
+        <FrameLayout
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_circulo_gris"
+            android:layout_marginBottom="20dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_location"
+                android:contentDescription="@null" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Trayecto Finalizado!"
+            android:textColor="@color/texto_principal"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Recuerda verificar que el pasajero no haya olvidado sus pertenencias en el vehículo."
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center" />
+
+        <!-- BOTÓN RETORNAR A BÚSQUEDA -->
+        <Button
+            android:id="@+id/btnVolverBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:text="Volver a buscar clientes"
+            style="@style/Boton.Primario" />
+
+    </LinearLayout>
+
+</LinearLayout>

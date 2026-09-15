@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- MAPA EN TIEMPO REAL -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E3E8EF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Mapa en tiempo real\n(Google Maps SDK — Lab 7)"
+            android:gravity="center"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_input_texto"
+            android:backgroundTint="@color/blanco"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Buscando pasajeros"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- TARJETA INFERIOR CON OPCIONES DE PASAJEROS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blanco"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasajeros solicitando viaje"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Opción Usuario 1 -->
+        <LinearLayout
+            android:id="@+id/btnUsuario1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_texto"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Carlos Mendoza" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Hotel La Dolce Vita" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: Aeropuerto Jorge Chávez" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Opción Usuario 2 -->
+        <LinearLayout
+            android:id="@+id/btnUsuario2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_texto"
+            android:padding="12dp"
+            android:layout_marginBottom="8dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="María Torres" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Parque Kennedy" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: Real Plaza Salaverry" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Opción Usuario 3 -->
+        <LinearLayout
+            android:id="@+id/btnUsuario3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_input_texto"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Juan Pérez" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Av. Larco 456" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: C.C. Jockey Plaza" android:textColor="@color/texto_secundario" android:textSize="12sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <include layout="@layout/bottom_nav_bar" />
+
+</LinearLayout>
