@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:8081}
+
+spring:
+  application:
+    name: taxista-service
+  data:
+    mongodb:
+      # Base de datos propia, independiente del Firebase de la app movil (RF-WTX-008)
+      uri: ${MONGO_URI_REGISTRY:mongodb://localhost:27017/taxi_registry}
+      auto-index-creation: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:cambiame-por-un-secreto-largo-de-al-menos-32-caracteres}
+    expiracion-minutos: ${JWT_EXPIRACION_MINUTOS:120}
+  carga-inicial:
+    superadmin-correo: ${SUPERADMIN_CORREO:superadmin@hotelstay.pe}
+    superadmin-password: ${SUPERADMIN_PASSWORD:cambiame}
+    app-movil-correo: ${APP_MOVIL_CORREO:app-movil@hotelstay.pe}
+    app-movil-password: ${APP_MOVIL_PASSWORD:cambiame}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    pe.pucp.tel05.taxi: INFO

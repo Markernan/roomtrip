@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Ingresar')}"></head>
+<body>
+
+<div class="auth-shell">
+
+  <aside class="auth-side">
+    <div class="auth-side-photos" data-hero-carousel aria-hidden="true">
+      <div class="hero-slide" data-hero-slide></div>
+      <div class="hero-slide" data-hero-slide></div>
+    </div>
+    <div class="auth-side-scrim"></div>
+    <div class="auth-side-content">
+      <a class="app-brand" th:href="@{/}">
+        <span class="app-brand-mark"><i class="bi bi-car-front-fill"></i></span>
+        HotelStay <span class="text-brand-accent">Taxi</span>
+      </a>
+      <h1 class="h2 fw-bold mt-5 mb-3" style="max-width: 22rem;">
+        Gestión de taxistas, sin fricciones.
+      </h1>
+      <p class="mb-0" style="max-width: 22rem; color: rgba(255,255,255,.75);">
+        Un solo lugar para aprobar solicitudes, controlar la disponibilidad de la flota
+        y ver la valoración de cada taxista en tiempo real.
+      </p>
+    </div>
+    <div class="auth-side-badges">
+      <div class="auth-side-badge">
+        <i class="bi bi-shield-check"></i>
+        <span>Acceso separado por rol: Superadmin y Taxista</span>
+      </div>
+      <div class="auth-side-badge">
+        <i class="bi bi-lightning-charge-fill"></i>
+        <span>Aprobaciones y disponibilidad en tiempo real</span>
+      </div>
+      <div class="auth-side-badge">
+        <i class="bi bi-star-fill"></i>
+        <span>Valoración promedio sincronizada al instante</span>
+      </div>
+    </div>
+    <p class="auth-side-credit mb-0">
+      Fotos: Wikimedia Commons (licencia libre) &middot;
+      <a href="/img/hero/CREDITOS.md" target="_blank" rel="noopener" style="color: inherit;">créditos</a>
+    </p>
+  </aside>
+
+  <main class="auth-main">
+    <div class="auth-card">
+
+      <div class="text-center mb-4 d-lg-none">
+        <a class="app-brand justify-content-center" style="color: var(--ink) !important;" th:href="@{/}">
+          <span class="app-brand-mark"><i class="bi bi-car-front-fill"></i></span>
+          HotelStay <span class="text-brand-accent">Taxi</span>
+        </a>
+      </div>
+
+      <div th:replace="~{layout :: alertas}"></div>
+
+      <div class="app-panel">
+        <span class="section-eyebrow"><i class="bi bi-lock-fill"></i> Acceso</span>
+        <h1 class="h3 fw-bold mt-2 mb-1">Bienvenido de nuevo</h1>
+        <p class="text-muted mb-4" style="font-size: .9rem;">Ingresa con tu correo y contraseña.</p>
+
+        <form th:action="@{/login}" method="post" data-validate>
+          <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white border-end-0"><i class="bi bi-envelope text-muted"></i></span>
+              <input type="email" class="form-control border-start-0 ps-2" id="correo" name="correo"
+                     placeholder="tucorreo@hotelstay.pe" required autofocus>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label">Contraseña</label>
+            <div class="input-group">
+              <span class="input-group-text bg-white border-end-0"><i class="bi bi-key text-muted"></i></span>
+              <input type="password" class="form-control border-start-0 ps-2" id="password" name="password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 py-2">
+            Ingresar <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </form>
+      </div>
+
+      <p class="text-center mt-4 small text-muted">
+        Eres taxista y aún no te registras?
+        <a class="fw-semibold" th:href="@{/registro}">Crear solicitud</a>
+      </p>
+
+    </div>
+  </main>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

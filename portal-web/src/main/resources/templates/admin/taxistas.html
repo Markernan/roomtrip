@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Padron de taxistas')}"></head>
+<body>
+
+<nav th:replace="~{layout :: navbar('taxistas')}"></nav>
+
+<div class="container pb-5">
+
+  <div class="mt-4 mb-1">
+    <span class="section-eyebrow"><i class="bi bi-people"></i> Padrón</span>
+    <h1 class="h3 fw-bold mb-0 mt-1">Padrón de taxistas</h1>
+  </div>
+  <p class="text-muted mb-4">Vista completa de habilitación, disponibilidad y valoración.</p>
+
+  <div th:replace="~{layout :: alertas}"></div>
+
+  <div class="row g-3 mb-4" th:unless="${#lists.isEmpty(taxistas)}">
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span class="stat-card-icon" style="background:#eef2ff; color:var(--brand-primary);">
+          <i class="bi bi-people-fill"></i>
+        </span>
+        <div>
+          <div class="stat-card-value" th:text="${total}">0</div>
+          <div class="stat-card-label">Registrados</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span class="stat-card-icon" style="background:#f0fdf4; color:#16a34a;">
+          <i class="bi bi-patch-check-fill"></i>
+        </span>
+        <div>
+          <div class="stat-card-value" th:text="${aprobados}">0</div>
+          <div class="stat-card-label">Aprobados</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span class="stat-card-icon" style="background:#fffbeb; color:var(--brand-accent-dark);">
+          <i class="bi bi-hourglass-split"></i>
+        </span>
+        <div>
+          <div class="stat-card-value" th:text="${pendientesCount}">0</div>
+          <div class="stat-card-label">Pendientes</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 col-lg-3">
+      <div class="stat-card">
+        <span class="stat-card-icon" style="background:#eff6ff; color:#2563eb;">
+          <i class="bi bi-lightning-charge-fill"></i>
+        </span>
+        <div>
+          <div class="stat-card-value" th:text="${disponibles}">0</div>
+          <div class="stat-card-label">Disponibles ahora</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state app-panel" th:if="${#lists.isEmpty(taxistas)}">
+    <i class="bi bi-people"></i>
+    <p class="mb-0 fw-semibold">Todavía no hay taxistas registrados.</p>
+  </div>
+
+  <div class="app-panel" th:unless="${#lists.isEmpty(taxistas)}">
+    <div class="table-responsive">
+      <table id="tablaTaxistas" class="table app-table table-hover align-middle mb-0"
+             data-paginate data-page-size="8">
+        <thead>
+        <tr>
+          <th>Taxista</th>
+          <th>Placa</th>
+          <th>Habilitación</th>
+          <th>Disponibilidad</th>
+          <th class="text-end">Valoración</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${taxistas}">
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <span class="avatar-circle"
+                    th:text="${#strings.substring(t.nombres,0,1)} + ${#strings.substring(t.apellidos,0,1)}">JP</span>
+              <div>
+                <div class="fw-semibold" th:text="${t.nombres} + ' ' + ${t.apellidos}">Nombre</div>
+                <div class="small text-muted" th:text="${t.correo}">correo</div>
+              </div>
+            </div>
+          </td>
+          <td><span class="badge text-bg-secondary" th:text="${t.placa}">ABC-123</span></td>
+          <td>
+            <span class="badge"
+                  th:classappend="${t.estadoHabilitacion == 'APROBADO'} ? 'text-bg-success'
+                                : (${t.estadoHabilitacion == 'PENDIENTE'} ? 'text-bg-warning' : 'text-bg-danger')"
+                  th:text="${t.estadoHabilitacion}">ESTADO</span>
+          </td>
+          <td>
+            <span class="badge"
+                  th:classappend="${t.estadoDisponibilidad == 'DISPONIBLE'} ? 'text-bg-primary'
+                                : (${t.estadoDisponibilidad == 'EN_SERVICIO'} ? 'text-bg-info' : 'text-bg-light text-dark')"
+                  th:text="${t.estadoDisponibilidad}">ESTADO</span>
+          </td>
+          <td class="text-end">
+            <i class="bi bi-star-fill text-brand-accent" style="color:var(--brand-accent) !important;"></i>
+            <span class="fw-semibold" th:text="${#numbers.formatDecimal(t.valoracionPromedio, 1, 2)}">0.00</span>
+            <span class="text-muted small"
+                  th:text="'(' + ${t.totalCalificaciones} + ')'">(0)</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <nav class="app-pagination" data-pagination-for="tablaTaxistas"></nav>
+  </div>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

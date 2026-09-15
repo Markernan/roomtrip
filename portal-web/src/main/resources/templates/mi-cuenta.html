@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Mi cuenta')}"></head>
+<body>
+
+<nav th:replace="~{layout :: navbarTaxista}"></nav>
+
+<div class="container pb-5" style="max-width: 720px;">
+
+  <div class="mt-4">
+    <div th:replace="~{layout :: alertas}"></div>
+  </div>
+
+  <div class="profile-hero mb-4">
+    <div class="profile-hero-inner">
+      <span class="profile-avatar"
+            th:text="${#strings.substring(taxista.nombres,0,1)} + ${#strings.substring(taxista.apellidos,0,1)}">JP</span>
+      <div>
+        <h1 class="h4 fw-bold mb-1" th:text="${taxista.nombres} + ' ' + ${taxista.apellidos}">Nombre</h1>
+        <div style="color: rgba(255,255,255,.75);" class="small">
+          <i class="bi bi-envelope me-1"></i><span th:text="${taxista.correo}">correo</span>
+        </div>
+      </div>
+      <div class="ms-auto d-flex flex-column align-items-end gap-2">
+        <span class="badge"
+              th:classappend="${taxista.estadoHabilitacion == 'APROBADO'} ? 'text-bg-success'
+                            : (${taxista.estadoHabilitacion == 'PENDIENTE'} ? 'text-bg-warning' : 'text-bg-danger')"
+              th:text="${taxista.estadoHabilitacion}">ESTADO</span>
+        <a class="btn btn-sm btn-accent" th:href="@{/mi-cuenta/editar}">
+          <i class="bi bi-pencil-square me-1"></i>Editar perfil
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="app-panel p-4 mb-3">
+    <div th:if="${taxista.estadoHabilitacion == 'PENDIENTE'}" class="app-alert app-alert-danger"
+         style="background:#fffbeb; color:#92400e;">
+      <i class="bi bi-hourglass-split"></i>
+      <span>Tu solicitud todavía está en revisión. Te habilitaremos apenas el Superadmin la apruebe.</span>
+    </div>
+
+    <div th:if="${taxista.estadoHabilitacion == 'RECHAZADO'}" class="app-alert app-alert-danger">
+      <i class="bi bi-x-octagon-fill"></i>
+      <span>Tu solicitud fue rechazada. Comunícate con el administrador para más detalles.</span>
+    </div>
+
+    <div th:if="${taxista.estadoHabilitacion == 'APROBADO'}">
+      <span class="section-eyebrow"><i class="bi bi-broadcast"></i> Disponibilidad</span>
+      <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-2">
+        <div>
+          <span class="badge fs-6 px-3 py-2"
+                th:classappend="${taxista.estadoDisponibilidad == 'DISPONIBLE'} ? 'text-bg-primary'
+                              : (${taxista.estadoDisponibilidad == 'EN_SERVICIO'} ? 'text-bg-info' : 'text-bg-light text-dark')"
+                th:text="${taxista.estadoDisponibilidad}">ESTADO</span>
+          <div th:if="${taxista.estadoDisponibilidad == 'EN_SERVICIO'}" class="text-muted small mt-2">
+            Estás en un servicio asignado por la app móvil. No puedes cambiar tu disponibilidad hasta que termine.
+          </div>
+        </div>
+        <form th:unless="${taxista.estadoDisponibilidad == 'EN_SERVICIO'}"
+              th:action="@{/mi-cuenta/disponibilidad}" method="post">
+          <input type="hidden" name="estado"
+                 th:value="${taxista.estadoDisponibilidad == 'DISPONIBLE'} ? 'NO_DISPONIBLE' : 'DISPONIBLE'">
+          <button type="submit" class="btn"
+                  th:classappend="${taxista.estadoDisponibilidad == 'DISPONIBLE'} ? 'btn-outline-secondary' : 'btn-accent'">
+            <i class="bi" th:classappend="${taxista.estadoDisponibilidad == 'DISPONIBLE'} ? 'bi-pause-circle' : 'bi-play-circle'"></i>
+            <span th:text="${taxista.estadoDisponibilidad == 'DISPONIBLE'} ? ' Marcar no disponible' : ' Marcar disponible'"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-md-6" th:if="${taxista.estadoHabilitacion == 'APROBADO'}">
+      <div class="app-panel p-4 h-100">
+        <span class="section-eyebrow"><i class="bi bi-star-fill"></i> Valoración</span>
+        <div class="d-flex align-items-baseline gap-2 mt-2">
+          <span class="fw-bold" style="font-size:2rem; color: var(--brand-accent-dark);"
+                th:text="${#numbers.formatDecimal(taxista.valoracionPromedio, 1, 2)}">0.00</span>
+          <span class="text-muted small" th:text="${taxista.totalCalificaciones} + ' calificaciones'">0 calificaciones</span>
+        </div>
+      </div>
+    </div>
+
+    <div th:class="${taxista.estadoHabilitacion == 'APROBADO'} ? 'col-md-6' : 'col-12'">
+      <div class="app-panel p-4 h-100">
+        <span class="section-eyebrow"><i class="bi bi-car-front"></i> Vehículo</span>
+        <p class="fw-semibold mt-2 mb-1"
+           th:text="${taxista.vehiculoMarca} + ' ' + ${taxista.vehiculoModelo} + ' (' + ${taxista.vehiculoAnio} + ')'">Vehículo</p>
+        <p class="mb-0 text-muted small">
+          <span th:text="${taxista.vehiculoColor}">Color</span> &middot;
+          <span class="badge text-bg-secondary" th:text="${taxista.placa}">ABC-123</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+</body>
+</html>

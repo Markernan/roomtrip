@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Solicitudes pendientes')}"></head>
+<body>
+
+<nav th:replace="~{layout :: navbar('solicitudes')}"></nav>
+
+<div class="container pb-5">
+
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mt-4 mb-1">
+    <div>
+      <span class="section-eyebrow"><i class="bi bi-inbox"></i> Bandeja</span>
+      <h1 class="h3 fw-bold mb-0 mt-1">Solicitudes pendientes</h1>
+    </div>
+    <span class="badge text-bg-warning-subtle text-warning-emphasis fs-6 px-3 py-2"
+          th:text="${#lists.size(pendientes)} + ' por revisar'">0 por revisar</span>
+  </div>
+  <p class="text-muted mb-4">Revisa los datos y las fotos antes de aprobar o rechazar.</p>
+
+  <div th:replace="~{layout :: alertas}"></div>
+
+  <div class="empty-state app-panel" th:if="${#lists.isEmpty(pendientes)}">
+    <i class="bi bi-inbox"></i>
+    <p class="mb-0 fw-semibold">No hay solicitudes pendientes de revisión.</p>
+    <p class="small mb-0">Las nuevas solicitudes de autoregistro aparecerán aquí.</p>
+  </div>
+
+  <div class="app-panel" th:unless="${#lists.isEmpty(pendientes)}">
+    <div class="table-responsive">
+      <table id="tablaSolicitudes" class="table app-table table-hover align-middle mb-0"
+             data-paginate data-page-size="8">
+        <thead>
+        <tr>
+          <th>Taxista</th>
+          <th>Documento</th>
+          <th>Contacto</th>
+          <th>Vehículo</th>
+          <th>Fotos</th>
+          <th class="text-end">Decisión</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="t : ${pendientes}">
+          <td>
+            <div class="d-flex align-items-center gap-3">
+              <span class="avatar-circle"
+                    th:text="${#strings.substring(t.nombres,0,1)} + ${#strings.substring(t.apellidos,0,1)}">JP</span>
+              <span class="fw-semibold" th:text="${t.nombres} + ' ' + ${t.apellidos}">Nombre</span>
+            </div>
+          </td>
+          <td class="small text-muted" th:text="${t.numeroDocumento}">00000000</td>
+          <td class="small">
+            <div th:text="${t.correo}">correo</div>
+            <div class="text-muted" th:text="${t.telefono}">telefono</div>
+          </td>
+          <td class="small">
+            <div th:text="${t.vehiculoMarca} + ' ' + ${t.vehiculoModelo}">Marca Modelo</div>
+            <div class="text-muted">
+              <span th:text="${t.vehiculoColor}">Color</span> &middot;
+              <span class="badge text-bg-secondary" th:text="${t.placa}">ABC-123</span>
+            </div>
+          </td>
+          <td class="small">
+            <a class="me-2" th:href="${t.fotoUrl}" target="_blank" rel="noopener">
+              <i class="bi bi-person-square"></i> Taxista
+            </a>
+            <a th:href="${t.fotoVehiculoUrl}" target="_blank" rel="noopener">
+              <i class="bi bi-car-front"></i> Vehículo
+            </a>
+          </td>
+          <td class="text-end text-nowrap">
+            <form th:action="@{'/admin/solicitudes/' + ${t.id} + '/decidir'}"
+                  method="post" class="d-inline">
+              <input type="hidden" name="aprobado" value="true">
+              <button class="btn btn-sm btn-accent" type="submit">
+                <i class="bi bi-check-lg"></i> Aprobar
+              </button>
+            </form>
+            <form th:action="@{'/admin/solicitudes/' + ${t.id} + '/decidir'}"
+                  method="post" class="d-inline">
+              <input type="hidden" name="aprobado" value="false">
+              <input type="hidden" name="motivo" value="Documentación incompleta">
+              <button class="btn btn-sm btn-outline-danger" type="submit">
+                <i class="bi bi-x-lg"></i> Rechazar
+              </button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <nav class="app-pagination" data-pagination-for="tablaSolicitudes"></nav>
+  </div>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

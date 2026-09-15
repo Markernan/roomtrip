@@ -1,0 +1,31 @@
+server:
+  port: ${PORT:8082}
+
+spring:
+  application:
+    name: calificacion-service
+  data:
+    mongodb:
+      # Base de datos separada de la del padron: database-per-service
+      uri: ${MONGO_URI_RATINGS:mongodb://localhost:27017/taxi_ratings}
+      auto-index-creation: true
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:cambiame-por-un-secreto-largo-de-al-menos-32-caracteres}
+  servicios:
+    taxista-url: ${TAXISTA_SERVICE_URL:http://localhost:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+logging:
+  level:
+    pe.pucp.tel05.taxi: INFO

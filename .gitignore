@@ -1,0 +1,28 @@
+target/
+!.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.classpath
+.project
+.claude/
+
+# Entorno y secretos - NUNCA commitear
+.env
+*.env
+!.env.example
+**/application-local.yml
+**/application-secret.yml
+gcp-key.json
+*-sa-key.json
+
+# Logs y temporales
+*.log
+logs/
+.DS_Store
+Thumbs.db

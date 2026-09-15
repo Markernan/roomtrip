@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Registro de taxista')}"></head>
+<body>
+
+<div class="auth-shell">
+
+  <aside class="auth-side">
+    <div class="auth-side-photos" data-hero-carousel aria-hidden="true">
+      <div class="hero-slide" data-hero-slide></div>
+      <div class="hero-slide" data-hero-slide></div>
+    </div>
+    <div class="auth-side-scrim"></div>
+    <div class="auth-side-content">
+      <a class="app-brand" th:href="@{/}">
+        <span class="app-brand-mark"><i class="bi bi-car-front-fill"></i></span>
+        HotelStay <span class="text-brand-accent">Taxi</span>
+      </a>
+      <h1 class="h2 fw-bold mt-5 mb-3" style="max-width: 22rem;">
+        Suma tu vehículo a la flota de HotelStay.
+      </h1>
+      <p class="mb-0" style="max-width: 22rem; color: rgba(255,255,255,.75);">
+        Completa tus datos y sube tus fotos. En cuanto el Superadmin revise tu
+        solicitud, quedas habilitado para recibir traslados.
+      </p>
+    </div>
+    <div class="auth-side-badges">
+      <div class="auth-side-badge">
+        <i class="bi bi-1-circle-fill"></i>
+        <span>Llena tus datos personales y del vehículo</span>
+      </div>
+      <div class="auth-side-badge">
+        <i class="bi bi-2-circle-fill"></i>
+        <span>Sube tu foto y la del vehículo (se suben a Cloudinary)</span>
+      </div>
+      <div class="auth-side-badge">
+        <i class="bi bi-3-circle-fill"></i>
+        <span>Espera la aprobación del Superadmin</span>
+      </div>
+    </div>
+    <p class="auth-side-credit mb-0">
+      Fotos: Wikimedia Commons (licencia libre) &middot;
+      <a href="/img/hero/CREDITOS.md" target="_blank" rel="noopener" style="color: inherit;">créditos</a>
+    </p>
+  </aside>
+
+  <main class="auth-main align-items-start">
+    <div class="auth-card registro-card py-4">
+
+      <div class="text-center mb-4 d-lg-none">
+        <a class="app-brand justify-content-center" style="color: var(--ink) !important;" th:href="@{/}">
+          <span class="app-brand-mark"><i class="bi bi-car-front-fill"></i></span>
+          HotelStay <span class="text-brand-accent">Taxi</span>
+        </a>
+      </div>
+
+      <div th:replace="~{layout :: alertas}"></div>
+
+      <div class="app-panel">
+        <span class="section-eyebrow"><i class="bi bi-pencil-square"></i> Autoregistro</span>
+        <h1 class="h3 fw-bold mt-2 mb-1">Solicitud de registro</h1>
+        <p class="text-muted mb-4" style="font-size: .9rem;">
+          Completa todos los campos. Tu solicitud quedara <strong>pendiente</strong> hasta que el
+          administrador la apruebe.
+        </p>
+
+        <form th:action="@{/registro}" method="post" enctype="multipart/form-data" data-validate>
+
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-person-vcard text-primary"></i>
+            <h2 class="h6 text-uppercase text-muted mb-0" style="letter-spacing:.05em;">Datos personales</h2>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <label class="form-label" for="nombres">Nombres</label>
+              <input class="form-control" id="nombres" name="nombres" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="apellidos">Apellidos</label>
+              <input class="form-control" id="apellidos" name="apellidos" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="tipoDocumento">Tipo de documento</label>
+              <select class="form-select" id="tipoDocumento" name="tipoDocumento" required>
+                <option value="DNI">DNI</option>
+                <option value="CE">Carné de extranjería</option>
+                <option value="PASAPORTE">Pasaporte</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="numeroDocumento">Número de documento</label>
+              <input class="form-control" id="numeroDocumento" name="numeroDocumento" required>
+            </div>
+            <div class="col-md-4">
+              <label class="form-label" for="telefono">Teléfono</label>
+              <input class="form-control" id="telefono" name="telefono" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="correo">Correo</label>
+              <input type="email" class="form-control" id="correo" name="correo" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label" for="password">Contraseña</label>
+              <input type="password" class="form-control" id="password" name="password"
+                     minlength="8" required>
+              <div class="form-text">Mínimo 8 caracteres.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label" for="fotoTaxista">Foto del taxista</label>
+              <label class="file-drop" data-file-drop>
+                <span class="file-drop-icon"><i class="bi bi-cloud-arrow-up"></i></span>
+                <span class="file-drop-text" data-file-drop-text>
+                  <strong>Elige una imagen</strong>
+                  JPG o PNG, se sube directo a Cloudinary al enviar
+                </span>
+                <input type="file" class="form-control" id="fotoTaxista" name="fotoTaxista"
+                       accept="image/*" required data-file-drop-input>
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <i class="bi bi-car-front text-primary"></i>
+            <h2 class="h6 text-uppercase text-muted mb-0" style="letter-spacing:.05em;">Datos del vehículo</h2>
+          </div>
+          <div class="row g-3 mb-4">
+            <div class="col-md-3">
+              <label class="form-label" for="vehiculoMarca">Marca</label>
+              <input class="form-control" id="vehiculoMarca" name="vehiculoMarca" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="vehiculoModelo">Modelo</label>
+              <input class="form-control" id="vehiculoModelo" name="vehiculoModelo" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="vehiculoAnio">Año</label>
+              <input class="form-control" id="vehiculoAnio" name="vehiculoAnio" required>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label" for="vehiculoColor">Color</label>
+              <input class="form-control" id="vehiculoColor" name="vehiculoColor" required>
+            </div>
+            <div class="col-md-5">
+              <label class="form-label" for="placa">Placa</label>
+              <input class="form-control text-uppercase" id="placa" name="placa" required>
+            </div>
+            <div class="col-md-7">
+              <label class="form-label" for="fotoVehiculo">Foto del vehículo</label>
+              <label class="file-drop" data-file-drop>
+                <span class="file-drop-icon"><i class="bi bi-cloud-arrow-up"></i></span>
+                <span class="file-drop-text" data-file-drop-text>
+                  <strong>Elige una imagen</strong>
+                  JPG o PNG
+                </span>
+                <input type="file" class="form-control" id="fotoVehiculo" name="fotoVehiculo"
+                       accept="image/*" required data-file-drop-input>
+              </label>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary px-4">
+              Enviar solicitud <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+            <a class="btn btn-outline-secondary" th:href="@{/login}">Ya tengo cuenta</a>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head('Editar perfil')}"></head>
+<body>
+
+<nav th:replace="~{layout :: navbarTaxista}"></nav>
+
+<div class="container pb-5" style="max-width: 720px;">
+
+  <div class="mt-4 mb-1">
+    <span class="section-eyebrow"><i class="bi bi-pencil-square"></i> Mi cuenta</span>
+    <h1 class="h3 fw-bold mb-0 mt-1">Editar perfil</h1>
+  </div>
+  <p class="text-muted mb-4">
+    Actualiza tus datos de contacto, tu vehiculo o tu contrasenia. El tipo y numero de documento
+    no se pueden cambiar desde aqui.
+  </p>
+
+  <div th:replace="~{layout :: alertas}"></div>
+
+  <div class="app-panel p-4">
+    <form th:action="@{/mi-cuenta/editar}" method="post" enctype="multipart/form-data" data-validate>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-person-vcard text-primary"></i>
+        <h2 class="h6 text-uppercase text-muted mb-0" style="letter-spacing:.05em;">Datos personales</h2>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-6">
+          <label class="form-label" for="nombres">Nombres</label>
+          <input class="form-control" id="nombres" name="nombres" th:value="${taxista.nombres}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="apellidos">Apellidos</label>
+          <input class="form-control" id="apellidos" name="apellidos" th:value="${taxista.apellidos}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Documento</label>
+          <input class="form-control" th:value="${taxista.tipoDocumento} + ' ' + ${taxista.numeroDocumento}" disabled>
+          <div class="form-text">No editable desde el portal.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="telefono">Telefono</label>
+          <input class="form-control" id="telefono" name="telefono" th:value="${taxista.telefono}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="correo">Correo</label>
+          <input type="email" class="form-control" id="correo" name="correo" th:value="${taxista.correo}" required>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="password">Nueva contraseña</label>
+          <input type="password" class="form-control" id="password" name="password" minlength="8"
+                 placeholder="Dejar en blanco para no cambiarla">
+          <div class="form-text">Minimo 8 caracteres si decides cambiarla.</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label" for="fotoTaxista">Foto del taxista</label>
+          <div class="d-flex align-items-center gap-3">
+            <img th:if="${taxista.fotoUrl}" th:src="${taxista.fotoUrl}" alt="Foto actual"
+                 style="width:3.2rem; height:3.2rem; border-radius:.7rem; object-fit:cover; flex:none;">
+            <label class="file-drop flex-grow-1" data-file-drop>
+              <span class="file-drop-icon"><i class="bi bi-cloud-arrow-up"></i></span>
+              <span class="file-drop-text" data-file-drop-text>
+                <strong>Mantener foto actual</strong>
+                Elige una imagen solo si quieres cambiarla
+              </span>
+              <input type="file" class="form-control" id="fotoTaxista" name="fotoTaxista"
+                     accept="image/*" data-file-drop-input>
+            </label>
+          </div>
+          <input type="hidden" name="fotoUrl" th:value="${taxista.fotoUrl}">
+        </div>
+      </div>
+
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <i class="bi bi-car-front text-primary"></i>
+        <h2 class="h6 text-uppercase text-muted mb-0" style="letter-spacing:.05em;">Datos del vehículo</h2>
+      </div>
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <label class="form-label" for="vehiculoMarca">Marca</label>
+          <input class="form-control" id="vehiculoMarca" name="vehiculoMarca" th:value="${taxista.vehiculoMarca}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="vehiculoModelo">Modelo</label>
+          <input class="form-control" id="vehiculoModelo" name="vehiculoModelo" th:value="${taxista.vehiculoModelo}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="vehiculoAnio">Año</label>
+          <input class="form-control" id="vehiculoAnio" name="vehiculoAnio" th:value="${taxista.vehiculoAnio}" required>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label" for="vehiculoColor">Color</label>
+          <input class="form-control" id="vehiculoColor" name="vehiculoColor" th:value="${taxista.vehiculoColor}" required>
+        </div>
+        <div class="col-md-5">
+          <label class="form-label" for="placa">Placa</label>
+          <input class="form-control text-uppercase" id="placa" name="placa" th:value="${taxista.placa}" required>
+        </div>
+        <div class="col-md-7">
+          <label class="form-label" for="fotoVehiculo">Foto del vehículo</label>
+          <div class="d-flex align-items-center gap-3">
+            <img th:if="${taxista.fotoVehiculoUrl}" th:src="${taxista.fotoVehiculoUrl}" alt="Foto actual"
+                 style="width:3.2rem; height:3.2rem; border-radius:.7rem; object-fit:cover; flex:none;">
+            <label class="file-drop flex-grow-1" data-file-drop>
+              <span class="file-drop-icon"><i class="bi bi-cloud-arrow-up"></i></span>
+              <span class="file-drop-text" data-file-drop-text>
+                <strong>Mantener foto actual</strong>
+                Elige una imagen solo si quieres cambiarla
+              </span>
+              <input type="file" class="form-control" id="fotoVehiculo" name="fotoVehiculo"
+                     accept="image/*" data-file-drop-input>
+            </label>
+          </div>
+          <input type="hidden" name="fotoVehiculoUrl" th:value="${taxista.fotoVehiculoUrl}">
+        </div>
+      </div>
+
+      <div class="d-flex gap-2">
+        <button type="submit" class="btn btn-primary px-4">
+          Guardar cambios <i class="bi bi-check-lg ms-1"></i>
+        </button>
+        <a class="btn btn-outline-secondary" th:href="@{/mi-cuenta}">Cancelar</a>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div th:replace="~{layout :: scripts}"></div>
+<script th:src="@{/js/app.js}"></script>
+</body>
+</html>

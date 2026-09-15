@@ -1,0 +1,649 @@
+/* ==========================================================================
+   HotelStay Taxi - sistema de diseno del portal
+   Bootstrap 5 se mantiene como base (sin build de JS, sin frameworks nuevos);
+   esto solo redefine tokens y estiliza componentes por encima.
+   ========================================================================== */
+
+:root {
+  --brand-dark: #0f172a;
+  --brand-dark-2: #1e293b;
+  --brand-primary: #4f46e5;
+  --brand-primary-dark: #4338ca;
+  --brand-accent: #f59e0b;
+  --brand-accent-dark: #d97706;
+  --surface: #f6f7fb;
+  --surface-card: #ffffff;
+  --ink: #0f172a;
+  --ink-muted: #64748b;
+  --border-soft: rgba(15, 23, 42, .08);
+  --radius-lg: 1.25rem;
+  --radius-md: .85rem;
+  --radius-sm: .6rem;
+  --shadow-soft: 0 1px 2px rgba(15, 23, 42, .04), 0 12px 28px -8px rgba(15, 23, 42, .12);
+  --shadow-pop: 0 20px 45px -12px rgba(15, 23, 42, .28);
+
+  /* Reskin de los tokens de color de Bootstrap 5.3 (sin tocar su JS/CSS fuente) */
+  --bs-primary: var(--brand-primary);
+  --bs-primary-rgb: 79, 70, 229;
+  --bs-link-color: var(--brand-primary);
+  --bs-link-hover-color: var(--brand-primary-dark);
+  --bs-body-font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  font-family: var(--bs-body-font-family);
+  background: var(--surface);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, .fw-semibold {
+  letter-spacing: -0.01em;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ---------- Navbar ---------- */
+
+.app-navbar {
+  background: linear-gradient(180deg, var(--brand-dark) 0%, var(--brand-dark-2) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .05), 0 12px 24px -12px rgba(0, 0, 0, .5);
+  padding-top: .7rem;
+  padding-bottom: .7rem;
+}
+
+.app-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .55rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: #fff !important;
+}
+
+.app-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: .6rem;
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-dark));
+  color: var(--brand-dark);
+  font-size: 1.05rem;
+}
+
+.text-brand-accent {
+  color: var(--brand-accent);
+}
+
+.app-navbar .nav-link {
+  color: rgba(255, 255, 255, .75);
+  font-weight: 500;
+  padding: .5rem .9rem;
+  border-radius: .6rem;
+  transition: background-color .15s ease, color .15s ease;
+}
+
+.app-navbar .nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, .08);
+}
+
+.app-navbar .nav-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, .12);
+  font-weight: 600;
+}
+
+.app-user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  color: rgba(255, 255, 255, .8);
+  font-size: .85rem;
+  background: rgba(255, 255, 255, .06);
+  padding: .35rem .75rem;
+  border-radius: 999px;
+}
+
+.btn-logout {
+  background: rgba(255, 255, 255, .08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: .6rem;
+  font-weight: 500;
+}
+
+.btn-logout:hover {
+  background: rgba(255, 255, 255, .16);
+  color: #fff;
+}
+
+/* ---------- Alerts ---------- */
+
+.app-alert {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: .85rem 1.1rem;
+  margin-bottom: 1.25rem;
+  font-size: .92rem;
+  font-weight: 500;
+  box-shadow: var(--shadow-soft);
+}
+
+.app-alert-danger {
+  background: #fef2f2;
+  color: #991b1b;
+}
+
+.app-alert-success {
+  background: #f0fdf4;
+  color: #166534;
+}
+
+.app-alert i {
+  font-size: 1.1rem;
+}
+
+/* ---------- Cards / superficies ---------- */
+
+.card {
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.app-panel {
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--brand-primary);
+}
+
+/* ---------- Botones ---------- */
+
+.btn {
+  border-radius: .65rem;
+  font-weight: 600;
+  padding-block: .55rem;
+}
+
+.btn-dark {
+  background: var(--brand-dark);
+  border-color: var(--brand-dark);
+}
+
+.btn-dark:hover {
+  background: #1e293b;
+  border-color: #1e293b;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-primary-dark));
+  border: none;
+  box-shadow: 0 10px 20px -8px rgba(79, 70, 229, .55);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--brand-primary-dark), var(--brand-primary-dark));
+}
+
+.btn-accent {
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-accent-dark));
+  border: none;
+  color: var(--brand-dark);
+  box-shadow: 0 10px 20px -8px rgba(245, 158, 11, .5);
+}
+
+.btn-accent:hover {
+  color: var(--brand-dark);
+  filter: brightness(1.03);
+}
+
+/* ---------- Formularios ---------- */
+
+.form-label {
+  font-weight: 600;
+  font-size: .85rem;
+  color: var(--ink);
+}
+
+.form-control, .form-select {
+  border-radius: .65rem;
+  border-color: var(--border-soft);
+  padding: .6rem .85rem;
+  background-color: #fbfbfe;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 .2rem rgba(79, 70, 229, .15);
+  background-color: #fff;
+}
+
+.form-text {
+  font-size: .78rem;
+}
+
+/* Dropzone de archivos: sigue siendo un <input type=file>, solo se disfraza */
+.file-drop {
+  position: relative;
+  border: 1.5px dashed var(--border-soft);
+  border-radius: var(--radius-md);
+  background: #fbfbfe;
+  padding: 1.1rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+.file-drop:hover {
+  border-color: var(--brand-primary);
+  background: #f5f5ff;
+}
+
+.file-drop input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-drop-icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  flex: none;
+  border-radius: .7rem;
+  background: #eef2ff;
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+}
+
+.file-drop-text {
+  font-size: .85rem;
+  color: var(--ink-muted);
+  min-width: 0;
+}
+
+.file-drop-text strong {
+  display: block;
+  color: var(--ink);
+  font-size: .88rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-drop.has-file {
+  border-style: solid;
+  border-color: #86efac;
+  background: #f0fdf4;
+}
+
+.file-drop.has-file .file-drop-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* ---------- Hero split (login / registro) ---------- */
+
+.auth-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
+
+.auth-side {
+  display: none;
+  position: relative;
+  flex: 1 1 46%;
+  background: var(--brand-dark);
+  color: #fff;
+  padding: 3.5rem 3rem;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+@media (min-width: 992px) {
+  .auth-side {
+    display: flex;
+  }
+}
+
+/* Carrusel de fotos: dos capas que se van alternando con crossfade */
+.auth-side-photos {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+}
+
+/* Oscurece la foto lo justo para que el texto siga siendo legible */
+.auth-side-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(circle at 15% 20%, rgba(245, 158, 11, .2), transparent 45%),
+              linear-gradient(160deg, rgba(15, 23, 42, .62) 0%, rgba(30, 27, 75, .48) 55%, rgba(67, 56, 202, .52) 130%);
+}
+
+.auth-side-content {
+  position: relative;
+  z-index: 2;
+}
+
+.auth-side-content h1,
+.auth-side-content p {
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .55);
+}
+
+.auth-side-badges {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  margin-top: auto;
+}
+
+.auth-side-credit {
+  position: relative;
+  z-index: 2;
+  font-size: .68rem;
+  color: rgba(255, 255, 255, .45);
+  margin-top: .9rem;
+}
+
+.auth-side-badge {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  background: rgba(15, 23, 42, .45);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: var(--radius-md);
+  padding: .8rem 1rem;
+  backdrop-filter: blur(8px);
+}
+
+.auth-side-badge i {
+  font-size: 1.15rem;
+  color: var(--brand-accent);
+}
+
+.auth-side-badge span {
+  font-size: .85rem;
+  color: rgba(255, 255, 255, .85);
+}
+
+.auth-main {
+  flex: 1 1 54%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.25rem;
+  background: var(--surface);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.auth-card .app-panel {
+  padding: 2.25rem 2rem;
+}
+
+.registro-card {
+  max-width: 760px;
+}
+
+/* ---------- Badges de estado ---------- */
+
+.badge {
+  font-weight: 600;
+  padding: .45em .75em;
+  border-radius: 999px;
+}
+
+/* ---------- Tablas tipo dashboard ---------- */
+
+.app-table thead th {
+  text-transform: uppercase;
+  font-size: .7rem;
+  letter-spacing: .06em;
+  color: var(--ink-muted);
+  font-weight: 700;
+  border-bottom-width: 1px;
+  background: #fafafe;
+}
+
+.app-table tbody tr {
+  transition: background-color .12s ease;
+}
+
+.app-table tbody tr:hover {
+  background: #fafbff;
+}
+
+.app-pagination {
+  display: flex;
+  justify-content: center;
+  padding: .85rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+.app-pagination:empty {
+  display: none;
+}
+
+.app-pagination .page-link {
+  color: var(--ink);
+  border-color: var(--border-soft);
+}
+
+.app-pagination .page-item.active .page-link {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.app-pagination .page-item.disabled .page-link {
+  color: var(--ink-muted);
+}
+
+.avatar-circle {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .85rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent-dark));
+  flex: none;
+}
+
+/* ---------- Stat cards ---------- */
+
+.stat-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  box-shadow: var(--shadow-soft);
+}
+
+.stat-card-icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: .8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex: none;
+}
+
+.stat-card-value {
+  font-size: 1.45rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.stat-card-label {
+  font-size: .78rem;
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+/* ---------- Estado vacio ---------- */
+
+.empty-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  color: var(--ink-muted);
+}
+
+.empty-state i {
+  font-size: 2.4rem;
+  color: var(--border-soft);
+  display: block;
+  margin-bottom: .75rem;
+}
+
+/* ---------- Perfil del taxista ---------- */
+
+.profile-hero {
+  background: linear-gradient(135deg, var(--brand-dark), var(--brand-primary-dark));
+  border-radius: var(--radius-lg);
+  color: #fff;
+  padding: 2rem;
+  box-shadow: var(--shadow-pop);
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, .12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: .3;
+}
+
+.profile-hero-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  flex-wrap: wrap;
+}
+
+.profile-avatar {
+  width: 3.4rem;
+  height: 3.4rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  border: 1px solid rgba(255, 255, 255, .25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.2rem;
+  flex: none;
+}
+
+/* ---------- Notificaciones propias (reemplazan el aviso nativo del navegador) ---------- */
+
+#app-toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  left: 1rem;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .6rem;
+  pointer-events: none;
+}
+
+@media (min-width: 576px) {
+  #app-toast-container {
+    left: auto;
+    width: 100%;
+    max-width: 360px;
+  }
+}
+
+.app-toast {
+  width: 100%;
+  margin-bottom: 0;
+  opacity: 0;
+  transform: translateY(-8px);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events: auto;
+}
+
+.app-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Bootstrap ya pinta borde rojo + icono en .was-validated .form-control:invalid;
+   esto solo refuerza el color en los inputs con icono (input-group). */
+.was-validated .form-control:invalid,
+.form-control.is-invalid {
+  border-color: #dc3545;
+}
+
+/* RNF-POR-004: usable en pantallas chicas */
+@media (max-width: 576px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .auth-card .app-panel, .registro-card .app-panel {
+    padding: 1.5rem 1.25rem;
+  }
+}

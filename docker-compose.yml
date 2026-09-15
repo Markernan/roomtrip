@@ -1,0 +1,89 @@
+# Entorno de desarrollo completo en una sola maquina.
+# Nadie del equipo necesita cuenta de Atlas ni de GCP para programar:
+#   docker compose up --build
+#
+# Portal:   http://localhost:8083
+# Gateway:  http://localhost:8080
+# Mongo:    mongodb://localhost:27017
+
+services:
+
+  mongo:
+    image: mongo:7
+    container_name: taxi-mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  taxista-service:
+    build:
+      context: .
+      dockerfile: taxista-service/Dockerfile
+    container_name: taxi-taxista-service
+    depends_on:
+      mongo:
+        condition: service_healthy
+    environment:
+      MONGO_URI_REGISTRY: mongodb://mongo:27017/taxi_registry
+      JWT_SECRET: ${JWT_SECRET:-secreto-de-desarrollo-no-usar-en-produccion-32}
+      SUPERADMIN_CORREO: ${SUPERADMIN_CORREO:-superadmin@hotelstay.pe}
+      SUPERADMIN_PASSWORD: ${SUPERADMIN_PASSWORD:-cambiame}
+      APP_MOVIL_CORREO: ${APP_MOVIL_CORREO:-app-movil@hotelstay.pe}
+      APP_MOVIL_PASSWORD: ${APP_MOVIL_PASSWORD:-cambiame}
+    ports:
+      - "8081:8081"
+
+  calificacion-service:
+    build:
+      context: .
+      dockerfile: calificacion-service/Dockerfile
+    container_name: taxi-calificacion-service
+    depends_on:
+      mongo:
+        condition: service_healthy
+      taxista-service:
+        condition: service_started
+    environment:
+      MONGO_URI_RATINGS: mongodb://mongo:27017/taxi_ratings
+      JWT_SECRET: ${JWT_SECRET:-secreto-de-desarrollo-no-usar-en-produccion-32}
+      TAXISTA_SERVICE_URL: http://taxista-service:8081
+    ports:
+      - "8082:8082"
+
+  gateway-service:
+    build:
+      context: .
+      dockerfile: gateway-service/Dockerfile
+    container_name: taxi-gateway
+    depends_on:
+      - taxista-service
+      - calificacion-service
+    environment:
+      TAXISTA_SERVICE_URL: http://taxista-service:8081
+      CALIFICACION_SERVICE_URL: http://calificacion-service:8082
+      JWT_SECRET: ${JWT_SECRET:-secreto-de-desarrollo-no-usar-en-produccion-32}
+    ports:
+      - "8080:8080"
+
+  portal-web:
+    build:
+      context: .
+      dockerfile: portal-web/Dockerfile
+    container_name: taxi-portal
+    depends_on:
+      - gateway-service
+    environment:
+      GATEWAY_URL: http://gateway-service:8080
+      THYMELEAF_CACHE: "false"
+      CLOUDINARY_URL: ${CLOUDINARY_URL:-}
+    ports:
+      - "8083:8083"
+
+volumes:
+  mongo-data:
