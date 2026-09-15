@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:background="#F5F5F5">
 
     <LinearLayout
@@ -11,7 +14,7 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Header (mismo estilo que Inicio) -->
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -23,11 +26,14 @@
                 android:layout_height="40dp"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
+
                 <ImageView
+                    android:id="@+id/imgHotel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/hotel_placeholder" />
+                    android:src="@drawable/hotel_placeholder"
+                    tools:ignore="ContentDescription" />
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
@@ -38,6 +44,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tvHotelName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Hotel Miraflores"
@@ -45,22 +52,26 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvHotelAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Av. Larco 245, Lima"
-                    android:textColor="@color/text_gray"
+                    android:textColor="#757575"
                     android:textSize="13sp" />
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/btnNotifications"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/ic_notifications"
-                app:tint="@color/teal" />
+                app:tint="#009688"
+                tools:ignore="ContentDescription" />
         </LinearLayout>
 
         <!-- Título -->
         <TextView
+            android:id="@+id/tvTitleNotificaciones"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -90,37 +101,37 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvCheckoutGuest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="María González - Hab. 204"
-                    android:textColor="@color/text_gray"
+                    android:textColor="#757575"
                     android:textSize="13sp" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
+                    android:id="@+id/btnProcessPayment"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="Procesar Cobro"
                     android:textColor="@android:color/white"
                     android:textAllCaps="false"
-                    app:backgroundTint="@color/teal"
-                    app:cornerRadius="21dp" />
+                    android:backgroundTint="#009688" />
 
-                <com.google.android.material.button.MaterialButton
-                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                <Button
+                    android:id="@+id/btnAddDamageFee"
                     android:layout_width="match_parent"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Añadir cobro por daños"
-                    android:textColor="@color/teal"
+                    android:textColor="#009688"
                     android:textAllCaps="false"
-                    app:strokeColor="@color/teal"
-                    app:cornerRadius="21dp" />
+                    android:backgroundTint="#E0F2F1" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Card: Estado de Taxi (x2) -->
+        <!-- Card: Estado de Taxi -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -142,6 +153,7 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvDriverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
@@ -149,46 +161,11 @@
                     android:textSize="13sp" />
 
                 <TextView
+                    android:id="@+id/tvTaxiStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="En camino a recoger"
-                    android:textColor="@color/text_gray"
-                    android:textSize="13sp" />
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="14dp"
-            app:cardElevation="1dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Estado de Taxi"
-                    android:textStyle="bold"
-                    android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Carlos Ruiz"
-                    android:textSize="13sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="En camino a recoger"
-                    android:textColor="@color/text_gray"
+                    android:textColor="#757575"
                     android:textSize="13sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -216,23 +193,24 @@
                     android:textSize="15sp" />
 
                 <TextView
+                    android:id="@+id/tvMessageInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:text="Carlos Ruiz (Hab. 308)"
-                    android:textColor="@color/text_gray"
+                    android:textColor="#757575"
                     android:textSize="13sp" />
 
-                <com.google.android.material.button.MaterialButton
+                <Button
+                    android:id="@+id/btnGoToChat"
                     android:layout_width="wrap_content"
-                    android:layout_height="42dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:layout_gravity="end"
                     android:text="Ir al Chat"
                     android:textColor="@android:color/white"
                     android:textAllCaps="false"
-                    app:backgroundTint="@color/teal"
-                    app:cornerRadius="21dp" />
+                    android:backgroundTint="#009688" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

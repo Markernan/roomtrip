@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.RoomTrip" parent="Base.Theme.RoomTrip" />
+    <style name="ShapeAppearanceOverlay.App.Corner12" parent="">
+        <item name="cornerSize">12dp</item>
+    </style>
 </resources>
