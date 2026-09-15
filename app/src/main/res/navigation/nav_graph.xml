@@ -1,0 +1,35 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inicioFragment">
+
+    <fragment
+        android:id="@+id/inicioFragment"
+        android:name="com.example.roomtrip.InicioFragment"
+        android:label="Inicio">
+
+        <action
+            android:id="@+id/action_inicioFragment_to_notificacionesFragment"
+            app:destination="@id/notificacionesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificacionesFragment"
+        android:name="com.example.roomtrip.NotificacionesFragment"
+        android:label="Notificaciones" />
+
+    <fragment
+        android:id="@+id/inventarioFragment"
+        android:name="com.example.roomtrip.InventarioFragment"
+        android:label="Inventario" />
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.roomtrip.ChatsFragment"
+        android:label="Chats" />
+
+    <fragment
+        android:id="@+id/reportesFragment"
+        android:name="com.example.roomtrip.ReportesFragment"
+        android:label="Reportes" />
+</navigation>
