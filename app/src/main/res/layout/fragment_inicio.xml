@@ -106,6 +106,7 @@
 
         <!-- Botón completar configuración -->
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCompletarConfiguracion"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
@@ -141,11 +142,14 @@
                 android:textSize="11sp" />
         </LinearLayout>
 
-        <!-- Item checkout 1 -->
+        <!-- Item checkout 1 (María González) -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardCheckoutMaria"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:clickable="true"
+            android:focusable="true"
             app:cardCornerRadius="12dp"
             app:cardElevation="1dp">
 
@@ -185,7 +189,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Item checkout 2 -->
+        <!-- Item checkout 2 (Carlos Ruiz - sin conexión indicada, se deja igual) -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -290,10 +294,13 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTrasladosEnCurso"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp">
                 <LinearLayout
@@ -310,10 +317,13 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardCheckout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp">
                 <LinearLayout
@@ -337,10 +347,13 @@
             android:orientation="horizontal">
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardEditarHotel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginEnd="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp">
                 <LinearLayout
@@ -356,10 +369,13 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardValoraciones"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="1dp">
                 <LinearLayout
