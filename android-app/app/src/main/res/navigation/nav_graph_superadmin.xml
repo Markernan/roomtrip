@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_superadmin"
+    app:startDestination="@id/dashboardActivity">
+
+    <activity
+        android:id="@+id/dashboardActivity"
+        android:name="com.roomtrip.app.superadmin.DashboardActivity"
+        android:label="activity_superadmin_dashboard"
+        tools:layout="@layout/activity_superadmin_dashboard" />
+
+    <activity
+        android:id="@+id/hotelesActivity"
+        android:name="com.roomtrip.app.superadmin.HotelesActivity"
+        android:label="activity_superadmin_hoteles"
+        tools:layout="@layout/activity_superadmin_hoteles" />
+
+    <activity
+        android:id="@+id/usuariosActivity"
+        android:name="com.roomtrip.app.superadmin.UsuariosActivity"
+        android:label="activity_superadmin_usuarios"
+        tools:layout="@layout/activity_superadmin_usuarios" />
+
+    <activity
+        android:id="@+id/taxistasActivity"
+        android:name="com.roomtrip.app.superadmin.TaxistasActivity"
+        android:label="activity_superadmin_taxistas"
+        tools:layout="@layout/activity_superadmin_taxistas" />
+
+    <activity
+        android:id="@+id/registrarHotelActivity"
+        android:name="com.roomtrip.app.superadmin.RegistrarHotelActivity"
+        android:label="activity_superadmin_registrar_hotel"
+        tools:layout="@layout/activity_superadmin_registrar_hotel" />
+
+    <activity
+        android:id="@+id/reportesActivity"
+        android:name="com.roomtrip.app.superadmin.ReportesActivity"
+        android:label="activity_superadmin_reportes"
+        tools:layout="@layout/activity_superadmin_reportes" />
+
+    <activity
+        android:id="@+id/auditoriaActivity"
+        android:name="com.roomtrip.app.superadmin.AuditoriaActivity"
+        android:label="activity_superadmin_auditoria"
+        tools:layout="@layout/activity_superadmin_auditoria" />
+
+    <activity
+        android:id="@+id/detalleUsuarioActivity"
+        android:name="com.roomtrip.app.superadmin.DetalleUsuarioActivity"
+        android:label="activity_superadmin_detalle_usuario"
+        tools:layout="@layout/activity_superadmin_detalle_usuario" />
+
+</navigation>

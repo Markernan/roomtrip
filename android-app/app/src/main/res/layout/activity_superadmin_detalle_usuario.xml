@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo_pantalla">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="20dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/ic_arrow_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/texto_principal"
+            android:contentDescription="Atrás" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detalle de Usuario"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/texto_principal"
+            android:layout_marginStart="16dp" />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <!-- Profile Info Card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="@color/blanco"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:src="@drawable/ic_person"
+                        android:background="@drawable/bg_circulo_gris"
+                        android:padding="16dp"
+                        app:tint="@color/turquesa"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:id="@+id/tvNombre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre Apellido"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:textColor="@color/texto_principal" />
+
+                    <TextView
+                        android:id="@+id/tvEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="email@example.com"
+                        android:textColor="@color/texto_secundario" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/borde_input"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Detailed Fields -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Rol:"
+                            android:textColor="@color/texto_secundario" />
+                        <TextView
+                            android:id="@+id/tvRol"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Administrador Hotel"
+                            android:textColor="@color/texto_principal"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Teléfono:"
+                            android:textColor="@color/texto_secundario" />
+                        <TextView
+                            android:id="@+id/tvTelefono"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="+51 987 654 321"
+                            android:textColor="@color/texto_principal"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                    <!-- Sección Dinámica: Taxista -->
+                    <LinearLayout
+                        android:id="@+id/layoutTaxista"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Licencia:"
+                                android:textColor="@color/texto_secundario" />
+                            <TextView
+                                android:id="@+id/tvLicencia"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Placa Auto:"
+                                android:textColor="@color/texto_secundario" />
+                            <TextView
+                                android:id="@+id/tvPlacaAuto"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Vehículo:"
+                                android:textColor="@color/texto_secundario" />
+                            <TextView
+                                android:id="@+id/tvModeloVehiculo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Sección Dinámica: Admin Hotel -->
+                    <LinearLayout
+                        android:id="@+id/layoutAdminHotel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        <TextView
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Hotel:"
+                            android:textColor="@color/texto_secundario" />
+                        <TextView
+                            android:id="@+id/tvHotelAsignado"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/texto_principal"
+                            android:fontFamily="@font/poppins_medium" />
+                    </LinearLayout>
+
+                    <!-- Sección Dinámica: Cliente -->
+                    <LinearLayout
+                        android:id="@+id/layoutCliente"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginBottom="12dp">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Dirección:"
+                                android:textColor="@color/texto_secundario" />
+                            <TextView
+                                android:id="@+id/tvDireccion"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <TextView
+                                android:layout_width="100dp"
+                                android:layout_height="wrap_content"
+                                android:text="Reservas:"
+                                android:textColor="@color/texto_secundario" />
+                            <TextView
+                                android:id="@+id/tvHistorialReservas"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/texto_principal"
+                                android:fontFamily="@font/poppins_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Account Status -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Estado de Cuenta"
+                android:textColor="@color/texto_secundario"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="4dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_tarjeta_blanca"
+                android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="32dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Activar Cuenta / Permitir Acceso"
+                    android:textColor="@color/texto_principal"
+                    android:fontFamily="@font/poppins_medium" />
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switchEstado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    app:thumbTint="@color/turquesa"
+                    app:trackTint="@color/cyan_pastel" />
+            </LinearLayout>
+
+            <!-- Actions -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardarCambios"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Guardar Cambios"
+                app:cornerRadius="16dp"
+                android:fontFamily="@font/poppins_bold"
+                app:backgroundTint="@color/turquesa"
+                android:textColor="@color/blanco"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResetPassword"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Restablecer Contraseña"
+                app:cornerRadius="16dp"
+                app:strokeColor="@color/turquesa"
+                android:textColor="@color/turquesa"
+                android:layout_marginBottom="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnEliminarUsuario"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="Eliminar Usuario"
+                app:cornerRadius="16dp"
+                app:strokeColor="@color/rojo_alerta_texto"
+                android:textColor="@color/rojo_alerta_texto" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu_superadmin"
+        app:itemIconTint="@color/texto_secundario"
+        app:itemTextColor="@color/texto_secundario"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/blanco" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
