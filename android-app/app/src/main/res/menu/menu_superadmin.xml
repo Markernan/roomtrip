@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_badge"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_hoteles"
+        android:icon="@drawable/ic_home_pin"
+        android:title="Hoteles" />
+    <item
+        android:id="@+id/nav_usuarios"
+        android:icon="@drawable/ic_person"
+        android:title="Usuarios" />
+    <item
+        android:id="@+id/nav_auditoria"
+        android:icon="@drawable/ic_explore"
+        android:title="Perfil /log" />
+</menu>
