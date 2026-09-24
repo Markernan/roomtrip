@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /** Consulta y edición del perfil del cliente autenticado (RNF-03: solo sus propios datos). */
 public class PerfilActivity extends AppCompatActivity {

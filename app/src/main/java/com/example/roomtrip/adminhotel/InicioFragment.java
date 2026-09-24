@@ -1,4 +1,4 @@
-package com.example.roomtrip;
+package com.example.roomtrip.adminhotel;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
+
+import com.example.roomtrip.R;
 
 public class InicioFragment extends Fragment {
 

@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /** Detalle de un hotel: opiniones, disponibilidad/reserva y servicios (RF-CL-02, RF-CL-03). */
 public class DetalleHotelActivity extends AppCompatActivity {

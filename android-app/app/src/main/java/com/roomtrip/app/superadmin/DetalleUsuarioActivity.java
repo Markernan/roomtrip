@@ -10,7 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DetalleUsuarioActivity extends AppCompatActivity {

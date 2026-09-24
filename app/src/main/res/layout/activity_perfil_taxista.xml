@@ -390,6 +390,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <include layout="@layout/bottom_nav_bar" />
+    <include layout="@layout/bottom_nav_bar_taxista" />
 
 </LinearLayout>

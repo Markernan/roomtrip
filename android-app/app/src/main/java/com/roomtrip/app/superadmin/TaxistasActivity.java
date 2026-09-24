@@ -7,7 +7,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class TaxistasActivity extends AppCompatActivity {

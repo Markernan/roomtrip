@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/inicioFragment"
-        android:name="com.example.roomtrip.InicioFragment"
+        android:name="com.example.roomtrip.adminhotel.InicioFragment"
         android:label="Inicio">
 
         <action
@@ -35,46 +35,46 @@
 
     <fragment
         android:id="@+id/notificacionesFragment"
-        android:name="com.example.roomtrip.NotificacionesFragment"
+        android:name="com.example.roomtrip.adminhotel.NotificacionesFragment"
         android:label="Notificaciones" />
 
     <fragment
         android:id="@+id/inventarioFragment"
-        android:name="com.example.roomtrip.InventarioFragment"
+        android:name="com.example.roomtrip.adminhotel.InventarioFragment"
         android:label="Inventario" />
 
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.example.roomtrip.ChatsFragment"
+        android:name="com.example.roomtrip.adminhotel.ChatsFragment"
         android:label="Chats" />
 
     <fragment
         android:id="@+id/reportesFragment"
-        android:name="com.example.roomtrip.ReportesFragment"
+        android:name="com.example.roomtrip.adminhotel.ReportesFragment"
         android:label="Reportes" />
 
     <fragment
         android:id="@+id/configuracionHotelFragment"
-        android:name="com.example.roomtrip.ConfiguracionHotelFragment"
+        android:name="com.example.roomtrip.adminhotel.ConfiguracionHotelFragment"
         android:label="Configuración del Hotel" />
 
     <fragment
         android:id="@+id/checkoutHabitacionFragment"
-        android:name="com.example.roomtrip.CheckoutHabitacionFragment"
+        android:name="com.example.roomtrip.adminhotel.CheckoutHabitacionFragment"
         android:label="Checkout Habitación" />
 
     <fragment
         android:id="@+id/trasladosEnCursoFragment"
-        android:name="com.example.roomtrip.TrasladosEnCursoFragment"
+        android:name="com.example.roomtrip.adminhotel.TrasladosEnCursoFragment"
         android:label="Traslados en Curso" />
 
     <fragment
         android:id="@+id/checkoutsFragment"
-        android:name="com.example.roomtrip.CheckoutsFragment"
+        android:name="com.example.roomtrip.adminhotel.CheckoutsFragment"
         android:label="Checkouts" />
 
     <fragment
         android:id="@+id/valoracionesFragment"
-        android:name="com.example.roomtrip.ValoracionesFragment"
+        android:name="com.example.roomtrip.adminhotel.ValoracionesFragment"
         android:label="Valoraciones" />
 </navigation>

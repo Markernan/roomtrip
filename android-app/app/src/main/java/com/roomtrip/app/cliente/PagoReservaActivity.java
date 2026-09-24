@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /** Registro de tarjeta (simulada) y confirmación de la reserva (RF-CL-03). */
 public class PagoReservaActivity extends AppCompatActivity {

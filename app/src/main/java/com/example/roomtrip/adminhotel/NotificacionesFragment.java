@@ -1,4 +1,4 @@
-package com.example.roomtrip;
+package com.example.roomtrip.adminhotel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.roomtrip.R;
 
 public class NotificacionesFragment extends Fragment {
 

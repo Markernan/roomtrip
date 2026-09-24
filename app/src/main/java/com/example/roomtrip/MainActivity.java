@@ -1,41 +1,51 @@
 package com.example.roomtrip;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.navigation.NavController;
+import androidx.navigation.NavGraph;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
+        // Obtener el NavHostFragment
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
-        NavController navController = navHostFragment.getNavController();
 
-        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
-        NavigationUI.setupWithNavController(bottomNav, navController);
+        if (navHostFragment != null) {
+            NavController navController = navHostFragment.getNavController();
+            NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.nav_graph);
 
-        // Fuerza el regreso a la pestaña cuando se toca de nuevo (aunque estés en un fragment hijo)
-        bottomNav.setOnItemReselectedListener(item ->
-                navController.popBackStack(item.getItemId(), false));
+            // Leer el rol proveniente de LoginActivity
+            String rolUsuario = getIntent().getStringExtra("ROL_USUARIO");
+
+            if (rolUsuario != null) {
+                switch (rolUsuario) {
+                    case "SuperAdmin":
+                        // Pantalla inicial para SuperAdmin
+                        navGraph.setStartDestination(R.id.reportesFragment);
+                        break;
+
+                    case "Admin Hotel":
+                        // Pantalla inicial para Admin de Hotel
+                        navGraph.setStartDestination(R.id.configuracionHotelFragment);
+                        break;
+
+                    case "Cliente":
+                    default:
+                        // Pantalla inicial para Cliente
+                        navGraph.setStartDestination(R.id.inicioFragment);
+                        break;
+                }
+            }
+
+            // Aplicar el grafo actualizado
+            navController.setGraph(navGraph);
+        }
     }
 }

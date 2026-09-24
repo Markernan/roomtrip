@@ -8,7 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import com.bumptech.glide.Glide;
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 public class DetalleHotelReporteActivity extends AppCompatActivity {
 

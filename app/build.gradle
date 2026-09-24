@@ -4,17 +4,16 @@ plugins {
 
 android {
     namespace 'com.example.roomtrip'
-    namespace 'com.example.taxista'
-    compileSdk {
-        version = release(37)
+    compileSdk 36
+
+    buildFeatures {
+        viewBinding true
     }
 
     defaultConfig {
         applicationId "com.example.roomtrip"
-        minSdk 24
-        applicationId "com.example.taxista"
-        minSdk 34
-        targetSdk 37
+        minSdk 26
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -23,11 +22,11 @@ android {
 
     buildTypes {
         release {
-            optimization {
-                enable false
-            }
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -41,7 +40,9 @@ dependencies {
     implementation libs.material
     implementation libs.navigation.fragment.ktx
     implementation libs.navigation.ui.ktx
+    implementation 'com.google.zxing:core:3.5.3'
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit
+    implementation libs.glide
 }

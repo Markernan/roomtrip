@@ -1,4 +1,4 @@
-package com.example.taxista;
+package com.example.roomtrip.taxista;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.ImageViewCompat;
+
+import com.example.roomtrip.R;
 
 public class NavegacionHelper {
 

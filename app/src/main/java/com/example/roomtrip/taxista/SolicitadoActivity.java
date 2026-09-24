@@ -1,10 +1,12 @@
-package com.example.taxista;
+package com.example.roomtrip.taxista;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.roomtrip.R;
 
 public class SolicitadoActivity extends AppCompatActivity {
 

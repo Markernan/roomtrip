@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import com.bumptech.glide.Glide;
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DetalleHotelAdminActivity extends AppCompatActivity {

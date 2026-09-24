@@ -1,10 +1,12 @@
-package com.example.taxista; // Reemplaza con el nombre de tu paquete
+package com.example.roomtrip.taxista; // Reemplaza con el nombre de tu paquete
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.roomtrip.R;
 
 public class RegistroActivity extends AppCompatActivity {
 

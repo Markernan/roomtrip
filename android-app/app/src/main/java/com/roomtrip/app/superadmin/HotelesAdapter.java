@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 import java.util.ArrayList;
 import java.util.List;
 
