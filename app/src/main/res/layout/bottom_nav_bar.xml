@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@color/blanco"
+    android:paddingVertical="12dp"
+    android:elevation="8dp">
+
+    <!-- Opción 1: Trabajo / Mapa en vivo -->
+    <LinearLayout
+        android:id="@+id/navTrabajo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:id="@+id/ivNavTrabajo"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_home_pin"
+            android:contentDescription="@null"
+            app:tint="@color/turquesa" />
+        <TextView
+            android:id="@+id/tvNavTrabajo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Trabajo"
+            android:textColor="@color/turquesa"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_medium" />
+    </LinearLayout>
+
+    <!-- Opción 2: Perfil del Conductor -->
+    <LinearLayout
+        android:id="@+id/navPerfil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
+        <ImageView
+            android:id="@+id/ivNavPerfil"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_person"
+            android:contentDescription="@null"
+            app:tint="@color/texto_secundario" />
+        <TextView
+            android:id="@+id/tvNavPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Perfil"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_medium" />
+    </LinearLayout>
+
+</LinearLayout>

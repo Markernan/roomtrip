@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- CONTENEDOR PRINCIPAL DE CÁMARA Y ESCANEO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Escanea el código QR del pasajero"
+            android:textColor="@color/texto_principal"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginBottom="20dp" />
+
+        <!-- RECUADRO NEGRO (SIMULACIÓN DE CÁMARA DE ESCANEO) -->
+        <FrameLayout
+            android:id="@+id/viewCamara"
+            android:layout_width="260dp"
+            android:layout_height="260dp"
+            android:background="#000000">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="[ Área de cámara ]"
+                android:textColor="#888888"
+                android:textSize="14sp"
+                android:fontFamily="@font/poppins_regular" />
+        </FrameLayout>
+
+        <!-- BOTÓN ESCANEAR -->
+        <Button
+            android:id="@+id/btnEscanearQR"
+            android:layout_width="260dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:text="Escanear"
+            style="@style/Boton.Primario" />
+
+    </LinearLayout>
+
+</LinearLayout>

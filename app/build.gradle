@@ -4,6 +4,7 @@ plugins {
 
 android {
     namespace 'com.example.roomtrip'
+    namespace 'com.example.taxista'
     compileSdk {
         version = release(37)
     }
@@ -11,6 +12,8 @@ android {
     defaultConfig {
         applicationId "com.example.roomtrip"
         minSdk 24
+        applicationId "com.example.taxista"
+        minSdk 34
         targetSdk 37
         versionCode 1
         versionName "1.0"

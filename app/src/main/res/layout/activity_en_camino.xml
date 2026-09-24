@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- MAPA EN TIEMPO REAL -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E3E8EF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Navegación GPS en tiempo real\n(Ruta hacia el pasajero)"
+            android:gravity="center"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <!-- Insignia de Estado -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_input_texto"
+            android:backgroundTint="@color/blanco"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="En camino al punto de recojo"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- TARJETA INFERIOR DE DETALLES DEL PASAJERO Y RUTA -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blanco"
+        android:padding="20dp">
+
+        <!-- DATOS DEL PASAJERO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_circulo_gris">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"
+                    android:contentDescription="@null" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="12dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvNombrePasajero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carlos Mendoza"
+                    android:textColor="@color/texto_principal"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/poppins_bold" />
+
+                <TextView
+                    android:id="@+id/tvRatingPasajero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="★ 4.9 · Pasajero Frecuente"
+                    android:textColor="@color/texto_secundario"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/poppins_regular" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/borde_input"
+            android:layout_marginVertical="12dp" />
+
+        <!-- RUTA DEL VIAJE -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location"
+                android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/tvOrigen"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Recojo: Hotel La Dolce Vita"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_location"
+                android:contentDescription="@null" />
+            <TextView
+                android:id="@+id/tvDestino"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                android:text="Destino: Aeropuerto Jorge Chávez"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+
+        <!-- TIEMPO ESTIMADO AL ENCUENTRO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input_texto"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvTiempoEncuentro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tiempo estimado al encuentro: 8 min"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp"
+                android:fontFamily="@font/poppins_semibold" />
+        </LinearLayout>
+
+        <!-- BOTÓN NAVEGAR A EN TRASLADO -->
+        <Button
+            android:id="@+id/btnLlegueAlEncuentro"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:text="Llegué al encuentro"
+            style="@style/Boton.Primario" />
+
+    </LinearLayout>
+
+    <include layout="@layout/bottom_nav_bar" />
+
+</LinearLayout>
