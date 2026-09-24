@@ -1,0 +1,80 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/inicioFragment">
+
+    <fragment
+        android:id="@+id/inicioFragment"
+        android:name="com.example.roomtrip.InicioFragment"
+        android:label="Inicio">
+
+        <action
+            android:id="@+id/action_inicioFragment_to_notificacionesFragment"
+            app:destination="@id/notificacionesFragment" />
+
+        <action
+            android:id="@+id/action_inicioFragment_to_configuracionHotelFragment"
+            app:destination="@id/configuracionHotelFragment" />
+
+        <action
+            android:id="@+id/action_inicioFragment_to_checkoutHabitacionFragment"
+            app:destination="@id/checkoutHabitacionFragment" />
+
+        <action
+            android:id="@+id/action_inicioFragment_to_trasladosEnCursoFragment"
+            app:destination="@id/trasladosEnCursoFragment" />
+
+        <action
+            android:id="@+id/action_inicioFragment_to_checkoutsFragment"
+            app:destination="@id/checkoutsFragment" />
+
+        <action
+            android:id="@+id/action_inicioFragment_to_valoracionesFragment"
+            app:destination="@id/valoracionesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/notificacionesFragment"
+        android:name="com.example.roomtrip.NotificacionesFragment"
+        android:label="Notificaciones" />
+
+    <fragment
+        android:id="@+id/inventarioFragment"
+        android:name="com.example.roomtrip.InventarioFragment"
+        android:label="Inventario" />
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.roomtrip.ChatsFragment"
+        android:label="Chats" />
+
+    <fragment
+        android:id="@+id/reportesFragment"
+        android:name="com.example.roomtrip.ReportesFragment"
+        android:label="Reportes" />
+
+    <fragment
+        android:id="@+id/configuracionHotelFragment"
+        android:name="com.example.roomtrip.ConfiguracionHotelFragment"
+        android:label="Configuración del Hotel" />
+
+    <fragment
+        android:id="@+id/checkoutHabitacionFragment"
+        android:name="com.example.roomtrip.CheckoutHabitacionFragment"
+        android:label="Checkout Habitación" />
+
+    <fragment
+        android:id="@+id/trasladosEnCursoFragment"
+        android:name="com.example.roomtrip.TrasladosEnCursoFragment"
+        android:label="Traslados en Curso" />
+
+    <fragment
+        android:id="@+id/checkoutsFragment"
+        android:name="com.example.roomtrip.CheckoutsFragment"
+        android:label="Checkouts" />
+
+    <fragment
+        android:id="@+id/valoracionesFragment"
+        android:name="com.example.roomtrip.ValoracionesFragment"
+        android:label="Valoraciones" />
+</navigation>
