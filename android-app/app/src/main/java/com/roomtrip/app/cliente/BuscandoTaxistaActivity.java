@@ -7,7 +7,7 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /**
  * Espera a que un taxista acepte el pedido (RF-TX-04: al aceptar pasa a ASIGNADO).

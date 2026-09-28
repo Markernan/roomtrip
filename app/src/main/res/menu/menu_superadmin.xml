@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<<<<<<< HEAD
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_badge"
+        android:title="Inicio" />
+    <item
+        android:id="@+id/nav_hoteles"
+        android:icon="@drawable/ic_home_pin"
+        android:title="Hoteles" />
+=======
+
+    <item
+        android:id="@+id/nav_inicio"
+        android:icon="@drawable/ic_search"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/nav_hoteles"
+        android:icon="@drawable/ic_search"
+        android:title="Hoteles" />
+
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
+    <item
+        android:id="@+id/nav_usuarios"
+        android:icon="@drawable/ic_person"
+        android:title="Usuarios" />
+<<<<<<< HEAD
+    <item
+        android:id="@+id/nav_auditoria"
+        android:icon="@drawable/ic_explore"
+        android:title="Auditoría" />
+=======
+
+    <item
+        android:id="@+id/nav_auditoria"
+        android:icon="@drawable/ic_person"
+        android:title="Auditoría" />
+
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
+</menu>

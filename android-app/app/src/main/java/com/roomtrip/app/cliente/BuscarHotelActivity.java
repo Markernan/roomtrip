@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 import java.util.ArrayList;
 import java.util.List;

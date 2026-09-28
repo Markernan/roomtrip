@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 public class ReservaExitosaActivity extends AppCompatActivity {
 

@@ -18,4 +18,10 @@
 
     <color name="sombra">#0D000000</color>
     <color name="borde_input">#E0E0E0</color>
+
+    <!-- Colores Pastel para Dashboard SuperAdmin -->
+    <color name="cyan_pastel">#D1F7F7</color>
+    <color name="amarillo_pastel">#FFF9C4</color>
+    <color name="lila_pastel">#EDE7F6</color>
+    <color name="verde_pastel">#E8F5E9</color>
 </resources>

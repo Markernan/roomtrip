@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /** Pantalla 1: Bienvenida / inicio de sesión del cliente. */
 public class BienvenidaActivity extends AppCompatActivity {

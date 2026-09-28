@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla"
+    android:gravity="center"
+    android:padding="32dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="RoomTrip"
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <FrameLayout
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:background="@drawable/bg_marco_qr"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/ivCodigoQr"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@null" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="¡Muestra este QR a tu taxista!"
+        android:textColor="@color/texto_principal"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <Button
+        android:id="@+id/btnVolverQr"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginTop="56dp"
+        android:text="Volver"
+        style="@style/Boton.Primario" />
+
+</LinearLayout>

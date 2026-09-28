@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /**
  * Checkout del cliente: valoración obligatoria (RF-CL-04), notificación de cobro

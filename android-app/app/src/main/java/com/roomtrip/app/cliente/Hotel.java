@@ -1,4 +1,4 @@
-package com.roomtrip.app.cliente;
+package com.example.roomtrip.cliente;
 
 /** Modelo local temporal, sin persistencia. Se reemplaza por Firestore en el Lab 6. */
 public class Hotel {

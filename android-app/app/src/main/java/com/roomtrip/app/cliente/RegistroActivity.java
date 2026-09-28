@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.roomtrip.app.R;
+import com.example.roomtrip.R;
 
 /** Pantalla de autoregistro del cliente (RF-CL-01). */
 public class RegistroActivity extends AppCompatActivity {
