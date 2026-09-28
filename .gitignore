@@ -5,6 +5,7 @@ build/
 android-app/build/
 android-app/app/build/
 android-app/captures/
+local.properties
 android-app/local.properties
 .externalNativeBuild/
 .cxx/
