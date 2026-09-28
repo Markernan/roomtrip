@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/bg_tarjeta_blanca">
+
+    <TextView
+        android:id="@+id/tvTituloPerfil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Perfil de Usuario"
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <!-- Foto de Perfil con Badge de Editar -->
+    <FrameLayout
+        android:id="@+id/containerFotoPerfil"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardCornerRadius="45dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/fondo_pantalla">
+
+            <ImageView
+                android:id="@+id/ivDialogFotoPerfil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:padding="12dp"
+                android:src="@drawable/ic_person"
+                app:tint="@color/turquesa"
+                android:contentDescription="Foto de perfil" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Icono de Cámara para simular cambiar imagen -->
+        <FrameLayout
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/bg_circulo_verde"
+            android:backgroundTint="@color/turquesa">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_edit"
+                app:tint="@color/blanco"
+                android:contentDescription="Cambiar foto" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:text="Toca la imagen para cambiarla"
+        android:textColor="@color/texto_secundario"
+        android:textSize="11sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <!-- Campo Nombre -->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/CampoTexto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:hint="Nombre completo">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDialogNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="14sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Botón Guardar Cambios -->
+    <Button
+        android:id="@+id/btnDialogGuardar"
+        style="@style/Boton.Primario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Guardar Cambios" />
+
+    <!-- Botón Cerrar Sesión -->
+    <TextView
+        android:id="@+id/tvDialogCerrarSesion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="Cerrar sesión"
+        android:textColor="@color/rojo_alerta_texto"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp" />
+
+</LinearLayout>
