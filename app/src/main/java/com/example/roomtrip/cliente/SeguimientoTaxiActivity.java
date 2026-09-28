@@ -2,10 +2,12 @@ package com.example.roomtrip.cliente;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.utils.InsetsHelper;
 
 /**
  * Seguimiento del servicio de taxi en curso: datos del taxista y ubicación en
@@ -18,7 +20,9 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seguimiento_taxi);
 
-        findViewById(R.id.btnVolverMapa).setOnClickListener(v -> finish());
+        View btnVolverMapa = findViewById(R.id.btnVolverMapa);
+        btnVolverMapa.setOnClickListener(v -> finish());
+        InsetsHelper.empujarBajoBarraEstado(btnVolverMapa);
         findViewById(R.id.btnMostrarQr).setOnClickListener(v ->
                 startActivity(new Intent(this, MostrarQrActivity.class)));
     }

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Hotel;
+import com.example.roomtrip.utils.InsetsHelper;
 import com.example.roomtrip.utils.NavegacionClienteHelper;
 
 public class DetalleHotelActivity extends AppCompatActivity {
@@ -29,7 +30,9 @@ public class DetalleHotelActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.tvNombreHotel)).setText(nombreHotel);
         }
 
-        findViewById(R.id.btnVolver).setOnClickListener(v -> finish());
+        View btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> finish());
+        InsetsHelper.empujarBajoBarraEstado(btnVolver);
 
         contenidoOpiniones = findViewById(R.id.contenidoOpiniones);
         contenidoDetalles = findViewById(R.id.contenidoDetalles);

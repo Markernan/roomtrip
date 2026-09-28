@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.roomtrip.R;
 import com.example.roomtrip.MainActivity;
 import com.example.roomtrip.cliente.HomeActivity;
+import com.example.roomtrip.cliente.RegistroActivity;
 import com.example.roomtrip.superadmin.DashboardActivity;
 import com.example.roomtrip.taxista.SolicitadoActivity;
 
@@ -66,5 +67,8 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+
+        findViewById(R.id.tvRegistrarse).setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegistroActivity.class)));
     }
 }

@@ -66,4 +66,32 @@
         android:textStyle="bold"
         android:backgroundTint="#00BFA5" />
 
+    <!-- Enlace a registro de cliente (RF-CL-01) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¿No tienes cuenta? "
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular" />
+
+        <TextView
+            android:id="@+id/tvRegistrarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regístrate"
+            android:textColor="@color/turquesa"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
 </LinearLayout>
