@@ -23,6 +23,7 @@
         android:id="@+id/bottom_nav"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:background="@color/blanco"
         android:elevation="8dp"
         app:itemIconTint="@color/bottom_nav_color"
@@ -31,6 +32,12 @@
         app:itemRippleColor="@android:color/transparent"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/menu_admin_hotel"
+=======
+        android:background="@android:color/white"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:menu="@menu/bottom_nav_menu"
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

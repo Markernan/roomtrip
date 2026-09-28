@@ -8,7 +8,10 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.roomtrip.R;
+<<<<<<< HEAD
 import com.example.roomtrip.utils.PerfilDialogHelper;
+=======
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 
 public class InicioFragment extends Fragment {
 
@@ -20,6 +23,7 @@ public class InicioFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+<<<<<<< HEAD
         View cardPerfilAdmin = view.findViewById(R.id.cardPerfilAdmin);
         if (cardPerfilAdmin != null) {
             cardPerfilAdmin.setOnClickListener(v -> {
@@ -31,6 +35,8 @@ public class InicioFragment extends Fragment {
             });
         }
 
+=======
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
         view.findViewById(R.id.ic_notifications).setOnClickListener(v ->
                 NavHostFragment.findNavController(this)
                         .navigate(R.id.action_inicioFragment_to_notificacionesFragment));

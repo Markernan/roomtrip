@@ -19,11 +19,16 @@
             android:gravity="center_vertical">
 
             <com.google.android.material.card.MaterialCardView
+<<<<<<< HEAD
                 android:id="@+id/cardPerfilAdmin"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:clickable="true"
                 android:focusable="true"
+=======
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
                 app:cardCornerRadius="24dp"
                 app:cardElevation="0dp">
                 <ImageView

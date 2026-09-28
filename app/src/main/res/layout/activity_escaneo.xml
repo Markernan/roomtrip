@@ -19,9 +19,15 @@
             android:layout_height="wrap_content"
             android:text="Escanea el código QR del pasajero"
             android:textColor="@color/texto_principal"
+<<<<<<< HEAD
             android:textSize="18sp"
             android:fontFamily="@font/poppins_bold"
             android:layout_marginBottom="24dp" />
+=======
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_marginBottom="20dp" />
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 
         <!-- RECUADRO NEGRO (SIMULACIÓN DE CÁMARA DE ESCANEO) -->
         <FrameLayout
@@ -43,6 +49,7 @@
         <!-- BOTÓN ESCANEAR -->
         <Button
             android:id="@+id/btnEscanearQR"
+<<<<<<< HEAD
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
@@ -50,6 +57,12 @@
             android:paddingVertical="14dp"
             android:text="Escanear Código QR"
             android:textSize="15sp"
+=======
+            android:layout_width="260dp"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:text="Escanear"
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
             style="@style/Boton.Primario" />
 
     </LinearLayout>

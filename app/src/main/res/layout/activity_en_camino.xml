@@ -174,15 +174,24 @@
         <Button
             android:id="@+id/btnLlegueAlEncuentro"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:paddingVertical="14dp"
             android:textSize="15sp"
+=======
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
             android:text="Llegué al encuentro"
             style="@style/Boton.Primario" />
 
     </LinearLayout>
 
+<<<<<<< HEAD
     <include layout="@layout/bottom_nav_bar_taxista" />
+=======
+    <include layout="@layout/bottom_nav_bar" />
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 
 </LinearLayout>

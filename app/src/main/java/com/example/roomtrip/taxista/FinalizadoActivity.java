@@ -25,5 +25,11 @@ public class FinalizadoActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         });
+<<<<<<< HEAD
+=======
+
+        // Configuración de la barra inferior de navegación
+        NavegacionHelper.configurarBarra(this, "TRABAJO");
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
     }
 }

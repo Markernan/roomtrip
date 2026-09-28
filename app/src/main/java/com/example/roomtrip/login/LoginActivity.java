@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.MainActivity;
+<<<<<<< HEAD
 import com.example.roomtrip.cliente.HomeActivity;
 import com.example.roomtrip.superadmin.DashboardActivity;
+=======
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 import com.example.roomtrip.taxista.SolicitadoActivity;
 
 public class LoginActivity extends AppCompatActivity {
@@ -19,7 +22,11 @@ public class LoginActivity extends AppCompatActivity {
     private Spinner spinnerRoles;
     private Button btnIniciarSesion;
 
+<<<<<<< HEAD
     private final String[] roles = {"Cliente", "Admin", "Taxista", "SuperAdmin"};
+=======
+    private final String[] roles = {"Cliente", "Admin Hotel", "Taxista", "SuperAdmin"};
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent;
 
             switch (rolSeleccionado) {
+<<<<<<< HEAD
                 case "Cliente":
                     intent = new Intent(LoginActivity.this, HomeActivity.class);
                     break;
@@ -60,6 +68,20 @@ public class LoginActivity extends AppCompatActivity {
                 default:
                     intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("ROL_USUARIO", "Admin");
+=======
+                case "Taxista":
+                    // Redirige al módulo independiente de Taxista
+                    intent = new Intent(LoginActivity.this, SolicitadoActivity.class);
+                    break;
+
+                case "Cliente":
+                case "Admin Hotel":
+                case "SuperAdmin":
+                default:
+                    // Todos van a MainActivity, enviando el rol seleccionado como un Intent Extra
+                    intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("ROL_USUARIO", rolSeleccionado);
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
                     break;
             }
 
@@ -67,4 +89,8 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         });
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2

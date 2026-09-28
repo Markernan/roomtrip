@@ -23,5 +23,10 @@ public class EscaneoActivity extends AppCompatActivity {
             Intent intent = new Intent(EscaneoActivity.this, FinalizadoActivity.class);
             startActivity(intent);
         });
+<<<<<<< HEAD
+=======
+
+        NavegacionHelper.configurarBarra(this, "TRABAJO");
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
     }
 }

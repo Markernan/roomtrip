@@ -7,7 +7,10 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
+<<<<<<< HEAD
 import com.example.roomtrip.utils.NavegacionHelper;
+=======
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
 
 public class SolicitadoActivity extends AppCompatActivity {
 
@@ -18,6 +21,10 @@ public class SolicitadoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solicitado);
 
+<<<<<<< HEAD
+=======
+        // Configuración de la barra inferior de navegación
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
         NavegacionHelper.configurarBarra(this, "TRABAJO");
 
         btnUsuario1 = findViewById(R.id.btnUsuario1);

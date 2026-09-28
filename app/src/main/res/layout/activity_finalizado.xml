@@ -51,11 +51,17 @@
         <Button
             android:id="@+id/btnVolverBuscar"
             android:layout_width="match_parent"
+<<<<<<< HEAD
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:paddingVertical="14dp"
             android:text="Volver a buscar clientes"
             android:textSize="15sp"
+=======
+            android:layout_height="52dp"
+            android:layout_marginTop="32dp"
+            android:text="Volver a buscar clientes"
+>>>>>>> 75833f8393f9963e8f2c999a5783ce672f53fce2
             style="@style/Boton.Primario" />
 
     </LinearLayout>
