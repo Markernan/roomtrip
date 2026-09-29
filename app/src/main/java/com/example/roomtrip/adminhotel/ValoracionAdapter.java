@@ -28,7 +28,7 @@ public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.Vi
         Valoracion item = listaValoraciones.get(position);
         ItemFullReviewCardBinding b = holder.binding;
 
-        b.tvAvatarInitials.setText(iniciales(item.getUsuario()));
+        b.tvAvatarInitials.setText(item.getInicialesUsuario());
         b.tvReviewerName.setText(item.getUsuario());
         b.tvReviewMeta.setText(item.getDetalleHabitacion() + " • " + item.getFecha());
         b.tvStars.setText(estrellas(item.getCalificacion()));
@@ -38,15 +38,6 @@ public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.Vi
     @Override
     public int getItemCount() {
         return listaValoraciones != null ? listaValoraciones.size() : 0;
-    }
-
-    /** "María Fernández" -> "MF". */
-    private static String iniciales(String nombre) {
-        if (nombre == null || nombre.isBlank()) return "";
-        String[] partes = nombre.trim().split("\\s+");
-        String iniciales = partes[0].substring(0, 1);
-        if (partes.length > 1) iniciales += partes[1].substring(0, 1);
-        return iniciales.toUpperCase();
     }
 
     /** 4.5 -> "★★★★★" (redondeo al entero más cercano, máximo 5). */

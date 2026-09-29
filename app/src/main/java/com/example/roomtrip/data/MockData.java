@@ -2,10 +2,10 @@ package com.example.roomtrip.data;
 
 import com.example.roomtrip.data.model.Chat;
 import com.example.roomtrip.data.model.Checkout;
-import com.example.roomtrip.data.model.EstadoCuenta;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.Habitacion;
 import com.example.roomtrip.data.model.Hotel;
+import com.example.roomtrip.data.model.IngresoServicio;
 import com.example.roomtrip.data.model.LogEvento;
 import com.example.roomtrip.data.model.Mensaje;
 import com.example.roomtrip.data.model.Notificacion;
@@ -20,15 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MockData {
-
-    public static List<Hotel> getHotelesEjemplo() {
-        List<Hotel> lista = new ArrayList<>();
-        lista.add(new Hotel("Hotel Westin Lima", "San Isidro, Lima", "admin@westin.pe", EstadoCuenta.ACTIVO));
-        lista.add(new Hotel("JW Marriott Hotel", "Miraflores, Lima", "admin@marriott.pe", EstadoCuenta.ACTIVO));
-        lista.add(new Hotel("Hotel Costa del Sol", "Aeropuerto Jorge Chávez", "admin@costadelsol.pe", EstadoCuenta.ACTIVO));
-        lista.add(new Hotel("Hotel Aranwa Valley", "Valle Sagrado, Cusco", "admin@aranwa.pe", EstadoCuenta.INACTIVO));
-        return lista;
-    }
 
     public static List<Habitacion> getHabitacionesEjemplo() {
         List<Habitacion> lista = new ArrayList<>();
@@ -222,6 +213,18 @@ public class MockData {
         lista.add(new Notificacion("Pago Confirmado (S/ 320)",
                 "Pago recibido exitosamente para la reserva de Juan Pérez (Hab. 201).",
                 "Ayer, 14:15", TipoNotificacion.PAGO, true));
+        return lista;
+    }
+
+    // Para ReportesFragment. Sin ordenar a propósito: el orden (menor a mayor, RF-REP-004) lo aplica
+    // IngresoServicio.ordenarDeMenorAMayor().
+    public static List<IngresoServicio> getIngresosServiciosEjemplo() {
+        List<IngresoServicio> lista = new ArrayList<>();
+        lista.add(new IngresoServicio("Desayuno Buffet Continental", 4250.00));
+        lista.add(new IngresoServicio("Lavandería Express (x Prenda)", 620.50));
+        lista.add(new IngresoServicio("Masaje Relajante (45 min)", 2340.00));
+        lista.add(new IngresoServicio("Tour Guiado Centro Histórico", 1210.00));
+        lista.add(new IngresoServicio("Late check-out", 890.00));
         return lista;
     }
 

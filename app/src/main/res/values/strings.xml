@@ -1,6 +1,20 @@
 <resources>
     <string name="app_name">RoomTrip</string>
 
+    <!-- Admin de hotel: checkout con cobros adicionales por daños (RN-012) -->
+    <string name="checkout_hint_observacion">Observación del daño (obligatoria)</string>
+    <string name="cobro_error_motivo">Indica el motivo del cobro</string>
+    <string name="cobro_error_monto_obligatorio">Indica el monto</string>
+    <string name="cobro_error_monto_invalido">Ingresa un monto mayor que cero</string>
+    <string name="cobro_error_observacion">Escribe una observación del daño</string>
+    <string name="checkout_procesado">Transacción procesada</string>
+    <string name="checkout_procesado_con_cargo">Transacción procesada con un cobro adicional de S/ %1$,.2f</string>
+
+    <!-- Admin de hotel: reporte de ingresos por servicios adicionales -->
+    <string name="reporte_monto">S/ %1$,.2f</string>
+    <string name="reporte_resena_comentario">\"%1$s\"</string>
+    <string name="reporte_resena_calificacion">%1$.1f ★</string>
+
     <!-- Cliente: QR del servicio de taxi -->
     <string name="qr_error_generacion">No pudimos generar tu código QR. Vuelve a abrir esta pantalla e inténtalo de nuevo.</string>
 

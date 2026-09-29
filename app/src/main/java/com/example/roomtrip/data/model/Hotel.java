@@ -17,15 +17,7 @@ public class Hotel implements Serializable {
     // 1. Constructor vacío
     public Hotel() {}
 
-    // 2. Constructor para ADMIN (4 parámetros)
-    public Hotel(String nombre, String ubicacion, String contacto, EstadoCuenta estado) {
-        this.nombre = nombre;
-        this.ubicacion = ubicacion;
-        this.contacto = contacto;
-        this.estado = estado;
-    }
-
-    // 3. Constructor para CLIENTE (5 parámetros)
+    // 2. Constructor para CLIENTE (5 parámetros)
     public Hotel(String nombre, String ubicacion, String precio, float calificacion, int imagenResId) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -34,7 +26,7 @@ public class Hotel implements Serializable {
         this.imagenResId = imagenResId;
     }
 
-    // 4. Constructor para SUPERADMIN (8 parámetros)
+    // 3. Constructor para SUPERADMIN (8 parámetros)
     public Hotel(String nombre, String ubicacion, float calificacion, String adminNombre, String adminEmail, String contacto, int imagenResId, boolean activo) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;

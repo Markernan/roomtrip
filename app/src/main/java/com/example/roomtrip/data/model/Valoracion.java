@@ -20,4 +20,13 @@ public class Valoracion {
     public String getFecha() { return fecha; }
     public float getCalificacion() { return calificacion; }
     public String getComentario() { return comentario; }
+
+    /** "María Fernández" -> "MF"; con una sola palabra, su inicial; sin nombre, cadena vacía. */
+    public String getInicialesUsuario() {
+        if (usuario == null || usuario.trim().isEmpty()) return "";
+        String[] partes = usuario.trim().split("\\s+");
+        String iniciales = partes[0].substring(0, 1);
+        if (partes.length > 1) iniciales += partes[1].substring(0, 1);
+        return iniciales.toUpperCase();
+    }
 }

@@ -153,11 +153,11 @@
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <include layout="@layout/item_service_report" />
-                    <include layout="@layout/item_service_report" />
-                    <include layout="@layout/item_service_report" />
-                    <include layout="@layout/item_service_report" />
-                    <include layout="@layout/item_service_report" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvIngresosServicios"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="false" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -199,9 +199,11 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <include layout="@layout/item_review_card" />
-            <include layout="@layout/item_review_card" />
-            <include layout="@layout/item_review_card" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvValoracionesRecientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
