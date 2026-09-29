@@ -19,7 +19,7 @@
             android:layout_height="24dp"
             android:layout_gravity="start|center_vertical"
             android:src="@drawable/ic_arrow_back"
-            android:tint="@color/blanco"
+            app:tint="@color/blanco"
             android:clickable="true"
             android:focusable="true"
             android:contentDescription="@null" />
