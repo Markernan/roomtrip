@@ -7,9 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.LogEvento;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class AuditoriaActivity extends AppCompatActivity {
@@ -31,7 +31,7 @@ public class AuditoriaActivity extends AppCompatActivity {
 
         cargarDatosMock();
 
-        adapter = new LogAdapter(listaLogs);
+        adapter = new LogAdapter(this, listaLogs);
         rvLogs.setAdapter(adapter);
 
         btnBack.setOnClickListener(v -> finish());
@@ -40,12 +40,7 @@ public class AuditoriaActivity extends AppCompatActivity {
     }
 
     private void cargarDatosMock() {
-        listaLogs = new ArrayList<>();
-        listaLogs.add(new LogEvento("Superadmin activó al usuario cliente \"Ana Gómez\"", "31/08/2026", "14:32:05 hrs", "IP: 190.45.12.34", R.drawable.ic_person));
-        listaLogs.add(new LogEvento("Inicio de sesión exitoso - Usuario: Carlos Ruiz (Administrador)", "31/08/2026", "14:15:42 hrs", "Dispositivo: Web", R.drawable.ic_lock));
-        listaLogs.add(new LogEvento("Checkout completado en Hotel Miraflores - Reserva #1042", "31/08/2026", "13:47:18 hrs", "Dispositivo: Android 14", R.drawable.ic_card));
-        listaLogs.add(new LogEvento("Hotel \"Gran Hotel Lima\" modificado por Ana García", "31/08/2026", "13:22:11 hrs", "IP: 190.45.12.34", R.drawable.ic_home_pin));
-        listaLogs.add(new LogEvento("Error al procesar pago - Reserva #1038 (Tarjeta rechazada)", "31/08/2026", "12:58:33 hrs", "Dispositivo: Android 14", R.drawable.ic_warning));
+        listaLogs = MockData.getLogsEjemplo();
     }
 
     private void setupBottomNavigation() {

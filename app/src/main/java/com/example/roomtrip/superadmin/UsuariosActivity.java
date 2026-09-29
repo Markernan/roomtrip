@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.ChipGroup;
@@ -44,7 +45,7 @@ public class UsuariosActivity extends AppCompatActivity {
         cargarDatosMock();
 
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UsuariosAdapter(listaFiltrada, usuario -> {
+        adapter = new UsuariosAdapter(this, listaFiltrada, usuario -> {
             Intent intent = new Intent(UsuariosActivity.this, DetalleUsuarioActivity.class);
             intent.putExtra("usuario", usuario);
             startActivity(intent);
@@ -56,35 +57,9 @@ public class UsuariosActivity extends AppCompatActivity {
     }
 
     private void cargarDatosMock() {
-        Usuario t1 = new Usuario("Carlos Mendoza", "carlos.mendoza@roomtrip.com", "Taxista", "+51 987 654 321", true);
-        t1.setLicencia("A-I-77482");
-        t1.setPlacaAuto("ABC-123");
-        t1.setModeloVehiculo("Toyota Corolla 2022");
-        listaCompleta.add(t1);
+        listaCompleta = MockData.getUsuariosCompletosEjemplo();
 
-        Usuario t2 = new Usuario("Marcos López", "marcos.lopez@roomtrip.com", "Taxista", "+51 912 345 678", false);
-        t2.setLicencia("A-IIb-99321");
-        t2.setPlacaAuto("XYZ-789");
-        t2.setModeloVehiculo("Nissan Sentra 2021");
-        listaCompleta.add(t2);
-
-        Usuario c1 = new Usuario("Ana García", "ana.garcia@gmail.com", "Cliente", "+51 955 443 322", true);
-        c1.setDireccion("Av. Larco 456, Miraflores, Lima");
-        c1.setHistorialReservas("3 reservaciones completadas, 1 cancelada");
-        listaCompleta.add(c1);
-
-        Usuario c2 = new Usuario("Sofía Benítez", "sofia.b@outlook.com", "Cliente", "+51 933 221 100", true);
-        c2.setDireccion("Calle San Martín 789, Arequipa");
-        c2.setHistorialReservas("5 reservaciones completadas");
-        listaCompleta.add(c2);
-
-        Usuario a1 = new Usuario("Luis Torres", "luis.torres@grandhotel.com", "Admin", "+51 966 778 899", true);
-        a1.setHotelAsignado("Grand Hotel RoomTrip");
-        listaCompleta.add(a1);
-
-        Usuario a2 = new Usuario("Javier Ramírez", "jramirez@hotelparadise.com", "Admin", "+51 944 556 677", true);
-        a2.setHotelAsignado("Hotel Paradise Costero");
-        listaCompleta.add(a2);
+        listaFiltrada.clear();
 
         listaFiltrada.addAll(listaCompleta);
     }
