@@ -38,8 +38,8 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
         b.tvGuestName.setText(item.getNombreHuesped());
         b.tvRoomAndTime.setText("Hab. " + item.getHabitacion() + " • " + item.getHoraLimite());
 
-        b.tvStatus.setText("• " + item.getEstado());
-        if ("Procesado".equalsIgnoreCase(item.getEstado()) || "Completado".equalsIgnoreCase(item.getEstado())) {
+        b.tvStatus.setText("• " + item.getEstado().getEtiqueta());
+        if (item.getEstado().estaProcesado()) {
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
             b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
         } else {

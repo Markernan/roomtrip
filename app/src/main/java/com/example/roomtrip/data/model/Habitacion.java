@@ -4,9 +4,9 @@ public class Habitacion {
     private String tipo;
     private String capacidad;
     private double precio;
-    private String estado;
+    private EstadoHabitacion estado;
 
-    public Habitacion(String tipo, String capacidad, double precio, String estado) {
+    public Habitacion(String tipo, String capacidad, double precio, EstadoHabitacion estado) {
         this.tipo = tipo;
         this.capacidad = capacidad;
         this.precio = precio;
@@ -16,5 +16,5 @@ public class Habitacion {
     public String getTipo() { return tipo; }
     public String getCapacidad() { return capacidad; }
     public double getPrecio() { return precio; }
-    public String getEstado() { return estado; }
+    public EstadoHabitacion getEstado() { return estado; }
 }

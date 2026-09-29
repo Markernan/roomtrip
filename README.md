@@ -103,8 +103,8 @@ el usuario sale de `getEtiqueta()`.
 | `EstadoServicioTaxi` | `SOLICITADO → ASIGNADO → EN_CAMINO → EN_TRASLADO → FINALIZADO` | RN-010: no se omiten estados. `FINALIZADO` solo se registra escaneando el código QR del cliente (RN-011) |
 | `EstadoReserva` | `PENDIENTE`, `CONFIRMADA`, `EN_CURSO`, `FINALIZADA`, `CANCELADA` | RF-RES-010. "Reserva activa" = `CONFIRMADA` o `EN_CURSO` |
 | `EstadoCuenta` | `ACTIVO`, `INACTIVO` | RF-USR-007 (hoteles) |
-
-Los estados de checkout y de habitación siguen como texto y están por definir con el equipo.
+| `EstadoCheckout` | `PENDIENTE`, `PROCESADO` | El ERS no los define; formalizan lo que ya muestra la lista de checkouts del admin |
+| `EstadoHabitacion` | `DISPONIBLE`, `OCUPADA`, `MANTENIMIENTO` | El ERS no los define; formalizan lo que ya muestra el Inventario. Falta decidir con el equipo cómo modelar la disponibilidad (RF-HOT-006 y RF-HOT-010) |
 
 ## Reglas de negocio críticas
 

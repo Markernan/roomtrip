@@ -4,14 +4,14 @@ public class Checkout {
     private String nombreHuesped;
     private String habitacion;
     private String horaLimite;
-    private String estado;
+    private EstadoCheckout estado;
     private double monto;
 
-    public Checkout(String nombreHuesped, String habitacion, String horaLimite, String estado) {
+    public Checkout(String nombreHuesped, String habitacion, String horaLimite, EstadoCheckout estado) {
         this(nombreHuesped, habitacion, horaLimite, estado, 0.0);
     }
 
-    public Checkout(String nombreHuesped, String habitacion, String horaLimite, String estado, double monto) {
+    public Checkout(String nombreHuesped, String habitacion, String horaLimite, EstadoCheckout estado, double monto) {
         this.nombreHuesped = nombreHuesped;
         this.habitacion = habitacion;
         this.horaLimite = horaLimite;
@@ -22,7 +22,7 @@ public class Checkout {
     public String getNombreHuesped() { return nombreHuesped; }
     public String getHabitacion() { return habitacion; }
     public String getHoraLimite() { return horaLimite; }
-    public String getEstado() { return estado; }
+    public EstadoCheckout getEstado() { return estado; }
     public double getMonto() { return monto; }
 
     public String getIniciales() {

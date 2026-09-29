@@ -138,7 +138,10 @@ A2 y A3), pendiente de confirmar con el coordinador del curso.
       real y que el taxista lo valide (RN-011).
 - [ ] **Dónde vive el código de `taxi-service`:** integrarlo a la carpeta `taxi-service/` o dejarlo
       en la rama `web-taxis`.
-- [ ] **Estados de checkout y de habitación:** el ERS no los define; hoy son texto libre.
+- [ ] **Estados de checkout y de habitación:** el ERS no los define. Hoy son los `enum` `EstadoCheckout`
+      (`PENDIENTE`, `PROCESADO`) y `EstadoHabitacion` (`DISPONIBLE`, `OCUPADA`, `MANTENIMIENTO`), que solo
+      formalizan lo que muestra la interfaz. Falta decidir con el equipo si la disponibilidad de una
+      habitación se guarda o se calcula a partir de las reservas (RF-HOT-006 y RF-HOT-010).
 
 ## 8. Estado actual de la app móvil
 
@@ -151,6 +154,6 @@ Lo que existe hoy en el código, frente al diseño de arriba:
 | Navegación | Cliente, taxista y superadmin usan `Activity` + `Intent`. El admin de hotel usa una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component) |
 | Listas | `RecyclerView` con su adapter en los cuatro roles |
 | Vistas | ViewBinding en casi todo el admin de hotel (quedan `ChatsFragment`, `AdminHotelAdapter` y `HabitacionAdapter`), en el flujo del taxista que muestra pedidos y en Registrar hotel; cliente y superadmin siguen con `findViewById` y se migran de forma progresiva |
-| Estados | `enum` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`) en `data/model/`, con pruebas unitarias. `EstadoReserva` está listo pero sin uso: la app todavía no tiene un modelo `Reserva` (Mis reservas usa objetos `Hotel`) |
+| Estados | `enum` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`) en `data/model/`, con pruebas unitarias. `EstadoReserva` está listo pero sin uso: la app todavía no tiene un modelo `Reserva` (Mis reservas usa objetos `Hotel`) |
 | QR | El cliente genera un QR (ZXing); la pantalla de escaneo del taxista es un mockup |
 | Calidad | Pruebas unitarias, `lintDebug` y compilación en cada PR (GitHub Actions) |

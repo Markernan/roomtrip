@@ -38,7 +38,7 @@ public class HabitacionAdapter extends RecyclerView.Adapter<HabitacionAdapter.Vi
         holder.tvNombre.setText(hab.getTipo());
         holder.tvUbicacion.setText("Capacidad: " + hab.getCapacidad());
         holder.tvContacto.setText("Precio: S/ " + hab.getPrecio() + " por noche");
-        holder.tvEstado.setText(hab.getEstado());
+        holder.tvEstado.setText(hab.getEstado().getEtiqueta());
 
         holder.itemView.setOnClickListener(v ->
                 Toast.makeText(context, "Detalle de: " + hab.getTipo(), Toast.LENGTH_SHORT).show()

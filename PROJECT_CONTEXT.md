@@ -80,7 +80,7 @@ Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `In
 
 1. **ViewBinding:** Siempre preferir el uso de ViewBinding sobre `findViewById`. Nunca buscar vistas por nombre con `getIdentifier()`. Hoy lo usan casi todo el admin de hotel, el flujo de pedidos del taxista y Registrar hotel; cliente y superadmin siguen con `findViewById` y se migran de forma progresiva.
 2. **Compatibilidad:** Todos los componentes UI deben usar atributos de `colors.xml` y `themes.xml` para mantener coherencia estética.
-3. **Estados:** usar los `enum` de `data/model/` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`), nunca textos sueltos ("En Curso", "Activo"). El nombre del valor es el que se guarda y el que viaja por la API; el texto para el usuario sale de `getEtiqueta()`.
+3. **Estados:** usar los `enum` de `data/model/` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`), nunca textos sueltos ("En Curso", "Activo"). El nombre del valor es el que se guarda y el que viaja por la API; el texto para el usuario sale de `getEtiqueta()`.
 4. **Datos de prueba:** agregarlos en `MockData`, no dentro de una Activity o Fragment.
 5. **Errores:** no usar `catch (Exception ignored) {}`. Un error que se traga sin avisar esconde bugs.
 6. **Roles:** usar las constantes de `utils/Constants`, no textos sueltos.

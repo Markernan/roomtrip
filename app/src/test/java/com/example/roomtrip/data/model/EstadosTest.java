@@ -78,6 +78,23 @@ public class EstadosTest {
         }
     }
 
+    // ---- EstadoCheckout y EstadoHabitacion: formalizan lo que muestra la UI (el ERS no los define) ----
+
+    @Test
+    public void checkout_soloProcesadoCuentaComoProcesado() {
+        assertEquals(Arrays.asList("PENDIENTE", "PROCESADO"), Arrays.asList(nombres(EstadoCheckout.values())));
+        assertFalse(EstadoCheckout.PENDIENTE.estaProcesado());
+        assertTrue(EstadoCheckout.PROCESADO.estaProcesado());
+        assertEquals("Procesado", EstadoCheckout.PROCESADO.getEtiqueta());
+    }
+
+    @Test
+    public void habitacion_losTresEstadosYSusEtiquetas() {
+        assertEquals(Arrays.asList("DISPONIBLE", "OCUPADA", "MANTENIMIENTO"),
+                Arrays.asList(nombres(EstadoHabitacion.values())));
+        assertEquals("Mantenimiento", EstadoHabitacion.MANTENIMIENTO.getEtiqueta());
+    }
+
     // ---- EstadoCuenta y Hotel: RF-USR-007 ----
 
     @Test

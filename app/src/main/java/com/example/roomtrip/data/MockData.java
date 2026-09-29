@@ -2,6 +2,8 @@ package com.example.roomtrip.data;
 
 import com.example.roomtrip.data.model.Chat;
 import com.example.roomtrip.data.model.Checkout;
+import com.example.roomtrip.data.model.EstadoCheckout;
+import com.example.roomtrip.data.model.EstadoHabitacion;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.Habitacion;
 import com.example.roomtrip.data.model.Hotel;
@@ -23,10 +25,10 @@ public class MockData {
 
     public static List<Habitacion> getHabitacionesEjemplo() {
         List<Habitacion> lista = new ArrayList<>();
-        lista.add(new Habitacion("Habitación Standard", "2 Adultos", 120.00, "Disponible"));
-        lista.add(new Habitacion("Suite Presidencial", "2 Adultos, 2 Niños", 350.00, "Ocupada"));
-        lista.add(new Habitacion("Habitación Económica", "1 Adulto", 80.00, "Disponible"));
-        lista.add(new Habitacion("Junior Suite", "2 Adultos, 1 Niño", 220.00, "Mantenimiento"));
+        lista.add(new Habitacion("Habitación Standard", "2 Adultos", 120.00, EstadoHabitacion.DISPONIBLE));
+        lista.add(new Habitacion("Suite Presidencial", "2 Adultos, 2 Niños", 350.00, EstadoHabitacion.OCUPADA));
+        lista.add(new Habitacion("Habitación Económica", "1 Adulto", 80.00, EstadoHabitacion.DISPONIBLE));
+        lista.add(new Habitacion("Junior Suite", "2 Adultos, 1 Niño", 220.00, EstadoHabitacion.MANTENIMIENTO));
         return lista;
     }
 
@@ -169,10 +171,10 @@ public class MockData {
     // Para CheckoutsFragment
     public static List<Checkout> getCheckoutsEjemplo() {
         List<Checkout> lista = new ArrayList<>();
-        lista.add(new Checkout("María González", "204", "11:00 AM", "Pendiente"));
-        lista.add(new Checkout("Carlos Ruiz", "308", "09:30 AM", "Procesado", 450.0));
-        lista.add(new Checkout("Ana López", "105", "Ayer, 12:00 PM", "Pendiente"));
-        lista.add(new Checkout("Juan Pérez", "201", "Ayer, 10:15 AM", "Procesado", 320.0));
+        lista.add(new Checkout("María González", "204", "11:00 AM", EstadoCheckout.PENDIENTE));
+        lista.add(new Checkout("Carlos Ruiz", "308", "09:30 AM", EstadoCheckout.PROCESADO, 450.0));
+        lista.add(new Checkout("Ana López", "105", "Ayer, 12:00 PM", EstadoCheckout.PENDIENTE));
+        lista.add(new Checkout("Juan Pérez", "201", "Ayer, 10:15 AM", EstadoCheckout.PROCESADO, 320.0));
         return lista;
     }
 
