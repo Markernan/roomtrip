@@ -22,14 +22,14 @@
                 android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Atrás"
+                android:contentDescription="@string/checkouts_atras"
                 android:src="@drawable/ic_back" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Checkouts"
+                android:text="@string/checkouts_checkouts"
                 android:textSize="19sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -49,7 +49,7 @@
                 android:background="@drawable/bg_tab_selected"
                 android:gravity="center"
                 android:paddingVertical="10dp"
-                android:text="Todos"
+                android:text="@string/checkouts_todos"
                 android:textColor="@android:color/white"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -62,7 +62,7 @@
                 android:background="@drawable/bg_tab_unselected"
                 android:gravity="center"
                 android:paddingVertical="10dp"
-                android:text="Pendientes"
+                android:text="@string/checkouts_pendientes"
                 android:textSize="13sp" />
 
             <TextView
@@ -73,7 +73,7 @@
                 android:background="@drawable/bg_tab_unselected"
                 android:gravity="center"
                 android:paddingVertical="10dp"
-                android:text="Procesados"
+                android:text="@string/checkouts_procesados"
                 android:textSize="13sp" />
         </LinearLayout>
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
-                android:text="Buscar por huésped o habitación"
+                android:text="@string/checkouts_buscar_por_huesped_o_habitacion"
                 android:textColor="@color/text_gray"
                 android:textSize="13sp" />
         </LinearLayout>

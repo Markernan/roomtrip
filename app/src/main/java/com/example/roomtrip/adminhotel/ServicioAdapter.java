@@ -35,20 +35,20 @@ public class ServicioAdapter extends RecyclerView.Adapter<ServicioAdapter.ViewHo
 
         b.tvServiceName.setText(item.getNombre());
         b.tvCategory.setText(item.getCategoria());
-        b.tvPrice.setText(String.format("S/ %.2f", item.getPrecio()));
+        b.tvPrice.setText(context.getString(R.string.adapter_monto_decimales, item.getPrecio()));
 
         if (item.isDisponible()) {
-            b.tvStatus.setText("• Disponible");
+            b.tvStatus.setText(R.string.servicio_estado_disponible);
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
             b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
         } else {
-            b.tvStatus.setText("• Agotado");
+            b.tvStatus.setText(R.string.servicio_estado_agotado);
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
             b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.pill_red_text));
         }
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Servicio: " + item.getNombre() + " (S/ " + item.getPrecio() + ")", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.toast_servicio_detalle, item.getNombre(), item.getPrecio()), Toast.LENGTH_SHORT).show()
         );
     }
 

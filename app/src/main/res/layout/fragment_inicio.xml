@@ -43,14 +43,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hotel Miraflores"
+                    android:text="@string/inicio_hotel_miraflores"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Av. Larco 245, Lima"
+                    android:text="@string/inicio_av_larco_245_lima"
                     android:textColor="@color/text_gray"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -71,7 +71,7 @@
                     android:layout_gravity="top|end"
                     android:background="@drawable/bg_badge_red"
                     android:gravity="center"
-                    android:text="3"
+                    android:text="@string/inicio_n3"
                     android:textColor="@android:color/white"
                     android:textSize="10sp" />
             </FrameLayout>
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Tu hotel aún no es visible para los clientes"
+                android:text="@string/inicio_tu_hotel_aun_no_es"
                 android:textSize="13sp" />
 
             <ImageView
@@ -113,7 +113,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="12dp"
-            android:text="Completar configuración"
+            android:text="@string/inicio_completar_configuracion"
             android:textColor="@android:color/white"
             android:textAllCaps="false"
             app:backgroundTint="@color/teal"
@@ -130,7 +130,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Checkouts pendientes hoy"
+                android:text="@string/inicio_checkouts_pendientes_hoy"
                 android:textStyle="bold"
                 android:textSize="15sp" />
 
@@ -140,7 +140,7 @@
                 android:layout_marginStart="8dp"
                 android:background="@drawable/bg_badge_teal"
                 android:gravity="center"
-                android:text="2"
+                android:text="@string/inicio_n2"
                 android:textColor="@android:color/white"
                 android:textSize="11sp" />
         </LinearLayout>
@@ -172,13 +172,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="María González"
+                        android:text="@string/inicio_maria_gonzalez"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hab. 204"
+                        android:text="@string/inicio_hab_204"
                         android:textColor="@color/text_gray"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -186,7 +186,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="11:00 AM"
+                    android:text="@string/inicio_n11_00_am"
                     android:textColor="@color/teal"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -216,13 +216,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Carlos Ruiz"
+                        android:text="@string/inicio_carlos_ruiz"
                         android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Hab. 308"
+                        android:text="@string/inicio_hab_308"
                         android:textColor="@color/text_gray"
                         android:textSize="13sp" />
                 </LinearLayout>
@@ -230,7 +230,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12:00 PM"
+                    android:text="@string/inicio_n12_00_pm"
                     android:textColor="@color/teal"
                     android:textStyle="bold" />
             </LinearLayout>
@@ -250,9 +250,9 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="8/12" android:textStyle="bold" android:textSize="18sp" />
+                    android:text="@string/inicio_n8_12" android:textStyle="bold" android:textSize="18sp" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Ocupación" android:textColor="@color/text_gray" android:textSize="12sp" />
+                    android:text="@string/inicio_ocupacion" android:textColor="@color/text_gray" android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -262,9 +262,9 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="5" android:textStyle="bold" android:textSize="18sp" />
+                    android:text="@string/inicio_n5" android:textStyle="bold" android:textSize="18sp" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Mensajes" android:textColor="@color/text_gray" android:textSize="12sp" />
+                    android:text="@string/inicio_mensajes" android:textColor="@color/text_gray" android:textSize="12sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -274,9 +274,9 @@
                 android:orientation="vertical"
                 android:gravity="center">
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="S/12,450" android:textStyle="bold" android:textSize="18sp" />
+                    android:text="@string/inicio_s_12_450" android:textStyle="bold" android:textSize="18sp" />
                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Ingresos" android:textColor="@color/text_gray" android:textSize="12sp" />
+                    android:text="@string/inicio_ingresos" android:textColor="@color/text_gray" android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -285,7 +285,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Accesos rápidos"
+            android:text="@string/inicio_accesos_rapidos"
             android:textStyle="bold"
             android:textSize="15sp" />
 
@@ -315,7 +315,7 @@
                     <ImageView android:layout_width="24dp" android:layout_height="24dp"
                         android:src="@drawable/ic_transfer" app:tint="@color/teal" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Traslados en curso" />
+                        android:layout_marginTop="8dp" android:text="@string/inicio_traslados_en_curso" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -337,7 +337,7 @@
                     <ImageView android:layout_width="24dp" android:layout_height="24dp"
                         android:src="@drawable/ic_checkout" app:tint="@color/teal" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Checkout" />
+                        android:layout_marginTop="8dp" android:text="@string/inicio_checkout" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
@@ -367,7 +367,7 @@
                     <ImageView android:layout_width="24dp" android:layout_height="24dp"
                         android:src="@drawable/ic_edit_hotel" app:tint="@color/teal" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Editar hotel" />
+                        android:layout_marginTop="8dp" android:text="@string/inicio_editar_hotel" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
@@ -389,7 +389,7 @@
                     <ImageView android:layout_width="24dp" android:layout_height="24dp"
                         android:src="@drawable/ic_reports" app:tint="@color/teal" />
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" android:text="Valoraciones" />
+                        android:layout_marginTop="8dp" android:text="@string/inicio_valoraciones" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>

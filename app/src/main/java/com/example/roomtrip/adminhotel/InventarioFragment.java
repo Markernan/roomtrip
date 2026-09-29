@@ -48,7 +48,7 @@ public class InventarioFragment extends Fragment {
 
         // FAB / Botón Agregar
         binding.fabAdd.setOnClickListener(v ->
-                Toast.makeText(requireContext(), "Agregar nuevo elemento", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.toast_inventario_agregar, Toast.LENGTH_SHORT).show()
         );
     }
 

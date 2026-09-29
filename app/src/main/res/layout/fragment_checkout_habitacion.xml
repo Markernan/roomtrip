@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:text="Checkout - Habitación 302"
+                android:text="@string/checkout_hab_checkout_habitacion_302"
                 android:textStyle="bold"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CHECKOUT PENDIENTE"
+                    android:text="@string/checkout_hab_checkout_pendiente"
                     android:textColor="@color/alert_red"
                     android:textStyle="bold"
                     android:textSize="11sp" />
@@ -72,7 +72,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Juan Pérez"
+                    android:text="@string/checkout_hab_juan_perez"
                     android:textStyle="bold"
                     android:textSize="15sp" />
             </LinearLayout>
@@ -83,7 +83,7 @@
                 android:background="@drawable/bg_badge_pill_red"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="6dp"
-                android:text="Hoy 11:00 AM"
+                android:text="@string/checkout_hab_hoy_11_00_am"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="12sp" />
@@ -106,7 +106,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Resumen de la estadía"
+                    android:text="@string/checkout_hab_resumen_de_la_estadia"
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
@@ -116,7 +116,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_row_gray"
                     android:padding="10dp"
-                    android:text="Entrada: 12 Oct • Salida: 15 Oct"
+                    android:text="@string/checkout_hab_entrada_12_oct_salida_15"
                     android:textColor="@color/text_gray"
                     android:textSize="13sp" />
 
@@ -130,12 +130,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Alojamiento (3 noches)"
+                        android:text="@string/checkout_hab_alojamiento_3_noches"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S/ 450.00"
+                        android:text="@string/checkout_hab_s_450_00"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -149,12 +149,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Desayuno buffet"
+                        android:text="@string/checkout_hab_desayuno_buffet"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S/ 60.00"
+                        android:text="@string/checkout_hab_s_60_00"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -168,12 +168,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Wifi (gratuito)"
+                        android:text="@string/checkout_hab_wifi_gratuito"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S/ 0.00"
+                        android:text="@string/checkout_hab_s_0_00"
                         android:textColor="@color/teal"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -194,13 +194,13 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Total acumulado"
+                        android:text="@string/checkout_hab_total_acumulado"
                         android:textStyle="bold"
                         android:textSize="15sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="S/ 510.00"
+                        android:text="@string/checkout_hab_s_510_00"
                         android:textStyle="bold"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -231,7 +231,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cobros adicionales por daños"
+                        android:text="@string/checkout_hab_cobros_adicionales_por_danos"
                         android:textStyle="bold"
                         android:textSize="15sp" />
 
@@ -253,7 +253,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:hint="Televisor dañado"
+                        android:hint="@string/checkout_hab_televisor_danado"
                         android:inputType="textCapSentences"
                         android:textSize="14sp" />
 
@@ -264,7 +264,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
-                        android:hint="S/ 150.00"
+                        android:hint="@string/checkout_hab_s_150_00"
                         android:inputType="numberDecimal"
                         android:textSize="14sp" />
 
@@ -289,7 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="+ Agregar otro cargo"
+                    android:text="@string/checkout_hab_agregar_otro_cargo"
                     android:textColor="@color/teal"
                     android:textStyle="bold"
                     android:textSize="13sp" />
@@ -303,7 +303,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
-            android:text="Procesar Transacción"
+            android:text="@string/checkout_hab_procesar_transaccion"
             android:textColor="@android:color/white"
             android:textAllCaps="false"
             app:backgroundTint="@color/teal"

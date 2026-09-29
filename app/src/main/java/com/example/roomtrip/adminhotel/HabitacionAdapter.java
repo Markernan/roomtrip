@@ -36,12 +36,12 @@ public class HabitacionAdapter extends RecyclerView.Adapter<HabitacionAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Habitacion hab = listaHabitaciones.get(position);
         holder.tvNombre.setText(hab.getTipo());
-        holder.tvUbicacion.setText("Capacidad: " + hab.getCapacidad());
-        holder.tvContacto.setText("Precio: S/ " + hab.getPrecio() + " por noche");
+        holder.tvUbicacion.setText(context.getString(R.string.habitacion_capacidad, hab.getCapacidad()));
+        holder.tvContacto.setText(context.getString(R.string.habitacion_precio_noche, hab.getPrecio()));
         holder.tvEstado.setText(hab.getEstado().getEtiqueta());
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Detalle de: " + hab.getTipo(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.toast_habitacion_detalle, hab.getTipo()), Toast.LENGTH_SHORT).show()
         );
     }
 

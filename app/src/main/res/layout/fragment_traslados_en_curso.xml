@@ -19,14 +19,14 @@
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="Atrás"
+            android:contentDescription="@string/traslados_atras"
             android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="Traslados en Curso"
+            android:text="@string/traslados_traslados_en_curso"
             android:textColor="@color/text_dark"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="No hay traslados activos"
+                    android:text="@string/traslados_no_hay_traslados_activos"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Las solicitudes de taxi o transporte privado\nsolicitadas por los huéspedes aparecerán aquí."
+                    android:text="@string/traslados_las_solicitudes_de_taxi_o"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>

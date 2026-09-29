@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Navegación GPS en tiempo real\n(Ruta hacia el pasajero)"
+            android:text="@string/en_camino_navegacion_gps_en_tiempo_real"
             android:gravity="center"
             android:textColor="@color/texto_secundario"
             android:textSize="14sp"
@@ -38,7 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="En camino al punto de recojo"
+                android:text="@string/en_camino_en_camino_al_punto_de"
                 android:textColor="@color/texto_principal"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -82,7 +82,7 @@
                     android:id="@+id/tvNombrePasajero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Carlos Mendoza"
+                    android:text="@string/en_camino_carlos_mendoza"
                     android:textColor="@color/texto_principal"
                     android:textSize="16sp"
                     android:fontFamily="@font/poppins_bold" />
@@ -91,7 +91,7 @@
                     android:id="@+id/tvRatingPasajero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="★ 4.9 · Pasajero Frecuente"
+                    android:text="@string/en_camino_n4_9_pasajero_frecuente"
                     android:textColor="@color/texto_secundario"
                     android:textSize="12sp"
                     android:fontFamily="@font/poppins_regular" />
@@ -121,7 +121,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Recojo: Hotel La Dolce Vita"
+                android:text="@string/en_camino_recojo_hotel_la_dolce_vita"
                 android:textColor="@color/texto_principal"
                 android:textSize="13sp"
                 android:fontFamily="@font/poppins_semibold" />
@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_marginStart="8dp"
-                android:text="Destino: Aeropuerto Jorge Chávez"
+                android:text="@string/en_camino_destino_aeropuerto_jorge_chavez"
                 android:textColor="@color/texto_principal"
                 android:textSize="13sp"
                 android:fontFamily="@font/poppins_semibold" />
@@ -164,7 +164,7 @@
                 android:id="@+id/tvTiempoEncuentro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tiempo estimado al encuentro: 8 min"
+                android:text="@string/en_camino_tiempo_estimado_al_encuentro_8"
                 android:textColor="@color/texto_principal"
                 android:textSize="13sp"
                 android:fontFamily="@font/poppins_semibold" />
@@ -178,7 +178,7 @@
             android:layout_marginTop="16dp"
             android:paddingVertical="14dp"
             android:textSize="15sp"
-            android:text="Llegué al encuentro"
+            android:text="@string/en_camino_llegue_al_encuentro"
             style="@style/Boton.Primario" />
 
     </LinearLayout>

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Perfil de Usuario"
+        android:text="@string/dialogo_perfil_perfil_de_usuario"
         android:textColor="@color/texto_principal"
         android:textSize="18sp"
         android:fontFamily="@font/poppins_bold" />
@@ -42,7 +42,7 @@
                 android:padding="12dp"
                 android:src="@drawable/ic_person"
                 app:tint="@color/turquesa"
-                android:contentDescription="Foto de perfil" />
+                android:contentDescription="@string/dialogo_perfil_foto_de_perfil" />
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Icono de Cámara para simular cambiar imagen -->
@@ -59,7 +59,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_edit"
                 app:tint="@color/blanco"
-                android:contentDescription="Cambiar foto" />
+                android:contentDescription="@string/dialogo_perfil_cambiar_foto" />
         </FrameLayout>
     </FrameLayout>
 
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="6dp"
-        android:text="Toca la imagen para cambiarla"
+        android:text="@string/dialogo_perfil_toca_la_imagen_para_cambiarla"
         android:textColor="@color/texto_secundario"
         android:textSize="11sp"
         android:fontFamily="@font/poppins_regular" />
@@ -79,7 +79,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Nombre completo">
+        android:hint="@string/dialogo_perfil_nombre_completo">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etDialogNombre"
@@ -97,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Guardar Cambios" />
+        android:text="@string/dialogo_perfil_guardar_cambios" />
 
     <!-- Botón Cerrar Sesión -->
     <TextView
@@ -106,7 +106,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="Cerrar sesión"
+        android:text="@string/dialogo_perfil_cerrar_sesion"
         android:textColor="@color/rojo_alerta_texto"
         android:textSize="14sp"
         android:fontFamily="@font/poppins_semibold"

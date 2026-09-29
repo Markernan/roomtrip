@@ -30,7 +30,7 @@ public class ConfiguracionHotelFragment extends Fragment {
 
         // Botón Guardar
         binding.btnGuardar.setOnClickListener(v -> {
-            Toast.makeText(requireContext(), "Configuración del hotel guardada", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.toast_config_hotel_guardada, Toast.LENGTH_SHORT).show();
             Navigation.findNavController(v).navigateUp();
         });
     }

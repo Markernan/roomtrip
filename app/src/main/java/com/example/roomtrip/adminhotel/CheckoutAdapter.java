@@ -36,9 +36,9 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
 
         b.tvInitials.setText(item.getIniciales());
         b.tvGuestName.setText(item.getNombreHuesped());
-        b.tvRoomAndTime.setText("Hab. " + item.getHabitacion() + " • " + item.getHoraLimite());
+        b.tvRoomAndTime.setText(context.getString(R.string.adapter_hab_y_hora, item.getHabitacion(), item.getHoraLimite()));
 
-        b.tvStatus.setText("• " + item.getEstado().getEtiqueta());
+        b.tvStatus.setText(context.getString(R.string.adapter_estado, item.getEstado().getEtiqueta()));
         if (item.getEstado().estaProcesado()) {
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
             b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
@@ -49,13 +49,13 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
 
         if (item.getMonto() > 0) {
             b.tvPrice.setVisibility(View.VISIBLE);
-            b.tvPrice.setText("S/ " + (int) item.getMonto());
+            b.tvPrice.setText(context.getString(R.string.adapter_monto_entero, (int) item.getMonto()));
         } else {
             b.tvPrice.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Checkout de " + item.getNombreHuesped() + " (Hab. " + item.getHabitacion() + ")", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.toast_checkout_detalle, item.getNombreHuesped(), item.getHabitacion()), Toast.LENGTH_SHORT).show()
         );
     }
 

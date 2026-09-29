@@ -79,6 +79,7 @@ Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `In
 ## 📐 5. Reglas de Desarrollo e Interfaz (Guía para la IA)
 
 1. **ViewBinding:** Siempre preferir el uso de ViewBinding sobre `findViewById`. Nunca buscar vistas por nombre con `getIdentifier()`. Hoy lo usan casi todo el admin de hotel, el flujo de pedidos del taxista y Registrar hotel; cliente y superadmin siguen con `findViewById` y se migran de forma progresiva.
+   * **Quién migra qué:** cada integrante migra los layouts de su propio módulo (cliente, superadmin), tanto a ViewBinding como a `strings.xml`.
 2. **Compatibilidad:** Todos los componentes UI deben usar atributos de `colors.xml` y `themes.xml` para mantener coherencia estética.
 3. **Estados:** usar los `enum` de `data/model/` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`), nunca textos sueltos ("En Curso", "Activo"). El nombre del valor es el que se guarda y el que viaja por la API; el texto para el usuario sale de `getEtiqueta()`.
 4. **Datos de prueba:** agregarlos en `MockData`, no dentro de una Activity o Fragment.
@@ -87,7 +88,8 @@ Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `In
 7. **Control de Versiones (Git):**
    * **Archivos ignorados:** `local.properties`, `.gradle/`, `.idea/` y `build/` están excluidos en `.gitignore`.
    * Todo PR debe pasar el CI (GitHub Actions: pruebas unitarias, compilación y lint).
-8. **Uso de IA:** declararlo en `docs/declaracion-ia.md` (exigencia del sílabo).
+8. **Textos:** todo texto visible va en `res/values/strings.xml` (con `tools:text` en el layout si se quiere previsualizar), no fijo en el XML ni en Java. Ya está así en admin de hotel y taxista; cliente y superadmin (~250 textos fijos) los migra su dueño. Los textos con datos usan placeholders (`%1$s`, `%1$.2f`).
+9. **Uso de IA:** declararlo en `docs/declaracion-ia.md` (exigencia del sílabo).
 
 ---
 

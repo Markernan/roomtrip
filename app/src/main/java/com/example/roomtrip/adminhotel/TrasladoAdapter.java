@@ -34,13 +34,13 @@ public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHo
         Traslado item = listaTraslados.get(position);
         ItemTrasladoCardBinding b = holder.binding;
 
-        b.tvGuestName.setText(item.getNombreHuesped() + " · Hab. " + item.getHabitacion());
+        b.tvGuestName.setText(context.getString(R.string.adapter_huesped_hab, item.getNombreHuesped(), item.getHabitacion()));
         b.tvRoute.setText(item.getRuta());
-        b.tvDriverAndPickup.setText(item.getInfoConductor() + " • Hora: " + item.getHoraPickup());
-        b.tvPrice.setText("S/ " + (int) item.getPrecio());
+        b.tvDriverAndPickup.setText(context.getString(R.string.adapter_conductor_hora, item.getInfoConductor(), item.getHoraPickup()));
+        b.tvPrice.setText(context.getString(R.string.adapter_monto_entero, (int) item.getPrecio()));
 
         // Estilizado dinámico según el estado
-        b.tvStatus.setText("• " + item.getEstado().getEtiqueta());
+        b.tvStatus.setText(context.getString(R.string.adapter_estado, item.getEstado().getEtiqueta()));
         if (item.getEstado() == EstadoServicioTaxi.SOLICITADO) {
             // Aún sin conductor: se ve como pendiente
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
@@ -51,7 +51,7 @@ public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHo
         }
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Traslado de " + item.getNombreHuesped() + " (" + item.getEstado().getEtiqueta() + ")", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.toast_traslado_detalle, item.getNombreHuesped(), item.getEstado().getEtiqueta()), Toast.LENGTH_SHORT).show()
         );
     }
 

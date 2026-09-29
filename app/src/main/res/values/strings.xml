@@ -29,4 +29,200 @@
     <string name="en_camino_rating">★ %1$.1f · Pasajero</string>
     <string name="en_camino_recojo">Recojo: %1$s</string>
     <string name="en_camino_tiempo">Tiempo estimado al encuentro: %1$d min</string>
+
+    <!-- Textos que arman los adapters con datos (admin de hotel) -->
+    <string name="adapter_huesped_hab">%1$s · Hab. %2$s</string>
+    <string name="adapter_estado">• %1$s</string>
+    <string name="adapter_monto_entero">S/ %1$d</string>
+    <string name="adapter_monto_decimales">S/ %1$.2f</string>
+    <string name="adapter_hab_y_hora">Hab. %1$s • %2$s</string>
+    <string name="adapter_conductor_hora">%1$s • Hora: %2$s</string>
+    <string name="adapter_valoracion_meta">%1$s • %2$s</string>
+    <string name="habitacion_capacidad">Capacidad: %1$s</string>
+    <string name="habitacion_precio_noche">Precio: S/ %1$.2f por noche</string>
+    <string name="servicio_estado_disponible">• Disponible</string>
+    <string name="servicio_estado_agotado">• Agotado</string>
+
+    <!-- Avisos (Toast) del admin de hotel y del taxista -->
+    <string name="toast_chat_abriendo">Abriendo chat con %1$s</string>
+    <string name="toast_checkout_detalle">Checkout de %1$s (Hab. %2$s)</string>
+    <string name="toast_habitacion_detalle">Detalle de: %1$s</string>
+    <string name="toast_servicio_detalle">Servicio: %1$s (S/ %2$.2f)</string>
+    <string name="toast_traslado_detalle">Traslado de %1$s (%2$s)</string>
+    <string name="toast_config_hotel_guardada">Configuración del hotel guardada</string>
+    <string name="toast_inventario_agregar">Agregar nuevo elemento</string>
+    <string name="toast_perfil_taxista_foto_vehiculo">Opción para cambiar foto del vehículo</string>
+    <string name="toast_perfil_taxista_foto_perfil">Opción para cambiar foto de perfil</string>
+    <string name="toast_perfil_taxista_guardado">Cambios guardados correctamente</string>
+
+    <!-- Textos fijos extraídos de los layouts del admin de hotel y del taxista -->
+    <!-- inicio -->
+    <string name="inicio_hotel_miraflores">Hotel Miraflores</string>
+    <string name="inicio_av_larco_245_lima">Av. Larco 245, Lima</string>
+    <string name="inicio_n3">3</string>
+    <string name="inicio_tu_hotel_aun_no_es">Tu hotel aún no es visible para los clientes</string>
+    <string name="inicio_completar_configuracion">Completar configuración</string>
+    <string name="inicio_checkouts_pendientes_hoy">Checkouts pendientes hoy</string>
+    <string name="inicio_n2">2</string>
+    <string name="inicio_maria_gonzalez">María González</string>
+    <string name="inicio_hab_204">Hab. 204</string>
+    <string name="inicio_n11_00_am">11:00 AM</string>
+    <string name="inicio_carlos_ruiz">Carlos Ruiz</string>
+    <string name="inicio_hab_308">Hab. 308</string>
+    <string name="inicio_n12_00_pm">12:00 PM</string>
+    <string name="inicio_n8_12">8/12</string>
+    <string name="inicio_ocupacion">Ocupación</string>
+    <string name="inicio_n5">5</string>
+    <string name="inicio_mensajes">Mensajes</string>
+    <string name="inicio_s_12_450">S/12,450</string>
+    <string name="inicio_ingresos">Ingresos</string>
+    <string name="inicio_accesos_rapidos">Accesos rápidos</string>
+    <string name="inicio_traslados_en_curso">Traslados en curso</string>
+    <string name="inicio_checkout">Checkout</string>
+    <string name="inicio_editar_hotel">Editar hotel</string>
+    <string name="inicio_valoraciones">Valoraciones</string>
+    <!-- config_hotel -->
+    <string name="config_hotel_configuracion_del_hotel">Configuración del Hotel</string>
+    <string name="config_hotel_fotos_del_hotel">Fotos del hotel.</string>
+    <string name="config_hotel_fotos_cargadas">"Fotos cargadas: "</string>
+    <string name="config_hotel_n2_4">2/4</string>
+    <string name="config_hotel_agregar_foto">Agregar foto</string>
+    <string name="config_hotel_ubicacion">Ubicación.</string>
+    <string name="config_hotel_av_larco_245_lima">Av. Larco 245, Lima</string>
+    <string name="config_hotel_lugares_historicos_cercanos">Lugares históricos cercanos.</string>
+    <string name="config_hotel_huaca_pucllana">Huaca Pucllana</string>
+    <string name="config_hotel_miraflores_cliffside">Miraflores Cliffside</string>
+    <string name="config_hotel_museo_de_la_nacion">Museo de la Nación</string>
+    <string name="config_hotel_agregar_lugar">+ Agregar lugar</string>
+    <string name="config_hotel_habitaciones">Habitaciones.</string>
+    <string name="config_hotel_n0_habitaciones_registradas">0 habitaciones registradas</string>
+    <string name="config_hotel_anadir_habitacion">+ Añadir habitación</string>
+    <string name="config_hotel_guardar_y_continuar">Guardar y continuar</string>
+    <string name="config_hotel_se_necesitan_4_fotos_y">Se necesitan 4 fotos y 1 habitación como mínimo</string>
+    <!-- checkout_hab -->
+    <string name="checkout_hab_checkout_habitacion_302">Checkout - Habitación 302</string>
+    <string name="checkout_hab_checkout_pendiente">CHECKOUT PENDIENTE</string>
+    <string name="checkout_hab_juan_perez">Juan Pérez</string>
+    <string name="checkout_hab_hoy_11_00_am">Hoy 11:00 AM</string>
+    <string name="checkout_hab_resumen_de_la_estadia">Resumen de la estadía</string>
+    <string name="checkout_hab_entrada_12_oct_salida_15">Entrada: 12 Oct • Salida: 15 Oct</string>
+    <string name="checkout_hab_alojamiento_3_noches">Alojamiento (3 noches)</string>
+    <string name="checkout_hab_s_450_00">S/ 450.00</string>
+    <string name="checkout_hab_desayuno_buffet">Desayuno buffet</string>
+    <string name="checkout_hab_s_60_00">S/ 60.00</string>
+    <string name="checkout_hab_wifi_gratuito">Wifi (gratuito)</string>
+    <string name="checkout_hab_s_0_00">S/ 0.00</string>
+    <string name="checkout_hab_total_acumulado">Total acumulado</string>
+    <string name="checkout_hab_s_510_00">S/ 510.00</string>
+    <string name="checkout_hab_cobros_adicionales_por_danos">Cobros adicionales por daños</string>
+    <string name="checkout_hab_televisor_danado">Televisor dañado</string>
+    <string name="checkout_hab_s_150_00">S/ 150.00</string>
+    <string name="checkout_hab_agregar_otro_cargo">+ Agregar otro cargo</string>
+    <string name="checkout_hab_procesar_transaccion">Procesar Transacción</string>
+    <!-- reportes -->
+    <string name="reportes_reportes_financieros">Reportes Financieros</string>
+    <string name="reportes_diario">Diario</string>
+    <string name="reportes_mensual">Mensual</string>
+    <string name="reportes_anual">Anual</string>
+    <string name="reportes_ingreso_total_del_periodo">INGRESO TOTAL DEL PERIODO</string>
+    <string name="reportes_s_12_450_00">S/ 12,450.00</string>
+    <string name="reportes_n14_2" formatted="false">+14.2% ★</string>
+    <string name="reportes_ingresos_por_servicios_adicional">Ingresos por servicios adicionales</string>
+    <string name="reportes_ordenado_de_menor_a_mayor">Ordenado de menor a mayor ingreso</string>
+    <string name="reportes_valoraciones_recientes">Valoraciones recientes</string>
+    <string name="reportes_n4_6">4.6 ★</string>
+    <!-- checkouts -->
+    <string name="checkouts_atras">Atrás</string>
+    <string name="checkouts_checkouts">Checkouts</string>
+    <string name="checkouts_todos">Todos</string>
+    <string name="checkouts_pendientes">Pendientes</string>
+    <string name="checkouts_procesados">Procesados</string>
+    <string name="checkouts_buscar_por_huesped_o_habitacion">Buscar por huésped o habitación</string>
+    <!-- valoraciones -->
+    <string name="valoraciones_atras">Atrás</string>
+    <string name="valoraciones_valoraciones">Valoraciones</string>
+    <string name="valoraciones_n4_6">4.6</string>
+    <string name="valoraciones_texto">★★★★★</string>
+    <string name="valoraciones_basado_en_48_valoraciones">Basado en 48 valoraciones</string>
+    <string name="valoraciones_resenas_recientes">Reseñas recientes</string>
+    <!-- chats -->
+    <string name="chats_chats_con_huespedes">Chats con Huéspedes</string>
+    <string name="chats_buscar_por_nombre_o_habitacion">Buscar por nombre o habitación</string>
+    <string name="chats_no_tienes_conversaciones_activas">No tienes conversaciones activas</string>
+    <string name="chats_el_chat_se_habilita_cuando">El chat se habilita cuando un huésped tiene\nuna reserva confirmada y en curso.</string>
+    <string name="chats_vista_previa_de_estado_vacio">(VISTA PREVIA DE ESTADO VACÍO)</string>
+    <!-- notificaciones -->
+    <string name="notificaciones_atras">Atrás</string>
+    <string name="notificaciones_notificaciones">Notificaciones</string>
+    <string name="notificaciones_sin_notificaciones_por_ahora">Sin notificaciones por ahora</string>
+    <string name="notificaciones_aqui_apareceran_las_alertas_de">Aquí aparecerán las alertas de nuevas reservas,\npagos confirmados y cancelaciones.</string>
+    <!-- traslados -->
+    <string name="traslados_atras">Atrás</string>
+    <string name="traslados_traslados_en_curso">Traslados en Curso</string>
+    <string name="traslados_no_hay_traslados_activos">No hay traslados activos</string>
+    <string name="traslados_las_solicitudes_de_taxi_o">Las solicitudes de taxi o transporte privado\nsolicitadas por los huéspedes aparecerán aquí.</string>
+    <!-- inventario -->
+    <string name="inventario_inventario">Inventario</string>
+    <string name="inventario_habitaciones">Habitaciones</string>
+    <string name="inventario_servicios">Servicios</string>
+    <string name="inventario_agregar_habitacion">Agregar Habitación</string>
+    <!-- dialogo_perfil -->
+    <string name="dialogo_perfil_perfil_de_usuario">Perfil de Usuario</string>
+    <string name="dialogo_perfil_foto_de_perfil">Foto de perfil</string>
+    <string name="dialogo_perfil_cambiar_foto">Cambiar foto</string>
+    <string name="dialogo_perfil_toca_la_imagen_para_cambiarla">Toca la imagen para cambiarla</string>
+    <string name="dialogo_perfil_nombre_completo">Nombre completo</string>
+    <string name="dialogo_perfil_guardar_cambios">Guardar Cambios</string>
+    <string name="dialogo_perfil_cerrar_sesion">Cerrar sesión</string>
+    <!-- perfil_taxista -->
+    <string name="perfil_taxista_perfil_de_taxista">Perfil de Taxista</string>
+    <string name="perfil_taxista_informacion_personal">Información Personal</string>
+    <string name="perfil_taxista_nombres">Nombres</string>
+    <string name="perfil_taxista_apellidos">Apellidos</string>
+    <string name="perfil_taxista_tipo_de_documento_dni_pasaporte">Tipo de Documento (DNI, Pasaporte, C.E.)</string>
+    <string name="perfil_taxista_numero_de_documento">Número de Documento</string>
+    <string name="perfil_taxista_fecha_de_nacimiento_dd_mm">Fecha de nacimiento (DD/MM/AAAA)</string>
+    <string name="perfil_taxista_correo_electronico">Correo electrónico</string>
+    <string name="perfil_taxista_telefono">Teléfono</string>
+    <string name="perfil_taxista_domicilio">Domicilio</string>
+    <string name="perfil_taxista_datos_del_vehiculo">Datos del Vehículo</string>
+    <string name="perfil_taxista_placa_del_vehiculo">Placa del vehículo</string>
+    <string name="perfil_taxista_foto_del_auto">Foto del Auto</string>
+    <string name="perfil_taxista_seleccionar_foto_del_vehiculo">Seleccionar foto del vehículo</string>
+    <string name="perfil_taxista_guardar_cambios">Guardar cambios</string>
+    <string name="perfil_taxista_cerrar_sesion">Cerrar sesión</string>
+    <!-- en_camino -->
+    <string name="en_camino_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta hacia el pasajero)</string>
+    <string name="en_camino_en_camino_al_punto_de">En camino al punto de recojo</string>
+    <string name="en_camino_carlos_mendoza">Carlos Mendoza</string>
+    <string name="en_camino_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
+    <string name="en_camino_recojo_hotel_la_dolce_vita">Recojo: Hotel La Dolce Vita</string>
+    <string name="en_camino_destino_aeropuerto_jorge_chavez">Destino: Aeropuerto Jorge Chávez</string>
+    <string name="en_camino_tiempo_estimado_al_encuentro_8">Tiempo estimado al encuentro: 8 min</string>
+    <string name="en_camino_llegue_al_encuentro">Llegué al encuentro</string>
+    <!-- en_traslado -->
+    <string name="en_traslado_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta al destino del pasajero)</string>
+    <string name="en_traslado_en_traslado">En traslado</string>
+    <string name="en_traslado_carlos_mendoza">Carlos Mendoza</string>
+    <string name="en_traslado_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
+    <string name="en_traslado_origen_hotel_la_dolce_vita">Origen: Hotel La Dolce Vita</string>
+    <string name="en_traslado_destino_aeropuerto_jorge_chavez">Destino: Aeropuerto Jorge Chávez</string>
+    <string name="en_traslado_tiempo_estimado_de_llegada_22">Tiempo estimado de llegada: 22 min</string>
+    <string name="en_traslado_escanear">Escanear</string>
+    <!-- escaneo -->
+    <string name="escaneo_escanea_el_codigo_qr_del">Escanea el código QR del pasajero</string>
+    <string name="escaneo_area_de_camara">[ Área de cámara ]</string>
+    <string name="escaneo_escanear_codigo_qr">Escanear Código QR</string>
+    <!-- finalizado -->
+    <string name="finalizado_trayecto_finalizado">¡Trayecto Finalizado!</string>
+    <string name="finalizado_recuerda_verificar_que_el_pasaje">Recuerda verificar que el pasajero no haya olvidado sus pertenencias en el vehículo.</string>
+    <string name="finalizado_volver_a_buscar_clientes">Volver a buscar clientes</string>
+    <!-- nav_taxista -->
+    <string name="nav_taxista_trabajo">Trabajo</string>
+    <string name="nav_taxista_perfil">Perfil</string>
+    <!-- resena_item -->
+    <string name="resena_item_respondido_por_el_hotel">✓ Respondido por el hotel</string>
+    <string name="resena_item_responder">Responder</string>
+    <!-- habitacion_item -->
+    <string name="habitacion_item_editar">Editar</string>
 </resources>

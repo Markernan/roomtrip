@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Chat;
 import com.example.roomtrip.databinding.ItemChatCardBinding;
 import java.util.List;
@@ -31,7 +32,8 @@ public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = listaChats.get(position);
 
-        holder.binding.tvGuestName.setText(chat.getNombreHuesped() + " · Hab. " + chat.getHabitacion());
+        holder.binding.tvGuestName.setText(
+                context.getString(R.string.adapter_huesped_hab, chat.getNombreHuesped(), chat.getHabitacion()));
         holder.binding.tvLastMessage.setText(chat.getUltimoMensaje());
         holder.binding.tvTime.setText(chat.getHora());
 
@@ -39,7 +41,7 @@ public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.View
         holder.binding.dotUnread.setVisibility(chat.getMensajesSinLeer() > 0 ? View.VISIBLE : View.GONE);
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Abriendo chat con " + chat.getNombreHuesped(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, context.getString(R.string.toast_chat_abriendo, chat.getNombreHuesped()), Toast.LENGTH_SHORT).show()
         );
     }
 

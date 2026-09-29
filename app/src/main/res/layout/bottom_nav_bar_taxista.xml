@@ -30,7 +30,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Trabajo"
+            android:text="@string/nav_taxista_trabajo"
             android:textColor="@color/turquesa"
             android:textSize="12sp"
             android:fontFamily="@font/poppins_medium" />
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Perfil"
+            android:text="@string/nav_taxista_perfil"
             android:textColor="@color/texto_secundario"
             android:textSize="12sp"
             android:fontFamily="@font/poppins_medium" />

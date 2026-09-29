@@ -34,15 +34,15 @@ public class PerfilTaxistaActivity extends AppCompatActivity {
         tvCerrarSesion = findViewById(R.id.tvCerrarSesion);
 
         btnSubirFotoAuto.setOnClickListener(v -> {
-            Toast.makeText(this, "Opción para cambiar foto del vehículo", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_perfil_taxista_foto_vehiculo, Toast.LENGTH_SHORT).show();
         });
 
         ivFotoPerfil.setOnClickListener(v -> {
-            Toast.makeText(this, "Opción para cambiar foto de perfil", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_perfil_taxista_foto_perfil, Toast.LENGTH_SHORT).show();
         });
 
         btnGuardarCambios.setOnClickListener(v -> {
-            Toast.makeText(this, "Cambios guardados correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.toast_perfil_taxista_guardado, Toast.LENGTH_SHORT).show();
             finish();
         });
 

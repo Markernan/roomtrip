@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:text="Chats con Huéspedes"
+        android:text="@string/chats_chats_con_huespedes"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -31,7 +31,7 @@
         android:background="@drawable/bg_search_input"
         android:drawableStart="@android:drawable/ic_menu_search"
         android:drawablePadding="12dp"
-        android:hint="Buscar por nombre o habitación"
+        android:hint="@string/chats_buscar_por_nombre_o_habitacion"
         android:inputType="text"
         android:paddingHorizontal="16dp"
         android:textColorHint="#94A3B8"
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="No tienes conversaciones activas"
+                    android:text="@string/chats_no_tienes_conversaciones_activas"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="El chat se habilita cuando un huésped tiene\nuna reserva confirmada y en curso."
+                    android:text="@string/chats_el_chat_se_habilita_cuando"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
 
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
-                    android:text="(VISTA PREVIA DE ESTADO VACÍO)"
+                    android:text="@string/chats_vista_previa_de_estado_vacio"
                     android:textColor="#CBD5E1"
                     android:textSize="11sp"
                     android:textStyle="bold" />

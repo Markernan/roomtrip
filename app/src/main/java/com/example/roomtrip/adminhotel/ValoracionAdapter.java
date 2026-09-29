@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Valoracion;
 import com.example.roomtrip.databinding.ItemFullReviewCardBinding;
 import java.util.List;
@@ -30,7 +31,8 @@ public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.Vi
 
         b.tvAvatarInitials.setText(item.getInicialesUsuario());
         b.tvReviewerName.setText(item.getUsuario());
-        b.tvReviewMeta.setText(item.getDetalleHabitacion() + " • " + item.getFecha());
+        b.tvReviewMeta.setText(holder.itemView.getContext().getString(
+                R.string.adapter_valoracion_meta, item.getDetalleHabitacion(), item.getFecha()));
         b.tvStars.setText(estrellas(item.getCalificacion()));
         b.tvCommentText.setText(item.getComentario());
     }

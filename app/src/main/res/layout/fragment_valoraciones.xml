@@ -12,7 +12,7 @@
         android:layout_height="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="20dp"
-        android:contentDescription="Atrás"
+        android:contentDescription="@string/valoraciones_atras"
         android:src="@android:drawable/ic_menu_revert"
         app:layout_constraintBottom_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
-        android:text="Valoraciones"
+        android:text="@string/valoraciones_valoraciones"
         android:textColor="@color/text_dark"
         android:textSize="22sp"
         android:textStyle="bold"
@@ -66,7 +66,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="4.6"
+                        android:text="@string/valoraciones_n4_6"
                         android:textColor="@color/text_dark"
                         android:textSize="36sp"
                         android:textStyle="bold" />
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
-                        android:text="★★★★★"
+                        android:text="@string/valoraciones_texto"
                         android:textColor="#F59E0B"
                         android:textSize="18sp" />
 
@@ -83,7 +83,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Basado en 48 valoraciones"
+                        android:text="@string/valoraciones_basado_en_48_valoraciones"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp" />
 
@@ -108,7 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="Reseñas recientes"
+                android:text="@string/valoraciones_resenas_recientes"
                 android:textColor="@color/text_dark"
                 android:textSize="16sp"
                 android:textStyle="bold" />

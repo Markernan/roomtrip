@@ -19,14 +19,14 @@
             android:id="@+id/btnBack"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:contentDescription="Atrás"
+            android:contentDescription="@string/notificaciones_atras"
             android:src="@drawable/ic_back" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:text="Notificaciones"
+            android:text="@string/notificaciones_notificaciones"
             android:textColor="@color/text_dark"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Sin notificaciones por ahora"
+                    android:text="@string/notificaciones_sin_notificaciones_por_ahora"
                     android:textColor="@color/text_dark"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center"
-                    android:text="Aquí aparecerán las alertas de nuevas reservas,\npagos confirmados y cancelaciones."
+                    android:text="@string/notificaciones_aqui_apareceran_las_alertas_de"
                     android:textColor="@color/text_secondary"
                     android:textSize="13sp" />
             </LinearLayout>
