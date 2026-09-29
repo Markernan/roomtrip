@@ -89,7 +89,7 @@ completo de punta a punta, por eso la columna "Estado" de las tablas de arriba s
 | Sección | Pantallas implementadas (con datos de prueba) | Falta |
 |---|---|---|
 | Cliente | Registro, inicio, búsqueda, detalle de hotel, pago, reserva exitosa, mis reservas, checkout con valoración, búsqueda y seguimiento de taxi, código QR, chat, perfil | Lógica y persistencia. "Mis reservas" todavía usa objetos `Hotel`: falta un modelo `Reserva` |
-| Admin de hotel | Inicio, inventario (habitaciones y servicios), chats, notificaciones, configuración del hotel, checkouts, traslados en curso, valoraciones, reportes y checkout de habitación | Reportes y checkout de habitación son un layout estático sin lógica |
+| Admin de hotel | Inicio, inventario (habitaciones y servicios), chats, notificaciones, configuración del hotel, checkouts, traslados en curso, valoraciones, reportes y checkout de habitación con cobros adicionales | Los reportes muestran datos de prueba: el de servicios adicionales ya se ordena de menor a mayor. El checkout valida el cobro por daños (monto, motivo y observación obligatorios) pero no lo guarda: falta la persistencia |
 | Taxista | Lista de pedidos, en camino, en traslado, escaneo de QR (mockup), finalizado y perfil | Escaneo real del QR, ubicación en vivo y consumo de la API |
 | Superadmin | Panel, hoteles, registrar hotel, detalle de hotel, usuarios, detalle de usuario, taxistas, reportes, detalle de reporte y auditoría | Lógica y persistencia |
 | Servicio web de taxistas | Implementado (autoregistro, aprobación, disponibilidad, calificaciones, API REST y portal) en la rama `web-taxis` | Ver `taxi-service/README.md` |

@@ -61,7 +61,7 @@ La aplicación **RoomTrip** tiene un único login (`login/LoginActivity`): se el
 * **Comunicación:** `ChatActivity` (chat privado cliente–hotel, disponible solo durante la reserva activa).
 
 ### B. Administrador de hotel (`adminhotel/`)
-Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `InicioFragment`, `InventarioFragment` (habitaciones y servicios), `ChatsFragment`, `NotificacionesFragment`, `ConfiguracionHotelFragment`, `CheckoutsFragment`, `TrasladosEnCursoFragment`, `ValoracionesFragment`. `ReportesFragment` y `CheckoutHabitacionFragment` solo muestran su layout estático, sin lógica.
+Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `InicioFragment`, `InventarioFragment` (habitaciones y servicios), `ChatsFragment`, `NotificacionesFragment`, `ConfiguracionHotelFragment`, `CheckoutsFragment`, `TrasladosEnCursoFragment`, `ValoracionesFragment`. `ReportesFragment` muestra los ingresos por servicios adicionales ordenados de menor a mayor (`IngresoServicio.ordenarDeMenorAMayor`) y `CheckoutHabitacionFragment` valida el cobro adicional por daños con `CobroAdicional` (RN-012). Ambos siguen con datos de prueba.
 
 ### C. Taxista (`taxista/`)
 `SolicitadoActivity` (lista de pedidos), `EnCaminoActivity`, `EnTrasladoActivity`, `EscaneoActivity` (mockup del escaneo de QR), `FinalizadoActivity`, `PerfilTaxistaActivity`. El taxista se registra en el servicio web, no en la app.

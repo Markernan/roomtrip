@@ -270,15 +270,18 @@
 
                 </LinearLayout>
 
+                <!-- Observación del daño. Sin texto precargado: es obligatoria (RN-012). -->
                 <EditText
+                    android:id="@+id/etDamageObservation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_input_field"
                     android:gravity="top|start"
+                    android:hint="@string/checkout_hint_observacion"
+                    android:inputType="textMultiLine|textCapSentences"
                     android:minLines="2"
                     android:padding="12dp"
-                    android:text="Pantalla con fisura en esquina inferior derecha. Requiere reemplazo."
                     android:textColor="@color/text_gray"
                     android:textSize="13sp" />
 
@@ -295,6 +298,7 @@
 
         <!-- Procesar transacción -->
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProcesarTransaccion"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
