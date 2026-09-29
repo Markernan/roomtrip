@@ -38,7 +38,7 @@ public class AdminHotelAdapter extends RecyclerView.Adapter<AdminHotelAdapter.Ho
         holder.tvNombre.setText(hotel.getNombre());
         holder.tvUbicacion.setText(hotel.getUbicacion());
         holder.tvContacto.setText(hotel.getContacto());
-        holder.tvEstado.setText(hotel.getEstado());
+        holder.tvEstado.setText(hotel.getEstado().getEtiqueta());
 
         holder.itemView.setOnClickListener(v ->
                 Toast.makeText(context, "Gestionando: " + hotel.getNombre(), Toast.LENGTH_SHORT).show()

@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.model.EstadoCuenta;
 import com.example.roomtrip.data.model.Hotel;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
             holder.ivHotel.setImageResource(R.drawable.ic_home_pin);
         }
 
-        boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado());
+        boolean esActivo = hotel.getEstado().esActivo();
         // El listener vive en el ViewHolder (constructor). No hay que quitarlo aquí: si se hace,
         // se pierde para siempre. Ignora este setChecked() porque el switch no está presionado.
         holder.switchActivoHotel.setChecked(esActivo);
@@ -110,7 +111,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
                 // Solo cuenta el toque del usuario, no el setChecked() que hace onBindViewHolder
                 if (!buttonView.isPressed()) return;
                 if (hotel != null) {
-                    hotel.setEstado(isChecked ? "Activo" : "Inactivo");
+                    hotel.setEstado(EstadoCuenta.desde(isChecked));
                     String status = isChecked ? "activado" : "desactivado";
                     Toast.makeText(buttonView.getContext(),
                             hotel.getNombre() + " ha sido " + status,

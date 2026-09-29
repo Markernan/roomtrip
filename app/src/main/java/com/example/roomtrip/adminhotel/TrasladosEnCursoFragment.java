@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.Traslado;
 import com.example.roomtrip.databinding.FragmentTrasladosEnCursoBinding;
 
@@ -36,7 +37,7 @@ public class TrasladosEnCursoFragment extends Fragment {
                 "308",
                 "Hotel ➔ Aeropuerto Jorge Chávez",
                 "14:30 PM",
-                "En Curso",
+                EstadoServicioTaxi.EN_TRASLADO,
                 "Pedro V. (ABC-123)",
                 60.0
         ));
@@ -45,7 +46,7 @@ public class TrasladosEnCursoFragment extends Fragment {
                 "Suite 2",
                 "Terminal Cruz del Sur ➔ Hotel",
                 "15:00 PM",
-                "Pendiente",
+                EstadoServicioTaxi.SOLICITADO,
                 "Asignando conductor...",
                 45.0
         ));
@@ -54,7 +55,7 @@ public class TrasladosEnCursoFragment extends Fragment {
                 "402",
                 "Hotel ➔ Centro Histórico",
                 "16:15 PM",
-                "En Curso",
+                EstadoServicioTaxi.EN_CAMINO,
                 "Jorge M. (XYZ-987)",
                 35.0
         ));

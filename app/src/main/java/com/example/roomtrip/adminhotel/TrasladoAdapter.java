@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.Traslado;
 import com.example.roomtrip.databinding.ItemTrasladoCardBinding;
 import java.util.List;
@@ -39,17 +40,18 @@ public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHo
         b.tvPrice.setText("S/ " + (int) item.getPrecio());
 
         // Estilizado dinámico según el estado
-        b.tvStatus.setText("• " + item.getEstado());
-        if ("En Curso".equalsIgnoreCase(item.getEstado())) {
-            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
-            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
-        } else if ("Pendiente".equalsIgnoreCase(item.getEstado())) {
+        b.tvStatus.setText("• " + item.getEstado().getEtiqueta());
+        if (item.getEstado() == EstadoServicioTaxi.SOLICITADO) {
+            // Aún sin conductor: se ve como pendiente
             b.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
             b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.pill_red_text));
+        } else {
+            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
+            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
         }
 
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Traslado de " + item.getNombreHuesped() + " (" + item.getEstado() + ")", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Traslado de " + item.getNombreHuesped() + " (" + item.getEstado().getEtiqueta() + ")", Toast.LENGTH_SHORT).show()
         );
     }
 

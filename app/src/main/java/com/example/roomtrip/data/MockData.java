@@ -1,5 +1,6 @@
 package com.example.roomtrip.data;
 
+import com.example.roomtrip.data.model.EstadoCuenta;
 import com.example.roomtrip.data.model.Habitacion;
 import com.example.roomtrip.data.model.Hotel;
 import com.example.roomtrip.data.model.LogEvento;
@@ -13,10 +14,10 @@ public class MockData {
 
     public static List<Hotel> getHotelesEjemplo() {
         List<Hotel> lista = new ArrayList<>();
-        lista.add(new Hotel("Hotel Westin Lima", "San Isidro, Lima", "admin@westin.pe", "Activo"));
-        lista.add(new Hotel("JW Marriott Hotel", "Miraflores, Lima", "admin@marriott.pe", "Activo"));
-        lista.add(new Hotel("Hotel Costa del Sol", "Aeropuerto Jorge Chávez", "admin@costadelsol.pe", "Activo"));
-        lista.add(new Hotel("Hotel Aranwa Valley", "Valle Sagrado, Cusco", "admin@aranwa.pe", "Inactivo"));
+        lista.add(new Hotel("Hotel Westin Lima", "San Isidro, Lima", "admin@westin.pe", EstadoCuenta.ACTIVO));
+        lista.add(new Hotel("JW Marriott Hotel", "Miraflores, Lima", "admin@marriott.pe", EstadoCuenta.ACTIVO));
+        lista.add(new Hotel("Hotel Costa del Sol", "Aeropuerto Jorge Chávez", "admin@costadelsol.pe", EstadoCuenta.ACTIVO));
+        lista.add(new Hotel("Hotel Aranwa Valley", "Valle Sagrado, Cusco", "admin@aranwa.pe", EstadoCuenta.INACTIVO));
         return lista;
     }
 

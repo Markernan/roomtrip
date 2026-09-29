@@ -5,11 +5,11 @@ public class Traslado {
     private String habitacion;
     private String ruta;            // Ej: "Hotel ➔ Aeropuerto"
     private String horaPickup;       // Ej: "14:30 PM"
-    private String estado;           // Ej: "En Curso", "Pendiente", "Completado"
+    private EstadoServicioTaxi estado;
     private String infoConductor;   // Ej: "Pedro V. • ABC-123"
     private double precio;
 
-    public Traslado(String nombreHuesped, String habitacion, String ruta, String horaPickup, String estado, String infoConductor, double precio) {
+    public Traslado(String nombreHuesped, String habitacion, String ruta, String horaPickup, EstadoServicioTaxi estado, String infoConductor, double precio) {
         this.nombreHuesped = nombreHuesped;
         this.habitacion = habitacion;
         this.ruta = ruta;
@@ -23,7 +23,7 @@ public class Traslado {
     public String getHabitacion() { return habitacion; }
     public String getRuta() { return ruta; }
     public String getHoraPickup() { return horaPickup; }
-    public String getEstado() { return estado; }
+    public EstadoServicioTaxi getEstado() { return estado; }
     public String getInfoConductor() { return infoConductor; }
     public double getPrecio() { return precio; }
 }

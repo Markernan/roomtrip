@@ -6,7 +6,8 @@ public class Hotel implements Serializable {
     private String nombre;
     private String ubicacion;
     private String contacto;
-    private String estado;
+    // Activo por defecto: los hoteles que ve el cliente (constructor de 5 parámetros) están activos.
+    private EstadoCuenta estado = EstadoCuenta.ACTIVO;
     private String precio;
     private float calificacion;
     private int imagenResId;
@@ -17,7 +18,7 @@ public class Hotel implements Serializable {
     public Hotel() {}
 
     // 2. Constructor para ADMIN (4 parámetros)
-    public Hotel(String nombre, String ubicacion, String contacto, String estado) {
+    public Hotel(String nombre, String ubicacion, String contacto, EstadoCuenta estado) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.contacto = contacto;
@@ -42,7 +43,7 @@ public class Hotel implements Serializable {
         this.adminEmail = adminEmail;
         this.contacto = contacto;
         this.imagenResId = imagenResId;
-        this.estado = activo ? "Activo" : "Inactivo";
+        this.estado = EstadoCuenta.desde(activo);
     }
 
     // Getters y Setters
@@ -55,8 +56,8 @@ public class Hotel implements Serializable {
     public String getContacto() { return contacto; }
     public void setContacto(String contacto) { this.contacto = contacto; }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public EstadoCuenta getEstado() { return estado; }
+    public void setEstado(EstadoCuenta estado) { this.estado = estado; }
 
     public String getPrecio() { return precio; }
     public void setPrecio(String precio) { this.precio = precio; }

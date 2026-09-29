@@ -50,8 +50,8 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
             tvDireccionHotel.setText(hotel.getUbicacion());
             tvCalificacionHotel.setText(String.valueOf(hotel.getCalificacion()));
 
-            boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado()) || "ACTIVO".equalsIgnoreCase(hotel.getEstado());
-            tvEstadoHotel.setText(esActivo ? "ACTIVO" : "INACTIVO");
+            boolean esActivo = hotel.getEstado().esActivo();
+            tvEstadoHotel.setText(hotel.getEstado().name());
             tvEstadoHotel.setTextColor(esActivo ? getColor(R.color.verde_texto) : getColor(R.color.rojo_alerta_texto));
 
             String adminNombre = "Admin " + hotel.getNombre();
