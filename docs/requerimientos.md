@@ -80,15 +80,19 @@
 | RNF-08 | La persistencia de la app principal es una base de datos NoSQL |
 | RNF-09 | La app móvil no accede directamente a la base de datos del sistema de taxistas |
 
-## Estado de los mockups al 23/08/2026
+## Estado de la implementación al 29/09/2026
 
-| Sección | Cobertura | Falta |
+Todas las pantallas están implementadas en la app con navegación y datos de prueba
+(`data/MockData.java`). Como todavía no hay lógica ni persistencia (Labs 5 a 7), ningún requerimiento está
+completo de punta a punta, por eso la columna "Estado" de las tablas de arriba sigue en *Pendiente*.
+
+| Sección | Pantallas implementadas (con datos de prueba) | Falta |
 |---|---|---|
-| Cliente | ~85% | Tipo de documento y fecha de nacimiento en el registro; lugares históricos cercanos; enganchar el chat al bottom nav |
-| Admin de hotel | ~80% | Invertir el orden del reporte de servicios adicionales (menor a mayor) |
-| Taxista | ~5% | Todo salvo el login |
-| Superadmin | 0% | Todas las pantallas |
-| App web taxistas | 0% | Todas las pantallas |
+| Cliente | Registro, inicio, búsqueda, detalle de hotel, pago, reserva exitosa, mis reservas, checkout con valoración, búsqueda y seguimiento de taxi, código QR, chat, perfil | Lógica y persistencia. "Mis reservas" todavía usa objetos `Hotel`: falta un modelo `Reserva` |
+| Admin de hotel | Inicio, inventario (habitaciones y servicios), chats, notificaciones, configuración del hotel, checkouts, traslados en curso, valoraciones, reportes y checkout de habitación | Reportes y checkout de habitación son un layout estático sin lógica |
+| Taxista | Lista de pedidos, en camino, en traslado, escaneo de QR (mockup), finalizado y perfil | Escaneo real del QR, ubicación en vivo y consumo de la API |
+| Superadmin | Panel, hoteles, registrar hotel, detalle de hotel, usuarios, detalle de usuario, taxistas, reportes, detalle de reporte y auditoría | Lógica y persistencia |
+| Servicio web de taxistas | Implementado (autoregistro, aprobación, disponibilidad, calificaciones, API REST y portal) en la rama `web-taxis` | Ver `taxi-service/README.md` |
 
 ---
 

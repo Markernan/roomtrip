@@ -1,4 +1,4 @@
-# CI de la app Android: compila y corre lint en una máquina limpia de GitHub.
+# CI de la app Android: corre las pruebas unitarias, compila y corre lint en una máquina limpia de GitHub.
 # Si aquí falla, no importa que "en mi compu funcione": el PR no se debe mergear.
 name: Android CI
 
@@ -28,6 +28,9 @@ jobs:
 
       # Cachea Gradle y dependencias entre ejecuciones.
       - uses: gradle/actions/setup-gradle@v6
+
+      - name: Pruebas unitarias
+        run: ./gradlew testDebugUnitTest --stacktrace
 
       - name: Compilar (assembleDebug)
         run: ./gradlew assembleDebug --stacktrace

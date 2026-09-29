@@ -16,5 +16,6 @@
 - [ ] La rama sigue el formato `feat/<rol>-<funcionalidad>`
 - [ ] Los commits usan prefijo en español (`feat:`, `fix:`, `docs:`, `refactor:`, `chore:`)
 - [ ] Los nombres de dominio están en español y son consistentes con el enunciado
+- [ ] El CI (*Android CI*) está en verde: pruebas unitarias, compilación y lint
 - [ ] No se subieron `google-services.json`, `local.properties`, keystores ni `.env`
 - [ ] Si se usó IA generativa, está registrado en `docs/declaracion-ia.md`
