@@ -60,7 +60,7 @@ La aplicación **RoomTrip** abarca los siguientes módulos funcionales:
 * **Comunicación:** `ActivityChat` (chat privado cliente–hotel, disponible solo durante la reserva activa).
 
 ### C. Módulo SuperAdmin (Administración Global)
-* **Autenticación:** `ActivitySuperadminLogin`.
+* **Acceso:** login único de la app (`login/LoginActivity`), eligiendo el rol SuperAdmin.
 * **Dashboard y Métricas:** `ActivitySuperadminDashboard`, `ActivitySuperadminReportes`, `ActivitySuperadminAuditoria`.
 * **Gestión de Entidades:**
   * **Hoteles:** `ActivitySuperadminHoteles`, `ActivitySuperadminRegistrarHotel`, `ActivitySuperadminDetalleHotel`, `ActivitySuperadminDetalleHotelReporte`.

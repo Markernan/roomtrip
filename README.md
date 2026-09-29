@@ -57,7 +57,7 @@ Decisiones de diseño ya tomadas:
 
 ```
 roomtrip/
-├── android-app/          App móvil nativa Java
+├── app/                  App móvil nativa Java (módulo Android)
 ├── taxi-service/         Web + API REST de taxistas
 ├── docs/                 Arquitectura, manuales, OPEX, declaración de IA
 └── README.md
@@ -103,9 +103,9 @@ Al aceptar el pedido pasa automáticamente a `ASIGNADO`.
 
 ### App móvil
 
-1. Abrir la carpeta `android-app/` en Android Studio.
+1. Abrir la carpeta raíz del repositorio (`roomtrip/`) en Android Studio.
 2. Descargar `google-services.json` desde la consola de Firebase y colocarlo en
-   `android-app/app/`. **Este archivo no está versionado.**
+   `app/`. **Este archivo no está versionado.**
 3. Sincronizar Gradle y ejecutar sobre un dispositivo o emulador con API 34 o superior.
 
 ### taxi-service

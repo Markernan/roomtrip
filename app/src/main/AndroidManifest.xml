@@ -120,10 +120,6 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".superadmin.LoginActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".superadmin.RegistrarHotelActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
@@ -142,15 +138,7 @@
 
         <!-- Actividades del Módulo Taxista -->
         <activity
-            android:name=".taxista.LoginActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".taxista.SolicitadoActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".taxista.RegistroActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity

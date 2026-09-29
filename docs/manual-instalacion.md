@@ -19,12 +19,12 @@
 git clone https://github.com/<usuario>/roomtrip.git
 ```
 
-## 3. App móvil (`android-app/`)
+## 3. App móvil (`app/`)
 
-1. Abrir la carpeta `android-app/` en Android Studio.
+1. Abrir la carpeta raíz del repositorio (`roomtrip/`) en Android Studio.
 2. Descargar `google-services.json` desde la consola de Firebase
    (*Configuración del proyecto → Tus apps → Android*) y colocarlo en
-   `android-app/app/`. **No está versionado: cada integrante lo descarga.**
+   `app/`. **No está versionado: cada integrante lo descarga.**
 3. Sincronizar Gradle.
 4. Ejecutar sobre un dispositivo o emulador con **API 34 o superior**.
 

@@ -3,53 +3,38 @@ package com.example.roomtrip.superadmin;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Spinner;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.textfield.TextInputEditText;
 import com.example.roomtrip.R;
+import com.example.roomtrip.databinding.ActivitySuperadminRegistrarHotelBinding;
 
 public class RegistrarHotelActivity extends AppCompatActivity {
 
-    private TextInputEditText etNombreHotel, etDireccionHotel;
-    private Spinner spinnerAdmin;
-    private Button btnGuardarHotel;
-    private ImageButton btnBack;
-    private BottomNavigationView bottomNav;
+    private ActivitySuperadminRegistrarHotelBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_superadmin_registrar_hotel);
+        binding = ActivitySuperadminRegistrarHotelBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
-        // Inicializar vistas con los IDs EXACTOS del XML
-        etNombreHotel = findViewById(R.id.etNombreHotel);
-        etDireccionHotel = findViewById(R.id.etDireccion);
-        spinnerAdmin = findViewById(R.id.spinnerAdmin);
-        btnGuardarHotel = findViewById(R.id.btnGuardarHotel);
-        btnBack = findViewById(R.id.btnBack);
-        bottomNav = findViewById(R.id.bottomNav);
-
-        // Configurar Dropdown / Spinner de Administradores
+        // Configurar Dropdown de Administradores
         String[] admins = {"Juan Pérez", "María García", "Carlos López", "Ana Martínez"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, admins);
-        spinnerAdmin.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, admins);
+        binding.autoCompleteAdmin.setAdapter(adapter);
 
         // Botón Volver
-        btnBack.setOnClickListener(v -> finish());
+        binding.btnBack.setOnClickListener(v -> finish());
 
         // Acción Guardar
-        btnGuardarHotel.setOnClickListener(v -> validarYRegistrar());
+        binding.btnRegistrarHotel.setOnClickListener(v -> validarYRegistrar());
 
         setupBottomNavigation();
     }
 
     private void validarYRegistrar() {
-        String nombre = etNombreHotel.getText() != null ? etNombreHotel.getText().toString().trim() : "";
-        String direccion = etDireccionHotel.getText() != null ? etDireccionHotel.getText().toString().trim() : "";
+        String nombre = binding.etNombreHotel.getText() != null ? binding.etNombreHotel.getText().toString().trim() : "";
+        String direccion = binding.etDireccionHotel.getText() != null ? binding.etDireccionHotel.getText().toString().trim() : "";
 
         if (nombre.isEmpty() || direccion.isEmpty()) {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
@@ -65,8 +50,8 @@ public class RegistrarHotelActivity extends AppCompatActivity {
     }
 
     private void setupBottomNavigation() {
-        bottomNav.setSelectedItemId(R.id.nav_hoteles);
-        bottomNav.setOnItemSelectedListener(item -> {
+        binding.bottomNav.setSelectedItemId(R.id.nav_hoteles);
+        binding.bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_inicio) {
                 startActivity(new Intent(this, DashboardActivity.class));

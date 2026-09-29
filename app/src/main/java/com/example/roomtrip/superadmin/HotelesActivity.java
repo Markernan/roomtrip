@@ -72,6 +72,17 @@ public class HotelesActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
+    /**
+     * RegistrarHotelActivity nos abre con CLEAR_TOP | SINGLE_TOP: como esta pantalla ya está en la
+     * pila, Android la reutiliza y entrega el Intent aquí en vez de llamar a onCreate.
+     */
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        verificarRegistroExitoso();
+    }
+
     private void verificarRegistroExitoso() {
         if (getIntent().getBooleanExtra("REGISTRO_EXITOSO", false)) {
             Snackbar.make(rvHoteles, "Hotel registrado con éxito", Snackbar.LENGTH_LONG)
