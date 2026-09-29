@@ -4,13 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Checkout;
+import com.example.roomtrip.databinding.ItemCheckoutCardBinding;
 import java.util.List;
 
 public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHolder> {
@@ -26,46 +26,32 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_checkout_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(ItemCheckoutCardBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Checkout item = listaCheckouts.get(position);
+        ItemCheckoutCardBinding b = holder.binding;
 
-        if (holder.tvInitials != null) {
-            holder.tvInitials.setText(item.getIniciales());
+        b.tvInitials.setText(item.getIniciales());
+        b.tvGuestName.setText(item.getNombreHuesped());
+        b.tvRoomAndTime.setText("Hab. " + item.getHabitacion() + " • " + item.getHoraLimite());
+
+        b.tvStatus.setText("• " + item.getEstado());
+        if ("Procesado".equalsIgnoreCase(item.getEstado()) || "Completado".equalsIgnoreCase(item.getEstado())) {
+            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
+            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
+        } else {
+            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
+            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.pill_red_text));
         }
-        if (holder.tvGuestName != null) {
-            holder.tvGuestName.setText(item.getNombreHuesped());
-        }
-        if (holder.tvRoomAndTime != null) {
-            holder.tvRoomAndTime.setText("Hab. " + item.getHabitacion() + " • " + item.getHoraLimite());
-        }
-        if (holder.tvStatus != null) {
-            holder.tvStatus.setText("• " + item.getEstado());
-            if ("Procesado".equalsIgnoreCase(item.getEstado()) || "Completado".equalsIgnoreCase(item.getEstado())) {
-                try {
-                    holder.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
-                    int greenColor = ContextCompat.getColor(context, R.color.green_text);
-                    holder.tvStatus.setTextColor(greenColor);
-                } catch (Exception ignored) {}
-            } else {
-                try {
-                    holder.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
-                    int redColor = ContextCompat.getColor(context, R.color.pill_red_text);
-                    holder.tvStatus.setTextColor(redColor);
-                } catch (Exception ignored) {}
-            }
-        }
-        if (holder.tvPrice != null) {
-            if (item.getMonto() > 0) {
-                holder.tvPrice.setVisibility(View.VISIBLE);
-                holder.tvPrice.setText("S/ " + (int) item.getMonto());
-            } else {
-                holder.tvPrice.setVisibility(View.GONE);
-            }
+
+        if (item.getMonto() > 0) {
+            b.tvPrice.setVisibility(View.VISIBLE);
+            b.tvPrice.setText("S/ " + (int) item.getMonto());
+        } else {
+            b.tvPrice.setVisibility(View.GONE);
         }
 
         holder.itemView.setOnClickListener(v ->
@@ -79,28 +65,11 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvInitials, tvGuestName, tvRoomAndTime, tvStatus, tvPrice;
+        final ItemCheckoutCardBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvInitials = findViewByName(itemView, "tvInitials", "tv_initials", "tvAvatar");
-            tvGuestName = findViewByName(itemView, "tvGuestName", "tv_guest_name", "tvNombreHuesped");
-            tvRoomAndTime = findViewByName(itemView, "tvRoomAndTime", "tv_room_and_time", "tvHabitacion");
-            tvStatus = findViewByName(itemView, "tvStatus", "tv_status", "tvEstado");
-            tvPrice = findViewByName(itemView, "tvPrice", "tv_price", "tvMonto");
-        }
-
-        @SuppressWarnings("unchecked")
-        private <T extends View> T findViewByName(View rootView, String... possibleNames) {
-            String packageName = rootView.getContext().getPackageName();
-            for (String name : possibleNames) {
-                int id = rootView.getResources().getIdentifier(name, "id", packageName);
-                if (id != 0) {
-                    View v = rootView.findViewById(id);
-                    if (v != null) return (T) v;
-                }
-            }
-            return null;
+        ViewHolder(@NonNull ItemCheckoutCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

@@ -2,15 +2,14 @@ package com.example.roomtrip.adminhotel;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Traslado;
+import com.example.roomtrip.databinding.ItemTrasladoCardBinding;
 import java.util.List;
 
 public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHolder> {
@@ -26,41 +25,27 @@ public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_traslado_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(ItemTrasladoCardBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Traslado item = listaTraslados.get(position);
+        ItemTrasladoCardBinding b = holder.binding;
 
-        if (holder.tvGuestName != null) {
-            holder.tvGuestName.setText(item.getNombreHuesped() + " · Hab. " + item.getHabitacion());
-        }
-        if (holder.tvRoute != null) {
-            holder.tvRoute.setText(item.getRuta());
-        }
-        if (holder.tvDriverAndPickup != null) {
-            holder.tvDriverAndPickup.setText(item.getInfoConductor() + " • Hora: " + item.getHoraPickup());
-        }
-        if (holder.tvPrice != null) {
-            holder.tvPrice.setText("S/ " + (int) item.getPrecio());
-        }
+        b.tvGuestName.setText(item.getNombreHuesped() + " · Hab. " + item.getHabitacion());
+        b.tvRoute.setText(item.getRuta());
+        b.tvDriverAndPickup.setText(item.getInfoConductor() + " • Hora: " + item.getHoraPickup());
+        b.tvPrice.setText("S/ " + (int) item.getPrecio());
 
         // Estilizado dinámico según el estado
-        if (holder.tvStatus != null) {
-            holder.tvStatus.setText("• " + item.getEstado());
-            if ("En Curso".equalsIgnoreCase(item.getEstado())) {
-                try {
-                    holder.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
-                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
-                } catch (Exception ignored) {}
-            } else if ("Pendiente".equalsIgnoreCase(item.getEstado())) {
-                try {
-                    holder.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
-                    holder.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.pill_red_text));
-                } catch (Exception ignored) {}
-            }
+        b.tvStatus.setText("• " + item.getEstado());
+        if ("En Curso".equalsIgnoreCase(item.getEstado())) {
+            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_green);
+            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.green_text));
+        } else if ("Pendiente".equalsIgnoreCase(item.getEstado())) {
+            b.tvStatus.setBackgroundResource(R.drawable.bg_pill_red);
+            b.tvStatus.setTextColor(ContextCompat.getColor(context, R.color.pill_red_text));
         }
 
         holder.itemView.setOnClickListener(v ->
@@ -74,28 +59,11 @@ public class TrasladoAdapter extends RecyclerView.Adapter<TrasladoAdapter.ViewHo
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvGuestName, tvRoute, tvDriverAndPickup, tvStatus, tvPrice;
+        final ItemTrasladoCardBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvGuestName = findViewByName(itemView, "tvGuestName", "tv_guest_name", "tvNombreHuesped");
-            tvRoute = findViewByName(itemView, "tvRoute", "tv_route", "tvRuta");
-            tvDriverAndPickup = findViewByName(itemView, "tvDriverAndPickup", "tv_driver_and_pickup", "tvConductor");
-            tvStatus = findViewByName(itemView, "tvStatus", "tv_status", "tvEstado");
-            tvPrice = findViewByName(itemView, "tvPrice", "tv_price", "tvMonto");
-        }
-
-        @SuppressWarnings("unchecked")
-        private <T extends View> T findViewByName(View rootView, String... possibleNames) {
-            String packageName = rootView.getContext().getPackageName();
-            for (String name : possibleNames) {
-                int id = rootView.getResources().getIdentifier(name, "id", packageName);
-                if (id != 0) {
-                    View v = rootView.findViewById(id);
-                    if (v != null) return (T) v;
-                }
-            }
-            return null;
+        ViewHolder(@NonNull ItemTrasladoCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

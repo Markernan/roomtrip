@@ -1,14 +1,11 @@
 package com.example.roomtrip.adminhotel;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
-import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Valoracion;
+import com.example.roomtrip.databinding.ItemFullReviewCardBinding;
 import java.util.List;
 
 public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.ViewHolder> {
@@ -22,19 +19,20 @@ public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_full_review_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(ItemFullReviewCardBinding.inflate(
+                LayoutInflater.from(parent.getContext()), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Valoracion item = listaValoraciones.get(position);
+        ItemFullReviewCardBinding b = holder.binding;
 
-        if (holder.tvUsuario != null) holder.tvUsuario.setText(item.getUsuario());
-        if (holder.tvDetalle != null) holder.tvDetalle.setText(item.getDetalleHabitacion() + " • " + item.getFecha());
-        if (holder.tvComentario != null) holder.tvComentario.setText(item.getComentario());
-        if (holder.rbCalificacion != null) holder.rbCalificacion.setRating(item.getCalificacion());
+        b.tvAvatarInitials.setText(iniciales(item.getUsuario()));
+        b.tvReviewerName.setText(item.getUsuario());
+        b.tvReviewMeta.setText(item.getDetalleHabitacion() + " • " + item.getFecha());
+        b.tvStars.setText(estrellas(item.getCalificacion()));
+        b.tvCommentText.setText(item.getComentario());
     }
 
     @Override
@@ -42,30 +40,27 @@ public class ValoracionAdapter extends RecyclerView.Adapter<ValoracionAdapter.Vi
         return listaValoraciones != null ? listaValoraciones.size() : 0;
     }
 
+    /** "María Fernández" -> "MF". */
+    private static String iniciales(String nombre) {
+        if (nombre == null || nombre.isBlank()) return "";
+        String[] partes = nombre.trim().split("\\s+");
+        String iniciales = partes[0].substring(0, 1);
+        if (partes.length > 1) iniciales += partes[1].substring(0, 1);
+        return iniciales.toUpperCase();
+    }
+
+    /** 4.5 -> "★★★★★" (redondeo al entero más cercano, máximo 5). */
+    private static String estrellas(float calificacion) {
+        int llenas = Math.max(0, Math.min(5, Math.round(calificacion)));
+        return "★".repeat(llenas) + "☆".repeat(5 - llenas);
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUsuario, tvDetalle, tvComentario;
-        RatingBar rbCalificacion;
+        final ItemFullReviewCardBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            // Búsqueda dinámica para evitar errores de compilación (Cannot find symbol)
-            tvUsuario = findViewByName(itemView, "tvUserName", "tv_user_name", "tvNombreUsuario", "tvNombre");
-            tvDetalle = findViewByName(itemView, "tvReviewDate", "tv_review_date", "tvFecha", "tvDetalle");
-            tvComentario = findViewByName(itemView, "tvReviewComment", "tv_review_comment", "tvComentario", "tv_comentario");
-            rbCalificacion = findViewByName(itemView, "rbReviewRating", "rb_review_rating", "ratingBar", "rbCalificacion");
-        }
-
-        @SuppressWarnings("unchecked")
-        private <T extends View> T findViewByName(View rootView, String... possibleNames) {
-            String packageName = rootView.getContext().getPackageName();
-            for (String name : possibleNames) {
-                int id = rootView.getResources().getIdentifier(name, "id", packageName);
-                if (id != 0) {
-                    View v = rootView.findViewById(id);
-                    if (v != null) return (T) v;
-                }
-            }
-            return null;
+        ViewHolder(@NonNull ItemFullReviewCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }

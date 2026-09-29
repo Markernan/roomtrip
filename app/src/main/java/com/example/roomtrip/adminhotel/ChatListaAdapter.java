@@ -4,12 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Chat;
+import com.example.roomtrip.databinding.ItemChatCardBinding;
 import java.util.List;
 
 public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.ViewHolder> {
@@ -25,32 +24,19 @@ public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.View
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_chat_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(ItemChatCardBinding.inflate(LayoutInflater.from(context), parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Chat chat = listaChats.get(position);
 
-        if (holder.tvGuestName != null) {
-            holder.tvGuestName.setText(chat.getNombreHuesped() + " · Hab. " + chat.getHabitacion());
-        }
-        if (holder.tvLastMessage != null) {
-            holder.tvLastMessage.setText(chat.getUltimoMensaje());
-        }
-        if (holder.tvTime != null) {
-            holder.tvTime.setText(chat.getHora());
-        }
+        holder.binding.tvGuestName.setText(chat.getNombreHuesped() + " · Hab. " + chat.getHabitacion());
+        holder.binding.tvLastMessage.setText(chat.getUltimoMensaje());
+        holder.binding.tvTime.setText(chat.getHora());
 
         // Control del punto verde de mensajes no leídos
-        if (holder.dotUnread != null) {
-            if (chat.getMensajesSinLeer() > 0) {
-                holder.dotUnread.setVisibility(View.VISIBLE);
-            } else {
-                holder.dotUnread.setVisibility(View.GONE);
-            }
-        }
+        holder.binding.dotUnread.setVisibility(chat.getMensajesSinLeer() > 0 ? View.VISIBLE : View.GONE);
 
         holder.itemView.setOnClickListener(v ->
                 Toast.makeText(context, "Abriendo chat con " + chat.getNombreHuesped(), Toast.LENGTH_SHORT).show()
@@ -63,28 +49,11 @@ public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.View
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvGuestName, tvLastMessage, tvTime;
-        View dotUnread;
+        final ItemChatCardBinding binding;
 
-        ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvGuestName = findViewByName(itemView, "tvGuestName", "tv_guest_name");
-            tvLastMessage = findViewByName(itemView, "tvLastMessage", "tv_last_message");
-            tvTime = findViewByName(itemView, "tvTime", "tv_time");
-            dotUnread = findViewByName(itemView, "dotUnread", "dot_unread");
-        }
-
-        @SuppressWarnings("unchecked")
-        private <T extends View> T findViewByName(View rootView, String... possibleNames) {
-            String packageName = rootView.getContext().getPackageName();
-            for (String name : possibleNames) {
-                int id = rootView.getResources().getIdentifier(name, "id", packageName);
-                if (id != 0) {
-                    View v = rootView.findViewById(id);
-                    if (v != null) return (T) v;
-                }
-            }
-            return null;
+        ViewHolder(@NonNull ItemChatCardBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
