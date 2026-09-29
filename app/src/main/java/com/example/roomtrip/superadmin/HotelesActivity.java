@@ -10,11 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+
 import com.example.roomtrip.data.model.Hotel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import java.util.ArrayList;
 import java.util.List;
+import com.example.roomtrip.superadmin.RegistrarHotelActivity;
 
 public class HotelesActivity extends AppCompatActivity {
 
@@ -65,7 +68,17 @@ public class HotelesActivity extends AppCompatActivity {
             startActivity(new Intent(this, RegistrarHotelActivity.class));
         });
 
+        verificarRegistroExitoso();
         setupBottomNavigation();
+    }
+
+    private void verificarRegistroExitoso() {
+        if (getIntent().getBooleanExtra("REGISTRO_EXITOSO", false)) {
+            Snackbar.make(rvHoteles, "Hotel registrado con éxito", Snackbar.LENGTH_LONG)
+                    .setBackgroundTint(getResources().getColor(R.color.turquesa))
+                    .setTextColor(getResources().getColor(R.color.blanco))
+                    .show();
+        }
     }
 
     private void cargarDatosMock() {
