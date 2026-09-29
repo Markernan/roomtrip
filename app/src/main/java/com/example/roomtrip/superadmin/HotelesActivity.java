@@ -11,11 +11,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
 
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import java.util.ArrayList;
 import java.util.List;
 import com.example.roomtrip.superadmin.RegistrarHotelActivity;
 
@@ -42,7 +42,7 @@ public class HotelesActivity extends AppCompatActivity {
 
         cargarDatosMock();
 
-        adapter = new HotelesAdapter(listaHoteles, hotel -> {
+        adapter = new HotelesAdapter(this, listaHoteles, hotel -> {
             Intent intent = new Intent(HotelesActivity.this, DetalleHotelAdminActivity.class);
             intent.putExtra("hotel", hotel);
             intent.putExtra("IMAGEN_RES_ID", hotel.getImagenResId());
@@ -82,11 +82,7 @@ public class HotelesActivity extends AppCompatActivity {
     }
 
     private void cargarDatosMock() {
-        listaHoteles = new ArrayList<>();
-        listaHoteles.add(new Hotel("Hotel Italia (Fachada)", "Miraflores, Lima", 4.7f, "Roberto Gómez", "roberto@miraflores.com", "+51 987 654 321", R.drawable.hotel_italia_fachada_calle, true));
-        listaHoteles.add(new Hotel("Hotel Italia (Suite Azul)", "Centro de Lima, Lima", 4.5f, "María Mendoza", "maria@granhotellima.com", "+51 912 345 678", R.drawable.hotel_habitacion_azul, true));
-        listaHoteles.add(new Hotel("Hotel Italia (Elegante)", "Plaza de Armas, Cusco", 4.9f, "Carlos Inca", "carlos@cuscoplaza.com", "+51 965 432 198", R.drawable.hotel_habitacion_elegante, true));
-        listaHoteles.add(new Hotel("Grand Hotel Italia", "Bahía de Paracas, Ica", 4.6f, "Elena Mar", "elena@resortparacas.com", "+51 954 123 789", R.drawable.grand_hotel_italia_fachada, false));
+        listaHoteles = MockData.getHotelesSuperadminEjemplo();
     }
 
     private void setupBottomNavigation() {

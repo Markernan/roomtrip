@@ -8,9 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaxistasActivity extends AppCompatActivity {
@@ -34,7 +34,7 @@ public class TaxistasActivity extends AppCompatActivity {
 
         cargarDatosMock();
 
-        adapter = new UsuariosAdapter(listaTaxistas, usuario -> {
+        adapter = new UsuariosAdapter(this, listaTaxistas, usuario -> {
             Intent intent = new Intent(TaxistasActivity.this, DetalleUsuarioActivity.class);
             intent.putExtra("usuario", usuario);
             startActivity(intent);
@@ -47,18 +47,7 @@ public class TaxistasActivity extends AppCompatActivity {
     }
 
     private void cargarDatosMock() {
-        listaTaxistas = new ArrayList<>();
-        Usuario t1 = new Usuario("Carlos Mendoza", "carlos.mendoza@roomtrip.com", "Taxista", "+51 987 654 321", true);
-        t1.setLicencia("A-I-77482");
-        t1.setPlacaAuto("ABC-123");
-        t1.setModeloVehiculo("Toyota Corolla 2022");
-        listaTaxistas.add(t1);
-
-        Usuario t2 = new Usuario("Marcos López", "marcos.lopez@roomtrip.com", "Taxista", "+51 912 345 678", false);
-        t2.setLicencia("A-IIb-99321");
-        t2.setPlacaAuto("XYZ-789");
-        t2.setModeloVehiculo("Nissan Sentra 2021");
-        listaTaxistas.add(t2);
+        listaTaxistas = MockData.getTaxistasEjemplo();
     }
 
     private void setupBottomNavigation() {

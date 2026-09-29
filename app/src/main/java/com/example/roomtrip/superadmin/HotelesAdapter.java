@@ -1,5 +1,6 @@
 package com.example.roomtrip.superadmin;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +22,13 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         void onHotelClick(Hotel hotel);
     }
 
+    private final Context context;
     private final List<Hotel> originalList;
     private List<Hotel> filteredList;
     private final OnHotelClickListener listener;
 
-    public HotelesAdapter(List<Hotel> hoteles, OnHotelClickListener listener) {
+    public HotelesAdapter(Context context, List<Hotel> hoteles, OnHotelClickListener listener) {
+        this.context = context;
         this.originalList = hoteles;
         this.filteredList = new ArrayList<>(hoteles);
         this.listener = listener;
@@ -34,14 +37,16 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
     @NonNull
     @Override
     public HotelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_hotel, parent, false);
-        return new HotelViewHolder(view);
+        return new HotelViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         Hotel hotel = filteredList.get(position);
+        holder.hotel = hotel;
+
         holder.tvNombreHotel.setText(hotel.getNombre());
         holder.tvDireccionHotel.setText(hotel.getUbicacion());
         holder.tvRatingHotel.setText(String.valueOf(hotel.getCalificacion()));
@@ -57,27 +62,8 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         }
 
         boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado());
-
         holder.switchActivoHotel.setOnCheckedChangeListener(null);
         holder.switchActivoHotel.setChecked(esActivo);
-
-        holder.switchActivoHotel.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            hotel.setEstado(isChecked ? "Activo" : "Inactivo");
-            String status = isChecked ? "activado" : "desactivado";
-            Toast.makeText(buttonView.getContext(),
-                    hotel.getNombre() + " ha sido " + status,
-                    Toast.LENGTH_SHORT).show();
-        });
-
-        holder.btnMenuOpciones.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Opciones de " + hotel.getNombre(), Toast.LENGTH_SHORT).show();
-        });
-
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onHotelClick(hotel);
-            }
-        });
     }
 
     @Override
@@ -107,8 +93,9 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         TextView tvNombreHotel, tvDireccionHotel, tvRatingHotel, tvAdminHotel;
         SwitchCompat switchActivoHotel;
         ImageView btnMenuOpciones;
+        Hotel hotel;
 
-        HotelViewHolder(@NonNull View itemView) {
+        HotelViewHolder(@NonNull View itemView, OnHotelClickListener listener) {
             super(itemView);
             ivHotel = itemView.findViewById(R.id.ivHotel);
             tvNombreHotel = itemView.findViewById(R.id.tvNombreHotel);
@@ -117,6 +104,28 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
             tvAdminHotel = itemView.findViewById(R.id.tvAdminHotel);
             switchActivoHotel = itemView.findViewById(R.id.switchActivoHotel);
             btnMenuOpciones = itemView.findViewById(R.id.btnMenuOpciones);
+
+            switchActivoHotel.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (hotel != null) {
+                    hotel.setEstado(isChecked ? "Activo" : "Inactivo");
+                    String status = isChecked ? "activado" : "desactivado";
+                    Toast.makeText(buttonView.getContext(),
+                            hotel.getNombre() + " ha sido " + status,
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            btnMenuOpciones.setOnClickListener(v -> {
+                if (hotel != null) {
+                    Toast.makeText(v.getContext(), "Opciones de " + hotel.getNombre(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null && hotel != null) {
+                    listener.onHotelClick(hotel);
+                }
+            });
         }
     }
 }

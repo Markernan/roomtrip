@@ -21,10 +21,12 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         void onUsuarioClick(Usuario usuario);
     }
 
+    private final Context context;
     private final List<Usuario> usuarios;
     private final OnUsuarioClickListener listener;
 
-    public UsuariosAdapter(List<Usuario> usuarios, OnUsuarioClickListener listener) {
+    public UsuariosAdapter(Context context, List<Usuario> usuarios, OnUsuarioClickListener listener) {
+        this.context = context;
         this.usuarios = usuarios;
         this.listener = listener;
     }
@@ -32,19 +34,20 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
     @NonNull
     @Override
     public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_usuario, parent, false);
-        return new UsuarioViewHolder(view);
+        return new UsuarioViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UsuarioViewHolder holder, int position) {
         Usuario u = usuarios.get(position);
+        holder.usuario = u;
+
         holder.tvNombreUsuario.setText(u.getName());
         holder.tvEmailUsuario.setText(u.getEmail());
         holder.tvRol.setText(u.getRole());
 
-        Context context = holder.itemView.getContext();
         int colorBg, colorText;
 
         switch (u.getRole().toLowerCase()) {
@@ -71,18 +74,6 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
 
         holder.switchActivo.setOnCheckedChangeListener(null);
         holder.switchActivo.setChecked(u.isActive());
-
-        holder.switchActivo.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            u.setActive(isChecked);
-            String status = isChecked ? "activado" : "desactivado";
-            Toast.makeText(context, u.getName() + " ha sido " + status, Toast.LENGTH_SHORT).show();
-        });
-
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onUsuarioClick(u);
-            }
-        });
     }
 
     @Override
@@ -93,13 +84,28 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
     static class UsuarioViewHolder extends RecyclerView.ViewHolder {
         TextView tvNombreUsuario, tvEmailUsuario, tvRol;
         SwitchCompat switchActivo;
+        Usuario usuario;
 
-        UsuarioViewHolder(@NonNull View itemView) {
+        UsuarioViewHolder(@NonNull View itemView, OnUsuarioClickListener listener) {
             super(itemView);
             tvNombreUsuario = itemView.findViewById(R.id.tvNombreUsuario);
             tvEmailUsuario = itemView.findViewById(R.id.tvEmailUsuario);
             tvRol = itemView.findViewById(R.id.tvRol);
             switchActivo = itemView.findViewById(R.id.switchActivo);
+
+            switchActivo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (usuario != null) {
+                    usuario.setActive(isChecked);
+                    String status = isChecked ? "activado" : "desactivado";
+                    Toast.makeText(buttonView.getContext(), usuario.getName() + " ha sido " + status, Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null && usuario != null) {
+                    listener.onUsuarioClick(usuario);
+                }
+            });
         }
     }
 }

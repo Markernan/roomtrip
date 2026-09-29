@@ -1,5 +1,6 @@
 package com.example.roomtrip.superadmin;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,12 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
         void onReporteClick(Hotel hotel);
     }
 
+    private final Context context;
     private final List<Hotel> hoteles;
     private final OnReporteClickListener listener;
 
-    public ReporteHotelAdapter(List<Hotel> hoteles, OnReporteClickListener listener) {
+    public ReporteHotelAdapter(Context context, List<Hotel> hoteles, OnReporteClickListener listener) {
+        this.context = context;
         this.hoteles = hoteles;
         this.listener = listener;
     }
@@ -30,14 +33,15 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_reporte_hotel, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, listener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Hotel hotel = hoteles.get(position);
+        holder.hotel = hotel;
         holder.tvHotelName.setText(hotel.getNombre());
 
         if (hotel.getImagenResId() != 0) {
@@ -46,12 +50,6 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
                     .placeholder(R.drawable.foto_hotel_miraflores)
                     .into(holder.ivHotelThumbnail);
         }
-
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onReporteClick(hotel);
-            }
-        });
     }
 
     @Override
@@ -63,14 +61,21 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
         ImageView ivHotelThumbnail;
         TextView tvHotelName, tvReservationsCount, tvAmount;
         ProgressBar pbPerformance;
+        Hotel hotel;
 
-        ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView, OnReporteClickListener listener) {
             super(itemView);
             ivHotelThumbnail = itemView.findViewById(R.id.ivHotelThumbnail);
             tvHotelName = itemView.findViewById(R.id.tvHotelName);
             tvReservationsCount = itemView.findViewById(R.id.tvReservationsCount);
             tvAmount = itemView.findViewById(R.id.tvAmount);
             pbPerformance = itemView.findViewById(R.id.pbPerformance);
+
+            itemView.setOnClickListener(v -> {
+                if (listener != null && hotel != null) {
+                    listener.onReporteClick(hotel);
+                }
+            });
         }
     }
 }

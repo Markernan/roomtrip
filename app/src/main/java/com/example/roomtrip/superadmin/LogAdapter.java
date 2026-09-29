@@ -1,9 +1,9 @@
 package com.example.roomtrip.superadmin;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,16 +13,18 @@ import java.util.List;
 
 public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
+    private final Context context;
     private final List<LogEvento> logs;
 
-    public LogAdapter(List<LogEvento> logs) {
+    public LogAdapter(Context context, List<LogEvento> logs) {
+        this.context = context;
         this.logs = logs;
     }
 
     @NonNull
     @Override
     public LogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
+        View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_log, parent, false);
         return new LogViewHolder(view);
     }
@@ -30,6 +32,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull LogViewHolder holder, int position) {
         LogEvento log = logs.get(position);
+        holder.log = log;
         holder.tvLogEvent.setText(log.getTitulo());
         holder.tvLogDetail.setText(log.getDetalle());
         holder.tvLogTime.setText(log.getHora());
@@ -42,6 +45,7 @@ public class LogAdapter extends RecyclerView.Adapter<LogAdapter.LogViewHolder> {
 
     static class LogViewHolder extends RecyclerView.ViewHolder {
         TextView tvLogEvent, tvLogDetail, tvLogTime;
+        LogEvento log;
 
         LogViewHolder(@NonNull View itemView) {
             super(itemView);

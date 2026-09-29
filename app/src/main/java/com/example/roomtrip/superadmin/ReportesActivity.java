@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ReportesActivity extends AppCompatActivity {
@@ -35,7 +35,7 @@ public class ReportesActivity extends AppCompatActivity {
 
         cargarDatosMock();
 
-        adapter = new ReporteHotelAdapter(listaHoteles, hotel -> {
+        adapter = new ReporteHotelAdapter(this, listaHoteles, hotel -> {
             Intent intent = new Intent(ReportesActivity.this, DetalleHotelReporteActivity.class);
             intent.putExtra("hotel", hotel);
             startActivity(intent);
@@ -51,10 +51,7 @@ public class ReportesActivity extends AppCompatActivity {
     }
 
     private void cargarDatosMock() {
-        listaHoteles = new ArrayList<>();
-        listaHoteles.add(new Hotel("Hotel Marriott Lima", "Miraflores, Lima", 4.8f, "Admin Marriott", "admin@marriott.com", "+51 987 111 222", R.drawable.foto_hotel_miraflores, true));
-        listaHoteles.add(new Hotel("Gran Hotel Bolivar", "Centro de Lima, Lima", 4.5f, "Admin Bolivar", "admin@bolivar.com", "+51 987 333 444", R.drawable.hotel_italia_fachada_calle, true));
-        listaHoteles.add(new Hotel("Hotel Palacio del Inka", "Cusco", 4.9f, "Admin Palacio", "admin@palacio.com", "+51 987 555 666", R.drawable.hotel_habitacion_elegante, true));
+        listaHoteles = MockData.getReporteHotelesEjemplo();
     }
 
     private void setupBottomNavigation() {
