@@ -2,11 +2,12 @@ package com.example.roomtrip.adminhotel;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 
 import com.example.roomtrip.R;
@@ -57,10 +58,12 @@ public class InicioFragment extends Fragment {
 
     private void enlazarNavegacion(View destino, int actionId) {
         destino.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigate(actionId);
-            } catch (Exception e) {
-                Toast.makeText(requireContext(), "Error al navegar: " + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            NavController navController = Navigation.findNavController(v);
+            // Un doble toque rápido dispara la acción dos veces; la segunda ya no parte de Inicio
+            // y navigate() lanzaría IllegalArgumentException. Solo navegamos si seguimos aquí.
+            NavDestination actual = navController.getCurrentDestination();
+            if (actual != null && actual.getId() == R.id.inicioFragment) {
+                navController.navigate(actionId);
             }
         });
     }

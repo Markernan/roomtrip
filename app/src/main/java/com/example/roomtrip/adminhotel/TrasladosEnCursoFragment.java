@@ -28,13 +28,7 @@ public class TrasladosEnCursoFragment extends Fragment {
         binding = FragmentTrasladosEnCursoBinding.bind(view);
 
         // Flecha Atrás
-        binding.btnBack.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception e) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         List<Traslado> lista = new ArrayList<>();
         lista.add(new Traslado(

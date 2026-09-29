@@ -27,13 +27,7 @@ public class ValoracionesFragment extends Fragment {
         binding = FragmentValoracionesBinding.bind(view);
 
         // Flecha atrás
-        binding.btnBack.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception e) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         List<Valoracion> lista = new ArrayList<>();
         lista.add(new Valoracion("Carlos Ruiz", "Hab. 308", "Hace 2 días", 5.0f, "Excelente atención y limpieza. La habitación estaba impecable y el personal fue muy amable."));

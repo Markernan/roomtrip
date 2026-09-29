@@ -3,7 +3,9 @@ package com.example.roomtrip.cliente;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +23,8 @@ import java.util.UUID;
  */
 public class MostrarQrActivity extends AppCompatActivity {
 
+    private static final String TAG = "MostrarQrActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +37,8 @@ public class MostrarQrActivity extends AppCompatActivity {
         Bitmap bitmap = generarQr(idServicioTaxi, 600, 600);
         if (bitmap != null) {
             ivQr.setImageBitmap(bitmap);
+        } else {
+            Toast.makeText(this, R.string.qr_error_generacion, Toast.LENGTH_LONG).show();
         }
 
         findViewById(R.id.btnVolverQr).setOnClickListener(v -> finish());
@@ -49,6 +55,7 @@ public class MostrarQrActivity extends AppCompatActivity {
             }
             return bitmap;
         } catch (WriterException e) {
+            Log.e(TAG, "No se pudo generar el QR del servicio de taxi", e);
             return null;
         }
     }

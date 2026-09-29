@@ -27,13 +27,7 @@ public class CheckoutsFragment extends Fragment {
         binding = FragmentCheckoutsBinding.bind(view);
 
         // Flecha Atrás
-        binding.btnBack.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception e) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         List<Checkout> lista = new ArrayList<>();
         lista.add(new Checkout("María González", "204", "11:00 AM", "Pendiente"));

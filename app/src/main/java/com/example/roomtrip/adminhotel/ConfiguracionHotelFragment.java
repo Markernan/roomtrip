@@ -26,20 +26,12 @@ public class ConfiguracionHotelFragment extends Fragment {
         binding = FragmentConfiguracionHotelBinding.bind(view);
 
         // Botón Atrás
-        binding.btnBack.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception e) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         // Botón Guardar
         binding.btnGuardar.setOnClickListener(v -> {
             Toast.makeText(requireContext(), "Configuración del hotel guardada", Toast.LENGTH_SHORT).show();
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception ignored) {}
+            Navigation.findNavController(v).navigateUp();
         });
     }
 

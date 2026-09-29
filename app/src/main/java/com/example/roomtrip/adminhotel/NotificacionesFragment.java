@@ -29,13 +29,7 @@ public class NotificacionesFragment extends Fragment {
         binding = FragmentNotificacionesBinding.bind(view);
 
         // Botón de regreso
-        binding.btnBack.setOnClickListener(v -> {
-            try {
-                Navigation.findNavController(v).navigateUp();
-            } catch (Exception e) {
-                requireActivity().getOnBackPressedDispatcher().onBackPressed();
-            }
-        });
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
 
         List<Notificacion> lista = new ArrayList<>();
         lista.add(new Notificacion(

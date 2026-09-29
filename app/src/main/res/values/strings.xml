@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">RoomTrip</string>
 
+    <!-- Cliente: QR del servicio de taxi -->
+    <string name="qr_error_generacion">No pudimos generar tu código QR. Vuelve a abrir esta pantalla e inténtalo de nuevo.</string>
+
     <!-- Taxista: pedidos disponibles y en camino -->
     <string name="solicitado_mapa_placeholder">Mapa en tiempo real\n(Google Maps SDK — Lab 7)</string>
     <string name="solicitado_estado_buscando">Buscando pasajeros</string>
