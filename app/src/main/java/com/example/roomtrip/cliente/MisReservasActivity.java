@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.example.roomtrip.utils.NavegacionClienteHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MisReservasActivity extends AppCompatActivity {
@@ -21,9 +21,7 @@ public class MisReservasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mis_reservas);
 
-        List<Hotel> reservas = new ArrayList<>();
-        reservas.add(new Hotel("Hotel Larco Suites", "Lima, Perú · 4.5 estrellas", "", 4.5f,
-                R.drawable.foto_hotel_miraflores));
+        List<Hotel> reservas = MockData.getReservasClienteEjemplo();
 
         RecyclerView rv = findViewById(R.id.rvMisReservas);
         rv.setLayoutManager(new LinearLayoutManager(this));

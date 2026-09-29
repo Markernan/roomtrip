@@ -9,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.example.roomtrip.utils.NavegacionClienteHelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /** Pantalla 2: inicio del cliente, con el hotel recomendado. */
@@ -26,13 +26,7 @@ public class HomeActivity extends AppCompatActivity {
         TextView tvSaludo = findViewById(R.id.tvSaludo);
         tvSaludo.setText("Hola, William");
 
-        List<Hotel> hoteles = new ArrayList<>();
-        hoteles.add(new Hotel("Hotel Miraflores", "Lima, Perú", "S/250 noche", 4.8f,
-                R.drawable.foto_hotel_miraflores));
-        hoteles.add(new Hotel("Hotel Larco Suites", "Lima, Perú", "S/180 noche", 4.5f,
-                R.drawable.foto_hotel_miraflores));
-        hoteles.add(new Hotel("Grand Palace Lima", "Lima, Perú", "S/320 noche", 5.0f,
-                R.drawable.foto_hotel_miraflores));
+        List<Hotel> hoteles = MockData.getHotelesClienteEjemplo();
 
         RecyclerView rvHoteles = findViewById(R.id.rvHoteles);
         rvHoteles.setLayoutManager(new LinearLayoutManager(this));

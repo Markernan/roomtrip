@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Mensaje;
 
 import java.util.ArrayList;
@@ -25,8 +26,7 @@ public class ChatActivity extends AppCompatActivity {
 
         findViewById(R.id.btnVolverChat).setOnClickListener(v -> finish());
 
-        mensajes.add(new Mensaje("¡Hola! Tengo una consulta sobre mi reserva.", "10:30 AM", true));
-        mensajes.add(new Mensaje("¡Hola William! Con gusto te ayudamos. ¿En qué podemos servirte?", "10:32 AM", false));
+        mensajes.addAll(MockData.getMensajesChatEjemplo());
 
         RecyclerView rvMensajes = findViewById(R.id.rvMensajes);
         rvMensajes.setLayoutManager(new LinearLayoutManager(this));

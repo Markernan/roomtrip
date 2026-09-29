@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BuscarHotelActivity extends AppCompatActivity {
@@ -22,11 +22,7 @@ public class BuscarHotelActivity extends AppCompatActivity {
 
         findViewById(R.id.btnVolver).setOnClickListener(v -> finish());
 
-        List<Hotel> hoteles = new ArrayList<>();
-        hoteles.add(new Hotel("Hotel Miraflores", "Lima, Perú", "S/250 noche", 4.8f,
-                R.drawable.foto_hotel_miraflores));
-        hoteles.add(new Hotel("Hotel Larco Suites", "Lima, Perú", "S/180 noche", 4.5f,
-                R.drawable.foto_hotel_miraflores));
+        List<Hotel> hoteles = MockData.getHotelesClienteEjemplo();
 
         RecyclerView rv = findViewById(R.id.rvResultados);
         rv.setLayoutManager(new LinearLayoutManager(this));
