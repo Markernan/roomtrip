@@ -72,7 +72,8 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         holder.tvRol.setBackgroundTintList(ColorStateList.valueOf(colorBg));
         holder.tvRol.setTextColor(colorText);
 
-        holder.switchActivo.setOnCheckedChangeListener(null);
+        // El listener vive en el ViewHolder (constructor). No hay que quitarlo aquí: si se hace,
+        // se pierde para siempre. Ignora este setChecked() porque el switch no está presionado.
         holder.switchActivo.setChecked(u.isActive());
     }
 
@@ -94,6 +95,8 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
             switchActivo = itemView.findViewById(R.id.switchActivo);
 
             switchActivo.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                // Solo cuenta el toque del usuario, no el setChecked() que hace onBindViewHolder
+                if (!buttonView.isPressed()) return;
                 if (usuario != null) {
                     usuario.setActive(isChecked);
                     String status = isChecked ? "activado" : "desactivado";

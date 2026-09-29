@@ -62,7 +62,8 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         }
 
         boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado());
-        holder.switchActivoHotel.setOnCheckedChangeListener(null);
+        // El listener vive en el ViewHolder (constructor). No hay que quitarlo aquí: si se hace,
+        // se pierde para siempre. Ignora este setChecked() porque el switch no está presionado.
         holder.switchActivoHotel.setChecked(esActivo);
     }
 
@@ -106,6 +107,8 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
             btnMenuOpciones = itemView.findViewById(R.id.btnMenuOpciones);
 
             switchActivoHotel.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                // Solo cuenta el toque del usuario, no el setChecked() que hace onBindViewHolder
+                if (!buttonView.isPressed()) return;
                 if (hotel != null) {
                     hotel.setEstado(isChecked ? "Activo" : "Inactivo");
                     String status = isChecked ? "activado" : "desactivado";
