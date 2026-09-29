@@ -8,7 +8,7 @@ Este documento contiene la información técnica, reglas de arquitectura y está
 * **Nombre del Proyecto:** RoomTrip
 * **Application ID / Package:** `com.example.roomtrip`
 * **Tipo de Proyecto:** Aplicación nativa Android
-* **Lenguajes:** Java / Kotlin
+* **Lenguaje:** Java (restricción del enunciado: nada de Kotlin, Flutter ni React Native)
 * **Módulo Principal:** `:app`
 
 ---
@@ -21,10 +21,12 @@ Para garantizar la compatibilidad entre todos los miembros del equipo (múltiple
 | :--- | :--- | :--- |
 | **Android Gradle Plugin (AGP)** | `8.7.3` | `gradle/libs.versions.toml` |
 | **Gradle Wrapper** | `8.10.2` | `gradle/wrapper/gradle-wrapper.properties` |
-| **Java Daemon / Toolchain** | JDK `21` | `gradle/gradle-daemon-jvm.properties` |
-| **Compile SDK** | `35` | `app/build.gradle` |
+| **JDK para ejecutar Gradle** | El que trae Android Studio (cualquier JDK 17 o superior). No se fija: el bytecode lo define `compileOptions` (Java 17) | `app/build.gradle` |
+| **Compile SDK** | `35` (el máximo que soporta AGP 8.7.3) | `app/build.gradle` |
 | **Target SDK** | `35` | `app/build.gradle` |
-| **Min SDK** | `26` (Android 8.0+) | `app/build.gradle` |
+| **Min SDK** | `34` (Android 14 — exigido por el enunciado, RES-02) | `app/build.gradle` |
+
+> `local.properties` **no se versiona**: Android Studio lo genera en cada equipo con su propia ruta del SDK.
 
 > ⚠️ **REGLA DE ORO PARA LA IA / DESARROLLADORES:**
 > **NO** sugerir ni aplicar actualizaciones automáticas de AGP (a versiones Canary/Preview como AGP 9.x) ni cambiar la versión de Gradle Wrapper a versiones no soportadas por la versión estable de Android Studio. Si Android Studio muestra el mensaje de *AGP Upgrade Assistant*, seleccionar **"Don't ask again for this project"**.
@@ -55,7 +57,7 @@ La aplicación **RoomTrip** abarca los siguientes módulos funcionales:
 
 ### B. Servicio de Transporte / Taxi Integrado
 * **Solicitud y Monitoreo:** `ActivityBuscandoTaxista`, `ActivitySeguimientoTaxi`.
-* **Comunicación:** `ActivityChat` (chat en tiempo real con el taxista).
+* **Comunicación:** `ActivityChat` (chat privado cliente–hotel, disponible solo durante la reserva activa).
 
 ### C. Módulo SuperAdmin (Administración Global)
 * **Autenticación:** `ActivitySuperadminLogin`.
@@ -81,5 +83,5 @@ La aplicación **RoomTrip** abarca los siguientes módulos funcionales:
 1. Clonar el repositorio.
 2. Abrir la carpeta raíz en Android Studio.
 3. Permitir que Gradle descargue las dependencias y sincronice el proyecto.
-4. Si se solicita seleccionar un JDK, asegúrese de seleccionar **JDK 21**.
+4. Si se solicita seleccionar un JDK, basta con el que trae Android Studio (*Embedded JDK / jbr*).
 5. ¡Listo para compilar y ejecutar!

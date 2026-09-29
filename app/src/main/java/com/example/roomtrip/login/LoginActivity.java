@@ -14,13 +14,16 @@ import com.example.roomtrip.cliente.HomeActivity;
 import com.example.roomtrip.cliente.RegistroActivity;
 import com.example.roomtrip.superadmin.DashboardActivity;
 import com.example.roomtrip.taxista.SolicitadoActivity;
+import com.example.roomtrip.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Spinner spinnerRoles;
     private Button btnIniciarSesion;
 
-    private final String[] roles = {"Cliente", "Admin", "Taxista", "SuperAdmin"};
+    private final String[] roles = {
+            Constants.ROL_CLIENTE, Constants.ROL_ADMIN, Constants.ROL_TAXISTA, Constants.ROL_SUPERADMIN
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,23 +47,22 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent;
 
             switch (rolSeleccionado) {
-                case "Cliente":
+                case Constants.ROL_CLIENTE:
                     intent = new Intent(LoginActivity.this, HomeActivity.class);
                     break;
 
-                case "SuperAdmin":
+                case Constants.ROL_SUPERADMIN:
                     intent = new Intent(LoginActivity.this, DashboardActivity.class);
                     break;
 
-                case "Taxista":
+                case Constants.ROL_TAXISTA:
                     intent = new Intent(LoginActivity.this, SolicitadoActivity.class);
                     break;
 
-                case "Admin":
-                case "Admin Hotel":
+                case Constants.ROL_ADMIN:
                 default:
+                    // MainActivity es el contenedor del admin de hotel (nav_graph con sus fragments)
                     intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("ROL_USUARIO", "Admin");
                     break;
             }
 
