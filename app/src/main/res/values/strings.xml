@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">RoomTrip</string>
+
+    <!-- Taxista: pedidos disponibles y en camino -->
+    <string name="solicitado_mapa_placeholder">Mapa en tiempo real\n(Google Maps SDK — Lab 7)</string>
+    <string name="solicitado_estado_buscando">Buscando pasajeros</string>
+    <string name="solicitado_titulo_lista">Pasajeros solicitando viaje</string>
+    <string name="pedido_origen">Origen: %1$s</string>
+    <string name="pedido_destino">Destino: %1$s</string>
+    <string name="pedido_minutos">%1$d min</string>
+    <string name="pedidos_vacio">No hay pasajeros solicitando viaje por ahora</string>
+    <string name="en_camino_rating">★ %1$.1f · Pasajero</string>
+    <string name="en_camino_recojo">Recojo: %1$s</string>
+    <string name="en_camino_tiempo">Tiempo estimado al encuentro: %1$d min</string>
 </resources>

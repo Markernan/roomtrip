@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -16,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Mapa en tiempo real\n(Google Maps SDK — Lab 7)"
+            android:text="@string/solicitado_mapa_placeholder"
             android:gravity="center"
             android:textColor="@color/texto_secundario"
             android:textSize="14sp"
@@ -37,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_semibold"
-                android:text="Buscando pasajeros"
+                android:text="@string/solicitado_estado_buscando"
                 android:textColor="@color/texto_principal"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -54,58 +56,43 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pasajeros solicitando viaje"
+            android:text="@string/solicitado_titulo_lista"
             android:textColor="@color/texto_principal"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_semibold"
             android:layout_marginBottom="12dp" />
 
-        <!-- Opción Usuario 1 -->
-        <LinearLayout
-            android:id="@+id/btnUsuario1"
+        <!-- Lista de pedidos: altura máxima para que el mapa de arriba siga visible con muchos pedidos -->
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_input_texto"
-            android:padding="12dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Carlos Mendoza" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Hotel La Dolce Vita" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: Aeropuerto Jorge Chávez" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-        </LinearLayout>
+            android:layout_height="wrap_content">
 
-        <!-- Opción Usuario 2 -->
-        <LinearLayout
-            android:id="@+id/btnUsuario2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_input_texto"
-            android:padding="12dp"
-            android:layout_marginBottom="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="María Torres" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Parque Kennedy" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: Real Plaza Salaverry" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-        </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPedidos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintHeight_max="280dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_pedido_taxi" />
 
-        <!-- Opción Usuario 3 -->
-        <LinearLayout
-            android:id="@+id/btnUsuario3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_input_texto"
-            android:padding="12dp"
-            android:clickable="true"
-            android:focusable="true">
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Juan Pérez" android:textColor="@color/texto_principal" android:textSize="14sp" android:fontFamily="@font/poppins_bold" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Origen: Av. Larco 456" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Destino: C.C. Jockey Plaza" android:textColor="@color/texto_secundario" android:textSize="12sp" />
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tvSinPedidos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingVertical="16dp"
+                android:text="@string/pedidos_vacio"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

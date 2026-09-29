@@ -13,4 +13,5 @@ public class Constants {
     public static final String EXTRA_NOMBRE_HOTEL = "nombreHotel";
     public static final String EXTRA_HOTEL = "hotel";
     public static final String EXTRA_USUARIO = "usuario";
+    public static final String EXTRA_PEDIDO_TAXI = "pedidoTaxi";
 }
