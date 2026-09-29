@@ -43,9 +43,11 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ReservaV
     @Override
     public void onBindViewHolder(@NonNull ReservaViewHolder holder, int position) {
         Hotel hotel = reservas.get(position);
-        holder.tvNombreHotelReserva.setText(hotel.nombre);
-        holder.tvUbicacionReserva.setText(hotel.ubicacion);
-        holder.ivFotoReserva.setImageResource(hotel.fotoResId);
+
+        // Reemplazo de acceso directo a variables por getters
+        holder.tvNombreHotelReserva.setText(hotel.getNombre());
+        holder.tvUbicacionReserva.setText(hotel.getUbicacion());
+        holder.ivFotoReserva.setImageResource(hotel.getImagenResId());
 
         holder.btnContactar.setOnClickListener(v -> listenerContactar.onAccion(hotel));
         holder.btnHacerCheckout.setOnClickListener(v -> listenerCheckout.onAccion(hotel));
@@ -53,7 +55,7 @@ public class ReservaAdapter extends RecyclerView.Adapter<ReservaAdapter.ReservaV
 
     @Override
     public int getItemCount() {
-        return reservas.size();
+        return reservas != null ? reservas.size() : 0;
     }
 
     static class ReservaViewHolder extends RecyclerView.ViewHolder {

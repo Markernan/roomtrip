@@ -2,78 +2,74 @@ package com.example.roomtrip.data.model;
 
 import java.io.Serializable;
 
-/**
- * Modelo unificado de Hotel para toda la aplicación.
- * Compatible con Cliente, Admin de Hotel, SuperAdmin y la capa de persistencia (Room / Firestore).
- */
 public class Hotel implements Serializable {
-
-    // Atributos públicos / directos para compatibilidad con vistas de Cliente
-    public String nombre;
-    public String ubicacion;
-    public String precioPorNoche;
-    public float calificacion;
-    public int fotoResId;
-
-    // Atributos para SuperAdmin / Admin
-    private String adminName;
+    private String nombre;
+    private String ubicacion;
+    private String contacto;
+    private String estado;
+    private String precio;
+    private float calificacion;
+    private int imagenResId;
+    private String adminNombre;
     private String adminEmail;
-    private String adminPhone;
-    private String photoUrl;
-    private boolean isActive = true;
 
-    // Constructor vacío requerido para Firestore / Room / JSON
+    // 1. Constructor vacío
     public Hotel() {}
 
-    // Constructor para módulo Cliente
-    public Hotel(String nombre, String ubicacion, String precioPorNoche, float calificacion, int fotoResId) {
+    // 2. Constructor para ADMIN (4 parámetros)
+    public Hotel(String nombre, String ubicacion, String contacto, String estado) {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
-        this.precioPorNoche = precioPorNoche;
+        this.contacto = contacto;
+        this.estado = estado;
+    }
+
+    // 3. Constructor para CLIENTE (5 parámetros)
+    public Hotel(String nombre, String ubicacion, String precio, float calificacion, int imagenResId) {
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.precio = precio;
         this.calificacion = calificacion;
-        this.fotoResId = fotoResId;
+        this.imagenResId = imagenResId;
     }
 
-    // Constructor completo para módulo SuperAdmin / Admin
-    public Hotel(String name, String location, float rating, String adminName, String adminEmail, String adminPhone, int photoResId, boolean isActive) {
-        this.nombre = name;
-        this.ubicacion = location;
-        this.calificacion = rating;
-        this.adminName = adminName;
+    // 4. Constructor para SUPERADMIN (8 parámetros)
+    public Hotel(String nombre, String ubicacion, float calificacion, String adminNombre, String adminEmail, String contacto, int imagenResId, boolean activo) {
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.calificacion = calificacion;
+        this.adminNombre = adminNombre;
         this.adminEmail = adminEmail;
-        this.adminPhone = adminPhone;
-        this.fotoResId = photoResId;
-        this.isActive = isActive;
+        this.contacto = contacto;
+        this.imagenResId = imagenResId;
+        this.estado = activo ? "Activo" : "Inactivo";
     }
 
-    // Getters y Setters unificados
-    public String getName() { return nombre != null ? nombre : ""; }
-    public void setName(String name) { this.nombre = name; }
+    // Getters y Setters
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getLocation() { return ubicacion != null ? ubicacion : ""; }
-    public void setLocation(String location) { this.ubicacion = location; }
+    public String getUbicacion() { return ubicacion; }
+    public void setUbicacion(String ubicacion) { this.ubicacion = ubicacion; }
 
-    public float getRating() { return calificacion; }
-    public void setRating(float rating) { this.calificacion = rating; }
+    public String getContacto() { return contacto; }
+    public void setContacto(String contacto) { this.contacto = contacto; }
 
-    public String getPrecioPorNoche() { return precioPorNoche; }
-    public void setPrecioPorNoche(String precioPorNoche) { this.precioPorNoche = precioPorNoche; }
+    public String getEstado() { return estado; }
+    public void setEstado(String estado) { this.estado = estado; }
 
-    public String getAdminName() { return adminName != null ? adminName : ""; }
-    public void setAdminName(String adminName) { this.adminName = adminName; }
+    public String getPrecio() { return precio; }
+    public void setPrecio(String precio) { this.precio = precio; }
+
+    public float getCalificacion() { return calificacion; }
+    public void setCalificacion(float calificacion) { this.calificacion = calificacion; }
+
+    public int getImagenResId() { return imagenResId; }
+    public void setImagenResId(int imagenResId) { this.imagenResId = imagenResId; }
+
+    public String getAdminNombre() { return adminNombre; }
+    public void setAdminNombre(String adminNombre) { this.adminNombre = adminNombre; }
 
     public String getAdminEmail() { return adminEmail; }
     public void setAdminEmail(String adminEmail) { this.adminEmail = adminEmail; }
-
-    public String getAdminPhone() { return adminPhone; }
-    public void setAdminPhone(String adminPhone) { this.adminPhone = adminPhone; }
-
-    public String getPhotoUrl() { return photoUrl; }
-    public void setPhotoUrl(String photoUrl) { this.photoUrl = photoUrl; }
-
-    public int getPhotoResId() { return fotoResId; }
-    public void setPhotoResId(int photoResId) { this.fotoResId = photoResId; }
-
-    public boolean isActive() { return isActive; }
-    public void setActive(boolean active) { isActive = active; }
 }

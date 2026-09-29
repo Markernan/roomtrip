@@ -45,7 +45,7 @@ public class HotelesActivity extends AppCompatActivity {
         adapter = new HotelesAdapter(listaHoteles, hotel -> {
             Intent intent = new Intent(HotelesActivity.this, DetalleHotelAdminActivity.class);
             intent.putExtra("hotel", hotel);
-            intent.putExtra("IMAGEN_RES_ID", hotel.getPhotoResId());
+            intent.putExtra("IMAGEN_RES_ID", hotel.getImagenResId());
             startActivity(intent);
         });
         rvHoteles.setAdapter(adapter);

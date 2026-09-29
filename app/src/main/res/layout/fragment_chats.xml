@@ -40,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    <!-- Scroll con la lista estática y el Estado Vacío -->
+    <!-- Scroll con el RecyclerView y el Estado Vacío -->
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -56,27 +56,24 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Ítem 1 -->
-            <include layout="@layout/item_chat_card" />
-
-            <!-- Ítem 2 -->
-            <include layout="@layout/item_chat_card" />
-
-            <!-- Ítem 3 -->
-            <include layout="@layout/item_chat_card" />
-
-            <!-- Ítem 4 -->
-            <include layout="@layout/item_chat_card" />
+            <!-- Lista Dinámica de Chats -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvChats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
             <!-- Card de Estado Vacío (Borde punteado) -->
             <LinearLayout
+                android:id="@+id/layoutEmptyState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:background="@drawable/bg_dashed_box"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="32dp">
+                android:padding="32dp"
+                android:visibility="gone">
 
                 <!-- Icono de mensaje -->
                 <ImageView

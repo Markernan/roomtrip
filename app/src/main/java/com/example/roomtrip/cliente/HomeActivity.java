@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         rvHoteles.setLayoutManager(new LinearLayoutManager(this));
         rvHoteles.setAdapter(new HotelAdapter(hoteles, hotel -> {
             Intent intent = new Intent(this, DetalleHotelActivity.class);
-            intent.putExtra("nombreHotel", hotel.nombre);
+            intent.putExtra("nombreHotel", hotel.getNombre());
             startActivity(intent);
         }));
 

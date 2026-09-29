@@ -32,7 +32,7 @@ public class MisReservasActivity extends AppCompatActivity {
                 hotel -> startActivity(new Intent(this, ChatActivity.class)),
                 hotel -> {
                     Intent intent = new Intent(this, CheckoutActivity.class);
-                    intent.putExtra("nombreHotel", hotel.nombre);
+                    intent.putExtra("nombreHotel", hotel.getNombre());
                     startActivity(intent);
                 }));
 

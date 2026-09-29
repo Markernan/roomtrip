@@ -42,33 +42,35 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         Hotel hotel = filteredList.get(position);
-        holder.tvNombreHotel.setText(hotel.getName());
-        holder.tvDireccionHotel.setText(hotel.getLocation());
-        holder.tvRatingHotel.setText(String.valueOf(hotel.getRating()));
-        holder.tvAdminHotel.setText("Admin: " + hotel.getAdminName());
+        holder.tvNombreHotel.setText(hotel.getNombre());
+        holder.tvDireccionHotel.setText(hotel.getUbicacion());
+        holder.tvRatingHotel.setText(String.valueOf(hotel.getCalificacion()));
+        holder.tvAdminHotel.setText("Admin: " + (hotel.getAdminNombre() != null ? hotel.getAdminNombre() : "Sin asignar"));
 
-        if (hotel.getPhotoResId() != 0) {
+        if (hotel.getImagenResId() != 0) {
             Glide.with(holder.itemView.getContext())
-                    .load(hotel.getPhotoResId())
+                    .load(hotel.getImagenResId())
                     .placeholder(R.drawable.ic_home_pin)
                     .into(holder.ivHotel);
         } else {
             holder.ivHotel.setImageResource(R.drawable.ic_home_pin);
         }
 
+        boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado());
+
         holder.switchActivoHotel.setOnCheckedChangeListener(null);
-        holder.switchActivoHotel.setChecked(hotel.isActive());
-        
+        holder.switchActivoHotel.setChecked(esActivo);
+
         holder.switchActivoHotel.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            hotel.setActive(isChecked);
+            hotel.setEstado(isChecked ? "Activo" : "Inactivo");
             String status = isChecked ? "activado" : "desactivado";
-            Toast.makeText(buttonView.getContext(), 
-                    hotel.getName() + " ha sido " + status, 
+            Toast.makeText(buttonView.getContext(),
+                    hotel.getNombre() + " ha sido " + status,
                     Toast.LENGTH_SHORT).show();
         });
 
         holder.btnMenuOpciones.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Opciones de " + hotel.getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), "Opciones de " + hotel.getNombre(), Toast.LENGTH_SHORT).show();
         });
 
         holder.itemView.setOnClickListener(v -> {
@@ -90,8 +92,9 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         } else {
             String query = text.toLowerCase().trim();
             for (Hotel hotel : originalList) {
-                if (hotel.getName().toLowerCase().contains(query) || 
-                    hotel.getLocation().toLowerCase().contains(query)) {
+                boolean coincideNombre = hotel.getNombre() != null && hotel.getNombre().toLowerCase().contains(query);
+                boolean coincideUbicacion = hotel.getUbicacion() != null && hotel.getUbicacion().toLowerCase().contains(query);
+                if (coincideNombre || coincideUbicacion) {
                     filteredList.add(hotel);
                 }
             }

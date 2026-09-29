@@ -38,11 +38,11 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Hotel hotel = hoteles.get(position);
-        holder.tvHotelName.setText(hotel.getName());
+        holder.tvHotelName.setText(hotel.getNombre());
 
-        if (hotel.getPhotoResId() != 0) {
+        if (hotel.getImagenResId() != 0) {
             Glide.with(holder.itemView.getContext())
-                    .load(hotel.getPhotoResId())
+                    .load(hotel.getImagenResId())
                     .placeholder(R.drawable.foto_hotel_miraflores)
                     .into(holder.ivHotelThumbnail);
         }

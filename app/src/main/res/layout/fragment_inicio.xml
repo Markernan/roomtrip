@@ -192,7 +192,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Item checkout 2 (Carlos Ruiz - sin conexión indicada, se deja igual) -->
+        <!-- Item checkout 2 (Carlos Ruiz) -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -113,14 +113,11 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <!-- Reseña 1 -->
-            <include layout="@layout/item_full_review_card" />
-
-            <!-- Reseña 2 -->
-            <include layout="@layout/item_full_review_card" />
-
-            <!-- Reseña 3 -->
-            <include layout="@layout/item_full_review_card" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvValoraciones"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

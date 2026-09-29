@@ -37,19 +37,19 @@ public class DetalleHotelReporteActivity extends AppCompatActivity {
         }
 
         if (hotel != null) {
-            tvHotelTitle.setText(hotel.getName());
-            tvHotelLocation.setText(hotel.getLocation());
+            tvHotelTitle.setText(hotel.getNombre());
+            tvHotelLocation.setText(hotel.getUbicacion());
 
-            if (hotel.getPhotoResId() != 0) {
+            if (hotel.getImagenResId() != 0) {
                 Glide.with(this)
-                        .load(hotel.getPhotoResId())
+                        .load(hotel.getImagenResId())
                         .placeholder(R.drawable.foto_hotel_miraflores)
                         .into(ivHotelHeader);
             }
         }
 
-        btnExportSmall.setOnClickListener(v -> 
-            Toast.makeText(this, "Exportando reporte individual de " + (hotel != null ? hotel.getName() : "Hotel"), Toast.LENGTH_SHORT).show()
+        btnExportSmall.setOnClickListener(v ->
+                Toast.makeText(this, "Exportando reporte individual de " + (hotel != null ? hotel.getNombre() : "Hotel"), Toast.LENGTH_SHORT).show()
         );
     }
 }

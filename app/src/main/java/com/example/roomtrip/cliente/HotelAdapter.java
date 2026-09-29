@@ -39,17 +39,17 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
     @Override
     public void onBindViewHolder(@NonNull HotelViewHolder holder, int position) {
         Hotel hotel = hoteles.get(position);
-        holder.tvNombreHotel.setText(hotel.nombre);
-        holder.tvUbicacion.setText(hotel.ubicacion);
-        holder.tvPrecio.setText(hotel.precioPorNoche);
-        holder.tvCalificacion.setText(String.valueOf(hotel.calificacion));
-        holder.ivFotoHotel.setImageResource(hotel.fotoResId);
+        holder.tvNombreHotel.setText(hotel.getNombre());
+        holder.tvUbicacion.setText(hotel.getUbicacion());
+        holder.tvPrecio.setText(hotel.getPrecio());
+        holder.tvCalificacion.setText(String.valueOf(hotel.getCalificacion()));
+        holder.ivFotoHotel.setImageResource(hotel.getImagenResId());
         holder.btnVerDetalles.setOnClickListener(v -> listener.onVerDetalles(hotel));
     }
 
     @Override
     public int getItemCount() {
-        return hoteles.size();
+        return hoteles != null ? hoteles.size() : 0;
     }
 
     static class HotelViewHolder extends RecyclerView.ViewHolder {

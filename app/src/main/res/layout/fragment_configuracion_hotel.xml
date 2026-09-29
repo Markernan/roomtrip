@@ -19,8 +19,11 @@
             android:gravity="center_vertical">
 
             <ImageView
+                android:id="@+id/btnBack"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:clickable="true"
+                android:focusable="true"
                 android:src="@drawable/ic_back" />
 
             <TextView
@@ -419,6 +422,7 @@
                     android:textSize="13sp" />
 
                 <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAgregarHabitacion"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="12dp"
@@ -432,14 +436,15 @@
 
         <!-- Guardar y continuar -->
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGuardar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:enabled="false"
+            android:enabled="true"
             android:text="Guardar y continuar"
             android:textColor="@android:color/white"
             android:textAllCaps="false"
-            app:backgroundTint="@drawable/bg_button_disabled"
+            app:backgroundTint="@color/teal"
             app:cornerRadius="24dp" />
 
         <TextView

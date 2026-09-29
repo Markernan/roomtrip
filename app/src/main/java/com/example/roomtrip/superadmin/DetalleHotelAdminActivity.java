@@ -46,16 +46,21 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
         }
 
         if (hotel != null) {
-            tvNombreHotel.setText(hotel.getName());
-            tvDireccionHotel.setText(hotel.getLocation());
-            tvCalificacionHotel.setText(String.valueOf(hotel.getRating()));
-            tvEstadoHotel.setText(hotel.isActive() ? "ACTIVO" : "INACTIVO");
-            tvEstadoHotel.setTextColor(hotel.isActive() ? getColor(R.color.verde_texto) : getColor(R.color.rojo_alerta_texto));
+            tvNombreHotel.setText(hotel.getNombre());
+            tvDireccionHotel.setText(hotel.getUbicacion());
+            tvCalificacionHotel.setText(String.valueOf(hotel.getCalificacion()));
 
-            tvNombreAdmin.setText(hotel.getAdminName());
-            tvEmailAdmin.setText(hotel.getAdminEmail());
+            boolean esActivo = "Activo".equalsIgnoreCase(hotel.getEstado()) || "ACTIVO".equalsIgnoreCase(hotel.getEstado());
+            tvEstadoHotel.setText(esActivo ? "ACTIVO" : "INACTIVO");
+            tvEstadoHotel.setTextColor(esActivo ? getColor(R.color.verde_texto) : getColor(R.color.rojo_alerta_texto));
 
-            int imagenResId = getIntent().getIntExtra("IMAGEN_RES_ID", hotel.getPhotoResId());
+            String adminNombre = "Admin " + hotel.getNombre();
+            String adminCorreo = hotel.getContacto() != null ? hotel.getContacto() : "admin@hotel.com";
+
+            tvNombreAdmin.setText(adminNombre);
+            tvEmailAdmin.setText(adminCorreo);
+
+            int imagenResId = getIntent().getIntExtra("IMAGEN_RES_ID", hotel.getImagenResId());
             if (imagenResId != 0) {
                 Glide.with(this)
                         .load(imagenResId)
@@ -66,8 +71,12 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
 
         cardAdmin.setOnClickListener(v -> {
             if (hotel != null) {
-                Usuario adminUser = new Usuario(hotel.getAdminName(), hotel.getAdminEmail(), "Admin", hotel.getAdminPhone(), true);
-                adminUser.setHotelAsignado(hotel.getName());
+                String adminNombre = "Admin " + hotel.getNombre();
+                String adminCorreo = hotel.getContacto() != null ? hotel.getContacto() : "admin@hotel.com";
+
+                Usuario adminUser = new Usuario(adminNombre, adminCorreo, "Admin", "999888777", true);
+                adminUser.setHotelAsignado(hotel.getNombre());
+
                 Intent intent = new Intent(DetalleHotelAdminActivity.this, DetalleUsuarioActivity.class);
                 intent.putExtra("usuario", adminUser);
                 startActivity(intent);
