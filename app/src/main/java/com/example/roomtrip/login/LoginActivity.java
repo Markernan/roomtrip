@@ -14,6 +14,7 @@ import com.example.roomtrip.cliente.HomeActivity;
 import com.example.roomtrip.cliente.RegistroActivity;
 import com.example.roomtrip.superadmin.DashboardActivity;
 import com.example.roomtrip.taxista.SolicitadoActivity;
+import com.example.roomtrip.taxista.data.SesionTaxistaManager;
 import com.example.roomtrip.utils.Constants;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,6 +29,14 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Si hay una sesión de taxista guardada, se entra directo a su pantalla principal
+        if (new SesionTaxistaManager(this).haySesionTaxista()) {
+            startActivity(new Intent(this, SolicitadoActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         spinnerRoles = findViewById(R.id.spinnerRoles);
@@ -56,6 +65,9 @@ public class LoginActivity extends AppCompatActivity {
                     break;
 
                 case Constants.ROL_TAXISTA:
+                    // Sesión simulada hasta tener backend (Firebase en el siguiente lab)
+                    new SesionTaxistaManager(this).iniciarSesion(
+                            SesionTaxistaManager.ID_TAXISTA_DEMO, getString(R.string.taxista_demo_nombre));
                     intent = new Intent(LoginActivity.this, SolicitadoActivity.class);
                     break;
 

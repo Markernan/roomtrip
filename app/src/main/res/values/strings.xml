@@ -212,7 +212,7 @@
     <!-- escaneo -->
     <string name="escaneo_escanea_el_codigo_qr_del">Escanea el código QR del pasajero</string>
     <string name="escaneo_area_de_camara">[ Área de cámara ]</string>
-    <string name="escaneo_escanear_codigo_qr">Escanear Código QR</string>
+    <string name="escaneo_escanear_codigo_qr">Validar QR (simulado)</string>
     <!-- finalizado -->
     <string name="finalizado_trayecto_finalizado">¡Trayecto Finalizado!</string>
     <string name="finalizado_recuerda_verificar_que_el_pasaje">Recuerda verificar que el pasajero no haya olvidado sus pertenencias en el vehículo.</string>
@@ -220,6 +220,31 @@
     <!-- nav_taxista -->
     <string name="nav_taxista_trabajo">Trabajo</string>
     <string name="nav_taxista_perfil">Perfil</string>
+    <!-- Taxista: storage local y notificaciones (Lab 5) -->
+    <string name="taxista_demo_nombre">Taxista Demo</string>
+    <string name="solicitado_disponible">Disponible para recibir pedidos</string>
+    <string name="solicitado_estado_no_disponible">No disponible</string>
+    <string name="solicitado_simular_pedido">Simular nuevo pedido</string>
+    <string name="en_camino_iniciar_ruta">Iniciar ruta al hotel</string>
+    <string name="toast_taxista_permiso_notificaciones">Sin permiso no recibirás avisos de pedidos</string>
+    <string name="toast_taxista_activar_disponible">Activa \"Disponible\" para recibir y aceptar pedidos</string>
+    <string name="toast_taxista_servicio_en_curso">Ya tienes un servicio en curso</string>
+    <string name="toast_taxista_recuperando_servicio">Recuperando servicio en curso (%1$s)</string>
+    <string name="toast_taxista_sin_servicio">No hay un servicio en traslado</string>
+    <string name="notif_canal_pedidos">Pedidos de taxi</string>
+    <string name="notif_canal_pedidos_descripcion">Avisos de nuevos pedidos de traslado hotel - aeropuerto</string>
+    <string name="notif_canal_estado">Estado del servicio</string>
+    <string name="notif_canal_estado_descripcion">Progreso del servicio de taxi en curso</string>
+    <string name="notif_nuevo_pedido_titulo">Nuevo pedido disponible</string>
+    <string name="notif_ruta">%1$s → %2$s</string>
+    <string name="notif_nuevo_pedido_detalle">Cliente: %1$s\nOrigen: %2$s\nDestino: %3$s</string>
+    <string name="notif_servicio_titulo">Servicio: %1$s</string>
+    <string name="notif_servicio_texto">%1$s · %2$s → %3$s</string>
+    <string name="notif_servicio_finalizado_texto">Traslado de %1$s a %2$s completado</string>
+    <string name="historial_titulo">Historial de servicios</string>
+    <string name="historial_vacio">Aún no tienes servicios finalizados</string>
+    <string name="historial_volver">Volver</string>
+    <string name="perfil_taxista_ver_historial">Ver historial de servicios</string>
     <!-- resena_item -->
     <string name="resena_item_respondido_por_el_hotel">✓ Respondido por el hotel</string>
     <string name="resena_item_responder">Responder</string>

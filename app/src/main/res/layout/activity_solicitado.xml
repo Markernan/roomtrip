@@ -53,6 +53,17 @@
         android:background="@color/blanco"
         android:padding="20dp">
 
+        <!-- Disponibilidad del taxista (se guarda en SharedPreferences) -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchDisponible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/solicitado_disponible"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,6 +104,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Botón de prueba: simula la llegada de un pedido nuevo (aún no hay backend) -->
+        <Button
+            android:id="@+id/btnSimularPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/solicitado_simular_pedido"
+            android:textSize="13sp"
+            style="@style/Boton.Outline" />
 
     </LinearLayout>
 

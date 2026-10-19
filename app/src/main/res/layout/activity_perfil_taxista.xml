@@ -374,6 +374,14 @@
                 android:text="@string/perfil_taxista_guardar_cambios"
                 style="@style/Boton.Primario" />
 
+            <Button
+                android:id="@+id/btnVerHistorial"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/perfil_taxista_ver_historial"
+                style="@style/Boton.Outline" />
+
             <TextView
                 android:id="@+id/tvCerrarSesion"
                 android:layout_width="wrap_content"

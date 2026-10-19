@@ -3,6 +3,7 @@ package com.example.roomtrip.taxista;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,13 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.login.LoginActivity;
+import com.example.roomtrip.taxista.data.SesionTaxistaManager;
+import com.example.roomtrip.taxista.notificaciones.TaxiNotificationHelper;
 import com.example.roomtrip.utils.NavegacionHelper;
 
 public class PerfilTaxistaActivity extends AppCompatActivity {
 
     private ImageView ivFotoPerfil, ivFotoAuto;
     private FrameLayout btnSubirFotoAuto;
-    private Button btnGuardarCambios;
+    private Button btnGuardarCambios, btnVerHistorial;
     private TextView tvCerrarSesion;
 
     @Override
@@ -31,7 +34,13 @@ public class PerfilTaxistaActivity extends AppCompatActivity {
         ivFotoAuto = findViewById(R.id.ivFotoAuto);
         btnSubirFotoAuto = findViewById(R.id.btnSubirFotoAuto);
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios);
+        btnVerHistorial = findViewById(R.id.btnVerHistorial);
         tvCerrarSesion = findViewById(R.id.tvCerrarSesion);
+
+        // Nombre guardado en la sesión (SharedPreferences)
+        SesionTaxistaManager sesion = new SesionTaxistaManager(this);
+        EditText etNombres = findViewById(R.id.etNombres);
+        etNombres.setText(sesion.getNombre());
 
         btnSubirFotoAuto.setOnClickListener(v -> {
             Toast.makeText(this, R.string.toast_perfil_taxista_foto_vehiculo, Toast.LENGTH_SHORT).show();
@@ -46,7 +55,14 @@ public class PerfilTaxistaActivity extends AppCompatActivity {
             finish();
         });
 
+        btnVerHistorial.setOnClickListener(v ->
+                startActivity(new Intent(this, HistorialServiciosActivity.class)));
+
+        // Logout: limpia la sesión del taxista en SharedPreferences y sus notificaciones
         tvCerrarSesion.setOnClickListener(v -> {
+            sesion.cerrarSesion();
+            new TaxiNotificationHelper(this).cancelarTodas();
+
             Intent intent = new Intent(PerfilTaxistaActivity.this, LoginActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
