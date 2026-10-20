@@ -30,25 +30,37 @@
             android:layout_height="wrap_content"
             android:text="Taxistas"
             android:textSize="20sp"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@color/texto_principal"
             android:layout_marginStart="16dp" />
-
-        <Button
-            android:id="@+id/btnSolicitudes"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Solicitudes"
-            android:textColor="@color/turquesa" />
     </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnIrPanelWeb"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginHorizontal="16dp"
+        android:text="Ir al Panel Web de Taxistas"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_bold"
+        android:textColor="@color/turquesa"
+        app:backgroundTint="@color/cyan_pastel"
+        app:icon="@drawable/ic_web"
+        app:iconTint="@color/turquesa"
+        app:cornerRadius="12dp"
+        app:elevation="2dp"
+        app:layout_constraintTop_toBottomOf="@id/header" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTaxistas"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintTop_toBottomOf="@id/btnIrPanelWeb"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        android:layout_marginTop="12dp"
         android:padding="12dp"
         android:clipToPadding="false"
         tools:listitem="@layout/item_superadmin_usuario" />

@@ -1,6 +1,7 @@
 package com.example.roomtrip.superadmin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,6 +43,11 @@ public class UsuariosActivity extends AppCompatActivity {
 
         btnBack.setOnClickListener(v -> finish());
 
+        // Cargar filtro guardado en SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("SuperadminPrefs", MODE_PRIVATE);
+        filtroRol = prefs.getString("ultimo_filtro_rol", "Todos");
+        actualizarChipSeleccionado();
+
         cargarDatosMock();
 
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
@@ -54,6 +60,25 @@ public class UsuariosActivity extends AppCompatActivity {
 
         setupFiltros();
         setupBottomNavigation();
+    }
+
+    private void actualizarChipSeleccionado() {
+        if (chipGroupFiltros == null) return;
+        switch (filtroRol) {
+            case "Cliente":
+                chipGroupFiltros.check(R.id.chipClientes);
+                break;
+            case "Admin":
+                chipGroupFiltros.check(R.id.chipAdmins);
+                break;
+            case "Taxista":
+                chipGroupFiltros.check(R.id.chipTaxistas);
+                break;
+            case "Todos":
+            default:
+                chipGroupFiltros.check(R.id.chipTodos);
+                break;
+        }
     }
 
     private void cargarDatosMock() {
@@ -94,6 +119,11 @@ public class UsuariosActivity extends AppCompatActivity {
                     filtroRol = "Taxista";
                 }
             }
+
+            // Guardar preferencia en SharedPreferences
+            SharedPreferences prefs = getSharedPreferences("SuperadminPrefs", MODE_PRIVATE);
+            prefs.edit().putString("ultimo_filtro_rol", filtroRol).apply();
+
             filtrarUsuarios();
         });
     }

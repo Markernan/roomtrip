@@ -1,8 +1,8 @@
 package com.example.roomtrip.superadmin;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,13 +11,14 @@ import com.example.roomtrip.R;
 import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 import java.util.List;
 
 public class TaxistasActivity extends AppCompatActivity {
 
     private RecyclerView rvTaxistas;
     private ImageButton btnBack;
-    private Button btnSolicitudes;
+    private MaterialButton btnIrPanelWeb;
     private UsuariosAdapter adapter;
     private List<Usuario> listaTaxistas;
 
@@ -28,7 +29,7 @@ public class TaxistasActivity extends AppCompatActivity {
 
         rvTaxistas = findViewById(R.id.rvTaxistas);
         btnBack = findViewById(R.id.btnBack);
-        btnSolicitudes = findViewById(R.id.btnSolicitudes);
+        btnIrPanelWeb = findViewById(R.id.btnIrPanelWeb);
 
         rvTaxistas.setLayoutManager(new LinearLayoutManager(this));
 
@@ -42,6 +43,13 @@ public class TaxistasActivity extends AppCompatActivity {
         rvTaxistas.setAdapter(adapter);
 
         btnBack.setOnClickListener(v -> finish());
+        
+        if (btnIrPanelWeb != null) {
+            btnIrPanelWeb.setOnClickListener(v -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://roomtrip-taxistas.web.app/pendientes"));
+                startActivity(intent);
+            });
+        }
 
         setupBottomNavigation();
     }
