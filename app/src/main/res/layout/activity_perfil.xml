@@ -33,16 +33,28 @@
             android:paddingBottom="24dp">
 
             <FrameLayout
+                android:id="@+id/avatarFoto"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/bg_circulo_gris">
+                android:background="@drawable/bg_circulo_gris"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
+                    android:id="@+id/ivAvatarIcono"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_person"
+                    android:contentDescription="@null" />
+                <ImageView
+                    android:id="@+id/ivFotoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_circulo_gris"
+                    android:clipToOutline="true"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
                     android:contentDescription="@null" />
                 <View
                     android:layout_width="16dp"
@@ -51,8 +63,23 @@
                     android:background="@drawable/bg_circulo_verde" />
             </FrameLayout>
 
+            <TextView
+                android:id="@+id/tvElegirFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/cliente_foto_elegir"
+                android:textColor="@color/texto_secundario"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_regular"
+                android:clickable="true"
+                android:focusable="true" />
+
             <include layout="@layout/campo_registro_generico" android:id="@+id/campoNombres" />
             <include layout="@layout/campo_registro_generico" android:id="@+id/campoApellidos" />
+            <include layout="@layout/campo_tipo_documento" android:id="@+id/campoTipoDocumento" />
             <include layout="@layout/campo_registro_generico" android:id="@+id/campoDocumento" />
             <include layout="@layout/campo_registro_generico" android:id="@+id/campoFechaNacimiento" />
             <include layout="@layout/campo_registro_generico" android:id="@+id/campoCorreo" />

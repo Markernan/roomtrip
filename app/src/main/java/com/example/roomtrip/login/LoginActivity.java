@@ -12,6 +12,7 @@ import com.example.roomtrip.R;
 import com.example.roomtrip.MainActivity;
 import com.example.roomtrip.cliente.HomeActivity;
 import com.example.roomtrip.cliente.RegistroActivity;
+import com.example.roomtrip.cliente.data.SesionClienteManager;
 import com.example.roomtrip.superadmin.DashboardActivity;
 import com.example.roomtrip.taxista.SolicitadoActivity;
 import com.example.roomtrip.taxista.data.SesionTaxistaManager;
@@ -37,6 +38,13 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
+        // Igual para el cliente: con sesión guardada se entra directo a su inicio
+        if (new SesionClienteManager(this).haySesion()) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         spinnerRoles = findViewById(R.id.spinnerRoles);
@@ -57,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
             switch (rolSeleccionado) {
                 case Constants.ROL_CLIENTE:
+                    new SesionClienteManager(this).iniciarSesion();
                     intent = new Intent(LoginActivity.this, HomeActivity.class);
                     break;
 

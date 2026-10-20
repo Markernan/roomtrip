@@ -250,4 +250,28 @@
     <string name="resena_item_responder">Responder</string>
     <!-- habitacion_item -->
     <string name="habitacion_item_editar">Editar</string>
+    <!-- Cliente: storage local y notificaciones (Lab 5) -->
+    <string name="cliente_saludo">Hola, %1$s</string>
+    <string name="cliente_demo_nombre">William</string>
+    <string name="cliente_demo_apellidos">Antaurco</string>
+    <string name="cliente_hint_numero_documento">Número de documento</string>
+    <string-array name="cliente_tipos_documento">
+        <item>DNI</item>
+        <item>Pasaporte</item>
+        <item>Carné de extranjería</item>
+    </string-array>
+    <string name="cliente_foto_elegir">Toca para elegir una foto</string>
+    <string name="cliente_campo_obligatorio">Campo obligatorio</string>
+    <string name="cliente_correo_invalido">Correo no válido</string>
+    <string name="cliente_contrasena_corta">Mínimo 6 caracteres</string>
+    <string name="cliente_registro_ok">Cuenta creada. Ya puedes iniciar sesión</string>
+    <string name="cliente_perfil_guardado">Datos actualizados</string>
+    <string name="cliente_foto_error">No se pudo guardar la foto</string>
+    <string name="toast_cliente_permiso_notificaciones">Sin permiso no recibirás el aviso de cobro</string>
+    <string name="cliente_hotel_desconocido">tu hotel</string>
+    <string name="cliente_checkout_banner_cobro">Notificación: Cobro final realizado por %1$s</string>
+    <string name="notif_canal_cobros">Cobros</string>
+    <string name="notif_canal_cobros_descripcion">Aviso del monto cobrado al finalizar tu estadía</string>
+    <string name="notif_cobro_titulo">Cobro realizado</string>
+    <string name="notif_cobro_texto">Se cobraron %1$s por tu estadía en %2$s</string>
 </resources>
