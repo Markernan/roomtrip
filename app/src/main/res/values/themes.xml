@@ -14,6 +14,11 @@
         <item name="colorOnSecondary">@color/blanco</item>
         <item name="android:statusBarColor">@color/fondo_pantalla</item>
         <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
+        <!-- Con targetSdk 35 Android 15+ dibuja las pantallas debajo de la barra de estado; los mockups
+             asumen el contenido debajo de ella. Se ignora en Android 14 y no aplica si se sube a targetSdk 36. -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+        <item name="android:navigationBarColor">@color/blanco</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
         <item name="android:windowBackground">@color/fondo_pantalla</item>
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
