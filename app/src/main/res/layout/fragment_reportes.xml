@@ -35,6 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvTitle">
 
         <TextView
+            android:id="@+id/tabDiario"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -42,9 +43,12 @@
             android:text="@string/reportes_diario"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
+            android:id="@+id/tabMensual"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -53,9 +57,12 @@
             android:text="@string/reportes_mensual"
             android:textColor="@color/primary_teal"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
 
         <TextView
+            android:id="@+id/tabAnual"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -63,7 +70,9 @@
             android:text="@string/reportes_anual"
             android:textColor="@color/text_secondary"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
     <androidx.core.widget.NestedScrollView
@@ -105,6 +114,7 @@
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/tvTotalAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/tvLabelTotal"
@@ -129,7 +139,7 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Card Ingresos por servicios adicionales (orden de menor a mayor monto) -->
+            <!-- Card Ingresos por servicios adicionales -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -203,7 +213,20 @@
                 android:id="@+id/rvValoracionesRecientes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:nestedScrollingEnabled="false" />
+
+            <!-- Botón Exportar Reporte -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnExportarReporte"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="16dp"
+                android:text="Exportar Reporte (.txt)"
+                android:textColor="@android:color/white"
+                android:textAllCaps="false"
+                app:backgroundTint="@color/teal"
+                app:cornerRadius="25dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

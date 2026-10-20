@@ -101,6 +101,7 @@
     <string name="config_hotel_se_necesitan_4_fotos_y">Se necesitan 4 fotos y 1 habitación como mínimo</string>
     <!-- checkout_hab -->
     <string name="checkout_hab_checkout_habitacion_302">Checkout - Habitación 302</string>
+    <string name="checkout_hab_checkout_habitacion_con_numero">Checkout - Habitación %1$s</string>
     <string name="checkout_hab_checkout_pendiente">CHECKOUT PENDIENTE</string>
     <string name="checkout_hab_juan_perez">Juan Pérez</string>
     <string name="checkout_hab_hoy_11_00_am">Hoy 11:00 AM</string>
@@ -126,6 +127,8 @@
     <string name="reportes_anual">Anual</string>
     <string name="reportes_ingreso_total_del_periodo">INGRESO TOTAL DEL PERIODO</string>
     <string name="reportes_s_12_450_00">S/ 12,450.00</string>
+    <string name="reportes_s_1_250_00">S/ 1,250.00</string>
+    <string name="reportes_s_150_800_00">S/ 150,800.00</string>
     <string name="reportes_n14_2" formatted="false">+14.2% ★</string>
     <string name="reportes_ingresos_por_servicios_adicional">Ingresos por servicios adicionales</string>
     <string name="reportes_ordenado_de_menor_a_mayor">Ordenado de menor a mayor ingreso</string>
@@ -241,6 +244,12 @@
     <string name="notif_servicio_titulo">Servicio: %1$s</string>
     <string name="notif_servicio_texto">%1$s · %2$s → %3$s</string>
     <string name="notif_servicio_finalizado_texto">Traslado de %1$s a %2$s completado</string>
+    <string name="notif_canal_general">Notificaciones generales</string>
+    <string name="notif_canal_general_descripcion">Avisos del hotel sobre reservas y reportes</string>
+    <string name="notif_canal_urgente">Alertas urgentes</string>
+    <string name="notif_canal_urgente_descripcion">Avisos inmediatos sobre checkouts y mensajes</string>
+    <string name="notif_reporte_guardado_titulo">Reporte guardado</string>
+    <string name="notif_reporte_guardado_texto">El archivo %1$s se guardó correctamente</string>
     <string name="historial_titulo">Historial de servicios</string>
     <string name="historial_vacio">Aún no tienes servicios finalizados</string>
     <string name="historial_volver">Volver</string>

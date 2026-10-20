@@ -12,12 +12,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.databinding.FragmentInventarioBinding;
 
 public class InventarioFragment extends Fragment {
 
     private FragmentInventarioBinding binding;
+    private AdminRepository repository;
+    private boolean esPestaniaHabitaciones = true;
 
     @Nullable
     @Override
@@ -29,22 +30,35 @@ public class InventarioFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        repository = AdminRepository.getInstance(requireContext());
 
         binding.rvInventario.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // Pestañas / Tabs
         binding.tabHabitaciones.setOnClickListener(v -> {
+            esPestaniaHabitaciones = true;
             actualizarEstadoTabs(true);
-            cargarHabitacionesMock();
+            cargarHabitaciones();
         });
         binding.tabServicios.setOnClickListener(v -> {
+            esPestaniaHabitaciones = false;
             actualizarEstadoTabs(false);
-            cargarServiciosMock();
+            cargarServicios();
         });
 
-        // Estado inicial (Habitaciones seleccionado)
-        actualizarEstadoTabs(true);
-        cargarHabitacionesMock();
+        // Recuperar filtro/búsqueda de SharedPreferences
+        String busqueda = AdminSession.getFiltroHabitaciones(requireContext());
+        if (!busqueda.isEmpty()) {
+            // TODO: Aplicar filtro visual si hubiera un EditText de búsqueda
+        }
+
+        // Recuperar última pestaña visitada
+        String ultima = AdminSession.getUltimaPestania(requireContext());
+        esPestaniaHabitaciones = !"servicios".equals(ultima);
+
+        // Estado inicial
+        actualizarEstadoTabs(esPestaniaHabitaciones);
+        if (esPestaniaHabitaciones) cargarHabitaciones(); else cargarServicios();
 
         // FAB / Botón Agregar
         binding.fabAdd.setOnClickListener(v ->
@@ -54,32 +68,27 @@ public class InventarioFragment extends Fragment {
 
     private void actualizarEstadoTabs(boolean esHabitaciones) {
         int colorGris = ContextCompat.getColor(requireContext(), R.color.text_gray);
+        AdminSession.guardarUltimaPestania(requireContext(), esHabitaciones ? "habitaciones" : "servicios");
 
         if (esHabitaciones) {
-            // Habitaciones Activo: Fondo turquesa + Texto Blanco
             binding.tabHabitaciones.setBackgroundResource(R.drawable.bg_tab_selected);
             binding.tabHabitaciones.setTextColor(Color.WHITE);
-
-            // Servicios Inactivo: Fondo neutro + Texto Gris
             binding.tabServicios.setBackgroundResource(R.drawable.bg_tab_unselected);
             binding.tabServicios.setTextColor(colorGris);
         } else {
-            // Servicios Activo: Fondo turquesa + Texto Blanco
             binding.tabServicios.setBackgroundResource(R.drawable.bg_tab_selected);
             binding.tabServicios.setTextColor(Color.WHITE);
-
-            // Habitaciones Inactivo: Fondo neutro + Texto Gris
             binding.tabHabitaciones.setBackgroundResource(R.drawable.bg_tab_unselected);
             binding.tabHabitaciones.setTextColor(colorGris);
         }
     }
 
-    private void cargarHabitacionesMock() {
-        binding.rvInventario.setAdapter(new HabitacionAdapter(MockData.getHabitacionesEjemplo(), requireContext()));
+    private void cargarHabitaciones() {
+        binding.rvInventario.setAdapter(new HabitacionAdapter(repository.getHabitaciones(), requireContext()));
     }
 
-    private void cargarServiciosMock() {
-        binding.rvInventario.setAdapter(new ServicioAdapter(MockData.getServiciosEjemplo(), requireContext()));
+    private void cargarServicios() {
+        binding.rvInventario.setAdapter(new ServicioAdapter(repository.getServicios(), requireContext()));
     }
 
     @Override

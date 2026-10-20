@@ -35,35 +35,40 @@ public class InicioFragment extends Fragment {
 
         // --- 2. Navegaciones individuales ---
         // Botón Verde Superior "Completar configuración"
-        enlazarNavegacion(binding.btnCompletarConfiguracion, R.id.action_inicioFragment_to_configuracionHotelFragment);
+        enlazarNavegacion(binding.btnCompletarConfiguracion, R.id.action_inicioFragment_to_configuracionHotelFragment, null);
 
         // Tarjeta "Editar hotel" (Accesos rápidos)
-        enlazarNavegacion(binding.cardEditarHotel, R.id.action_inicioFragment_to_configuracionHotelFragment);
+        enlazarNavegacion(binding.cardEditarHotel, R.id.action_inicioFragment_to_configuracionHotelFragment, null);
 
         // Notificaciones
-        enlazarNavegacion(binding.icNotifications, R.id.action_inicioFragment_to_notificacionesFragment);
+        enlazarNavegacion(binding.icNotifications, R.id.action_inicioFragment_to_notificacionesFragment, null);
 
-        // Checkout María
-        enlazarNavegacion(binding.cardCheckoutMaria, R.id.action_inicioFragment_to_checkoutHabitacionFragment);
+        // Checkout María (Hab 204)
+        Bundle argsMaria = new Bundle();
+        argsMaria.putString("id_checkout", "204");
+        enlazarNavegacion(binding.cardCheckoutMaria, R.id.action_inicioFragment_to_checkoutHabitacionFragment, argsMaria);
+
+        // Checkout Carlos (Hab 308)
+        Bundle argsCarlos = new Bundle();
+        argsCarlos.putString("id_checkout", "308");
+        enlazarNavegacion(binding.cardCheckoutCarlos, R.id.action_inicioFragment_to_checkoutHabitacionFragment, argsCarlos);
 
         // Traslados en Curso
-        enlazarNavegacion(binding.cardTrasladosEnCurso, R.id.action_inicioFragment_to_trasladosEnCursoFragment);
+        enlazarNavegacion(binding.cardTrasladosEnCurso, R.id.action_inicioFragment_to_trasladosEnCursoFragment, null);
 
         // Checkouts
-        enlazarNavegacion(binding.cardCheckout, R.id.action_inicioFragment_to_checkoutsFragment);
+        enlazarNavegacion(binding.cardCheckout, R.id.action_inicioFragment_to_checkoutsFragment, null);
 
         // Valoraciones
-        enlazarNavegacion(binding.cardValoraciones, R.id.action_inicioFragment_to_valoracionesFragment);
+        enlazarNavegacion(binding.cardValoraciones, R.id.action_inicioFragment_to_valoracionesFragment, null);
     }
 
-    private void enlazarNavegacion(View destino, int actionId) {
+    private void enlazarNavegacion(View destino, int actionId, @Nullable Bundle args) {
         destino.setOnClickListener(v -> {
             NavController navController = Navigation.findNavController(v);
-            // Un doble toque rápido dispara la acción dos veces; la segunda ya no parte de Inicio
-            // y navigate() lanzaría IllegalArgumentException. Solo navegamos si seguimos aquí.
             NavDestination actual = navController.getCurrentDestination();
             if (actual != null && actual.getId() == R.id.inicioFragment) {
-                navController.navigate(actionId);
+                navController.navigate(actionId, args);
             }
         });
     }

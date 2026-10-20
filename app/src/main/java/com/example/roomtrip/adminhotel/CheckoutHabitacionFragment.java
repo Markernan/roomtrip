@@ -11,7 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.model.Checkout;
 import com.example.roomtrip.data.model.CobroAdicional;
+import com.example.roomtrip.data.model.EstadoCheckout;
 import com.example.roomtrip.databinding.FragmentCheckoutHabitacionBinding;
 
 import java.util.EnumSet;
@@ -19,9 +21,20 @@ import java.util.EnumSet;
 public class CheckoutHabitacionFragment extends Fragment {
 
     private FragmentCheckoutHabitacionBinding binding;
+    private AdminRepository repository;
+    private String idCheckout;
 
     public CheckoutHabitacionFragment() {
         super(R.layout.fragment_checkout_habitacion);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        repository = AdminRepository.getInstance(requireContext());
+        if (getArguments() != null) {
+            idCheckout = getArguments().getString("id_checkout");
+        }
     }
 
     @Override
@@ -29,22 +42,40 @@ public class CheckoutHabitacionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentCheckoutHabitacionBinding.bind(view);
 
+        // Flecha atrás funcional
+        binding.btnBack.setOnClickListener(v -> Navigation.findNavController(v).navigateUp());
+
+        // Si vinimos por deep link, buscamos el checkout específico
+        cargarDatosCheckout();
+
         binding.btnProcesarTransaccion.setOnClickListener(v -> procesarTransaccion());
+    }
+
+    private void cargarDatosCheckout() {
+        if (idCheckout == null) return;
+        
+        // Simulación: buscar el checkout en el repo por habitación
+        for (Checkout c : repository.getCheckouts()) {
+            if (c.getHabitacion().equals(idCheckout)) {
+                binding.tvGuestName.setText(c.getNombreHuesped());
+                binding.tvRoomNumber.setText(getString(R.string.checkout_hab_checkout_habitacion_con_numero, c.getHabitacion()));
+                break;
+            }
+        }
     }
 
     /** RN-012: si se escribe un cobro adicional, monto, motivo y observación son obligatorios. */
     private void procesarTransaccion() {
         String motivo = texto(binding.etDamageDescription);
-        String monto = texto(binding.etDamageAmount);
+        String montoStr = texto(binding.etDamageAmount);
         String observacion = texto(binding.etDamageObservation);
 
         binding.etDamageDescription.setError(null);
         binding.etDamageAmount.setError(null);
         binding.etDamageObservation.setError(null);
 
-        EnumSet<CobroAdicional.Error> errores = CobroAdicional.validar(motivo, monto, observacion);
+        EnumSet<CobroAdicional.Error> errores = CobroAdicional.validar(motivo, montoStr, observacion);
         if (!errores.isEmpty()) {
-            // Se señala cada campo afectado en el propio campo (RNF-USA-005)
             if (errores.contains(CobroAdicional.Error.MOTIVO_OBLIGATORIO)) {
                 binding.etDamageDescription.setError(getString(R.string.cobro_error_motivo));
             }
@@ -60,14 +91,27 @@ public class CheckoutHabitacionFragment extends Fragment {
             return;
         }
 
-        // TODO: registrar el cobro y el cambio de estado en Firestore (Lab 6)
-        if (CobroAdicional.estaVacio(motivo, monto, observacion)) {
+        Double montoAdicional = CobroAdicional.parsearMonto(montoStr);
+        double totalExtra = (montoAdicional != null ? montoAdicional : 0.0);
+
+        // Actualizar en repositorio persistente
+        String huesped = binding.tvGuestName.getText().toString();
+        String hab = idCheckout != null ? idCheckout : "???";
+        
+        // El monto total sería el base (simulado) + el extra
+        Checkout actualizado = new Checkout(huesped, hab, "Finalizado", EstadoCheckout.PROCESADO, 510.0 + totalExtra);
+        repository.actualizarCheckout(actualizado);
+
+        // TODO(Lab6-Firebase): Registrar en Firestore
+        
+        if (totalExtra == 0) {
             Toast.makeText(requireContext(), R.string.checkout_procesado, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(requireContext(),
-                    getString(R.string.checkout_procesado_con_cargo, CobroAdicional.parsearMonto(monto)),
+                    getString(R.string.checkout_procesado_con_cargo, totalExtra),
                     Toast.LENGTH_LONG).show();
         }
+
         Navigation.findNavController(requireView()).navigateUp();
     }
 
