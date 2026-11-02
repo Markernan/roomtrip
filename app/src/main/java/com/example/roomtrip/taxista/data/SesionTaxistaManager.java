@@ -6,15 +6,16 @@ import android.content.SharedPreferences;
 /**
  * Sesión del taxista en SharedPreferences ("sesion", MODE_PRIVATE).
  * Se guarda en data/data/com.example.roomtrip/shared_prefs/sesion.xml
+ *
+ * <p>Desde el Lab 6 quien autentica es Firebase Authentication (que también recuerda la sesión).
+ * Aquí quedan solo datos de uso local: el uid y el nombre del taxista que ya pasó la validación en
+ * Firestore, y su disponibilidad para recibir pedidos.
  */
 public class SesionTaxistaManager {
 
     private static final String PREFS = "sesion";
 
     public static final String ROL_TAXISTA = "TAXISTA";
-
-    // Id simulado hasta tener backend (Firebase en el siguiente lab)
-    public static final String ID_TAXISTA_DEMO = "TX-001";
 
     private static final String KEY_ROL = "rol";
     private static final String KEY_ID = "idTaxista";
@@ -27,10 +28,11 @@ public class SesionTaxistaManager {
         prefs = context.getApplicationContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE);
     }
 
-    public void iniciarSesion(String idTaxista, String nombre) {
+    /** @param uidTaxista uid de Firebase Authentication (id del documento usuarios/{uid}) */
+    public void iniciarSesion(String uidTaxista, String nombre) {
         prefs.edit()
                 .putString(KEY_ROL, ROL_TAXISTA)
-                .putString(KEY_ID, idTaxista)
+                .putString(KEY_ID, uidTaxista)
                 .putString(KEY_NOMBRE, nombre)
                 .putBoolean(KEY_DISPONIBLE, true)
                 .apply();
@@ -46,6 +48,11 @@ public class SesionTaxistaManager {
 
     public String getNombre() {
         return prefs.getString(KEY_NOMBRE, "");
+    }
+
+    /** Cuando el taxista edita su nombre en el perfil. */
+    public void setNombre(String nombre) {
+        prefs.edit().putString(KEY_NOMBRE, nombre).apply();
     }
 
     public boolean isDisponible() {

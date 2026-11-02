@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,12 +14,19 @@ import java.util.List;
 
 public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHolder> {
 
+    /** Lab 6: al tocar un checkout se abre su detalle para procesar el cobro. */
+    public interface OnCheckoutClickListener {
+        void onCheckoutClick(Checkout checkout);
+    }
+
     private final List<Checkout> listaCheckouts;
     private final Context context;
+    private final OnCheckoutClickListener listener;
 
-    public CheckoutAdapter(List<Checkout> listaCheckouts, Context context) {
+    public CheckoutAdapter(List<Checkout> listaCheckouts, Context context, OnCheckoutClickListener listener) {
         this.listaCheckouts = listaCheckouts;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -54,9 +60,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutAdapter.ViewHo
             b.tvPrice.setVisibility(View.GONE);
         }
 
-        holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, context.getString(R.string.toast_checkout_detalle, item.getNombreHuesped(), item.getHabitacion()), Toast.LENGTH_SHORT).show()
-        );
+        holder.itemView.setOnClickListener(v -> listener.onCheckoutClick(item));
     }
 
     @Override

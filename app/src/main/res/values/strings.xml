@@ -224,7 +224,6 @@
     <string name="nav_taxista_trabajo">Trabajo</string>
     <string name="nav_taxista_perfil">Perfil</string>
     <!-- Taxista: storage local y notificaciones (Lab 5) -->
-    <string name="taxista_demo_nombre">Taxista Demo</string>
     <string name="solicitado_disponible">Disponible para recibir pedidos</string>
     <string name="solicitado_estado_no_disponible">No disponible</string>
     <string name="solicitado_simular_pedido">Simular nuevo pedido</string>
@@ -254,6 +253,34 @@
     <string name="historial_vacio">Aún no tienes servicios finalizados</string>
     <string name="historial_volver">Volver</string>
     <string name="perfil_taxista_ver_historial">Ver historial de servicios</string>
+    <!-- Lab 6: Firebase Authentication (login del taxista) -->
+    <string name="login_iniciar_sesion">Iniciar sesión</string>
+    <string name="login_error_firebase_ui">No se pudo iniciar sesión. Inténtalo nuevamente.</string>
+    <string name="login_verificacion_titulo">Verifica tu correo</string>
+    <string name="login_verificacion_mensaje">Te enviamos un enlace de verificación a %1$s. Ábrelo y luego toca \"Ya verifiqué\".</string>
+    <string name="login_verificacion_ya_verifique">Ya verifiqué</string>
+    <string name="login_verificacion_reenviar">Reenviar correo</string>
+    <string name="login_verificacion_cancelar">Cancelar</string>
+    <string name="login_verificacion_reenviada">Te reenviamos el correo de verificación</string>
+    <string name="login_verificacion_no_enviada">No se pudo enviar el correo de verificación. Inténtalo en unos minutos.</string>
+    <string name="login_verificacion_pendiente">Tu correo aún no está verificado</string>
+    <string name="login_no_puedes_ingresar">Aún no puedes ingresar</string>
+    <string name="login_entendido">Entendido</string>
+    <string name="login_solicitud_creada">Registramos tu solicitud como taxista. El Superadmin debe aprobarla; vuelve a iniciar sesión cuando te habilite.</string>
+    <string name="login_solicitud_pendiente">Tu solicitud como taxista está pendiente de aprobación por el Superadmin.</string>
+    <string name="login_solicitud_rechazada">Tu solicitud como taxista fue rechazada. Comunícate con el administrador del sistema.</string>
+    <string name="login_cuenta_desactivada">Tu cuenta está desactivada. Comunícate con el administrador del sistema.</string>
+    <string name="login_no_es_taxista">Esta cuenta no está registrada como taxista.</string>
+    <!-- Lab 6: Cloud Firestore (taxista) -->
+    <string name="error_firebase_sin_conexion">Sin conexión con el servidor. Revisa tu internet e inténtalo de nuevo.</string>
+    <string name="error_firebase_permiso">No tienes permiso para realizar esta acción.</string>
+    <string name="error_firebase_generico">Ocurrió un error. Inténtalo nuevamente.</string>
+    <string name="toast_taxista_pedido_simulado">Pedido de prueba creado en Firestore</string>
+    <string name="toast_taxista_pedido_ya_tomado">Otro taxista ya tomó este pedido</string>
+    <string name="toast_taxista_servicio_cambio">El servicio cambió de estado; se muestra el estado actual</string>
+    <string name="toast_taxista_qr_invalido">El código QR no corresponde a este servicio</string>
+    <string name="toast_perfil_taxista_no_encontrado">No se encontró tu perfil de taxista</string>
+    <string name="error_perfil_taxista_nombres">Ingresa tus nombres</string>
     <!-- resena_item -->
     <string name="resena_item_respondido_por_el_hotel">✓ Respondido por el hotel</string>
     <string name="resena_item_responder">Responder</string>
@@ -273,7 +300,7 @@
     <string name="cliente_campo_obligatorio">Campo obligatorio</string>
     <string name="cliente_correo_invalido">Correo no válido</string>
     <string name="cliente_contrasena_corta">Mínimo 6 caracteres</string>
-    <string name="cliente_registro_ok">Cuenta creada. Ya puedes iniciar sesión</string>
+    <string name="cliente_registro_ok">Cuenta creada. Te enviamos un correo para verificarla; ábrelo y luego inicia sesión</string>
     <string name="cliente_perfil_guardado">Datos actualizados</string>
     <string name="cliente_foto_error">No se pudo guardar la foto</string>
     <string name="toast_cliente_permiso_notificaciones">Sin permiso no recibirás el aviso de cobro</string>
@@ -283,4 +310,164 @@
     <string name="notif_canal_cobros_descripcion">Aviso del monto cobrado al finalizar tu estadía</string>
     <string name="notif_cobro_titulo">Cobro realizado</string>
     <string name="notif_cobro_texto">Se cobraron %1$s por tu estadía en %2$s</string>
+    <!-- Lab 6: login único y registro -->
+    <string name="login_bienvenido">Bienvenido de vuelta</string>
+    <string name="login_ayuda">Inicia sesión con tu correo o con Google. La app reconoce si eres cliente, administrador de hotel, taxista o superadmin.</string>
+    <string name="login_sin_cuenta">¿No tienes cuenta? </string>
+    <string name="login_registrate">Regístrate</string>
+    <string name="login_cuenta_nueva_titulo">Completa tu registro</string>
+    <string name="login_cuenta_nueva_mensaje">La cuenta %1$s todavía no está registrada en RoomTrip. ¿Cómo quieres usar la app?</string>
+    <string name="login_cuenta_nueva_cliente">Soy cliente</string>
+    <string name="login_cuenta_nueva_taxista">Soy taxista</string>
+    <string name="login_sin_rol">Tu cuenta no tiene un rol asignado. Comunícate con el administrador del sistema.</string>
+    <string name="login_admin_sin_hotel">Tu cuenta de administrador no tiene un hotel asignado. Comunícate con el administrador del sistema.</string>
+    <string name="cliente_hint_nombres">Nombres</string>
+    <string name="cliente_hint_apellidos">Apellidos</string>
+    <string name="cliente_hint_fecha_nacimiento">Fecha de nacimiento (DD/MM/AAAA)</string>
+    <string name="cliente_hint_correo">Correo electrónico</string>
+    <string name="cliente_hint_telefono">Teléfono</string>
+    <string name="cliente_hint_domicilio">Domicilio</string>
+    <string name="cliente_hint_contrasena">Contraseña</string>
+    <string name="cliente_correo_en_uso">Ya existe una cuenta con este correo. Inicia sesión</string>
+    <string name="cliente_contrasena_debil">La contraseña es muy débil</string>
+    <string name="perfil_dialogo_titulo">Perfil de %1$s</string>
+    <string name="perfil_dialogo_foto">La foto de perfil se podrá cambiar cuando se defina el almacenamiento de imágenes</string>
+    <string name="perfil_dialogo_nombre_vacio">El nombre no puede estar vacío</string>
+    <string name="perfil_dialogo_nombre_actualizado">Nombre actualizado a: %1$s</string>
+    <!-- Lab 6: superadmin con Firestore -->
+    <string name="superadmin_cargar_demo">Cargar datos de demostración</string>
+    <string name="superadmin_demo_ya_existe">Ya hay hoteles registrados: no se cargaron datos de demostración</string>
+    <string name="superadmin_demo_creada">Se crearon %1$d hoteles de demostración con habitaciones y servicios</string>
+    <string name="superadmin_saludo">Hola, %1$s</string>
+    <string name="superadmin_aprobar">Aprobar</string>
+    <string name="superadmin_rechazar">Rechazar</string>
+    <string name="superadmin_aprobacion_actual">Habilitación: %1$s</string>
+    <string name="superadmin_aprobacion_guardada">Taxista: %1$s</string>
+    <string name="superadmin_correo_admin">Correo del administrador del hotel</string>
+    <string name="superadmin_no_desactivarse">No puedes desactivar tu propia cuenta</string>
+    <string name="superadmin_usuario_activado">%1$s ha sido activado</string>
+    <string name="superadmin_usuario_desactivado">%1$s ha sido desactivado</string>
+    <string name="superadmin_estado_guardado">Estado de la cuenta actualizado</string>
+    <string name="superadmin_reset_enviado">Se envió el enlace para restablecer la contraseña a %1$s</string>
+    <string name="superadmin_desactivar_cuenta">Desactivar cuenta</string>
+    <string name="superadmin_cuenta_desactivada">Cuenta desactivada. Se conserva su historial</string>
+    <string name="superadmin_sin_dato">—</string>
+    <string name="superadmin_hotel_activado">%1$s ha sido activado</string>
+    <string name="superadmin_hotel_desactivado">%1$s ha sido desactivado</string>
+    <string name="superadmin_admin_pendiente">Aún no activa su cuenta</string>
+    <string name="superadmin_admin_sin_activar">El administrador todavía no inició sesión con el correo invitado</string>
+    <string name="superadmin_registrar_hotel_obligatorios">Completa el nombre, la dirección y el correo del administrador</string>
+    <string name="superadmin_hotel_sin_tarifa">Sin tarifas aún</string>
+    <string name="superadmin_sin_logs">Todavía no hay eventos registrados</string>
+    <string name="superadmin_monto_soles">S/ %1$,.2f</string>
+    <plurals name="superadmin_taxistas_pendientes">
+        <item quantity="one">%1$d solicitud de taxista pendiente</item>
+        <item quantity="other">%1$d solicitudes de taxista pendientes</item>
+    </plurals>
+    <plurals name="superadmin_reservas">
+        <item quantity="one">%1$d reserva</item>
+        <item quantity="other">%1$d reservas</item>
+    </plurals>
+    <!-- Lab 6: administrador de hotel con Firestore -->
+    <string name="chats_abrir_conversacion">Reserva del %1$s al %2$s · toca para abrir el chat</string>
+    <string name="notif_admin_checkout_titulo">Checkout por cobrar</string>
+    <string name="notif_admin_checkout_texto">%1$s (%2$s) hizo checkout. Procesa el cobro de su tarjeta.</string>
+    <string name="notif_admin_reserva_titulo">Nueva reserva confirmada</string>
+    <string name="notif_admin_reserva_texto">%1$s reservó %2$s del %3$s al %4$s.</string>
+    <string name="traslados_asignando_conductor">Asignando conductor...</string>
+    <string name="valoraciones_vacio">Aún no hay valoraciones de huéspedes</string>
+    <string name="checkout_no_encontrado">No se encontró la reserva de este checkout</string>
+    <string name="checkout_fechas_estadia">Entrada: %1$s · Salida: %2$s</string>
+    <string name="checkout_valoracion_cliente">Valoración del huésped</string>
+    <string name="checkout_estrellas">★ %1$.1f</string>
+    <string name="checkout_taxi_aeropuerto">Taxi al aeropuerto</string>
+    <string name="checkout_taxi_solicitado">Solicitado</string>
+    <string name="checkout_taxi_no">No solicitado</string>
+    <string name="checkout_sin_solicitar">Sin checkout</string>
+    <string name="checkout_ya_procesado">Este checkout ya fue procesado</string>
+    <string name="reportes_concepto_alojamiento">Alojamiento</string>
+    <string name="reportes_concepto_adicional">Cobro adicional</string>
+    <string name="config_hotel_hint_direccion">Dirección del hotel</string>
+    <string name="config_hotel_monto_minimo_taxi">Monto mínimo para taxi gratis (S/)</string>
+    <string name="config_hotel_hint_monto">Ej. 200.00</string>
+    <string name="config_hotel_hint_lugar">Nombre del lugar</string>
+    <string name="inventario_hint_tipo">Tipo (estándar, económica, lux…)</string>
+    <string name="inventario_hint_capacidad">Capacidad (ej. 2 adultos, 1 niño)</string>
+    <string name="inventario_hint_area">Área en m²</string>
+    <string name="inventario_hint_precio_noche">Precio por noche (S/)</string>
+    <string name="inventario_hint_nombre_servicio">Nombre del servicio</string>
+    <string name="inventario_hint_categoria">Categoría (ej. Alimentos)</string>
+    <string name="inventario_hint_descripcion">Descripción</string>
+    <string name="inventario_hint_precio_servicio">Precio (S/, 0 si es gratuito)</string>
+    <string name="inventario_nueva_habitacion">Nueva habitación</string>
+    <string name="inventario_nuevo_servicio">Nuevo servicio</string>
+    <string name="inventario_guardar">Guardar</string>
+    <string name="inventario_habitacion_guardada">Habitación registrada</string>
+    <string name="inventario_servicio_guardado">Servicio registrado</string>
+    <string name="inventario_categoria_general">General</string>
+    <plurals name="checkout_alojamiento_noches">
+        <item quantity="one">Alojamiento (%1$d noche)</item>
+        <item quantity="other">Alojamiento (%1$d noches)</item>
+    </plurals>
+    <plurals name="config_hotel_habitaciones_registradas">
+        <item quantity="one">%1$d habitación registrada</item>
+        <item quantity="other">%1$d habitaciones registradas</item>
+    </plurals>
+    <!-- Lab 6: cliente (hoteles, reservas, checkout y taxi en Firestore) -->
+    <string name="cliente_sin_hoteles">Todavía no hay hoteles disponibles</string>
+    <string name="cliente_hotel_no_disponible">Este hotel ya no está disponible</string>
+    <string name="cliente_habitacion_opcion">%1$s · S/ %2$.2f por noche</string>
+    <string name="cliente_sin_habitaciones">El hotel aún no registra habitaciones</string>
+    <string name="cliente_servicio_precio">S/ %1$.2f</string>
+    <string name="cliente_servicio_gratis">Gratis</string>
+    <string name="cliente_servicio_taxi">Taxi al aeropuerto</string>
+    <string name="cliente_servicio_taxi_detalle">Gratis si tu reserva suma S/ %1$.2f o más</string>
+    <string name="cliente_sin_opiniones">Este hotel todavía no tiene opiniones</string>
+    <string name="detalle_calificacion_general_valor">%1$.1f</string>
+    <string name="cliente_elige_fechas">Elige tus fechas</string>
+    <string name="cliente_habitacion_descripcion">%1$s para %2$s</string>
+    <string name="cliente_habitacion_area">%1$d m²</string>
+    <string name="cliente_maximo_noches">Una reserva puede tener como máximo %1$d noches</string>
+    <string name="cliente_conflicto_habitacion">La habitación ya está reservada en alguna de esas noches. Prueba otras fechas u otra habitación.</string>
+    <string name="cliente_conflicto_cliente">Ya tienes otra reserva activa en esas fechas</string>
+    <string name="cliente_fechas_invalidas">Revisa las fechas de tu reserva</string>
+    <string name="pago_hint_titular">Nombre del titular</string>
+    <string name="pago_hint_numero">Número de tarjeta</string>
+    <string name="pago_hint_caducidad">Caducidad (MM/AA)</string>
+    <string name="pago_hint_cvc">CVC</string>
+    <string name="pago_error_numero">Ingresa entre 13 y 19 dígitos</string>
+    <string name="pago_error_caducidad">Usa el formato MM/AA</string>
+    <string name="pago_error_cvc">El CVC tiene 3 o 4 dígitos</string>
+    <string name="cliente_sin_reservas">Aún no tienes reservas</string>
+    <string name="cliente_reserva_resumen">%1$s · %2$s al %3$s · %4$s</string>
+    <string name="cliente_hacer_checkout">Hacer checkout</string>
+    <string name="cliente_checkout_enviado">Checkout enviado</string>
+    <string name="cliente_reserva_finalizada">Finalizada</string>
+    <string name="cliente_ver_taxi">Ver mi taxi</string>
+    <string name="cliente_reserva_no_encontrada">No se encontró la reserva</string>
+    <string name="cliente_checkout_no_disponible">El checkout de esta reserva no está disponible</string>
+    <string name="cliente_checkout_banner_total">Total de tu estadía: %1$s. El hotel confirmará el cobro final.</string>
+    <string name="cliente_checkout_falta_valoracion">Elige una valoración de 1 a 5 estrellas</string>
+    <string name="cliente_checkout_falta_observaciones">Las observaciones de la estadía son obligatorias</string>
+    <string name="cliente_checkout_enviado_detalle">Checkout enviado. Te avisaremos cuando el hotel realice el cobro.</string>
+    <string name="cliente_taxi_no_encontrado">No se encontró el servicio de taxi</string>
+    <string name="cliente_taxi_estado">Estado: %1$s</string>
+    <string name="cliente_taxi_buscando">Buscando taxista…</string>
+    <string name="cliente_taxi_finalizado">Servicio de taxi finalizado. ¡Buen viaje!</string>
+    <string name="cliente_perfil_no_encontrado">No se encontró tu perfil</string>
+    <string-array name="cliente_aeropuertos">
+        <item>Aeropuerto Jorge Chávez</item>
+    </string-array>
+    <plurals name="cliente_opiniones">
+        <item quantity="one">%1$d opinión</item>
+        <item quantity="other">%1$d opiniones</item>
+    </plurals>
+    <plurals name="cliente_precio_noches">
+        <item quantity="one">%1$d noche · %2$s al %3$s</item>
+        <item quantity="other">%1$d noches · %2$s al %3$s</item>
+    </plurals>
+    <plurals name="cliente_checkout_resumen">
+        <item quantity="one">Resumen de estadía: %1$d noche en %2$s (%3$s)</item>
+        <item quantity="other">Resumen de estadía: %1$d noches en %2$s (%3$s)</item>
+    </plurals>
 </resources>

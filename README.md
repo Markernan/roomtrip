@@ -19,15 +19,16 @@ RoomTrip está compuesto por **dos aplicaciones con dos persistencias separadas*
 
 ## Estado actual del proyecto
 
-> **La app móvil funciona hoy con datos de prueba** (`data/MockData.java`). Todavía **no**
-> usa Firebase, Retrofit, almacenamiento local ni notificaciones: eso corresponde a los
-> Labs 5, 6 y 7. La arquitectura de abajo describe el **diseño objetivo**.
+> **Desde el Lab 6 los cuatro roles usan Firebase Authentication y Cloud Firestore.** Hay un solo
+> login (FirebaseUI) y el rol sale del documento `usuarios/{uid}`. `data/MockData.java` queda solo
+> para los datos de demostración que el Superadmin carga con un botón. La arquitectura de abajo
+> describe el **diseño objetivo**.
 
 | Área | Estado |
 |---|---|
 | Pantallas de los 4 roles (cliente, admin de hotel, taxista, superadmin) | Implementadas con navegación y listas `RecyclerView` sobre datos de prueba |
 | Almacenamiento local y notificaciones (Lab 5) | No iniciado |
-| Firebase Authentication y base de datos (Lab 6) | No iniciado |
+| Firebase Authentication y base de datos (Lab 6) | **Implementado para los 4 roles:** login único con FirebaseUI (correo o Google) y verificación de correo; hoteles, habitaciones, reservas, checkout y cobro, chat, valoraciones, taxis y auditoría en Cloud Firestore; reglas por rol en `firestore.rules` |
 | Consumo de la API de taxistas con Retrofit (Lab 7) | No iniciado |
 | Servicio web de taxistas | Implementado en la rama [`web-taxis`](https://github.com/Markernan/roomtrip/tree/web-taxis) (ver [`taxi-service/`](taxi-service/README.md)) |
 | Integración continua | GitHub Actions compila, corre lint y las pruebas unitarias en cada PR |
@@ -38,7 +39,7 @@ RoomTrip está compuesto por **dos aplicaciones con dos persistencias separadas*
 |---|---|
 | Plataforma móvil | Android nativo en **Java** (no Kotlin, no Flutter, no React Native) |
 | Versión mínima | **Android 14 — API level 34** |
-| Persistencia app principal | Base de datos **NoSQL** (Firestore, a integrar en el Lab 6) |
+| Persistencia app principal | Base de datos **NoSQL** (Cloud Firestore, desde el Lab 6) |
 | Contraseñas | Nunca almacenadas en texto plano |
 
 ## Arquitectura (diseño objetivo)
@@ -127,14 +128,17 @@ el usuario sale de `getEtiqueta()`.
 | JDK | El que trae Android Studio (17 o superior) | No hace falta instalar otro. El proyecto no fija un JDK |
 | Dispositivo o emulador | **Android 14 (API 34) o superior** | `minSdk` es 34 |
 | Docker Desktop, JDK 21 y Maven 3.9 | Solo para el servicio de taxistas | Ver [`taxi-service/README.md`](taxi-service/README.md) |
-| Cuenta de Firebase | Desde el Lab 6 | Todavía no se necesita |
+| `app/google-services.json` | Desde el Lab 6 | **Obligatorio para compilar.** No se versiona: ver [`docs/manual-instalacion.md`](docs/manual-instalacion.md), sección 5 |
 
 ### App móvil
 
 1. Clonar el repositorio y abrir la carpeta raíz (`roomtrip/`) en Android Studio.
 2. Esperar a que Gradle sincronice. Android Studio genera `local.properties` (no se versiona).
-3. Ejecutar sobre un dispositivo o emulador con API 34 o superior. La pantalla de inicio
-   pide elegir un rol; no hay autenticación real todavía.
+3. Copiar `google-services.json` en `app/` (ver [`docs/manual-instalacion.md`](docs/manual-instalacion.md), sección 5).
+4. Ejecutar sobre un dispositivo o emulador con API 34 o superior. Todos los roles inician
+   sesión en la misma pantalla (correo o Google) y la app abre el módulo que corresponde al rol
+   guardado en Firestore. Para la primera prueba: crear el Superadmin a mano y cargar los datos
+   de demostración (manual de instalación, sección 5).
 
 Por línea de comandos (desde la raíz):
 

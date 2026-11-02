@@ -69,6 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvEstadoCheckout"
                     android:text="@string/checkout_hab_checkout_pendiente"
                     android:textColor="@color/alert_red"
                     android:textStyle="bold"
@@ -89,7 +90,8 @@
                 android:background="@drawable/bg_badge_pill_red"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="6dp"
-                android:text="@string/checkout_hab_hoy_11_00_am"
+                android:id="@+id/tvHoraCheckout"
+                    android:text="@string/checkout_hab_hoy_11_00_am"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="12sp" />
@@ -122,6 +124,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/bg_row_gray"
                     android:padding="10dp"
+                    android:id="@+id/tvFechasEstadia"
                     android:text="@string/checkout_hab_entrada_12_oct_salida_15"
                     android:textColor="@color/text_gray"
                     android:textSize="13sp" />
@@ -136,12 +139,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/checkout_hab_alojamiento_3_noches"
+                        android:id="@+id/tvConceptoAlojamiento"
+                    android:text="@string/checkout_hab_alojamiento_3_noches"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/checkout_hab_s_450_00"
+                        android:id="@+id/tvMontoAlojamiento"
+                    android:text="@string/checkout_hab_s_450_00"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -155,12 +160,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/checkout_hab_desayuno_buffet"
+                        android:id="@+id/tvConcepto2"
+                    android:text="@string/checkout_hab_desayuno_buffet"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/checkout_hab_s_60_00"
+                        android:id="@+id/tvMonto2"
+                    android:text="@string/checkout_hab_s_60_00"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -174,12 +181,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/checkout_hab_wifi_gratuito"
+                        android:id="@+id/tvConcepto3"
+                    android:text="@string/checkout_hab_wifi_gratuito"
                         android:textSize="14sp" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/checkout_hab_s_0_00"
+                        android:id="@+id/tvMonto3"
+                    android:text="@string/checkout_hab_s_0_00"
                         android:textColor="@color/teal"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -206,7 +215,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/checkout_hab_s_510_00"
+                        android:id="@+id/tvTotalAcumulado"
+                    android:text="@string/checkout_hab_s_510_00"
                         android:textStyle="bold"
                         android:textSize="15sp" />
                 </LinearLayout>

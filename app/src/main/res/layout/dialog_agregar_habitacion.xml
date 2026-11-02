@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lab 6: nueva habitación del hotel (hoteles/{id}/habitaciones) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="8dp">
+
+    <EditText
+        android:id="@+id/etTipoHabitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_tipo"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences" />
+
+    <EditText
+        android:id="@+id/etCapacidadHabitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_capacidad"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences" />
+
+    <EditText
+        android:id="@+id/etAreaHabitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_area"
+        android:importantForAutofill="no"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/etPrecioHabitacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_precio_noche"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal" />
+</LinearLayout>

@@ -43,6 +43,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvNombreHotelInicio"
                     android:text="@string/inicio_hotel_miraflores"
                     android:textStyle="bold"
                     android:textSize="16sp" />
@@ -50,6 +51,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/tvDireccionHotelInicio"
                     android:text="@string/inicio_av_larco_245_lima"
                     android:textColor="@color/text_gray"
                     android:textSize="13sp" />

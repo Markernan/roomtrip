@@ -1,6 +1,12 @@
 package com.example.roomtrip.data.model;
 
+import com.google.firebase.firestore.DocumentId;
+
+/** Servicio que ofrece un hotel (wifi, desayuno...). En Firestore: {@code hoteles/{hotelId}/servicios/{id}}. */
 public class Servicio {
+    @DocumentId
+    private String id;
+    private String descripcion;
     private String nombre;
     private String categoria; // Ej: "Alimentos", "Bienestar", "Limpieza", "Tours"
     private double precio;
@@ -15,6 +21,11 @@ public class Servicio {
         this.precio = precio;
         this.disponible = disponible;
     }
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getDescripcion() { return descripcion; }
+    public void setDescripcion(String descripcion) { this.descripcion = descripcion; }
 
     public String getNombre() { return nombre; }
     public String getCategoria() { return categoria; }

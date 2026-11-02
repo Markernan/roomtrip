@@ -1,5 +1,13 @@
 package com.example.roomtrip.superadmin;
 
+import android.util.Log;
+import android.widget.Toast;
+import com.example.roomtrip.data.firebase.HotelRepository;
+import com.example.roomtrip.data.model.EstadoCuenta;
+import com.example.roomtrip.data.model.RolUsuario;
+import com.example.roomtrip.utils.ErroresFirebase;
+import com.example.roomtrip.utils.RegistroEventos;
+import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
 
-import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +33,8 @@ public class HotelesActivity extends AppCompatActivity {
     private FloatingActionButton fabAddHotel;
     private EditText etBuscarHotel;
     private HotelesAdapter adapter;
-    private List<Hotel> listaHoteles;
+    private final List<Hotel> listaHoteles = new ArrayList<>();
+    private final HotelRepository repositorio = new HotelRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +48,13 @@ public class HotelesActivity extends AppCompatActivity {
 
         rvHoteles.setLayoutManager(new LinearLayoutManager(this));
 
-        cargarDatosMock();
-
         adapter = new HotelesAdapter(this, listaHoteles, hotel -> {
             Intent intent = new Intent(HotelesActivity.this, DetalleHotelAdminActivity.class);
             intent.putExtra("hotel", hotel);
             intent.putExtra("IMAGEN_RES_ID", hotel.getImagenResId());
             startActivity(intent);
         });
+        adapter.setOnEstadoHotelListener(this::cambiarEstado);
         rvHoteles.setAdapter(adapter);
 
         etBuscarHotel.addTextChangedListener(new TextWatcher() {
@@ -92,8 +99,33 @@ public class HotelesActivity extends AppCompatActivity {
         }
     }
 
-    private void cargarDatosMock() {
-        listaHoteles = MockData.getHotelesSuperadminEjemplo();
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cargarHoteles();   // al volver de Registrar hotel aparece el nuevo
+    }
+
+    /** Lab 6: todos los hoteles de Firestore. */
+    private void cargarHoteles() {
+        repositorio.obtenerTodos(hoteles -> adapter.actualizar(hoteles), this::mostrarError);
+    }
+
+    /** RF-USR-007: activar o desactivar el hotel (un hotel INACTIVO no aparece al cliente). */
+    private void cambiarEstado(Hotel hotel, boolean activo) {
+        repositorio.cambiarEstado(hotel.getId(), EstadoCuenta.desde(activo), ignorado -> {
+            RegistroEventos.registrar(RegistroEventos.HOTEL_ESTADO, RolUsuario.SUPERADMIN,
+                    hotel.getNombre() + " " + (activo ? "activado" : "desactivado"));
+            Toast.makeText(this, getString(activo ? R.string.superadmin_hotel_activado
+                    : R.string.superadmin_hotel_desactivado, hotel.getNombre()), Toast.LENGTH_SHORT).show();
+        }, e -> {
+            mostrarError(e);
+            cargarHoteles();
+        });
+    }
+
+    private void mostrarError(Exception e) {
+        Log.e("HotelesActivity", "Error de Firestore", e);
+        Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
     }
 
     private void setupBottomNavigation() {

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,6 +18,17 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
 
     public interface OnUsuarioClickListener {
         void onUsuarioClick(Usuario usuario);
+    }
+
+    /** Lab 6: el switch activa o desactiva la cuenta en Firestore (RF-USR-007). */
+    public interface OnEstadoCambiadoListener {
+        void onEstadoCambiado(Usuario usuario, boolean activo);
+    }
+
+    private OnEstadoCambiadoListener estadoListener;
+
+    public void setOnEstadoCambiadoListener(OnEstadoCambiadoListener estadoListener) {
+        this.estadoListener = estadoListener;
     }
 
     private final Context context;
@@ -36,7 +46,9 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
     public UsuarioViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_usuario, parent, false);
-        return new UsuarioViewHolder(view, listener);
+        return new UsuarioViewHolder(view, listener, (u, activo) -> {
+            if (estadoListener != null) estadoListener.onEstadoCambiado(u, activo);
+        });
     }
 
     @Override
@@ -87,7 +99,8 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
         SwitchCompat switchActivo;
         Usuario usuario;
 
-        UsuarioViewHolder(@NonNull View itemView, OnUsuarioClickListener listener) {
+        UsuarioViewHolder(@NonNull View itemView, OnUsuarioClickListener listener,
+                          OnEstadoCambiadoListener estadoListener) {
             super(itemView);
             tvNombreUsuario = itemView.findViewById(R.id.tvNombreUsuario);
             tvEmailUsuario = itemView.findViewById(R.id.tvEmailUsuario);
@@ -99,8 +112,7 @@ public class UsuariosAdapter extends RecyclerView.Adapter<UsuariosAdapter.Usuari
                 if (!buttonView.isPressed()) return;
                 if (usuario != null) {
                     usuario.setActive(isChecked);
-                    String status = isChecked ? "activado" : "desactivado";
-                    Toast.makeText(buttonView.getContext(), usuario.getName() + " ha sido " + status, Toast.LENGTH_SHORT).show();
+                    estadoListener.onEstadoCambiado(usuario, isChecked);
                 }
             });
 

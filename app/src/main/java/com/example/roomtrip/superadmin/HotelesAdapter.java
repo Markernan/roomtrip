@@ -23,6 +23,24 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         void onHotelClick(Hotel hotel);
     }
 
+    /** Lab 6: el switch activa o desactiva el hotel en Firestore (RF-USR-007). */
+    public interface OnEstadoHotelListener {
+        void onEstadoCambiado(Hotel hotel, boolean activo);
+    }
+
+    private OnEstadoHotelListener estadoListener;
+
+    public void setOnEstadoHotelListener(OnEstadoHotelListener estadoListener) {
+        this.estadoListener = estadoListener;
+    }
+
+    /** Reemplaza los hoteles (al volver a leer Firestore) manteniendo el filtro de búsqueda vacío. */
+    public void actualizar(List<Hotel> hoteles) {
+        originalList.clear();
+        originalList.addAll(hoteles);
+        filter("");
+    }
+
     private final Context context;
     private final List<Hotel> originalList;
     private List<Hotel> filteredList;
@@ -40,7 +58,9 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
     public HotelViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.item_superadmin_hotel, parent, false);
-        return new HotelViewHolder(view, listener);
+        return new HotelViewHolder(view, listener, (h, activo) -> {
+            if (estadoListener != null) estadoListener.onEstadoCambiado(h, activo);
+        });
     }
 
     @Override
@@ -97,7 +117,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         ImageView btnMenuOpciones;
         Hotel hotel;
 
-        HotelViewHolder(@NonNull View itemView, OnHotelClickListener listener) {
+        HotelViewHolder(@NonNull View itemView, OnHotelClickListener listener, OnEstadoHotelListener estadoListener) {
             super(itemView);
             ivHotel = itemView.findViewById(R.id.ivHotel);
             tvNombreHotel = itemView.findViewById(R.id.tvNombreHotel);
@@ -112,10 +132,7 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
                 if (!buttonView.isPressed()) return;
                 if (hotel != null) {
                     hotel.setEstado(EstadoCuenta.desde(isChecked));
-                    String status = isChecked ? "activado" : "desactivado";
-                    Toast.makeText(buttonView.getContext(),
-                            hotel.getNombre() + " ha sido " + status,
-                            Toast.LENGTH_SHORT).show();
+                    estadoListener.onEstadoCambiado(hotel, isChecked);
                 }
             });
 

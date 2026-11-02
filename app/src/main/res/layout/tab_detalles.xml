@@ -5,11 +5,23 @@
     android:orientation="vertical"
     android:padding="20dp">
 
+    <!-- Lab 6: la habitación sale de hoteles/{id}/habitaciones -->
+    <Spinner
+        android:id="@+id/spinnerHabitacion"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_input_texto" />
+
+    <!-- Al tocar se abre el selector de rango de fechas -->
     <LinearLayout
+        android:id="@+id/contenedorFechas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/bg_input_texto"
+        android:clickable="true"
+        android:focusable="true"
         android:padding="12dp">
 
         <LinearLayout
@@ -80,6 +92,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvDescripcionHabitacion"
         android:layout_marginTop="20dp"
         android:text="Hab. Lux · Cap. 2 adultos, 1 niño"
         android:textColor="@color/texto_principal"
@@ -89,6 +102,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvAreaHabitacion"
         android:layout_marginTop="4dp"
         android:text="Área 45m² · Vista al Coliseo"
         android:textColor="@color/texto_secundario"
@@ -98,6 +112,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tvDetallePrecio"
         android:layout_marginTop="16dp"
         android:text="Precio para 1 noche (10 set - 11 set)"
         android:textColor="@color/texto_secundario"

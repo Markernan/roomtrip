@@ -18,7 +18,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.MockData;
+import com.example.roomtrip.data.firebase.ReservaRepository;
+import com.example.roomtrip.data.model.Reserva;
+import com.example.roomtrip.data.model.ValoracionHotel;
+import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.data.model.IngresoServicio;
 import com.example.roomtrip.data.model.Valoracion;
 import com.example.roomtrip.databinding.FragmentReportesBinding;
@@ -26,6 +29,10 @@ import com.example.roomtrip.databinding.FragmentReportesBinding;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.List;
 
 public class ReportesFragment extends Fragment {
@@ -34,6 +41,8 @@ public class ReportesFragment extends Fragment {
     private FragmentReportesBinding binding;
     private String textoPendienteExportar = "";
     private String periodoSeleccionado = "MENSUAL";
+    private final List<Reserva> cobradas = new ArrayList<>();
+    private List<IngresoServicio> ingresos = new ArrayList<>();
 
     private final ActivityResultLauncher<Intent> crearDoc = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(), r -> {
@@ -63,15 +72,9 @@ public class ReportesFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         binding = FragmentReportesBinding.bind(view);
 
-        List<IngresoServicio> ingresos = IngresoServicio.ordenarDeMenorAMayor(MockData.getIngresosServiciosEjemplo());
-        
         binding.rvIngresosServicios.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvIngresosServicios.setAdapter(new IngresoServicioAdapter(ingresos));
-
-        List<Valoracion> valoraciones = MockData.getValoracionesEjemplo();
         binding.rvValoracionesRecientes.setLayoutManager(new LinearLayoutManager(requireContext()));
-        binding.rvValoracionesRecientes.setAdapter(new ValoracionResumenAdapter(
-                valoraciones.subList(0, Math.min(3, valoraciones.size()))));
+        cargarDatos();
 
         // Configurar botones de pestañas
         binding.tabDiario.setOnClickListener(v -> seleccionarPeriodo("DIARIO"));
@@ -80,13 +83,74 @@ public class ReportesFragment extends Fragment {
 
         // Configurar botón de exportación SAF
         binding.btnExportarReporte.setOnClickListener(v -> prepararExportacion(ingresos));
-        
+
         // Estado inicial
         seleccionarPeriodo("MENSUAL");
     }
 
+    /** Lab 6: reservas cobradas y valoraciones del hotel, leídas de Firestore. */
+    private void cargarDatos() {
+        String hotelId = AdminSession.getHotelId(requireContext());
+        if (hotelId.isEmpty()) return;
+        ReservaRepository repositorio = new ReservaRepository();
+        repositorio.obtenerDeHotel(hotelId, reservas -> {
+            if (binding == null) return;
+            cobradas.clear();
+            for (Reserva r : reservas) {
+                if (r.getEstadoCheckout() != null && r.getEstadoCheckout().estaProcesado()) cobradas.add(r);
+            }
+            seleccionarPeriodo(periodoSeleccionado);
+        }, this::mostrarError);
+        repositorio.obtenerValoraciones(hotelId, lista -> {
+            if (binding == null) return;
+            List<Valoracion> vista = new ArrayList<>();
+            for (ValoracionHotel v : lista) {
+                vista.add(v.aVista());
+                if (vista.size() == 3) break;
+            }
+            binding.rvValoracionesRecientes.setAdapter(new ValoracionResumenAdapter(vista));
+        }, this::mostrarError);
+    }
+
+    /**
+     * Ingresos del periodo: el alojamiento y cada motivo de cobro adicional, ordenados de menor a
+     * mayor (RF-REP-004, IngresoServicio.ordenarDeMenorAMayor).
+     */
+    private void calcularIngresos(String periodo) {
+        LocalDate hoy = LocalDate.now();
+        Map<String, Double> porConcepto = new LinkedHashMap<>();
+        double total = 0;
+        for (Reserva r : cobradas) {
+            if (r.getFechaCobro() == null) continue;
+            LocalDate dia = r.getFechaCobro().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            boolean entra = "DIARIO".equals(periodo) ? dia.equals(hoy)
+                    : "MENSUAL".equals(periodo) ? dia.getYear() == hoy.getYear() && dia.getMonth() == hoy.getMonth()
+                    : dia.getYear() == hoy.getYear();
+            if (!entra) continue;
+            String alojamiento = getString(R.string.reportes_concepto_alojamiento);
+            porConcepto.put(alojamiento, porConcepto.getOrDefault(alojamiento, 0.0) + r.getMontoTotal());
+            if (r.getCobroAdicionalMonto() > 0) {
+                String motivo = r.getCobroAdicionalMotivo() != null ? r.getCobroAdicionalMotivo()
+                        : getString(R.string.reportes_concepto_adicional);
+                porConcepto.put(motivo, porConcepto.getOrDefault(motivo, 0.0) + r.getCobroAdicionalMonto());
+            }
+            total += r.getMontoCobrado();
+        }
+        List<IngresoServicio> lista = new ArrayList<>();
+        for (Map.Entry<String, Double> e : porConcepto.entrySet()) lista.add(new IngresoServicio(e.getKey(), e.getValue()));
+        ingresos = IngresoServicio.ordenarDeMenorAMayor(lista);
+        binding.rvIngresosServicios.setAdapter(new IngresoServicioAdapter(ingresos));
+        binding.tvTotalAmount.setText(getString(R.string.superadmin_monto_soles, total));
+    }
+
+    private void mostrarError(Exception e) {
+        Log.e(TAG, "Error de Firestore", e);
+        if (isAdded()) Toast.makeText(requireContext(), ErroresFirebase.mensaje(requireContext(), e), Toast.LENGTH_LONG).show();
+    }
+
     private void seleccionarPeriodo(String periodo) {
         periodoSeleccionado = periodo;
+        if (binding == null) return;
         
         // Resetear estilos
         binding.tabDiario.setBackground(null);
@@ -103,19 +167,17 @@ public class ReportesFragment extends Fragment {
             case "DIARIO":
                 binding.tabDiario.setBackgroundResource(bgActive);
                 binding.tabDiario.setTextColor(colorActive);
-                binding.tvTotalAmount.setText(R.string.reportes_s_1_250_00);
                 break;
             case "MENSUAL":
                 binding.tabMensual.setBackgroundResource(bgActive);
                 binding.tabMensual.setTextColor(colorActive);
-                binding.tvTotalAmount.setText(R.string.reportes_s_12_450_00);
                 break;
             case "ANUAL":
                 binding.tabAnual.setBackgroundResource(bgActive);
                 binding.tabAnual.setTextColor(colorActive);
-                binding.tvTotalAmount.setText(R.string.reportes_s_150_800_00);
                 break;
         }
+        calcularIngresos(periodo);
     }
 
     private void prepararExportacion(List<IngresoServicio> ingresos) {

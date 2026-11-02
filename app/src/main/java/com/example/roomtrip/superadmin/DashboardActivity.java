@@ -5,11 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,16 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.firebase.HotelRepository;
+import com.example.roomtrip.data.firebase.UsuarioRepository;
+import com.example.roomtrip.data.model.EstadoAprobacion;
+import com.example.roomtrip.data.model.Hotel;
+import com.example.roomtrip.data.model.PerfilUsuario;
+import com.example.roomtrip.data.model.RolUsuario;
+import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.utils.PerfilDialogHelper;
+import com.example.roomtrip.utils.RegistroEventos;
+import com.example.roomtrip.utils.SesionFirebase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DashboardActivity extends AppCompatActivity {
@@ -28,20 +38,23 @@ public class DashboardActivity extends AppCompatActivity {
     private CardView cardGestionHoteles, cardGestionUsuarios, cardReporteGlobal, cardAuditoria;
     private BottomNavigationView bottomNav;
 
+    private static final String TAG = "DashboardActivity";
+    private static boolean avisoPendientesMostrado;
+    private String uid;
+    private String nombreActual = "SuperAdmin";
+
     private static final String CHANNEL_ID = "superadmin_alerts";
     private static final int NOTIFICATION_ID = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_superadmin_dashboard);
 
-        // SharedPreferences - Guardado de estado de sesión
-        SharedPreferences prefs = getSharedPreferences("SuperadminPrefs", MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("is_logged_in", true);
-        editor.putString("role", "SUPERADMIN");
-        editor.apply();
+        // Lab 6: la sesión la lleva Firebase Authentication (el login ya validó el rol SUPERADMIN)
+        uid = SesionFirebase.uidOVolverAlLogin(this);
+        if (uid == null) return;
+
+        setContentView(R.layout.activity_superadmin_dashboard);
 
         // Registrar canal de notificaciones
         createNotificationChannel();
@@ -63,6 +76,74 @@ public class DashboardActivity extends AppCompatActivity {
 
         setupClickListeners();
         setupBottomNavigation();
+
+        findViewById(R.id.btnCargarDemo).setOnClickListener(v -> cargarDatosDemo(v));
+        cargarSaludo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (uid != null) cargarResumen();
+    }
+
+    private void cargarSaludo() {
+        new UsuarioRepository().obtener(uid, perfil -> {
+            if (perfil == null) return;
+            nombreActual = perfil.nombreCompleto();
+            TextView tvSaludo = findViewById(R.id.tvSaludoSuperAdmin);
+            tvSaludo.setText(getString(R.string.superadmin_saludo, perfil.primerNombre()));
+        }, e -> Log.w(TAG, "No se pudo leer el perfil del superadmin", e));
+    }
+
+    /** Panel de control con datos reales de Firestore: hoteles, activos, usuarios y taxistas por aprobar. */
+    private void cargarResumen() {
+        new HotelRepository().obtenerTodos(hoteles -> {
+            int activos = 0;
+            for (Hotel h : hoteles) if (h.getEstado() != null && h.getEstado().esActivo()) activos++;
+            ((TextView) findViewById(R.id.tvTotalHoteles)).setText(String.valueOf(hoteles.size()));
+            ((TextView) findViewById(R.id.tvHotelesActivos)).setText(String.valueOf(activos));
+        }, this::mostrarError);
+
+        new UsuarioRepository().obtenerTodos(usuarios -> {
+            int pendientes = 0;
+            for (PerfilUsuario u : usuarios) {
+                if (u.getRol() == RolUsuario.TAXISTA && u.getEstadoAprobacion() == EstadoAprobacion.PENDIENTE) pendientes++;
+            }
+            ((TextView) findViewById(R.id.tvTotalUsuarios)).setText(String.valueOf(usuarios.size()));
+            ((TextView) findViewById(R.id.tvBadgeTaxistas)).setText(String.valueOf(pendientes));
+            ((TextView) findViewById(R.id.tvTaxistasPendientes)).setText(
+                    getResources().getQuantityString(R.plurals.superadmin_taxistas_pendientes, pendientes, pendientes));
+            // Aviso una sola vez por apertura de la app si hay solicitudes nuevas
+            if (pendientes > 0 && !avisoPendientesMostrado) {
+                avisoPendientesMostrado = true;
+                lanzarNotificacionSolicitudTaxista();
+            }
+        }, this::mostrarError);
+    }
+
+    /** Crea hoteles de ejemplo con habitaciones y servicios (solo si todavía no hay hoteles). */
+    private void cargarDatosDemo(View boton) {
+        boton.setEnabled(false);
+        new HotelRepository().cargarDatosDemo(creados -> {
+            boton.setEnabled(true);
+            if (creados == 0) {
+                Toast.makeText(this, R.string.superadmin_demo_ya_existe, Toast.LENGTH_LONG).show();
+                return;
+            }
+            RegistroEventos.registrar(RegistroEventos.DATOS_DEMO, RolUsuario.SUPERADMIN,
+                    "Se cargaron " + creados + " hoteles de demostración");
+            Toast.makeText(this, getString(R.string.superadmin_demo_creada, creados), Toast.LENGTH_LONG).show();
+            cargarResumen();
+        }, e -> {
+            boton.setEnabled(true);
+            mostrarError(e);
+        });
+    }
+
+    private void mostrarError(Exception e) {
+        Log.e(TAG, "Error de Firestore en el panel", e);
+        Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
     }
 
     private void createNotificationChannel() {
@@ -123,10 +204,11 @@ public class DashboardActivity extends AppCompatActivity {
         View cardPerfilSuperAdmin = findViewById(R.id.cardPerfilSuperAdmin);
         if (cardPerfilSuperAdmin != null) {
             cardPerfilSuperAdmin.setOnClickListener(v -> {
-                PerfilDialogHelper.mostrarDialogoPerfil(this, "SuperAdmin", "SuperAdmin", nuevoNombre -> {
+                PerfilDialogHelper.mostrarDialogoPerfil(this, "SuperAdmin", nombreActual, nuevoNombre -> {
+                    nombreActual = nuevoNombre;
                     TextView tvSaludo = findViewById(R.id.tvSaludoSuperAdmin);
                     if (tvSaludo != null) {
-                        tvSaludo.setText("Hola, " + nuevoNombre);
+                        tvSaludo.setText(getString(R.string.superadmin_saludo, nuevoNombre));
                     }
                 });
             });
@@ -136,10 +218,7 @@ public class DashboardActivity extends AppCompatActivity {
         cardHotelesRegistrados.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));
         cardUsuariosTotales.setOnClickListener(v -> startActivity(new Intent(this, UsuariosActivity.class)));
         cardHotelesActivos.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));
-        cardTaxistasAprobar.setOnClickListener(v -> {
-            lanzarNotificacionSolicitudTaxista();
-            startActivity(new Intent(this, TaxistasActivity.class));
-        });
+        cardTaxistasAprobar.setOnClickListener(v -> startActivity(new Intent(this, TaxistasActivity.class)));
 
         // Redirecciones Accesos rápidos
         cardGestionHoteles.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));

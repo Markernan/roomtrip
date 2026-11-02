@@ -1,5 +1,8 @@
 package com.example.roomtrip.superadmin;
 
+import android.util.Log;
+import android.widget.Toast;
+import com.example.roomtrip.data.firebase.UsuarioRepository;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -22,6 +25,7 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
     private CardView cardAdmin;
     private BottomNavigationView bottomNav;
     private Hotel hotel;
+    private Usuario administrador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +58,11 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
             tvEstadoHotel.setText(hotel.getEstado().name());
             tvEstadoHotel.setTextColor(esActivo ? getColor(R.color.verde_texto) : getColor(R.color.rojo_alerta_texto));
 
-            String adminNombre = "Admin " + hotel.getNombre();
-            String adminCorreo = hotel.getContacto() != null ? hotel.getContacto() : "admin@hotel.com";
-
-            tvNombreAdmin.setText(adminNombre);
-            tvEmailAdmin.setText(adminCorreo);
+            // Lab 6: el administrador real es el usuario con hotelId = este hotel; mientras no active
+            // su cuenta solo se conoce el correo invitado
+            tvNombreAdmin.setText(R.string.superadmin_admin_pendiente);
+            tvEmailAdmin.setText(hotel.getAdminEmail() != null ? hotel.getAdminEmail() : getString(R.string.superadmin_sin_dato));
+            cargarAdministrador();
 
             int imagenResId = getIntent().getIntExtra("IMAGEN_RES_ID", hotel.getImagenResId());
             if (imagenResId != 0) {
@@ -70,20 +74,26 @@ public class DetalleHotelAdminActivity extends AppCompatActivity {
         }
 
         cardAdmin.setOnClickListener(v -> {
-            if (hotel != null) {
-                String adminNombre = "Admin " + hotel.getNombre();
-                String adminCorreo = hotel.getContacto() != null ? hotel.getContacto() : "admin@hotel.com";
-
-                Usuario adminUser = new Usuario(adminNombre, adminCorreo, "Admin", "999888777", true);
-                adminUser.setHotelAsignado(hotel.getNombre());
-
-                Intent intent = new Intent(DetalleHotelAdminActivity.this, DetalleUsuarioActivity.class);
-                intent.putExtra("usuario", adminUser);
-                startActivity(intent);
+            if (administrador == null) {
+                Toast.makeText(this, R.string.superadmin_admin_sin_activar, Toast.LENGTH_SHORT).show();
+                return;
             }
+            Intent intent = new Intent(DetalleHotelAdminActivity.this, DetalleUsuarioActivity.class);
+            intent.putExtra("usuario", administrador);
+            startActivity(intent);
         });
 
         setupBottomNavigation();
+    }
+
+    private void cargarAdministrador() {
+        if (hotel.getId() == null) return;
+        new UsuarioRepository().obtenerAdminsDeHotel(hotel.getId(), admins -> {
+            if (admins.isEmpty()) return;
+            administrador = UsuarioVista.desde(admins.get(0));
+            tvNombreAdmin.setText(administrador.getName());
+            tvEmailAdmin.setText(administrador.getEmail());
+        }, e -> Log.e("DetalleHotelAdmin", "No se pudo leer el administrador del hotel", e));
     }
 
     private void setupBottomNavigation() {

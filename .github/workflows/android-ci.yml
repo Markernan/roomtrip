@@ -29,6 +29,19 @@ jobs:
       # Cachea Gradle y dependencias entre ejecuciones.
       - uses: gradle/actions/setup-gradle@v6
 
+      # Desde el Lab 6 el plugin google-services exige app/google-services.json, que no se versiona
+      # (.gitignore). El CI lo crea desde el secreto GOOGLE_SERVICES_JSON del repositorio
+      # (Settings > Secrets and variables > Actions). Ver docs/manual-instalacion.md, sección 5.
+      - name: Crear google-services.json desde el secreto
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::Falta el secreto GOOGLE_SERVICES_JSON. Ver docs/manual-instalacion.md, seccion 5."
+            exit 1
+          fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
       - name: Pruebas unitarias
         run: ./gradlew testDebugUnitTest --stacktrace
 

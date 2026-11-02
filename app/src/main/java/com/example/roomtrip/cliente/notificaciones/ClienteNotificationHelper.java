@@ -73,7 +73,7 @@ public class ClienteNotificationHelper {
     }
 
     public static String formatearMonto(double monto) {
-        return String.format(Locale.US, "US$%.2f", monto);
+        return String.format(Locale.US, "S/ %.2f", monto);
     }
 
     // areNotificationsEnabled() devuelve false si el usuario no concedió POST_NOTIFICATIONS

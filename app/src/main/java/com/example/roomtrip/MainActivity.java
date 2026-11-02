@@ -20,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.roomtrip.adminhotel.AdminNotificationHelper;
 import com.example.roomtrip.adminhotel.AdminSession;
+import com.example.roomtrip.utils.SesionFirebase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Lab 6: contenedor del administrador de hotel; requiere sesión de Firebase y un hotel asignado
+        if (SesionFirebase.uidOVolverAlLogin(this) == null) return;
         setContentView(R.layout.activity_main);
 
         // Contador de aperturas (solo si no es rotación)

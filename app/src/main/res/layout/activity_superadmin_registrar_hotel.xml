@@ -141,11 +141,11 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilAdmin"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="32dp"
-                android:hint="Asignar administrador de hotel"
+                android:hint="@string/superadmin_correo_admin"
                 app:startIconDrawable="@drawable/ic_person"
                 app:startIconTint="@color/texto_secundario"
                 app:boxCornerRadiusTopStart="16dp"
@@ -156,7 +156,8 @@
                     android:id="@+id/autoCompleteAdmin"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="none"
+                    android:padding="16dp"
+                    android:inputType="textEmailAddress"
                     android:fontFamily="@font/poppins_regular" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

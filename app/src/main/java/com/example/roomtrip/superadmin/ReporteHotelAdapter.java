@@ -43,6 +43,9 @@ public class ReporteHotelAdapter extends RecyclerView.Adapter<ReporteHotelAdapte
         Hotel hotel = hoteles.get(position);
         holder.hotel = hotel;
         holder.tvHotelName.setText(hotel.getNombre());
+        holder.tvReservationsCount.setText(context.getResources().getQuantityString(
+                R.plurals.superadmin_reservas, hotel.getReservasReporte(), hotel.getReservasReporte()));
+        holder.tvAmount.setText(context.getString(R.string.superadmin_monto_soles, hotel.getMontoReporte()));
 
         if (hotel.getImagenResId() != 0) {
             Glide.with(holder.itemView.getContext())

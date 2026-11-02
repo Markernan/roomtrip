@@ -10,7 +10,7 @@ Este documento contiene la información técnica, reglas de arquitectura y está
 * **Tipo de Proyecto:** Aplicación nativa Android
 * **Lenguaje:** Java (restricción del enunciado: nada de Kotlin, Flutter ni React Native)
 * **Módulo Principal:** `:app`
-* **Estado:** la app funciona con **datos de prueba** (`data/MockData.java`). No usa todavía Firebase, Retrofit, almacenamiento local ni notificaciones (Labs 5, 6 y 7).
+* **Estado:** los **cuatro roles** usan Firebase Authentication (FirebaseUI) y Cloud Firestore desde el Lab 6. `data/MockData.java` queda para los datos de demostración que carga el Superadmin y para pantallas aún sin backend. Retrofit (API de taxistas) llega en el Lab 7 y Google Maps en el Lab 7.
 
 ---
 
@@ -47,42 +47,49 @@ El proyecto utiliza un Version Catalog (`gradle/libs.versions.toml`). Las librer
 * **Procesamiento de QR:** ZXing (`com.google.zxing:core`).
 * **Binding:** ViewBinding habilitado en `app/build.gradle` (`buildFeatures { viewBinding true }`).
 * **Pruebas:** JUnit 4 para pruebas unitarias (`app/src/test`).
+* **Firebase (Lab 6):** BoM `34.13.0` con `firebase-auth` y `firebase-firestore`, FirebaseUI `firebase-ui-auth:9.1.1` y el plugin `com.google.gms.google-services` `4.4.2` (las versiones de la Clase 10). Son compatibles con AGP 8.7.3 y compileSdk 35: **no** subirlas sin comprobar que no exijan compileSdk 36. En FirebaseUI 9.x `setIsSmartLockEnabled(false)` ya no existe: se usa `setCredentialManagerEnabled(false)`.
+* **`google-services.json`:** no se versiona (`.gitignore`). Cada integrante lo descarga de la consola y el CI lo crea desde el secreto `GOOGLE_SERVICES_JSON`. Sin ese archivo el proyecto **no compila** (ver `docs/manual-instalacion.md`, sección 5).
 
 ---
 
 ## 📱 4. Estructura y Módulos de la Aplicación
 
-La aplicación **RoomTrip** tiene un único login (`login/LoginActivity`): se elige el rol y se navega a su pantalla. Los paquetes están en `app/src/main/java/com/example/roomtrip/`.
+La aplicación **RoomTrip** tiene un único login (`login/LoginActivity`): FirebaseUI (correo o Google) y verificación de correo; luego lee `usuarios/{uid}` y abre el módulo del rol (`entrarSegunRol`). Si la cuenta no tiene perfil: busca una invitación de admin de hotel (`invitaciones/{correo}`) o pregunta *Soy cliente* / *Soy taxista*. El Superadmin se crea a mano en la consola. Los paquetes están en `app/src/main/java/com/example/roomtrip/`.
 
 ### A. Cliente (`cliente/`)
-* **Acceso y perfil:** `RegistroActivity`, `PerfilActivity`. `BienvenidaActivity` es el login original con correo y contraseña; hoy nadie la abre y se conserva porque Firebase Authentication la va a necesitar (Lab 6).
-* **Búsqueda y reservas:** `HomeActivity`, `BuscarHotelActivity`, `DetalleHotelActivity`, `PagoReservaActivity`, `ReservaExitosaActivity`, `MisReservasActivity`, `CheckoutActivity`.
-* **Servicio de taxi:** `BuscandoTaxistaActivity`, `SeguimientoTaxiActivity`, `MostrarQrActivity` (genera el QR con ZXing).
-* **Comunicación:** `ChatActivity` (chat privado cliente–hotel, disponible solo durante la reserva activa).
+* **Acceso y perfil:** `RegistroActivity` (cuenta de Firebase Auth + `usuarios/{uid}`, o modo "completar" tras entrar con Google), `PerfilActivity` (Firestore; la foto sigue en el teléfono con `PerfilClienteRepository`). `BienvenidaActivity` solo redirige al login único.
+* **Búsqueda y reservas:** `HomeActivity`, `BuscarHotelActivity`, `DetalleHotelActivity` (habitación, fechas y disponibilidad), `PagoReservaActivity` (tarjeta simulada; crea la reserva con una transacción que bloquea noches superpuestas), `ReservaExitosaActivity`, `MisReservasActivity` (listener + `AvisosCobro`), `CheckoutActivity` (valoración, checkout PENDIENTE y taxi gratis).
+* **Servicio de taxi:** `BuscandoTaxistaActivity` y `SeguimientoTaxiActivity` escuchan el documento de `serviciosTaxi`; `MostrarQrActivity` genera con ZXing el QR con el id del servicio.
+* **Comunicación:** `ChatActivity` (subcolección `reservas/{id}/mensajes`; la usan el cliente y el hotel, solo con la reserva activa).
 
 ### B. Administrador de hotel (`adminhotel/`)
-Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `InicioFragment`, `InventarioFragment` (habitaciones y servicios), `ChatsFragment`, `NotificacionesFragment`, `ConfiguracionHotelFragment`, `CheckoutsFragment`, `TrasladosEnCursoFragment`, `ValoracionesFragment`. `ReportesFragment` muestra los ingresos por servicios adicionales ordenados de menor a mayor (`IngresoServicio.ordenarDeMenorAMayor`) y `CheckoutHabitacionFragment` valida el cobro adicional por daños con `CobroAdicional` (RN-012). Ambos siguen con datos de prueba.
+Una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component): `InicioFragment`, `InventarioFragment` (habitaciones y servicios), `ChatsFragment`, `NotificacionesFragment`, `ConfiguracionHotelFragment`, `CheckoutsFragment`, `TrasladosEnCursoFragment`, `ValoracionesFragment`. `ReportesFragment` muestra los ingresos por servicios adicionales ordenados de menor a mayor (`IngresoServicio.ordenarDeMenorAMayor`) y `CheckoutHabitacionFragment` valida el cobro adicional por daños con `CobroAdicional` (RN-012) y cobra con una transacción. Todo lee y escribe en Firestore filtrando por el `hotelId` del administrador (`AdminSession`); `VistasAdmin` convierte los documentos a los modelos que ya usaban los adapters.
 
 ### C. Taxista (`taxista/`)
-`SolicitadoActivity` (lista de pedidos), `EnCaminoActivity`, `EnTrasladoActivity`, `EscaneoActivity` (mockup del escaneo de QR), `FinalizadoActivity`, `PerfilTaxistaActivity`. El taxista se registra en el servicio web, no en la app.
+`SolicitadoActivity` (pedidos en tiempo real), `EnCaminoActivity`, `EnTrasladoActivity`, `EscaneoActivity` (valida el QR contra Firestore; la lectura con cámara aún es simulada), `FinalizadoActivity`, `PerfilTaxistaActivity`, `HistorialServiciosActivity`.
+* **Login (Lab 6):** solo entra si `rol = TAXISTA`, `estado = ACTIVO` y `estadoAprobacion = APROBADO`. La primera vez (*Soy taxista*) crea la solicitud en `PENDIENTE`.
+* **Datos (Lab 6):** `data/firebase/ServicioTaxiRepository` (listeners, transacciones para aceptar y avanzar estados, cierre por QR, historial) y `UsuarioRepository`. `SesionTaxistaManager` (SharedPreferences) guarda el uid, el nombre y la disponibilidad.
 
 ### D. SuperAdmin (`superadmin/`)
-`DashboardActivity`, `HotelesActivity`, `RegistrarHotelActivity`, `DetalleHotelAdminActivity`, `DetalleHotelReporteActivity`, `UsuariosActivity`, `DetalleUsuarioActivity`, `TaxistasActivity`, `ReportesActivity`, `AuditoriaActivity`.
+`DashboardActivity` (totales y *Cargar datos de demostración*), `HotelesActivity`, `RegistrarHotelActivity` (hotel + invitación del administrador en un batch), `DetalleHotelAdminActivity`, `DetalleHotelReporteActivity`, `UsuariosActivity`, `DetalleUsuarioActivity` (activar/desactivar, aprobar/rechazar taxistas), `TaxistasActivity`, `ReportesActivity`, `AuditoriaActivity` (colección `logs`). Todo sobre Firestore; `UsuarioVista` adapta `PerfilUsuario` a las listas existentes.
 
 ### E. Datos y utilidades
-* `data/model/`: modelos (`Hotel`, `Traslado`, `PedidoTaxi`, `Usuario`...) y los `enum` de estado.
-* `data/MockData.java`: **todos** los datos de prueba. Cada método devuelve una lista nueva y modificable.
-* `utils/`: `Constants` (roles y claves de `Intent`), helpers de navegación e insets.
+* `data/model/`: modelos. Los documentos de Firestore son `PerfilUsuario`, `Hotel`, `Habitacion`, `Servicio`, `Reserva`, `MensajeChat`, `ValoracionHotel` y `ServicioTaxi`; los demás (`Traslado`, `Checkout`, `Chat`...) son modelos de vista. También los `enum` de estado.
+* `data/firebase/`: un repositorio por colección (`UsuarioRepository`, `HotelRepository`, `ReservaRepository`, `ChatRepository`, `ServicioTaxiRepository`, `LogRepository`) con callbacks `Callbacks.Exito`/`Callbacks.Fallo`. Las pantallas no llaman a Firestore directamente.
+* `data/MockData.java`: datos de demostración (los que carga el Superadmin) y de pantallas aún sin backend.
+* Las reglas de seguridad están en `firestore.rules` (raíz del repositorio) y cubren todas las colecciones.
+* `utils/`: `Constants` (roles y claves de `Intent`), helpers de navegación e insets, `SesionFirebase` (uid del usuario o vuelta al login), `RegistroEventos` (colección `logs`) y `ErroresFirebase` (mensaje para el usuario según el error).
 
 ---
 
 ## 📐 5. Reglas de Desarrollo e Interfaz (Guía para la IA)
 
-1. **ViewBinding:** Siempre preferir el uso de ViewBinding sobre `findViewById`. Nunca buscar vistas por nombre con `getIdentifier()`. Hoy lo usan casi todo el admin de hotel, el flujo de pedidos del taxista y Registrar hotel; cliente y superadmin siguen con `findViewById` y se migran de forma progresiva.
+1. **ViewBinding:** Siempre preferir el uso de ViewBinding sobre `findViewById`. Nunca buscar vistas por nombre con `getIdentifier()`. Hoy lo usan casi todo el admin de hotel, el flujo de pedidos del taxista, Registrar hotel y el checkout y taxi del cliente; el resto de cliente y superadmin sigue con `findViewById` y se migra de forma progresiva.
    * **Quién migra qué:** cada integrante migra los layouts de su propio módulo (cliente, superadmin), tanto a ViewBinding como a `strings.xml`.
 2. **Compatibilidad:** Todos los componentes UI deben usar atributos de `colors.xml` y `themes.xml` para mantener coherencia estética.
 3. **Estados:** usar los `enum` de `data/model/` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`), nunca textos sueltos ("En Curso", "Activo"). El nombre del valor es el que se guarda y el que viaja por la API; el texto para el usuario sale de `getEtiqueta()`.
 4. **Datos de prueba:** agregarlos en `MockData`, no dentro de una Activity o Fragment.
+   * **Firestore:** los POJO llevan constructor vacío y getters/setters; los métodos de reglas de negocio **no** empiezan con `get`/`is` (si no, Firestore los guarda como campos). Los enums se guardan por su nombre. Los listeners se registran en `onStart` y se quitan en `onStop`.
 5. **Errores:** no usar `catch (Exception ignored) {}`. Un error que se traga sin avisar esconde bugs.
 6. **Roles:** usar las constantes de `utils/Constants`, no textos sueltos.
 7. **Control de Versiones (Git):**

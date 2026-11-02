@@ -75,6 +75,7 @@
                     android:background="@drawable/bg_circulo_verde"
                     android:backgroundTint="@color/cyan_pastel"
                     android:gravity="center"
+                    android:id="@+id/tvBadgeTaxistas"
                     android:text="2"
                     android:textColor="@color/turquesa"
                     android:textSize="12sp"
@@ -125,6 +126,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tvTaxistasPendientes"
                             android:text="3 solicitudes de taxista pendientes"
                             android:textSize="13sp"
                             android:fontFamily="@font/poppins_bold"
@@ -191,6 +193,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/tvTotalHoteles"
                                     android:text="12"
                                     android:textSize="18sp"
                                     android:fontFamily="@font/poppins_bold"
@@ -241,6 +244,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/tvHotelesActivos"
                                     android:text="10"
                                     android:textSize="18sp"
                                     android:fontFamily="@font/poppins_bold"
@@ -291,6 +295,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:id="@+id/tvTotalUsuarios"
                                     android:text="1450"
                                     android:textSize="15sp"
                                     android:fontFamily="@font/poppins_bold"
@@ -459,6 +464,15 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
             </GridLayout>
+
+            <!-- Lab 6: crea hoteles de ejemplo en Firestore para probar el flujo del cliente -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCargarDemo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/superadmin_cargar_demo"
+                style="@style/Boton.Outline" />
 
             <!-- Métricas inferiores -->
             <LinearLayout

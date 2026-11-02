@@ -306,14 +306,18 @@
                     android:orientation="horizontal"
                     android:gravity="center_vertical">
 
-                    <TextView
+                    <!-- Lab 6: dirección editable, se guarda en hoteles/{id}.ubicacion -->
+                    <EditText
+                        android:id="@+id/etUbicacionHotel"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
                         android:background="@drawable/bg_input_field"
                         android:gravity="center_vertical"
+                        android:hint="@string/config_hotel_hint_direccion"
+                        android:importantForAutofill="no"
+                        android:inputType="textPostalAddress"
                         android:paddingHorizontal="12dp"
-                        android:text="@string/config_hotel_av_larco_245_lima"
                         android:textSize="14sp" />
 
                     <com.google.android.material.card.MaterialCardView
@@ -348,47 +352,43 @@
                     android:textStyle="bold"
                     android:textSize="16sp" />
 
+                <!-- Lab 6: los lugares salen de hoteles/{id}.lugaresCercanos; la X los quita -->
                 <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroupLugares"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp" />
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/config_hotel_huaca_pucllana"
-                        android:textColor="@android:color/white"
-                        app:chipBackgroundColor="@color/teal"
-                        app:closeIconEnabled="true"
-                        app:closeIconTint="@android:color/white" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipAgregarLugar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/config_hotel_agregar_lugar"
+                    android:textColor="@color/teal"
+                    app:chipBackgroundColor="#E0F7F4"
+                    app:chipStrokeColor="@color/teal"
+                    app:chipStrokeWidth="1dp" />
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/config_hotel_miraflores_cliffside"
-                        android:textColor="@android:color/white"
-                        app:chipBackgroundColor="@color/teal"
-                        app:closeIconEnabled="true"
-                        app:closeIconTint="@android:color/white" />
+                <!-- Taxi gratis al aeropuerto (RN-005): monto mínimo de la reserva -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:text="@string/config_hotel_monto_minimo_taxi"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/config_hotel_museo_de_la_nacion"
-                        android:textColor="@android:color/white"
-                        app:chipBackgroundColor="@color/teal"
-                        app:closeIconEnabled="true"
-                        app:closeIconTint="@android:color/white" />
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/config_hotel_agregar_lugar"
-                        android:textColor="@color/teal"
-                        app:chipBackgroundColor="#E0F7F4"
-                        app:chipStrokeColor="@color/teal"
-                        app:chipStrokeWidth="1dp" />
-                </com.google.android.material.chip.ChipGroup>
+                <EditText
+                    android:id="@+id/etMontoMinimoTaxi"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_input_field"
+                    android:hint="@string/config_hotel_hint_monto"
+                    android:importantForAutofill="no"
+                    android:inputType="numberDecimal"
+                    android:paddingHorizontal="12dp"
+                    android:textSize="14sp" />
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -414,6 +414,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tvHabitacionesRegistradas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"

@@ -6,6 +6,8 @@ public class Checkout {
     private String horaLimite;
     private EstadoCheckout estado;
     private double monto;
+    // Id de la reserva en Firestore (Lab 6): se abre su detalle para procesar el cobro
+    private String reservaId;
 
     public Checkout(String nombreHuesped, String habitacion, String horaLimite, EstadoCheckout estado) {
         this(nombreHuesped, habitacion, horaLimite, estado, 0.0);
@@ -18,6 +20,9 @@ public class Checkout {
         this.estado = estado;
         this.monto = monto;
     }
+
+    public String getReservaId() { return reservaId; }
+    public void setReservaId(String reservaId) { this.reservaId = reservaId; }
 
     public String getNombreHuesped() { return nombreHuesped; }
     public String getHabitacion() { return habitacion; }

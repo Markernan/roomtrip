@@ -2,7 +2,7 @@ package com.example.roomtrip.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Intent;
+import android.util.Log;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -14,7 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.roomtrip.R;
-import com.example.roomtrip.login.LoginActivity;
+import com.example.roomtrip.data.firebase.UsuarioRepository;
+import com.example.roomtrip.data.model.PerfilUsuario;
+import com.example.roomtrip.data.model.RolUsuario;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class PerfilDialogHelper {
 
@@ -43,31 +48,47 @@ public class PerfilDialogHelper {
         TextView tvDialogCerrarSesion = view.findViewById(R.id.tvDialogCerrarSesion);
         View containerFotoPerfil = view.findViewById(R.id.containerFotoPerfil);
 
-        tvTituloPerfil.setText("Perfil de " + rol);
+        tvTituloPerfil.setText(activity.getString(R.string.perfil_dialogo_titulo, rol));
         etDialogNombre.setText(nombreActual);
 
         containerFotoPerfil.setOnClickListener(v ->
-                Toast.makeText(activity, "Seleccionar foto de perfil...", Toast.LENGTH_SHORT).show());
+                Toast.makeText(activity, R.string.perfil_dialogo_foto, Toast.LENGTH_SHORT).show());
 
         btnDialogGuardar.setOnClickListener(v -> {
             String nuevoNombre = etDialogNombre.getText().toString().trim();
-            if (!nuevoNombre.isEmpty()) {
+            if (nuevoNombre.isEmpty()) {
+                Toast.makeText(activity, R.string.perfil_dialogo_nombre_vacio, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String uid = SesionFirebase.uidActual();
+            if (uid == null) {
+                dialog.dismiss();
+                return;
+            }
+            // Lab 6: el nombre se guarda en usuarios/{uid} de Firestore
+            Map<String, Object> cambios = new HashMap<>();
+            cambios.put(PerfilUsuario.CAMPO_NOMBRES, nuevoNombre);
+            cambios.put(PerfilUsuario.CAMPO_APELLIDOS, "");
+            btnDialogGuardar.setEnabled(false);
+            new UsuarioRepository().actualizar(uid, cambios, ignorado -> {
                 if (listener != null) {
                     listener.onNombreActualizado(nuevoNombre);
                 }
-                Toast.makeText(activity, "Nombre actualizado a: " + nuevoNombre, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, activity.getString(R.string.perfil_dialogo_nombre_actualizado, nuevoNombre),
+                        Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
-            } else {
-                Toast.makeText(activity, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
-            }
+            }, e -> {
+                btnDialogGuardar.setEnabled(true);
+                Log.e("PerfilDialogHelper", "No se pudo guardar el nombre", e);
+                Toast.makeText(activity, ErroresFirebase.mensaje(activity, e), Toast.LENGTH_LONG).show();
+            });
         });
 
+        // Logout real (Lab 6): cierra Firebase Authentication y vuelve al login
         tvDialogCerrarSesion.setOnClickListener(v -> {
             dialog.dismiss();
-            Intent intent = new Intent(activity, LoginActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            activity.startActivity(intent);
-            activity.finish();
+            RolUsuario rolUsuario = "SuperAdmin".equalsIgnoreCase(rol) ? RolUsuario.SUPERADMIN : RolUsuario.ADMIN_HOTEL;
+            SesionFirebase.cerrarSesion(activity, rolUsuario);
         });
 
         dialog.show();

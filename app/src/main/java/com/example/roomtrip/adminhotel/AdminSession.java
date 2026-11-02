@@ -21,15 +21,22 @@ public final class AdminSession {
         return n;
     }
 
-    public static void guardarHotel(Context c, int id, String nombre) {
+    /** Lab 6: el hotel del administrador viene de usuarios/{uid}.hotelId (id del documento en Firestore). */
+    public static void guardarHotel(Context c, String id, String nombre) {
         p(c).edit()
-            .putInt("hotel_id", id)
+            .putString("hotel_id_firestore", id)
             .putString("hotel_nombre", nombre)
             .apply();
     }
 
-    public static int getHotelId(Context c) {
-        return p(c).getInt("hotel_id", -1);
+    /** Id del documento hoteles/{id}; cadena vacía si no hay sesión de administrador. */
+    public static String getHotelId(Context c) {
+        return p(c).getString("hotel_id_firestore", "");
+    }
+
+    /** Al cerrar sesión: el siguiente administrador puede ser de otro hotel. */
+    public static void cerrarSesion(Context c) {
+        p(c).edit().remove("hotel_id_firestore").remove("hotel_nombre").apply();
     }
 
     public static String getHotelNombre(Context c) {

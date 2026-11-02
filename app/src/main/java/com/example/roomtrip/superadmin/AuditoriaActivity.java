@@ -1,6 +1,10 @@
 package com.example.roomtrip.superadmin;
 
-import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+import com.example.roomtrip.data.firebase.LogRepository;
+import com.example.roomtrip.utils.ErroresFirebase;
+import java.util.ArrayList;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -8,17 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.LogEvento;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class AuditoriaActivity extends AppCompatActivity {
@@ -26,7 +21,7 @@ public class AuditoriaActivity extends AppCompatActivity {
     private RecyclerView rvLogs;
     private ImageButton btnBack;
     private LogAdapter adapter;
-    private List<LogEvento> listaLogs;
+    private final List<LogEvento> listaLogs = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,52 +33,28 @@ public class AuditoriaActivity extends AppCompatActivity {
 
         rvLogs.setLayoutManager(new LinearLayoutManager(this));
 
-        cargarDatosMock();
-
         adapter = new LogAdapter(this, listaLogs);
         rvLogs.setAdapter(adapter);
+        cargarDatosMock();
 
         btnBack.setOnClickListener(v -> finish());
 
         setupBottomNavigation();
     }
 
+    /** Lab 6: eventos de la colección logs (los registra cada rol con RegistroEventos). */
     private void cargarDatosMock() {
-        listaLogs = cargarLogsDesdeCache();
-        if (listaLogs == null || listaLogs.isEmpty()) {
-            listaLogs = MockData.getLogsEjemplo();
-            guardarLogsEnCache(listaLogs);
-        }
-    }
-
-    private void guardarLogsEnCache(List<LogEvento> logs) {
-        try {
-            Gson gson = new Gson();
-            String json = gson.toJson(logs);
-            FileOutputStream fos = openFileOutput("auditoria_logs.json", Context.MODE_PRIVATE);
-            FileWriter writer = new FileWriter(fos.getFD());
-            writer.write(json);
-            writer.close();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private List<LogEvento> cargarLogsDesdeCache() {
-        List<LogEvento> logs = null;
-        try {
-            FileInputStream fis = openFileInput("auditoria_logs.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<LogEvento>>(){}.getType();
-            logs = gson.fromJson(reader, type);
-            reader.close();
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return logs;
+        new LogRepository().obtenerRecientes(logs -> {
+            listaLogs.clear();
+            listaLogs.addAll(logs);
+            adapter.notifyDataSetChanged();
+            if (logs.isEmpty()) {
+                Toast.makeText(this, R.string.superadmin_sin_logs, Toast.LENGTH_SHORT).show();
+            }
+        }, e -> {
+            Log.e("AuditoriaActivity", "No se pudieron leer los logs", e);
+            Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
+        });
     }
 
     private void setupBottomNavigation() {

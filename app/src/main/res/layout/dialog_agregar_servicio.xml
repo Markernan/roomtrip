@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lab 6: nuevo servicio del hotel (hoteles/{id}/servicios) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="8dp">
+
+    <EditText
+        android:id="@+id/etNombreServicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_nombre_servicio"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences" />
+
+    <EditText
+        android:id="@+id/etCategoriaServicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_categoria"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences" />
+
+    <EditText
+        android:id="@+id/etDescripcionServicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_descripcion"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences|textMultiLine" />
+
+    <EditText
+        android:id="@+id/etPrecioServicio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/inventario_hint_precio_servicio"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal" />
+</LinearLayout>

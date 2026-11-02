@@ -24,6 +24,16 @@
         <item name="android:fontFamily">@font/poppins_regular</item>
     </style>
 
+    <!-- Pantallas de FirebaseUI (login del taxista, Lab 6) con los colores de la app -->
+    <style name="Theme.RoomTrip.FirebaseUI" parent="FirebaseUI.DefaultMaterialTheme">
+        <item name="colorPrimary">@color/turquesa</item>
+        <item name="colorPrimaryDark">@color/turquesa</item>
+        <item name="colorPrimaryVariant">@color/turquesa</item>
+        <item name="colorSecondary">@color/turquesa</item>
+        <item name="colorAccent">@color/turquesa</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+    </style>
+
     <style name="ShapeAppearanceOverlay.App.Corner12" parent="">
         <item name="cornerSize">12dp</item>
     </style>

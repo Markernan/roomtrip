@@ -108,9 +108,9 @@
                     android:textColor="@color/texto_principal" android:textSize="15sp"
                     android:fontFamily="@font/poppins_semibold" />
                 <TextView
-                    android:id="@+id/tvValoracionTaxista"
+                    android:id="@+id/tvEstadoServicio"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="★ 4.8 (API REST)"
+                    android:text="Estado: Asignado"
                     android:textColor="@color/texto_secundario" android:textSize="12sp"
                     android:fontFamily="@font/poppins_regular" />
             </LinearLayout>

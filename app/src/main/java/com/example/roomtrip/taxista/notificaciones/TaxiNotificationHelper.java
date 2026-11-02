@@ -12,7 +12,6 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
-import com.example.roomtrip.data.model.PedidoTaxi;
 import com.example.roomtrip.data.model.ServicioTaxi;
 import com.example.roomtrip.taxista.EnCaminoActivity;
 import com.example.roomtrip.taxista.EnTrasladoActivity;
@@ -61,8 +60,11 @@ public class TaxiNotificationHelper {
         nm.createNotificationChannel(canalEstado);
     }
 
-    /** "Nuevo pedido disponible": al tocarla abre la lista de pedidos (SolicitadoActivity). */
-    public void notificarNuevoPedido(PedidoTaxi pedido) {
+    /**
+     * "Nuevo pedido disponible": al tocarla abre la lista de pedidos (SolicitadoActivity).
+     * Desde el Lab 6 la dispara el listener de Firestore cuando aparece un pedido SOLICITADO.
+     */
+    public void notificarNuevoPedido(ServicioTaxi pedido) {
         Intent intent = new Intent(context, SolicitadoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -73,10 +75,10 @@ public class TaxiNotificationHelper {
                 .setSmallIcon(R.drawable.ic_taxi)
                 .setContentTitle(context.getString(R.string.notif_nuevo_pedido_titulo))
                 .setContentText(context.getString(R.string.notif_ruta,
-                        pedido.getOrigen(), pedido.getDestino()))
+                        pedido.getHotelNombre(), pedido.getAeropuerto()))
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(
                         context.getString(R.string.notif_nuevo_pedido_detalle,
-                                pedido.getNombrePasajero(), pedido.getOrigen(), pedido.getDestino())))
+                                pedido.getClienteNombre(), pedido.getHotelNombre(), pedido.getAeropuerto())))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setContentIntent(pi)
@@ -90,7 +92,6 @@ public class TaxiNotificationHelper {
      * Al usar siempre ID_SERVICIO_ACTIVO, Android reemplaza la existente en vez de crear otra.
      */
     public void mostrarServicioActivo(ServicioTaxi servicio) {
-        PedidoTaxi pedido = servicio.getPedido();
         Intent intent = new Intent(context, activityParaEstado(servicio.getEstado()));
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -102,7 +103,7 @@ public class TaxiNotificationHelper {
                 .setContentTitle(context.getString(R.string.notif_servicio_titulo,
                         servicio.getEstado().getEtiqueta()))
                 .setContentText(context.getString(R.string.notif_servicio_texto,
-                        pedido.getNombrePasajero(), pedido.getOrigen(), pedido.getDestino()))
+                        servicio.getClienteNombre(), servicio.getHotelNombre(), servicio.getAeropuerto()))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_STATUS)
                 .setOngoing(true)              // persistente: no se puede deslizar mientras dura el servicio
@@ -115,7 +116,6 @@ public class TaxiNotificationHelper {
 
     /** Servicio FINALIZADO: se actualiza la misma notificación, deja de ser persistente y se cierra al tocarla. */
     public void mostrarServicioFinalizado(ServicioTaxi servicio) {
-        PedidoTaxi pedido = servicio.getPedido();
         Intent intent = new Intent(context, SolicitadoActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
@@ -127,7 +127,7 @@ public class TaxiNotificationHelper {
                 .setContentTitle(context.getString(R.string.notif_servicio_titulo,
                         EstadoServicioTaxi.FINALIZADO.getEtiqueta()))
                 .setContentText(context.getString(R.string.notif_servicio_finalizado_texto,
-                        pedido.getNombrePasajero(), pedido.getDestino()))
+                        servicio.getClienteNombre(), servicio.getAeropuerto()))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(false)
                 .setOnlyAlertOnce(true)

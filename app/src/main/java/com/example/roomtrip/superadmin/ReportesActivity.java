@@ -1,6 +1,14 @@
 package com.example.roomtrip.superadmin;
 
-import android.content.Context;
+import android.util.Log;
+import com.example.roomtrip.data.firebase.HotelRepository;
+import com.example.roomtrip.data.firebase.ReservaRepository;
+import com.example.roomtrip.data.model.EstadoReserva;
+import com.example.roomtrip.data.model.Reserva;
+import com.example.roomtrip.utils.ErroresFirebase;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,17 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.Hotel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.lang.reflect.Type;
 import java.util.List;
 
 public class ReportesActivity extends AppCompatActivity {
@@ -29,7 +28,7 @@ public class ReportesActivity extends AppCompatActivity {
     private ImageButton btnBack;
     private Button btnExportarPDF;
     private ReporteHotelAdapter adapter;
-    private List<Hotel> listaHoteles;
+    private final List<Hotel> listaHoteles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +41,13 @@ public class ReportesActivity extends AppCompatActivity {
 
         rvReportes.setLayoutManager(new LinearLayoutManager(this));
 
-        cargarDatosMock();
-
         adapter = new ReporteHotelAdapter(this, listaHoteles, hotel -> {
             Intent intent = new Intent(ReportesActivity.this, DetalleHotelReporteActivity.class);
             intent.putExtra("hotel", hotel);
             startActivity(intent);
         });
         rvReportes.setAdapter(adapter);
+        cargarDatosMock();
 
         btnBack.setOnClickListener(v -> finish());
         btnExportarPDF.setOnClickListener(v -> 
@@ -59,42 +57,31 @@ public class ReportesActivity extends AppCompatActivity {
         setupBottomNavigation();
     }
 
+    /** Lab 6: reporte de reservas por hotel (cantidad y monto) calculado con los datos de Firestore. */
     private void cargarDatosMock() {
-        listaHoteles = cargarReporteDesdeCache();
-        if (listaHoteles == null || listaHoteles.isEmpty()) {
-            listaHoteles = MockData.getReporteHotelesEjemplo();
-            guardarReporteEnCache(listaHoteles);
-        }
+        new HotelRepository().obtenerTodos(hoteles -> new ReservaRepository().obtenerTodas(reservas -> {
+            Map<String, Hotel> porId = new HashMap<>();
+            for (Hotel h : hoteles) {
+                h.setReservasReporte(0);
+                h.setMontoReporte(0);
+                porId.put(h.getId(), h);
+            }
+            for (Reserva r : reservas) {
+                Hotel h = porId.get(r.getHotelId());
+                if (h == null || r.getEstado() == EstadoReserva.CANCELADA) continue;
+                h.setReservasReporte(h.getReservasReporte() + 1);
+                h.setMontoReporte(h.getMontoReporte() + (r.getMontoCobrado() > 0 ? r.getMontoCobrado() : r.getMontoTotal()));
+            }
+            hoteles.sort((a, b) -> Double.compare(b.getMontoReporte(), a.getMontoReporte()));
+            listaHoteles.clear();
+            listaHoteles.addAll(hoteles);
+            adapter.notifyDataSetChanged();
+        }, this::mostrarError), this::mostrarError);
     }
 
-    private void guardarReporteEnCache(List<Hotel> hoteles) {
-        try {
-            Gson gson = new Gson();
-            String json = gson.toJson(hoteles);
-            FileOutputStream fos = openFileOutput("reporte_hoteles_cache.json", Context.MODE_PRIVATE);
-            FileWriter writer = new FileWriter(fos.getFD());
-            writer.write(json);
-            writer.close();
-            fos.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private List<Hotel> cargarReporteDesdeCache() {
-        List<Hotel> hoteles = null;
-        try {
-            FileInputStream fis = openFileInput("reporte_hoteles_cache.json");
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            Gson gson = new Gson();
-            Type type = new TypeToken<List<Hotel>>(){}.getType();
-            hoteles = gson.fromJson(reader, type);
-            reader.close();
-            fis.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return hoteles;
+    private void mostrarError(Exception e) {
+        Log.e("ReportesActivity", "Error de Firestore", e);
+        Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
     }
 
     private void setupBottomNavigation() {

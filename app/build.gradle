@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+    // Necesita app/google-services.json (no se versiona: ver docs/manual-instalacion.md, sección 5)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -48,4 +50,11 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Firebase (Lab 6). El BoM fija versiones compatibles entre sí: auth y firestore van sin versión
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.auth
+    implementation libs.firebase.firestore
+    // FirebaseUI: pantallas de login con correo y Google ya hechas (Clase 10)
+    implementation libs.firebase.ui.auth
 }

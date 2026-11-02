@@ -41,18 +41,21 @@ información de taxistas pasa por la API REST.
 
 ## 3. Modelo de datos (Firestore)
 
-> Nombres de colecciones y campos en español, consistentes con el enunciado.
+> Nombres de colecciones y campos en español, consistentes con el enunciado. Implementado en el
+> Lab 6: el cobro vive dentro de la reserva (no hay colección `cobros`) y el chat usa Firestore
+> (subcolección `mensajes`) en lugar de Realtime Database.
 
 | Colección | Contenido |
 |---|---|
-| `usuarios` | Datos comunes + `rol` + `estado` (`ACTIVO` / `INACTIVO`) |
-| `hoteles` | Ubicación, fotos, lugares históricos cercanos, monto mínimo para taxi, `estado` |
-| `habitaciones` | Tipo, capacidad (adultos/niños), tamaño en m² |
-| `servicios` | Nombre, descripción, precio, imágenes, si tiene costo |
-| `reservas` | Cliente, habitación, fechas, `estado` (`EstadoReserva`), monto |
-| `cobros` | Cobro de la reserva y cobros adicionales por daños |
-| `valoraciones` | Valoraciones **del hotel**, hechas en el checkout |
-| `serviciosTaxi` | `estado` (`EstadoServicioTaxi`), hotel, cliente, taxista, aeropuerto |
+| `usuarios` | Datos comunes + `rol` + `estado` (`ACTIVO` / `INACTIVO`); `estadoAprobacion` (taxista); `hotelId` (admin de hotel) |
+| `invitaciones` | Id = correo en minúsculas. Hotel asignado al futuro administrador; la crea el Superadmin |
+| `hoteles` | Ubicación, imagen, lugares históricos cercanos, monto mínimo para taxi, `estado`, `calificacion`, `numValoraciones` |
+| `hoteles/{id}/habitaciones` | Tipo, capacidad, tamaño en m², precio por noche |
+| `hoteles/{id}/servicios` | Nombre, descripción, precio (0 = gratuito) |
+| `reservas` | Cliente, hotel y habitación (copiados), fechas `yyyy-MM-dd`, monto, `estado` (`EstadoReserva`), checkout (`EstadoCheckout`, valoración) y cobro (incluido el adicional por daños). Subcolección `mensajes` = chat |
+| `ocupaciones` | Candados por noche (`hab_<habitación>_<noche>`, `cli_<cliente>_<noche>`) que garantizan la no superposición |
+| `valoraciones` | Valoraciones **del hotel**, hechas en el checkout (id = id de la reserva) |
+| `serviciosTaxi` | `estado` (`EstadoServicioTaxi`), hotel, cliente, taxista, aeropuerto. El id del documento es el contenido del QR (RN-011) |
 | `logs` | Eventos relevantes del sistema, consultables por el Superadmin |
 
 La calificación del **taxista** no se guarda aquí: la app la envía a la API
@@ -130,12 +133,15 @@ A2 y A3), pendiente de confirmar con el coordinador del curso.
 - [ ] **Ubicación y estado del servicio de taxi.** El ERS (RF-API-003 y RF-API-004) pide que la API
       los exponga, pero la API actual no tiene esos endpoints y el diseño de la app usa Realtime
       Database. Hay que elegir uno y alinear el ERS.
-- [ ] **Login del taxista en la app móvil.** Sus credenciales viven en la base de `taxi-service`
-      (`POST /api/auth/login`), no en Firebase Authentication. Definir si la app llama a ese login
-      o se federan las dos identidades.
-- [ ] **Generación y validación del código QR.** Hoy la app genera un QR con ZXing a partir de un
-      identificador provisional (`MostrarQrActivity`); falta que el ID sea el del `serviciosTaxi`
-      real y que el taxista lo valide (RN-011).
+- [x] **Login del taxista en la app móvil (decidido en el Lab 6).** El taxista inicia sesión con
+      **Firebase Authentication** (FirebaseUI, correo o Google), igual que el resto de roles, y su
+      rol y habilitación se leen de `usuarios/{uid}` (`estadoAprobacion`: `PENDIENTE`, `APROBADO`,
+      `RECHAZADO`, los mismos valores de la API). Mientras no exista la integración (Lab 7), el
+      Superadmin aprueba cambiando ese campo. **Pendiente para el Lab 7:** vincular el uid con el
+      id del taxista en `taxi-service` (campo `idTaxistaApi`) y tomar la aprobación de la API.
+- [ ] **Generación y validación del código QR.** Decidido: el contenido del QR es el id del documento
+      `serviciosTaxi`. El cliente lo genera y el taxista lo valida contra Firestore (Lab 6,
+      `ServicioTaxiRepository.finalizarConQr`). Falta leerlo con la cámara en vez de simularlo (RN-011).
 - [ ] **Dónde vive el código de `taxi-service`:** integrarlo a la carpeta `taxi-service/` o dejarlo
       en la rama `web-taxis`.
 - [ ] **Estados de checkout y de habitación:** el ERS no los define. Hoy son los `enum` `EstadoCheckout`
@@ -149,11 +155,14 @@ Lo que existe hoy en el código, frente al diseño de arriba:
 
 | Tema | Hoy |
 |---|---|
-| Datos | 100% de prueba, centralizados en `data/MockData.java`. No hay Firebase, Retrofit, almacenamiento local ni notificaciones |
-| Login | `login/LoginActivity`: se elige el rol en una lista y se entra a su pantalla. No hay autenticación real |
+| Datos | **Los cuatro roles** sobre Cloud Firestore, con un repositorio por colección en `data/firebase/`. Listeners en tiempo real (pedidos, reservas, chat, traslados) y transacciones para: aceptar y avanzar pedidos de taxi, crear reservas sin superposición (candados en `ocupaciones`), checkout con recálculo de la calificación del hotel y cobro del hotel. Consultas de un solo filtro: no hacen falta índices compuestos |
+| Login | `login/LoginActivity`: un solo login con Firebase Authentication (FirebaseUI, correo o Google) y verificación de correo. El rol sale de `usuarios/{uid}`. Alta: cliente por autoregistro, taxista por solicitud aprobada por el Superadmin, admin de hotel por invitación, Superadmin creado en la consola |
+| Seguridad | `firestore.rules` cubre todas las colecciones: nadie se asigna un rol que no le toca; el cliente solo ve sus reservas y taxis; el hotel solo los de su `hotelId`; el chat solo entre los dos participantes y con la reserva activa; los estados del taxi avanzan de uno en uno y los del checkout/cobro en su orden (también en el servidor) |
 | Navegación | Cliente, taxista y superadmin usan `Activity` + `Intent`. El admin de hotel usa una sola `MainActivity` con `Fragment` y `nav_graph` (Navigation Component) |
 | Listas | `RecyclerView` con su adapter en los cuatro roles |
-| Vistas | ViewBinding en casi todo el admin de hotel (quedan `ChatsFragment`, `AdminHotelAdapter` y `HabitacionAdapter`), en el flujo del taxista que muestra pedidos y en Registrar hotel; cliente y superadmin siguen con `findViewById` y se migran de forma progresiva |
-| Estados | `enum` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`) en `data/model/`, con pruebas unitarias. `EstadoReserva` está listo pero sin uso: la app todavía no tiene un modelo `Reserva` (Mis reservas usa objetos `Hotel`) |
-| QR | El cliente genera un QR (ZXing); la pantalla de escaneo del taxista es un mockup |
+| Vistas | ViewBinding en casi todo el admin de hotel, en el flujo del taxista, en Registrar hotel y en el checkout y taxi del cliente; el resto de cliente y superadmin sigue con `findViewById` y se migra de forma progresiva |
+| Estados | `enum` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`, `EstadoAprobacion`) en `data/model/`, con pruebas unitarias, guardados por su nombre en Firestore |
+| QR | El cliente genera con ZXing el QR con el id del documento de `serviciosTaxi`. El taxista lo valida contra Firestore en una transacción; la lectura con cámara todavía es simulada |
+| Imágenes | Los hoteles guardan una clave (`imagen`) de una foto incluida en la app (`ImagenesHotel`). Subir fotos propias depende de la decisión de Storage |
+| Notificaciones | Taxista: pedidos nuevos (listener). Cliente: aviso de cobro cuando el hotel procesa el checkout, mientras la app está abierta (listener en `AvisosCobro`). Con la app cerrada hace falta Cloud Messaging |
 | Calidad | Pruebas unitarias, `lintDebug` y compilación en cada PR (GitHub Actions) |

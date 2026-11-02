@@ -3,6 +3,8 @@ package com.example.roomtrip.superadmin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
@@ -11,14 +13,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.MockData;
+import com.example.roomtrip.data.firebase.UsuarioRepository;
+import com.example.roomtrip.data.model.EstadoCuenta;
+import com.example.roomtrip.data.model.PerfilUsuario;
+import com.example.roomtrip.data.model.RolUsuario;
 import com.example.roomtrip.data.model.Usuario;
+import com.example.roomtrip.utils.ErroresFirebase;
+import com.example.roomtrip.utils.RegistroEventos;
+import com.example.roomtrip.utils.SesionFirebase;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.chip.ChipGroup;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UsuariosActivity extends AppCompatActivity {
+
+    private static final String TAG = "UsuariosActivity";
+    private final UsuarioRepository repositorio = new UsuarioRepository();
 
     private RecyclerView rvUsuarios;
     private ImageButton btnBack;
@@ -48,14 +59,13 @@ public class UsuariosActivity extends AppCompatActivity {
         filtroRol = prefs.getString("ultimo_filtro_rol", "Todos");
         actualizarChipSeleccionado();
 
-        cargarDatosMock();
-
         rvUsuarios.setLayoutManager(new LinearLayoutManager(this));
         adapter = new UsuariosAdapter(this, listaFiltrada, usuario -> {
             Intent intent = new Intent(UsuariosActivity.this, DetalleUsuarioActivity.class);
             intent.putExtra("usuario", usuario);
             startActivity(intent);
         });
+        adapter.setOnEstadoCambiadoListener(this::cambiarEstado);
         rvUsuarios.setAdapter(adapter);
 
         setupFiltros();
@@ -81,12 +91,36 @@ public class UsuariosActivity extends AppCompatActivity {
         }
     }
 
-    private void cargarDatosMock() {
-        listaCompleta = MockData.getUsuariosCompletosEjemplo();
+    /** Lab 6: todos los usuarios de Firestore (solo el Superadmin puede leerlos, ver firestore.rules). */
+    private void cargarUsuarios() {
+        repositorio.obtenerTodos(perfiles -> {
+            listaCompleta = new ArrayList<>();
+            for (PerfilUsuario p : perfiles) listaCompleta.add(UsuarioVista.desde(p));
+            filtrarUsuarios();
+        }, e -> {
+            Log.e(TAG, "No se pudieron leer los usuarios", e);
+            Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
+        });
+    }
 
-        listaFiltrada.clear();
-
-        listaFiltrada.addAll(listaCompleta);
+    /** RF-USR-007: activar o desactivar la cuenta desde el switch de la lista. */
+    private void cambiarEstado(Usuario usuario, boolean activo) {
+        if (usuario.getUid() == null) return;
+        if (usuario.getUid().equals(SesionFirebase.uidActual())) {
+            Toast.makeText(this, R.string.superadmin_no_desactivarse, Toast.LENGTH_SHORT).show();
+            cargarUsuarios();
+            return;
+        }
+        repositorio.cambiarEstado(usuario.getUid(), EstadoCuenta.desde(activo), ignorado -> {
+            RegistroEventos.registrar(RegistroEventos.USUARIO_ESTADO, RolUsuario.SUPERADMIN,
+                    usuario.getName() + " " + (activo ? "activado" : "desactivado"));
+            Toast.makeText(this, getString(activo ? R.string.superadmin_usuario_activado
+                    : R.string.superadmin_usuario_desactivado, usuario.getName()), Toast.LENGTH_SHORT).show();
+        }, e -> {
+            Log.e(TAG, "No se pudo cambiar el estado de " + usuario.getUid(), e);
+            Toast.makeText(this, ErroresFirebase.mensaje(this, e), Toast.LENGTH_LONG).show();
+            cargarUsuarios();
+        });
     }
 
     private void setupFiltros() {
@@ -148,7 +182,7 @@ public class UsuariosActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        filtrarUsuarios();
+        cargarUsuarios();   // al volver del detalle puede haber cambios
     }
 
     private void setupBottomNavigation() {

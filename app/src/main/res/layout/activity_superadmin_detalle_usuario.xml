@@ -190,6 +190,36 @@
                                 android:textColor="@color/texto_principal"
                                 android:fontFamily="@font/poppins_medium" />
                         </LinearLayout>
+
+                        <!-- Lab 6: habilitación del taxista por el Superadmin (RF-WTX-004) -->
+                        <TextView
+                            android:id="@+id/tvAprobacionTaxista"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:textColor="@color/texto_principal"
+                            android:fontFamily="@font/poppins_semibold" />
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnAprobarTaxista"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:text="@string/superadmin_aprobar"
+                                style="@style/Boton.Primario" />
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnRechazarTaxista"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/superadmin_rechazar"
+                                style="@style/Boton.Outline" />
+                        </LinearLayout>
                     </LinearLayout>
 
                     <!-- Sección Dinámica: Admin Hotel -->

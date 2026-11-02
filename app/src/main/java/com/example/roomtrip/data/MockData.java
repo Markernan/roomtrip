@@ -3,6 +3,7 @@ package com.example.roomtrip.data;
 import com.example.roomtrip.data.model.Chat;
 import com.example.roomtrip.data.model.Checkout;
 import com.example.roomtrip.data.model.EstadoCheckout;
+import com.example.roomtrip.data.model.EstadoCuenta;
 import com.example.roomtrip.data.model.EstadoHabitacion;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.Habitacion;
@@ -12,12 +13,13 @@ import com.example.roomtrip.data.model.LogEvento;
 import com.example.roomtrip.data.model.Mensaje;
 import com.example.roomtrip.data.model.Notificacion;
 import com.example.roomtrip.data.model.Notificacion.TipoNotificacion;
-import com.example.roomtrip.data.model.PedidoTaxi;
 import com.example.roomtrip.data.model.Servicio;
+import com.example.roomtrip.data.model.ServicioTaxi;
 import com.example.roomtrip.data.model.Traslado;
 import com.example.roomtrip.data.model.Usuario;
 import com.example.roomtrip.data.model.Valoracion;
 import com.example.roomtrip.R;
+import com.example.roomtrip.utils.ImagenesHotel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,15 +34,48 @@ public class MockData {
         return lista;
     }
 
-    // Para SolicitadoActivity (taxista)
-    public static List<PedidoTaxi> getPedidosTaxiEjemplo() {
-        List<PedidoTaxi> lista = new ArrayList<>();
-        lista.add(new PedidoTaxi("Carlos Mendoza", 4.9f, "Hotel La Dolce Vita", "Aeropuerto Jorge Chávez", 8));
-        lista.add(new PedidoTaxi("María Torres", 4.7f, "Hotel Miraflores Park", "Aeropuerto Jorge Chávez", 12));
-        lista.add(new PedidoTaxi("Juan Pérez", 4.5f, "JW Marriott Hotel", "Aeropuerto Jorge Chávez", 15));
-        lista.add(new PedidoTaxi("Lucía Ramírez", 5.0f, "Hotel Westin Lima", "Aeropuerto Jorge Chávez", 18));
-        lista.add(new PedidoTaxi("Diego Salazar", 4.2f, "Hotel Costa del Sol", "Aeropuerto Jorge Chávez", 5));
+    // Pedidos de prueba para el botón "Simular nuevo pedido" del taxista (SolicitadoActivity).
+    // Desde el Lab 6 no se muestran directamente: el botón crea uno de estos en Firestore
+    // (serviciosTaxi) y la lista lo recibe en tiempo real, igual que un pedido real del cliente.
+    public static List<ServicioTaxi> getPedidosTaxiEjemplo() {
+        List<ServicioTaxi> lista = new ArrayList<>();
+        lista.add(ServicioTaxi.nuevaSolicitud(null, "Carlos Mendoza", 4.9, null, "Hotel La Dolce Vita", "Aeropuerto Jorge Chávez", 8));
+        lista.add(ServicioTaxi.nuevaSolicitud(null, "María Torres", 4.7, null, "Hotel Miraflores Park", "Aeropuerto Jorge Chávez", 12));
+        lista.add(ServicioTaxi.nuevaSolicitud(null, "Juan Pérez", 4.5, null, "JW Marriott Hotel", "Aeropuerto Jorge Chávez", 15));
+        lista.add(ServicioTaxi.nuevaSolicitud(null, "Lucía Ramírez", 5.0, null, "Hotel Westin Lima", "Aeropuerto Jorge Chávez", 18));
+        lista.add(ServicioTaxi.nuevaSolicitud(null, "Diego Salazar", 4.2, null, "Hotel Costa del Sol", "Aeropuerto Jorge Chávez", 5));
         return lista;
+    }
+
+    // Hoteles que crea el botón "Cargar datos de demostración" del Superadmin en Firestore (Lab 6).
+    // Cada uno recibe las habitaciones de getHabitacionesEjemplo() y los servicios de getServiciosEjemplo().
+    public static List<Hotel> getHotelesDemoFirestore() {
+        List<Hotel> lista = new ArrayList<>();
+        lista.add(hotelDemo("Hotel Miraflores", "Av. Larco 245, Miraflores, Lima", "+51 1 610 0000",
+                "reservas@hotelmiraflores.pe", ImagenesHotel.MIRAFLORES, 4.8f,
+                "Huaca Pucllana", "Parque del Amor", "Larcomar"));
+        lista.add(hotelDemo("Hotel Italia Centro", "Jr. de la Unión 851, Cercado de Lima", "+51 1 427 1111",
+                "contacto@hotelitalia.pe", ImagenesHotel.ITALIA_FACHADA, 4.5f,
+                "Plaza de Armas de Lima", "Convento de San Francisco", "Barrio Chino"));
+        lista.add(hotelDemo("Grand Hotel Italia", "Bahía de Paracas, Ica", "+51 56 545 222",
+                "info@grandhotelitalia.pe", ImagenesHotel.GRAND_ITALIA, 4.6f,
+                "Reserva Nacional de Paracas", "Islas Ballestas", "Museo Julio C. Tello"));
+        return lista;
+    }
+
+    private static Hotel hotelDemo(String nombre, String ubicacion, String contacto, String correo, String imagen,
+                                   float calificacion, String... lugares) {
+        Hotel h = new Hotel();
+        h.setNombre(nombre);
+        h.setUbicacion(ubicacion);
+        h.setContacto(contacto);
+        h.setCorreo(correo);
+        h.setImagen(imagen);
+        h.setCalificacion(calificacion);
+        h.setEstado(EstadoCuenta.ACTIVO);
+        h.setMontoMinimoTaxi(Hotel.MONTO_MINIMO_TAXI_POR_DEFECTO);
+        h.setLugaresCercanos(new ArrayList<>(java.util.Arrays.asList(lugares)));
+        return h;
     }
 
     // Para AuditoriaActivity

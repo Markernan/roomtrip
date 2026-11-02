@@ -17,6 +17,11 @@ public class Usuario implements Serializable {
     private String historialReservas;
     private String direccion;
 
+    // Lab 6: identificadores reales en Firestore para poder actualizar la cuenta
+    private String uid;
+    private String estadoAprobacion;   // nombre de EstadoAprobacion, solo taxistas
+    private String hotelId;
+
     public Usuario() {}
 
     public Usuario(String name, String email, String role, String phone, boolean isActive) {
@@ -26,6 +31,15 @@ public class Usuario implements Serializable {
         this.phone = phone;
         this.isActive = isActive;
     }
+
+    public String getUid() { return uid; }
+    public void setUid(String uid) { this.uid = uid; }
+
+    public String getEstadoAprobacion() { return estadoAprobacion; }
+    public void setEstadoAprobacion(String estadoAprobacion) { this.estadoAprobacion = estadoAprobacion; }
+
+    public String getHotelId() { return hotelId; }
+    public void setHotelId(String hotelId) { this.hotelId = hotelId; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

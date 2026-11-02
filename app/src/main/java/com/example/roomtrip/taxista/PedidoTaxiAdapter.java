@@ -8,22 +8,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
-import com.example.roomtrip.data.model.PedidoTaxi;
+import com.example.roomtrip.data.model.ServicioTaxi;
 import com.example.roomtrip.databinding.ItemPedidoTaxiBinding;
 
 import java.util.List;
 
-/** Lista de pedidos SOLICITADO que ve el taxista (RF-TAX-005). */
+/** Lista de pedidos SOLICITADO que ve el taxista (RF-TAX-005), leídos en tiempo real de Firestore. */
 public class PedidoTaxiAdapter extends RecyclerView.Adapter<PedidoTaxiAdapter.PedidoViewHolder> {
 
     public interface OnPedidoClickListener {
-        void onPedidoClick(PedidoTaxi pedido);
+        void onPedidoClick(ServicioTaxi pedido);
     }
 
-    private final List<PedidoTaxi> pedidos;
+    private final List<ServicioTaxi> pedidos;
     private final OnPedidoClickListener listener;
 
-    public PedidoTaxiAdapter(List<PedidoTaxi> pedidos, OnPedidoClickListener listener) {
+    public PedidoTaxiAdapter(List<ServicioTaxi> pedidos, OnPedidoClickListener listener) {
         this.pedidos = pedidos;
         this.listener = listener;
     }
@@ -38,12 +38,12 @@ public class PedidoTaxiAdapter extends RecyclerView.Adapter<PedidoTaxiAdapter.Pe
 
     @Override
     public void onBindViewHolder(@NonNull PedidoViewHolder holder, int position) {
-        PedidoTaxi pedido = pedidos.get(position);
+        ServicioTaxi pedido = pedidos.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.binding.tvNombrePasajero.setText(pedido.getNombrePasajero());
-        holder.binding.tvOrigen.setText(context.getString(R.string.pedido_origen, pedido.getOrigen()));
-        holder.binding.tvDestino.setText(context.getString(R.string.pedido_destino, pedido.getDestino()));
+        holder.binding.tvNombrePasajero.setText(pedido.getClienteNombre());
+        holder.binding.tvOrigen.setText(context.getString(R.string.pedido_origen, pedido.getHotelNombre()));
+        holder.binding.tvDestino.setText(context.getString(R.string.pedido_destino, pedido.getAeropuerto()));
         holder.binding.tvMinutos.setText(context.getString(R.string.pedido_minutos, pedido.getMinutosAlEncuentro()));
         holder.itemView.setOnClickListener(v -> listener.onPedidoClick(pedido));
     }

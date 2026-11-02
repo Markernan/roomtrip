@@ -46,6 +46,7 @@
         </LinearLayout>
 
         <TextView
+            android:id="@+id/tvResumenEstadia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -93,6 +94,7 @@
             android:id="@+id/cajaTaxiGratis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:orientation="vertical"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_caja_verde_claro"

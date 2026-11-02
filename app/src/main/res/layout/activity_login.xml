@@ -1,70 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Login único (Lab 6): Firebase Authentication con FirebaseUI. El rol se lee de Firestore. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
     android:padding="28dp"
-    android:background="#F8FAFC">
+    android:background="@color/fondo_pantalla">
 
     <!-- Título Principal -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RoomTrip"
+        android:text="@string/app_name"
         android:textSize="32sp"
         android:textStyle="bold"
-        android:textColor="#000000"
+        android:textColor="@color/texto_principal"
         android:layout_marginBottom="4dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bienvenido de vuelta"
+        android:text="@string/login_bienvenido"
         android:textSize="18sp"
-        android:textColor="#64748B"
+        android:textColor="@color/texto_secundario"
         android:layout_marginBottom="36dp" />
 
-    <!-- Etiqueta Rol -->
     <TextView
+        android:id="@+id/tvAyudaLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Selecciona tu rol:"
-        android:textColor="#1E293B"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        android:text="@string/login_ayuda"
+        android:textColor="@color/texto_secundario"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_regular" />
 
-    <!-- Desplegable Nativo (Spinner) -->
-    <Spinner
-        android:id="@+id/spinnerRoles"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginBottom="20dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:padding="10dp" />
-
-    <!-- Campo Contraseña -->
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"
-        android:layout_marginBottom="28dp" />
-
-    <!-- Botón Iniciar Sesión -->
+    <!-- Abre FirebaseUI (correo y contraseña o Google) -->
     <Button
         android:id="@+id/btnIniciarSesion"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="Iniciar sesión"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:backgroundTint="#00BFA5" />
+        android:text="@string/login_iniciar_sesion"
+        style="@style/Boton.Primario" />
+
+    <!-- Mientras se valida la cuenta en Firebase -->
+    <ProgressBar
+        android:id="@+id/progressLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminate="true"
+        android:visibility="gone" />
 
     <!-- Enlace a registro de cliente (RF-CL-01) -->
     <LinearLayout
@@ -77,7 +65,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="¿No tienes cuenta? "
+            android:text="@string/login_sin_cuenta"
             android:textColor="@color/texto_secundario"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_regular" />
@@ -86,7 +74,7 @@
             android:id="@+id/tvRegistrarse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Regístrate"
+            android:text="@string/login_registrate"
             android:textColor="@color/turquesa"
             android:textSize="14sp"
             android:fontFamily="@font/poppins_semibold"

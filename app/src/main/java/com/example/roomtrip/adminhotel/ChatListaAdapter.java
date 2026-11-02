@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.roomtrip.R;
@@ -14,12 +13,19 @@ import java.util.List;
 
 public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.ViewHolder> {
 
+    /** Lab 6: al tocar una conversación se abre el chat de esa reserva. */
+    public interface OnChatClickListener {
+        void onChatClick(Chat chat);
+    }
+
     private final List<Chat> listaChats;
     private final Context context;
+    private final OnChatClickListener listener;
 
-    public ChatListaAdapter(List<Chat> listaChats, Context context) {
+    public ChatListaAdapter(List<Chat> listaChats, Context context, OnChatClickListener listener) {
         this.listaChats = listaChats;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -40,9 +46,7 @@ public class ChatListaAdapter extends RecyclerView.Adapter<ChatListaAdapter.View
         // Control del punto verde de mensajes no leídos
         holder.binding.dotUnread.setVisibility(chat.getMensajesSinLeer() > 0 ? View.VISIBLE : View.GONE);
 
-        holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, context.getString(R.string.toast_chat_abriendo, chat.getNombreHuesped()), Toast.LENGTH_SHORT).show()
-        );
+        holder.itemView.setOnClickListener(v -> listener.onChatClick(chat));
     }
 
     @Override
