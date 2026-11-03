@@ -1,0 +1,318 @@
+rules_version = '2';
+
+// Reglas de seguridad de Cloud Firestore — RoomTrip (Lab 6, todos los roles)
+//
+// Se publican en Firebase Console > Firestore Database > Reglas (copiar y "Publicar").
+// Todo lo que no se permite aquí está denegado.
+//
+// Los valores comparados ('TAXISTA', 'ACTIVO', 'SOLICITADO'...) son los nombres de los enum de
+// data/model/: si se renombra un valor, hay que cambiarlo también aquí.
+//
+// Colecciones:
+//   usuarios/{uid}                      perfil y rol de cada cuenta
+//   invitaciones/{correo}               alta de administradores de hotel (las crea el Superadmin)
+//   hoteles/{hotelId}                   + subcolecciones habitaciones y servicios
+//   reservas/{reservaId}                + subcolección mensajes (chat cliente-hotel)
+//   ocupaciones/{id}                    "candados" por noche que impiden reservas superpuestas
+//   valoraciones/{reservaId}            una opinión por reserva (checkout del cliente)
+//   serviciosTaxi/{servicioId}          traslados al aeropuerto
+//   logs/{logId}                        eventos que audita el Superadmin
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ---------- Funciones de ayuda ----------
+
+    function autenticado() {
+      return request.auth != null;
+    }
+
+    function esElMismo(uid) {
+      return autenticado() && request.auth.uid == uid;
+    }
+
+    function tienePerfil() {
+      return autenticado() && exists(/databases/$(database)/documents/usuarios/$(request.auth.uid));
+    }
+
+    // Documento usuarios/{uid} de quien hace la petición
+    function perfil() {
+      return get(/databases/$(database)/documents/usuarios/$(request.auth.uid)).data;
+    }
+
+    function tieneRolActivo(rol) {
+      return tienePerfil() && perfil().rol == rol && perfil().estado == 'ACTIVO';
+    }
+
+    function esSuperadmin() {
+      return tieneRolActivo('SUPERADMIN');
+    }
+
+    function esCliente() {
+      return tieneRolActivo('CLIENTE');
+    }
+
+    // Administrador activo de ESE hotel
+    function esAdminDeHotel(hotelId) {
+      return tieneRolActivo('ADMIN_HOTEL') && perfil().get('hotelId', '') == hotelId;
+    }
+
+    // Taxista con cuenta activa y aprobado por el Superadmin
+    function esTaxistaHabilitado() {
+      return tieneRolActivo('TAXISTA') && perfil().get('estadoAprobacion', '') == 'APROBADO';
+    }
+
+    // Correo del token en minúsculas (así se guardan las invitaciones)
+    function correoToken() {
+      return request.auth.token.get('email', '').lower();
+    }
+
+    // La escritura solo modifica los campos indicados
+    function soloCambian(campos) {
+      return request.resource.data.diff(resource.data).affectedKeys().hasOnly(campos);
+    }
+
+    function noToca(campos) {
+      return !request.resource.data.diff(resource.data).affectedKeys().hasAny(campos);
+    }
+
+    // RN-010: el taxista avanza un paso a la vez. FINALIZADO lo registra la app solo tras validar el QR (RN-011)
+    function transicionValida(desde, hacia) {
+      return (desde == 'ASIGNADO' && hacia == 'EN_CAMINO')
+        || (desde == 'EN_CAMINO' && hacia == 'EN_TRASLADO')
+        || (desde == 'EN_TRASLADO' && hacia == 'FINALIZADO');
+    }
+
+    function reserva(reservaId) {
+      return get(/databases/$(database)/documents/reservas/$(reservaId)).data;
+    }
+
+    // ---------- usuarios/{uid} (el id es el uid de Firebase Authentication) ----------
+
+    match /usuarios/{uid} {
+      // Cada usuario lee solo su documento; el Superadmin lee todos
+      allow read: if esElMismo(uid) || esSuperadmin();
+
+      // Cliente: se registra solo y queda habilitado automáticamente
+      allow create: if esElMismo(uid)
+        && request.resource.data.rol == 'CLIENTE'
+        && request.resource.data.estado == 'ACTIVO'
+        && request.resource.data.get('hotelId', null) == null;
+
+      // Taxista: solicitud de habilitación, queda PENDIENTE hasta que el Superadmin la apruebe
+      allow create: if esElMismo(uid)
+        && request.resource.data.rol == 'TAXISTA'
+        && request.resource.data.estado == 'ACTIVO'
+        && request.resource.data.estadoAprobacion == 'PENDIENTE'
+        && request.resource.data.get('hotelId', null) == null;
+
+      // Administrador de hotel: solo con una invitación del Superadmin para su correo verificado,
+      // y únicamente para el hotel de esa invitación
+      allow create: if esElMismo(uid)
+        && request.auth.token.email_verified == true
+        && exists(/databases/$(database)/documents/invitaciones/$(correoToken()))
+        && request.resource.data.rol == 'ADMIN_HOTEL'
+        && request.resource.data.estado == 'ACTIVO'
+        && request.resource.data.hotelId
+            == get(/databases/$(database)/documents/invitaciones/$(correoToken())).data.hotelId;
+
+      // El usuario edita sus datos personales, pero no su rol, estado, aprobación, correo, hotel ni fecha
+      allow update: if esElMismo(uid)
+        && noToca(['rol', 'estado', 'estadoAprobacion', 'correo', 'fechaRegistro', 'hotelId', 'hotelNombre']);
+
+      // El Superadmin aprueba, activa y desactiva cuentas
+      allow update: if esSuperadmin();
+
+      allow delete: if false;
+    }
+
+    // ---------- invitaciones/{correo} (alta de administradores de hotel) ----------
+
+    match /invitaciones/{correo} {
+      allow read: if esSuperadmin()
+        || (autenticado() && request.auth.token.email_verified == true && correoToken() == correo);
+      allow create, update, delete: if esSuperadmin();
+    }
+
+    // ---------- hoteles/{hotelId} ----------
+
+    match /hoteles/{hotelId} {
+      // Cualquier usuario con sesión ve los hoteles (el cliente solo consulta los ACTIVOS)
+      allow read: if autenticado();
+
+      // El Superadmin registra hoteles (RF-SA) y puede cambiar cualquier dato, incluido su estado
+      allow create, update: if esSuperadmin();
+
+      // El administrador configura su hotel, sin tocar estado, administrador ni calificación
+      allow update: if esAdminDeHotel(hotelId)
+        && noToca(['estado', 'adminEmail', 'adminNombre', 'calificacion', 'numValoraciones']);
+
+      // El checkout del cliente recalcula la calificación: una valoración nueva cada vez
+      allow update: if esCliente()
+        && soloCambian(['calificacion', 'numValoraciones'])
+        && request.resource.data.numValoraciones == resource.data.get('numValoraciones', 0) + 1
+        && request.resource.data.calificacion >= 0
+        && request.resource.data.calificacion <= 5;
+
+      allow delete: if false;
+
+      // Habitaciones y servicios: los ve todo usuario con sesión; los gestiona el hotel o el Superadmin
+      match /habitaciones/{habitacionId} {
+        allow read: if autenticado();
+        allow write: if esAdminDeHotel(hotelId) || esSuperadmin();
+      }
+
+      match /servicios/{servicioId} {
+        allow read: if autenticado();
+        allow write: if esAdminDeHotel(hotelId) || esSuperadmin();
+      }
+    }
+
+    // ---------- reservas/{reservaId} ----------
+
+    match /reservas/{reservaId} {
+      // El cliente ve las suyas, el hotel las de su hotel y el Superadmin todas (reportes)
+      allow read: if (autenticado() && resource.data.clienteId == request.auth.uid)
+        || esAdminDeHotel(resource.data.hotelId)
+        || esSuperadmin();
+
+      // El cliente reserva a su nombre; nace CONFIRMADA, sin checkout y con el total correcto
+      allow create: if esCliente()
+        && request.resource.data.clienteId == request.auth.uid
+        && request.resource.data.estado == 'CONFIRMADA'
+        && request.resource.data.get('estadoCheckout', null) == null
+        && request.resource.data.get('taxiSolicitado', false) == false
+        && request.resource.data.noches > 0
+        && request.resource.data.montoTotal == request.resource.data.noches * request.resource.data.precioNoche;
+
+      // Checkout del cliente (RF-CL-04): valoración obligatoria y queda PENDIENTE de cobro
+      allow update: if autenticado()
+        && resource.data.clienteId == request.auth.uid
+        && resource.data.estado in ['CONFIRMADA', 'EN_CURSO']
+        && resource.data.get('estadoCheckout', null) == null
+        && request.resource.data.estado == 'EN_CURSO'
+        && request.resource.data.estadoCheckout == 'PENDIENTE'
+        && request.resource.data.valoracion >= 1
+        && request.resource.data.valoracion <= 5
+        && soloCambian(['estado', 'estadoCheckout', 'valoracion', 'comentario', 'fechaCheckout']);
+
+      // El cliente pide el taxi gratuito una sola vez
+      allow update: if autenticado()
+        && resource.data.clienteId == request.auth.uid
+        && resource.data.get('taxiSolicitado', false) == false
+        && request.resource.data.taxiSolicitado == true
+        && soloCambian(['taxiSolicitado', 'servicioTaxiId']);
+
+      // El hotel cobra el checkout PENDIENTE (RF-CHK-004, RN-012) y la reserva termina
+      allow update: if esAdminDeHotel(resource.data.hotelId)
+        && resource.data.estadoCheckout == 'PENDIENTE'
+        && request.resource.data.estadoCheckout == 'PROCESADO'
+        && request.resource.data.estado == 'FINALIZADA'
+        && request.resource.data.cobroAdicionalMonto >= 0
+        && soloCambian(['estado', 'estadoCheckout', 'cobroAdicionalMonto', 'cobroAdicionalMotivo',
+                        'cobroAdicionalObservacion', 'montoCobrado', 'fechaCobro']);
+
+      allow delete: if false;
+
+      // Chat cliente-hotel (RN-006): solo los dos participantes y mientras la reserva esté activa
+      match /mensajes/{mensajeId} {
+        allow read: if autenticado()
+          && (reserva(reservaId).clienteId == request.auth.uid
+              || esAdminDeHotel(reserva(reservaId).hotelId));
+
+        allow create: if autenticado()
+          && request.resource.data.emisorId == request.auth.uid
+          && request.resource.data.texto is string
+          && request.resource.data.texto.size() > 0
+          && request.resource.data.texto.size() <= 1000
+          && reserva(reservaId).estado in ['CONFIRMADA', 'EN_CURSO']
+          && reserva(reservaId).get('estadoCheckout', null) != 'PROCESADO'
+          && (reserva(reservaId).clienteId == request.auth.uid
+              || esAdminDeHotel(reserva(reservaId).hotelId));
+
+        allow update, delete: if false;
+      }
+    }
+
+    // ---------- ocupaciones/{id}: candados por noche ("hab_<habitacion>_<noche>", "cli_<cliente>_<noche>") ----------
+
+    match /ocupaciones/{ocupacionId} {
+      // Se leen (también los que no existen) para ver la disponibilidad antes de pagar
+      allow read: if autenticado();
+
+      // Se crean solo dentro de la transacción de la reserva, que debe ser del mismo cliente
+      allow create: if autenticado()
+        && request.resource.data.clienteId == request.auth.uid
+        && getAfter(/databases/$(database)/documents/reservas/$(request.resource.data.reservaId))
+            .data.clienteId == request.auth.uid;
+
+      allow update, delete: if false;
+    }
+
+    // ---------- valoraciones/{reservaId} ----------
+
+    match /valoraciones/{reservaId} {
+      allow read: if autenticado();
+
+      // Una por reserva, del cliente dueño, en la misma transacción que deja el checkout PENDIENTE
+      allow create: if autenticado()
+        && request.resource.data.clienteId == request.auth.uid
+        && reserva(reservaId).clienteId == request.auth.uid
+        && getAfter(/databases/$(database)/documents/reservas/$(reservaId)).data.estadoCheckout == 'PENDIENTE'
+        && request.resource.data.calificacion >= 1
+        && request.resource.data.calificacion <= 5;
+
+      allow update, delete: if false;
+    }
+
+    // ---------- serviciosTaxi/{servicioId} ----------
+
+    match /serviciosTaxi/{servicioId} {
+      // Superadmin: todos. Cliente: los suyos. Hotel: los que salen de su hotel.
+      // Taxista habilitado: los pedidos libres y los suyos.
+      allow read: if esSuperadmin()
+        || (autenticado() && resource.data.get('clienteId', null) == request.auth.uid)
+        || esAdminDeHotel(resource.data.get('hotelId', ''))
+        || (esTaxistaHabilitado()
+            && (resource.data.estado == 'SOLICITADO'
+                || resource.data.get('taxistaId', null) == request.auth.uid));
+
+      // El cliente crea su pedido al pedir el taxi en el checkout, con una reserva suya.
+      // El taxista habilitado puede crear pedidos de prueba sin cliente ("Simular nuevo pedido")
+      allow create: if autenticado()
+        && request.resource.data.estado == 'SOLICITADO'
+        && request.resource.data.get('taxistaId', null) == null
+        && ((request.resource.data.get('clienteId', null) == request.auth.uid
+              && reserva(request.resource.data.reservaId).clienteId == request.auth.uid)
+            || (esTaxistaHabilitado() && request.resource.data.get('clienteId', null) == null));
+
+      // Aceptar un pedido libre: SOLICITADO → ASIGNADO a nombre de quien lo acepta (exclusividad)
+      allow update: if esTaxistaHabilitado()
+        && resource.data.estado == 'SOLICITADO'
+        && resource.data.get('taxistaId', null) == null
+        && request.resource.data.estado == 'ASIGNADO'
+        && request.resource.data.taxistaId == request.auth.uid
+        && soloCambian(['estado', 'taxistaId', 'taxistaNombre', 'fechaAsignacion', 'fechaActualizacion']);
+
+      // El taxista asignado avanza el estado sin saltarse ninguno
+      allow update: if esTaxistaHabilitado()
+        && resource.data.get('taxistaId', null) == request.auth.uid
+        && request.resource.data.get('taxistaId', null) == request.auth.uid
+        && transicionValida(resource.data.estado, request.resource.data.estado)
+        && soloCambian(['estado', 'fechaActualizacion', 'fechaFinalizacion']);
+
+      allow delete: if esSuperadmin();
+    }
+
+    // ---------- logs/{logId} (eventos relevantes; los lee solo el Superadmin) ----------
+
+    match /logs/{logId} {
+      allow create: if autenticado()
+        && request.resource.data.usuarioId == request.auth.uid
+        && request.resource.data.fecha == request.time
+        && request.resource.data.keys().hasOnly(['tipo', 'detalle', 'usuarioId', 'rol', 'fecha']);
+      allow read: if esSuperadmin();
+      allow update, delete: if false;
+    }
+  }
+}

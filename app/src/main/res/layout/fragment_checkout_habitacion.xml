@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_back"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:id="@+id/tvRoomNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/checkout_hab_checkout_habitacion_302"
+                android:textStyle="bold"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Alerta checkout pendiente -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@drawable/bg_alert_left_border"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="12dp">
+
+            <FrameLayout
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_circle_gray">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_person"
+                    app:tint="@android:color/white" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvEstadoCheckout"
+                    android:text="@string/checkout_hab_checkout_pendiente"
+                    android:textColor="@color/alert_red"
+                    android:textStyle="bold"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvGuestName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout_hab_juan_perez"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_badge_pill_red"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:id="@+id/tvHoraCheckout"
+                    android:text="@string/checkout_hab_hoy_11_00_am"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <!-- Resumen de la estadía -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/checkout_hab_resumen_de_la_estadia"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_row_gray"
+                    android:padding="10dp"
+                    android:id="@+id/tvFechasEstadia"
+                    android:text="@string/checkout_hab_entrada_12_oct_salida_15"
+                    android:textColor="@color/text_gray"
+                    android:textSize="13sp" />
+
+                <!-- Fila: Alojamiento -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/tvConceptoAlojamiento"
+                    android:text="@string/checkout_hab_alojamiento_3_noches"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvMontoAlojamiento"
+                    android:text="@string/checkout_hab_s_450_00"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Fila: Desayuno -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/tvConcepto2"
+                    android:text="@string/checkout_hab_desayuno_buffet"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvMonto2"
+                    android:text="@string/checkout_hab_s_60_00"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <!-- Fila: Wifi -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/tvConcepto3"
+                    android:text="@string/checkout_hab_wifi_gratuito"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvMonto3"
+                    android:text="@string/checkout_hab_s_0_00"
+                        android:textColor="@color/teal"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#E0E0E0" />
+
+                <!-- Fila: Total -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkout_hab_total_acumulado"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvTotalAcumulado"
+                    android:text="@string/checkout_hab_s_510_00"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Cobros adicionales -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardCornerRadius="14dp"
+            app:cardElevation="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/checkout_hab_cobros_adicionales_por_danos"
+                        android:textStyle="bold"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_expand_less"
+                        app:tint="@color/teal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Campo para la Descripción del Daño -->
+                    <EditText
+                        android:id="@+id/etDamageDescription"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:hint="@string/checkout_hab_televisor_danado"
+                        android:inputType="textCapSentences"
+                        android:textSize="14sp" />
+
+                    <!-- Campo para el Monto (S/) -->
+                    <EditText
+                        android:id="@+id/etDamageAmount"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="8dp"
+                        android:hint="@string/checkout_hab_s_150_00"
+                        android:inputType="numberDecimal"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+                <!-- Observación del daño. Sin texto precargado: es obligatoria (RN-012). -->
+                <EditText
+                    android:id="@+id/etDamageObservation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_input_field"
+                    android:gravity="top|start"
+                    android:hint="@string/checkout_hint_observacion"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minLines="2"
+                    android:padding="12dp"
+                    android:textColor="@color/text_gray"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/checkout_hab_agregar_otro_cargo"
+                    android:textColor="@color/teal"
+                    android:textStyle="bold"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Procesar transacción -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnProcesarTransaccion"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/checkout_hab_procesar_transaccion"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            app:backgroundTint="@color/teal"
+            app:cornerRadius="25dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

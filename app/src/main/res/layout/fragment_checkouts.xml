@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:contentDescription="@string/checkouts_atras"
+                android:src="@drawable/ic_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:text="@string/checkouts_checkouts"
+                android:textSize="19sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Tabs -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_selected"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="@string/checkouts_todos"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_unselected"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="@string/checkouts_pendientes"
+                android:textSize="13sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_tab_unselected"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="@string/checkouts_procesados"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Buscador -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_search_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="12dp">
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:src="@drawable/ic_search"
+                app:tint="@color/text_gray" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:text="@string/checkouts_buscar_por_huesped_o_habitacion"
+                android:textColor="@color/text_gray"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- Lista Dinámica de Checkouts -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCheckouts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

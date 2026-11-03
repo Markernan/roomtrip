@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardElevation="2dp"
+    app:cardCornerRadius="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivHotelThumbnail"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/foto_hotel_miraflores"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.MediumComponent" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="12dp">
+
+            <TextView
+                android:id="@+id/tvHotelName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hotel Marriott Lima"
+                android:fontFamily="@font/poppins_semibold"
+                android:textColor="@color/texto_principal"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvReservationsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="245 Reservas"
+                android:textSize="12sp"
+                android:textColor="@color/texto_secundario" />
+
+            <ProgressBar
+                android:id="@+id/pbPerformance"
+                style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="8dp"
+                android:progress="75"
+                android:progressTint="@color/turquesa" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="end"
+            android:layout_marginStart="8dp">
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="S/ 12,400"
+                android:fontFamily="@font/poppins_bold"
+                android:textColor="@color/turquesa"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+12% este mes"
+                android:textSize="10sp"
+                android:textColor="@color/verde_exito" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

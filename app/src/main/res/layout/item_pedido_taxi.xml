@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tarjeta de un pedido de traslado en SolicitadoActivity (taxista). -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/bg_input_texto"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvNombrePasajero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            tools:text="Carlos Mendoza" />
+
+        <TextView
+            android:id="@+id/tvOrigen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            tools:text="Origen: Hotel La Dolce Vita" />
+
+        <TextView
+            android:id="@+id/tvDestino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/texto_secundario"
+            android:textSize="12sp"
+            tools:text="Destino: Aeropuerto Jorge Chávez" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvMinutos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/turquesa"
+        android:textSize="13sp"
+        tools:text="8 min" />
+</LinearLayout>

@@ -1,0 +1,60 @@
+plugins {
+    alias(libs.plugins.android.application)
+    // Necesita app/google-services.json (no se versiona: ver docs/manual-instalacion.md, sección 5)
+    alias(libs.plugins.google.services)
+}
+
+android {
+    namespace 'com.example.roomtrip'
+    compileSdk 35
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    defaultConfig {
+        applicationId "com.example.roomtrip"
+        minSdk 34
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    implementation libs.activity.ktx
+    implementation libs.appcompat
+    implementation libs.constraintlayout
+    implementation libs.material
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+    implementation 'com.google.zxing:core:3.5.3'
+    testImplementation libs.junit
+    androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.ext.junit
+    implementation libs.glide
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Firebase (Lab 6). El BoM fija versiones compatibles entre sí: auth y firestore van sin versión
+    implementation platform(libs.firebase.bom)
+    implementation libs.firebase.auth
+    implementation libs.firebase.firestore
+    // FirebaseUI: pantallas de login con correo y Google ya hechas (Clase 10)
+    implementation libs.firebase.ui.auth
+}

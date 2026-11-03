@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/fondo_pantalla">
+
+    <!-- MAPA EN TIEMPO REAL -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#E3E8EF">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/solicitado_mapa_placeholder"
+            android:gravity="center"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|end"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_input_texto"
+            android:backgroundTint="@color/blanco"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+
+            <TextView
+                android:id="@+id/tvEstado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/solicitado_estado_buscando"
+                android:textColor="@color/texto_principal"
+                android:textSize="13sp" />
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- TARJETA INFERIOR CON OPCIONES DE PASAJEROS -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/blanco"
+        android:padding="20dp">
+
+        <!-- Disponibilidad del taxista (se guarda en SharedPreferences) -->
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switchDisponible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/solicitado_disponible"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_medium" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/solicitado_titulo_lista"
+            android:textColor="@color/texto_principal"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Lista de pedidos: altura máxima para que el mapa de arriba siga visible con muchos pedidos -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvPedidos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constrainedHeight="true"
+                app:layout_constraintHeight_max="280dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_pedido_taxi" />
+
+            <TextView
+                android:id="@+id/tvSinPedidos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingVertical="16dp"
+                android:text="@string/pedidos_vacio"
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Botón de prueba: simula la llegada de un pedido nuevo (aún no hay backend) -->
+        <Button
+            android:id="@+id/btnSimularPedido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/solicitado_simular_pedido"
+            android:textSize="13sp"
+            style="@style/Boton.Outline" />
+
+    </LinearLayout>
+
+    <include layout="@layout/bottom_nav_bar_taxista" />
+
+</LinearLayout>

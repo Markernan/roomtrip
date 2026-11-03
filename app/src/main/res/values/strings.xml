@@ -1,0 +1,474 @@
+<resources>
+    <string name="app_name">RoomTrip</string>
+
+    <!-- Admin de hotel: checkout con cobros adicionales por daños (RN-012) -->
+    <string name="checkout_hint_observacion">Observación del daño (obligatoria)</string>
+    <string name="cobro_error_motivo">Indica el motivo del cobro</string>
+    <string name="cobro_error_monto_obligatorio">Indica el monto</string>
+    <string name="cobro_error_monto_invalido">Ingresa un monto mayor que cero</string>
+    <string name="cobro_error_observacion">Escribe una observación del daño</string>
+    <string name="checkout_procesado">Transacción procesada</string>
+    <string name="checkout_procesado_con_cargo">Transacción procesada con un cobro adicional de S/ %1$,.2f</string>
+
+    <!-- Admin de hotel: reporte de ingresos por servicios adicionales -->
+    <string name="reporte_monto">S/ %1$,.2f</string>
+    <string name="reporte_resena_comentario">\"%1$s\"</string>
+    <string name="reporte_resena_calificacion">%1$.1f ★</string>
+
+    <!-- Cliente: QR del servicio de taxi -->
+    <string name="qr_error_generacion">No pudimos generar tu código QR. Vuelve a abrir esta pantalla e inténtalo de nuevo.</string>
+
+    <!-- Taxista: pedidos disponibles y en camino -->
+    <string name="solicitado_mapa_placeholder">Mapa en tiempo real\n(Google Maps SDK — Lab 7)</string>
+    <string name="solicitado_estado_buscando">Buscando pasajeros</string>
+    <string name="solicitado_titulo_lista">Pasajeros solicitando viaje</string>
+    <string name="pedido_origen">Origen: %1$s</string>
+    <string name="pedido_destino">Destino: %1$s</string>
+    <string name="pedido_minutos">%1$d min</string>
+    <string name="pedidos_vacio">No hay pasajeros solicitando viaje por ahora</string>
+    <string name="en_camino_rating">★ %1$.1f · Pasajero</string>
+    <string name="en_camino_recojo">Recojo: %1$s</string>
+    <string name="en_camino_tiempo">Tiempo estimado al encuentro: %1$d min</string>
+
+    <!-- Textos que arman los adapters con datos (admin de hotel) -->
+    <string name="adapter_huesped_hab">%1$s · Hab. %2$s</string>
+    <string name="adapter_estado">• %1$s</string>
+    <string name="adapter_monto_entero">S/ %1$d</string>
+    <string name="adapter_monto_decimales">S/ %1$.2f</string>
+    <string name="adapter_hab_y_hora">Hab. %1$s • %2$s</string>
+    <string name="adapter_conductor_hora">%1$s • Hora: %2$s</string>
+    <string name="adapter_valoracion_meta">%1$s • %2$s</string>
+    <string name="habitacion_capacidad">Capacidad: %1$s</string>
+    <string name="habitacion_precio_noche">Precio: S/ %1$.2f por noche</string>
+    <string name="servicio_estado_disponible">• Disponible</string>
+    <string name="servicio_estado_agotado">• Agotado</string>
+
+    <!-- Avisos (Toast) del admin de hotel y del taxista -->
+    <string name="toast_chat_abriendo">Abriendo chat con %1$s</string>
+    <string name="toast_checkout_detalle">Checkout de %1$s (Hab. %2$s)</string>
+    <string name="toast_habitacion_detalle">Detalle de: %1$s</string>
+    <string name="toast_servicio_detalle">Servicio: %1$s (S/ %2$.2f)</string>
+    <string name="toast_traslado_detalle">Traslado de %1$s (%2$s)</string>
+    <string name="toast_config_hotel_guardada">Configuración del hotel guardada</string>
+    <string name="toast_inventario_agregar">Agregar nuevo elemento</string>
+    <string name="toast_perfil_taxista_foto_vehiculo">Opción para cambiar foto del vehículo</string>
+    <string name="toast_perfil_taxista_foto_perfil">Opción para cambiar foto de perfil</string>
+    <string name="toast_perfil_taxista_guardado">Cambios guardados correctamente</string>
+
+    <!-- Textos fijos extraídos de los layouts del admin de hotel y del taxista -->
+    <!-- inicio -->
+    <string name="inicio_hotel_miraflores">Hotel Miraflores</string>
+    <string name="inicio_av_larco_245_lima">Av. Larco 245, Lima</string>
+    <string name="inicio_n3">3</string>
+    <string name="inicio_tu_hotel_aun_no_es">Tu hotel aún no es visible para los clientes</string>
+    <string name="inicio_completar_configuracion">Completar configuración</string>
+    <string name="inicio_checkouts_pendientes_hoy">Checkouts pendientes hoy</string>
+    <string name="inicio_n2">2</string>
+    <string name="inicio_maria_gonzalez">María González</string>
+    <string name="inicio_hab_204">Hab. 204</string>
+    <string name="inicio_n11_00_am">11:00 AM</string>
+    <string name="inicio_carlos_ruiz">Carlos Ruiz</string>
+    <string name="inicio_hab_308">Hab. 308</string>
+    <string name="inicio_n12_00_pm">12:00 PM</string>
+    <string name="inicio_n8_12">8/12</string>
+    <string name="inicio_ocupacion">Ocupación</string>
+    <string name="inicio_n5">5</string>
+    <string name="inicio_mensajes">Mensajes</string>
+    <string name="inicio_s_12_450">S/12,450</string>
+    <string name="inicio_ingresos">Ingresos</string>
+    <string name="inicio_accesos_rapidos">Accesos rápidos</string>
+    <string name="inicio_traslados_en_curso">Traslados en curso</string>
+    <string name="inicio_checkout">Checkout</string>
+    <string name="inicio_editar_hotel">Editar hotel</string>
+    <string name="inicio_valoraciones">Valoraciones</string>
+    <!-- config_hotel -->
+    <string name="config_hotel_configuracion_del_hotel">Configuración del Hotel</string>
+    <string name="config_hotel_fotos_del_hotel">Fotos del hotel.</string>
+    <string name="config_hotel_fotos_cargadas">"Fotos cargadas: "</string>
+    <string name="config_hotel_n2_4">2/4</string>
+    <string name="config_hotel_agregar_foto">Agregar foto</string>
+    <string name="config_hotel_ubicacion">Ubicación.</string>
+    <string name="config_hotel_av_larco_245_lima">Av. Larco 245, Lima</string>
+    <string name="config_hotel_lugares_historicos_cercanos">Lugares históricos cercanos.</string>
+    <string name="config_hotel_huaca_pucllana">Huaca Pucllana</string>
+    <string name="config_hotel_miraflores_cliffside">Miraflores Cliffside</string>
+    <string name="config_hotel_museo_de_la_nacion">Museo de la Nación</string>
+    <string name="config_hotel_agregar_lugar">+ Agregar lugar</string>
+    <string name="config_hotel_habitaciones">Habitaciones.</string>
+    <string name="config_hotel_n0_habitaciones_registradas">0 habitaciones registradas</string>
+    <string name="config_hotel_anadir_habitacion">+ Añadir habitación</string>
+    <string name="config_hotel_guardar_y_continuar">Guardar y continuar</string>
+    <string name="config_hotel_se_necesitan_4_fotos_y">Se necesitan 4 fotos y 1 habitación como mínimo</string>
+    <!-- checkout_hab -->
+    <string name="checkout_hab_checkout_habitacion_302">Checkout - Habitación 302</string>
+    <string name="checkout_hab_checkout_habitacion_con_numero">Checkout - Habitación %1$s</string>
+    <string name="checkout_hab_checkout_pendiente">CHECKOUT PENDIENTE</string>
+    <string name="checkout_hab_juan_perez">Juan Pérez</string>
+    <string name="checkout_hab_hoy_11_00_am">Hoy 11:00 AM</string>
+    <string name="checkout_hab_resumen_de_la_estadia">Resumen de la estadía</string>
+    <string name="checkout_hab_entrada_12_oct_salida_15">Entrada: 12 Oct • Salida: 15 Oct</string>
+    <string name="checkout_hab_alojamiento_3_noches">Alojamiento (3 noches)</string>
+    <string name="checkout_hab_s_450_00">S/ 450.00</string>
+    <string name="checkout_hab_desayuno_buffet">Desayuno buffet</string>
+    <string name="checkout_hab_s_60_00">S/ 60.00</string>
+    <string name="checkout_hab_wifi_gratuito">Wifi (gratuito)</string>
+    <string name="checkout_hab_s_0_00">S/ 0.00</string>
+    <string name="checkout_hab_total_acumulado">Total acumulado</string>
+    <string name="checkout_hab_s_510_00">S/ 510.00</string>
+    <string name="checkout_hab_cobros_adicionales_por_danos">Cobros adicionales por daños</string>
+    <string name="checkout_hab_televisor_danado">Televisor dañado</string>
+    <string name="checkout_hab_s_150_00">S/ 150.00</string>
+    <string name="checkout_hab_agregar_otro_cargo">+ Agregar otro cargo</string>
+    <string name="checkout_hab_procesar_transaccion">Procesar Transacción</string>
+    <!-- reportes -->
+    <string name="reportes_reportes_financieros">Reportes Financieros</string>
+    <string name="reportes_diario">Diario</string>
+    <string name="reportes_mensual">Mensual</string>
+    <string name="reportes_anual">Anual</string>
+    <string name="reportes_ingreso_total_del_periodo">INGRESO TOTAL DEL PERIODO</string>
+    <string name="reportes_s_12_450_00">S/ 12,450.00</string>
+    <string name="reportes_s_1_250_00">S/ 1,250.00</string>
+    <string name="reportes_s_150_800_00">S/ 150,800.00</string>
+    <string name="reportes_n14_2" formatted="false">+14.2% ★</string>
+    <string name="reportes_ingresos_por_servicios_adicional">Ingresos por servicios adicionales</string>
+    <string name="reportes_ordenado_de_menor_a_mayor">Ordenado de menor a mayor ingreso</string>
+    <string name="reportes_valoraciones_recientes">Valoraciones recientes</string>
+    <string name="reportes_n4_6">4.6 ★</string>
+    <!-- checkouts -->
+    <string name="checkouts_atras">Atrás</string>
+    <string name="checkouts_checkouts">Checkouts</string>
+    <string name="checkouts_todos">Todos</string>
+    <string name="checkouts_pendientes">Pendientes</string>
+    <string name="checkouts_procesados">Procesados</string>
+    <string name="checkouts_buscar_por_huesped_o_habitacion">Buscar por huésped o habitación</string>
+    <!-- valoraciones -->
+    <string name="valoraciones_atras">Atrás</string>
+    <string name="valoraciones_valoraciones">Valoraciones</string>
+    <string name="valoraciones_n4_6">4.6</string>
+    <string name="valoraciones_texto">★★★★★</string>
+    <string name="valoraciones_basado_en_48_valoraciones">Basado en 48 valoraciones</string>
+    <string name="valoraciones_resenas_recientes">Reseñas recientes</string>
+    <!-- chats -->
+    <string name="chats_chats_con_huespedes">Chats con Huéspedes</string>
+    <string name="chats_buscar_por_nombre_o_habitacion">Buscar por nombre o habitación</string>
+    <string name="chats_no_tienes_conversaciones_activas">No tienes conversaciones activas</string>
+    <string name="chats_el_chat_se_habilita_cuando">El chat se habilita cuando un huésped tiene\nuna reserva confirmada y en curso.</string>
+    <string name="chats_vista_previa_de_estado_vacio">(VISTA PREVIA DE ESTADO VACÍO)</string>
+    <!-- notificaciones -->
+    <string name="notificaciones_atras">Atrás</string>
+    <string name="notificaciones_notificaciones">Notificaciones</string>
+    <string name="notificaciones_sin_notificaciones_por_ahora">Sin notificaciones por ahora</string>
+    <string name="notificaciones_aqui_apareceran_las_alertas_de">Aquí aparecerán las alertas de nuevas reservas,\npagos confirmados y cancelaciones.</string>
+    <!-- traslados -->
+    <string name="traslados_atras">Atrás</string>
+    <string name="traslados_traslados_en_curso">Traslados en Curso</string>
+    <string name="traslados_no_hay_traslados_activos">No hay traslados activos</string>
+    <string name="traslados_las_solicitudes_de_taxi_o">Las solicitudes de taxi o transporte privado\nsolicitadas por los huéspedes aparecerán aquí.</string>
+    <!-- inventario -->
+    <string name="inventario_inventario">Inventario</string>
+    <string name="inventario_habitaciones">Habitaciones</string>
+    <string name="inventario_servicios">Servicios</string>
+    <string name="inventario_agregar_habitacion">Agregar Habitación</string>
+    <!-- dialogo_perfil -->
+    <string name="dialogo_perfil_perfil_de_usuario">Perfil de Usuario</string>
+    <string name="dialogo_perfil_foto_de_perfil">Foto de perfil</string>
+    <string name="dialogo_perfil_cambiar_foto">Cambiar foto</string>
+    <string name="dialogo_perfil_toca_la_imagen_para_cambiarla">Toca la imagen para cambiarla</string>
+    <string name="dialogo_perfil_nombre_completo">Nombre completo</string>
+    <string name="dialogo_perfil_guardar_cambios">Guardar Cambios</string>
+    <string name="dialogo_perfil_cerrar_sesion">Cerrar sesión</string>
+    <!-- perfil_taxista -->
+    <string name="perfil_taxista_perfil_de_taxista">Perfil de Taxista</string>
+    <string name="perfil_taxista_informacion_personal">Información Personal</string>
+    <string name="perfil_taxista_nombres">Nombres</string>
+    <string name="perfil_taxista_apellidos">Apellidos</string>
+    <string name="perfil_taxista_tipo_de_documento_dni_pasaporte">Tipo de Documento (DNI, Pasaporte, C.E.)</string>
+    <string name="perfil_taxista_numero_de_documento">Número de Documento</string>
+    <string name="perfil_taxista_fecha_de_nacimiento_dd_mm">Fecha de nacimiento (DD/MM/AAAA)</string>
+    <string name="perfil_taxista_correo_electronico">Correo electrónico</string>
+    <string name="perfil_taxista_telefono">Teléfono</string>
+    <string name="perfil_taxista_domicilio">Domicilio</string>
+    <string name="perfil_taxista_datos_del_vehiculo">Datos del Vehículo</string>
+    <string name="perfil_taxista_placa_del_vehiculo">Placa del vehículo</string>
+    <string name="perfil_taxista_foto_del_auto">Foto del Auto</string>
+    <string name="perfil_taxista_seleccionar_foto_del_vehiculo">Seleccionar foto del vehículo</string>
+    <string name="perfil_taxista_guardar_cambios">Guardar cambios</string>
+    <string name="perfil_taxista_cerrar_sesion">Cerrar sesión</string>
+    <!-- en_camino -->
+    <string name="en_camino_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta hacia el pasajero)</string>
+    <string name="en_camino_en_camino_al_punto_de">En camino al punto de recojo</string>
+    <string name="en_camino_carlos_mendoza">Carlos Mendoza</string>
+    <string name="en_camino_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
+    <string name="en_camino_recojo_hotel_la_dolce_vita">Recojo: Hotel La Dolce Vita</string>
+    <string name="en_camino_destino_aeropuerto_jorge_chavez">Destino: Aeropuerto Jorge Chávez</string>
+    <string name="en_camino_tiempo_estimado_al_encuentro_8">Tiempo estimado al encuentro: 8 min</string>
+    <string name="en_camino_llegue_al_encuentro">Llegué al encuentro</string>
+    <!-- en_traslado -->
+    <string name="en_traslado_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta al destino del pasajero)</string>
+    <string name="en_traslado_en_traslado">En traslado</string>
+    <string name="en_traslado_carlos_mendoza">Carlos Mendoza</string>
+    <string name="en_traslado_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
+    <string name="en_traslado_origen_hotel_la_dolce_vita">Origen: Hotel La Dolce Vita</string>
+    <string name="en_traslado_destino_aeropuerto_jorge_chavez">Destino: Aeropuerto Jorge Chávez</string>
+    <string name="en_traslado_tiempo_estimado_de_llegada_22">Tiempo estimado de llegada: 22 min</string>
+    <string name="en_traslado_escanear">Escanear</string>
+    <!-- escaneo -->
+    <string name="escaneo_escanea_el_codigo_qr_del">Escanea el código QR del pasajero</string>
+    <string name="escaneo_area_de_camara">[ Área de cámara ]</string>
+    <string name="escaneo_escanear_codigo_qr">Validar QR (simulado)</string>
+    <!-- finalizado -->
+    <string name="finalizado_trayecto_finalizado">¡Trayecto Finalizado!</string>
+    <string name="finalizado_recuerda_verificar_que_el_pasaje">Recuerda verificar que el pasajero no haya olvidado sus pertenencias en el vehículo.</string>
+    <string name="finalizado_volver_a_buscar_clientes">Volver a buscar clientes</string>
+    <!-- nav_taxista -->
+    <string name="nav_taxista_trabajo">Trabajo</string>
+    <string name="nav_taxista_perfil">Perfil</string>
+    <!-- Taxista: storage local y notificaciones (Lab 5) -->
+    <string name="solicitado_disponible">Disponible para recibir pedidos</string>
+    <string name="solicitado_estado_no_disponible">No disponible</string>
+    <string name="solicitado_simular_pedido">Simular nuevo pedido</string>
+    <string name="en_camino_iniciar_ruta">Iniciar ruta al hotel</string>
+    <string name="toast_taxista_permiso_notificaciones">Sin permiso no recibirás avisos de pedidos</string>
+    <string name="toast_taxista_activar_disponible">Activa \"Disponible\" para recibir y aceptar pedidos</string>
+    <string name="toast_taxista_servicio_en_curso">Ya tienes un servicio en curso</string>
+    <string name="toast_taxista_recuperando_servicio">Recuperando servicio en curso (%1$s)</string>
+    <string name="toast_taxista_sin_servicio">No hay un servicio en traslado</string>
+    <string name="notif_canal_pedidos">Pedidos de taxi</string>
+    <string name="notif_canal_pedidos_descripcion">Avisos de nuevos pedidos de traslado hotel - aeropuerto</string>
+    <string name="notif_canal_estado">Estado del servicio</string>
+    <string name="notif_canal_estado_descripcion">Progreso del servicio de taxi en curso</string>
+    <string name="notif_nuevo_pedido_titulo">Nuevo pedido disponible</string>
+    <string name="notif_ruta">%1$s → %2$s</string>
+    <string name="notif_nuevo_pedido_detalle">Cliente: %1$s\nOrigen: %2$s\nDestino: %3$s</string>
+    <string name="notif_servicio_titulo">Servicio: %1$s</string>
+    <string name="notif_servicio_texto">%1$s · %2$s → %3$s</string>
+    <string name="notif_servicio_finalizado_texto">Traslado de %1$s a %2$s completado</string>
+    <string name="notif_canal_general">Notificaciones generales</string>
+    <string name="notif_canal_general_descripcion">Avisos del hotel sobre reservas y reportes</string>
+    <string name="notif_canal_urgente">Alertas urgentes</string>
+    <string name="notif_canal_urgente_descripcion">Avisos inmediatos sobre checkouts y mensajes</string>
+    <string name="notif_reporte_guardado_titulo">Reporte guardado</string>
+    <string name="notif_reporte_guardado_texto">El archivo %1$s se guardó correctamente</string>
+    <string name="historial_titulo">Historial de servicios</string>
+    <string name="historial_vacio">Aún no tienes servicios finalizados</string>
+    <string name="historial_volver">Volver</string>
+    <string name="perfil_taxista_ver_historial">Ver historial de servicios</string>
+    <!-- Lab 6: Firebase Authentication (login del taxista) -->
+    <string name="login_iniciar_sesion">Iniciar sesión</string>
+    <string name="login_error_firebase_ui">No se pudo iniciar sesión. Inténtalo nuevamente.</string>
+    <string name="login_verificacion_titulo">Verifica tu correo</string>
+    <string name="login_verificacion_mensaje">Te enviamos un enlace de verificación a %1$s. Ábrelo y luego toca \"Ya verifiqué\".</string>
+    <string name="login_verificacion_ya_verifique">Ya verifiqué</string>
+    <string name="login_verificacion_reenviar">Reenviar correo</string>
+    <string name="login_verificacion_cancelar">Cancelar</string>
+    <string name="login_verificacion_reenviada">Te reenviamos el correo de verificación</string>
+    <string name="login_verificacion_no_enviada">No se pudo enviar el correo de verificación. Inténtalo en unos minutos.</string>
+    <string name="login_verificacion_pendiente">Tu correo aún no está verificado</string>
+    <string name="login_no_puedes_ingresar">Aún no puedes ingresar</string>
+    <string name="login_entendido">Entendido</string>
+    <string name="login_solicitud_creada">Registramos tu solicitud como taxista. El Superadmin debe aprobarla; vuelve a iniciar sesión cuando te habilite.</string>
+    <string name="login_solicitud_pendiente">Tu solicitud como taxista está pendiente de aprobación por el Superadmin.</string>
+    <string name="login_solicitud_rechazada">Tu solicitud como taxista fue rechazada. Comunícate con el administrador del sistema.</string>
+    <string name="login_cuenta_desactivada">Tu cuenta está desactivada. Comunícate con el administrador del sistema.</string>
+    <string name="login_no_es_taxista">Esta cuenta no está registrada como taxista.</string>
+    <!-- Lab 6: Cloud Firestore (taxista) -->
+    <string name="error_firebase_sin_conexion">Sin conexión con el servidor. Revisa tu internet e inténtalo de nuevo.</string>
+    <string name="error_firebase_permiso">No tienes permiso para realizar esta acción.</string>
+    <string name="error_firebase_generico">Ocurrió un error. Inténtalo nuevamente.</string>
+    <string name="toast_taxista_pedido_simulado">Pedido de prueba creado en Firestore</string>
+    <string name="toast_taxista_pedido_ya_tomado">Otro taxista ya tomó este pedido</string>
+    <string name="toast_taxista_servicio_cambio">El servicio cambió de estado; se muestra el estado actual</string>
+    <string name="toast_taxista_qr_invalido">El código QR no corresponde a este servicio</string>
+    <string name="toast_perfil_taxista_no_encontrado">No se encontró tu perfil de taxista</string>
+    <string name="error_perfil_taxista_nombres">Ingresa tus nombres</string>
+    <!-- resena_item -->
+    <string name="resena_item_respondido_por_el_hotel">✓ Respondido por el hotel</string>
+    <string name="resena_item_responder">Responder</string>
+    <!-- habitacion_item -->
+    <string name="habitacion_item_editar">Editar</string>
+    <!-- Cliente: storage local y notificaciones (Lab 5) -->
+    <string name="cliente_saludo">Hola, %1$s</string>
+    <string name="cliente_demo_nombre">William</string>
+    <string name="cliente_demo_apellidos">Antaurco</string>
+    <string name="cliente_hint_numero_documento">Número de documento</string>
+    <string-array name="cliente_tipos_documento">
+        <item>DNI</item>
+        <item>Pasaporte</item>
+        <item>Carné de extranjería</item>
+    </string-array>
+    <string name="cliente_foto_elegir">Toca para elegir una foto</string>
+    <string name="cliente_campo_obligatorio">Campo obligatorio</string>
+    <string name="cliente_correo_invalido">Correo no válido</string>
+    <string name="cliente_contrasena_corta">Mínimo 6 caracteres</string>
+    <string name="cliente_registro_ok">Cuenta creada. Te enviamos un correo para verificarla; ábrelo y luego inicia sesión</string>
+    <string name="cliente_perfil_guardado">Datos actualizados</string>
+    <string name="cliente_foto_error">No se pudo guardar la foto</string>
+    <string name="toast_cliente_permiso_notificaciones">Sin permiso no recibirás el aviso de cobro</string>
+    <string name="cliente_hotel_desconocido">tu hotel</string>
+    <string name="cliente_checkout_banner_cobro">Notificación: Cobro final realizado por %1$s</string>
+    <string name="notif_canal_cobros">Cobros</string>
+    <string name="notif_canal_cobros_descripcion">Aviso del monto cobrado al finalizar tu estadía</string>
+    <string name="notif_cobro_titulo">Cobro realizado</string>
+    <string name="notif_cobro_texto">Se cobraron %1$s por tu estadía en %2$s</string>
+    <!-- Lab 6: login único y registro -->
+    <string name="login_bienvenido">Bienvenido de vuelta</string>
+    <string name="login_ayuda">Inicia sesión con tu correo o con Google. La app reconoce si eres cliente, administrador de hotel, taxista o superadmin.</string>
+    <string name="login_sin_cuenta">¿No tienes cuenta? </string>
+    <string name="login_registrate">Regístrate</string>
+    <string name="login_cuenta_nueva_titulo">Completa tu registro</string>
+    <string name="login_cuenta_nueva_mensaje">La cuenta %1$s todavía no está registrada en RoomTrip. ¿Cómo quieres usar la app?</string>
+    <string name="login_cuenta_nueva_cliente">Soy cliente</string>
+    <string name="login_cuenta_nueva_taxista">Soy taxista</string>
+    <string name="login_sin_rol">Tu cuenta no tiene un rol asignado. Comunícate con el administrador del sistema.</string>
+    <string name="login_admin_sin_hotel">Tu cuenta de administrador no tiene un hotel asignado. Comunícate con el administrador del sistema.</string>
+    <string name="cliente_hint_nombres">Nombres</string>
+    <string name="cliente_hint_apellidos">Apellidos</string>
+    <string name="cliente_hint_fecha_nacimiento">Fecha de nacimiento (DD/MM/AAAA)</string>
+    <string name="cliente_hint_correo">Correo electrónico</string>
+    <string name="cliente_hint_telefono">Teléfono</string>
+    <string name="cliente_hint_domicilio">Domicilio</string>
+    <string name="cliente_hint_contrasena">Contraseña</string>
+    <string name="cliente_correo_en_uso">Ya existe una cuenta con este correo. Inicia sesión</string>
+    <string name="cliente_contrasena_debil">La contraseña es muy débil</string>
+    <string name="perfil_dialogo_titulo">Perfil de %1$s</string>
+    <string name="perfil_dialogo_foto">La foto de perfil se podrá cambiar cuando se defina el almacenamiento de imágenes</string>
+    <string name="perfil_dialogo_nombre_vacio">El nombre no puede estar vacío</string>
+    <string name="perfil_dialogo_nombre_actualizado">Nombre actualizado a: %1$s</string>
+    <!-- Lab 6: superadmin con Firestore -->
+    <string name="superadmin_cargar_demo">Cargar datos de demostración</string>
+    <string name="superadmin_demo_ya_existe">Ya hay hoteles registrados: no se cargaron datos de demostración</string>
+    <string name="superadmin_demo_creada">Se crearon %1$d hoteles de demostración con habitaciones y servicios</string>
+    <string name="superadmin_saludo">Hola, %1$s</string>
+    <string name="superadmin_aprobar">Aprobar</string>
+    <string name="superadmin_rechazar">Rechazar</string>
+    <string name="superadmin_aprobacion_actual">Habilitación: %1$s</string>
+    <string name="superadmin_aprobacion_guardada">Taxista: %1$s</string>
+    <string name="superadmin_correo_admin">Correo del administrador del hotel</string>
+    <string name="superadmin_no_desactivarse">No puedes desactivar tu propia cuenta</string>
+    <string name="superadmin_usuario_activado">%1$s ha sido activado</string>
+    <string name="superadmin_usuario_desactivado">%1$s ha sido desactivado</string>
+    <string name="superadmin_estado_guardado">Estado de la cuenta actualizado</string>
+    <string name="superadmin_reset_enviado">Se envió el enlace para restablecer la contraseña a %1$s</string>
+    <string name="superadmin_desactivar_cuenta">Desactivar cuenta</string>
+    <string name="superadmin_cuenta_desactivada">Cuenta desactivada. Se conserva su historial</string>
+    <string name="superadmin_sin_dato">—</string>
+    <string name="superadmin_hotel_activado">%1$s ha sido activado</string>
+    <string name="superadmin_hotel_desactivado">%1$s ha sido desactivado</string>
+    <string name="superadmin_admin_pendiente">Aún no activa su cuenta</string>
+    <string name="superadmin_admin_sin_activar">El administrador todavía no inició sesión con el correo invitado</string>
+    <string name="superadmin_registrar_hotel_obligatorios">Completa el nombre, la dirección y el correo del administrador</string>
+    <string name="superadmin_hotel_sin_tarifa">Sin tarifas aún</string>
+    <string name="superadmin_sin_logs">Todavía no hay eventos registrados</string>
+    <string name="superadmin_monto_soles">S/ %1$,.2f</string>
+    <plurals name="superadmin_taxistas_pendientes">
+        <item quantity="one">%1$d solicitud de taxista pendiente</item>
+        <item quantity="other">%1$d solicitudes de taxista pendientes</item>
+    </plurals>
+    <plurals name="superadmin_reservas">
+        <item quantity="one">%1$d reserva</item>
+        <item quantity="other">%1$d reservas</item>
+    </plurals>
+    <!-- Lab 6: administrador de hotel con Firestore -->
+    <string name="chats_abrir_conversacion">Reserva del %1$s al %2$s · toca para abrir el chat</string>
+    <string name="notif_admin_checkout_titulo">Checkout por cobrar</string>
+    <string name="notif_admin_checkout_texto">%1$s (%2$s) hizo checkout. Procesa el cobro de su tarjeta.</string>
+    <string name="notif_admin_reserva_titulo">Nueva reserva confirmada</string>
+    <string name="notif_admin_reserva_texto">%1$s reservó %2$s del %3$s al %4$s.</string>
+    <string name="traslados_asignando_conductor">Asignando conductor...</string>
+    <string name="valoraciones_vacio">Aún no hay valoraciones de huéspedes</string>
+    <string name="checkout_no_encontrado">No se encontró la reserva de este checkout</string>
+    <string name="checkout_fechas_estadia">Entrada: %1$s · Salida: %2$s</string>
+    <string name="checkout_valoracion_cliente">Valoración del huésped</string>
+    <string name="checkout_estrellas">★ %1$.1f</string>
+    <string name="checkout_taxi_aeropuerto">Taxi al aeropuerto</string>
+    <string name="checkout_taxi_solicitado">Solicitado</string>
+    <string name="checkout_taxi_no">No solicitado</string>
+    <string name="checkout_sin_solicitar">Sin checkout</string>
+    <string name="checkout_ya_procesado">Este checkout ya fue procesado</string>
+    <string name="reportes_concepto_alojamiento">Alojamiento</string>
+    <string name="reportes_concepto_adicional">Cobro adicional</string>
+    <string name="config_hotel_hint_direccion">Dirección del hotel</string>
+    <string name="config_hotel_monto_minimo_taxi">Monto mínimo para taxi gratis (S/)</string>
+    <string name="config_hotel_hint_monto">Ej. 200.00</string>
+    <string name="config_hotel_hint_lugar">Nombre del lugar</string>
+    <string name="inventario_hint_tipo">Tipo (estándar, económica, lux…)</string>
+    <string name="inventario_hint_capacidad">Capacidad (ej. 2 adultos, 1 niño)</string>
+    <string name="inventario_hint_area">Área en m²</string>
+    <string name="inventario_hint_precio_noche">Precio por noche (S/)</string>
+    <string name="inventario_hint_nombre_servicio">Nombre del servicio</string>
+    <string name="inventario_hint_categoria">Categoría (ej. Alimentos)</string>
+    <string name="inventario_hint_descripcion">Descripción</string>
+    <string name="inventario_hint_precio_servicio">Precio (S/, 0 si es gratuito)</string>
+    <string name="inventario_nueva_habitacion">Nueva habitación</string>
+    <string name="inventario_nuevo_servicio">Nuevo servicio</string>
+    <string name="inventario_guardar">Guardar</string>
+    <string name="inventario_habitacion_guardada">Habitación registrada</string>
+    <string name="inventario_servicio_guardado">Servicio registrado</string>
+    <string name="inventario_categoria_general">General</string>
+    <plurals name="checkout_alojamiento_noches">
+        <item quantity="one">Alojamiento (%1$d noche)</item>
+        <item quantity="other">Alojamiento (%1$d noches)</item>
+    </plurals>
+    <plurals name="config_hotel_habitaciones_registradas">
+        <item quantity="one">%1$d habitación registrada</item>
+        <item quantity="other">%1$d habitaciones registradas</item>
+    </plurals>
+    <!-- Lab 6: cliente (hoteles, reservas, checkout y taxi en Firestore) -->
+    <string name="cliente_sin_hoteles">Todavía no hay hoteles disponibles</string>
+    <string name="cliente_hotel_no_disponible">Este hotel ya no está disponible</string>
+    <string name="cliente_habitacion_opcion">%1$s · S/ %2$.2f por noche</string>
+    <string name="cliente_sin_habitaciones">El hotel aún no registra habitaciones</string>
+    <string name="cliente_servicio_precio">S/ %1$.2f</string>
+    <string name="cliente_servicio_gratis">Gratis</string>
+    <string name="cliente_servicio_taxi">Taxi al aeropuerto</string>
+    <string name="cliente_servicio_taxi_detalle">Gratis si tu reserva suma S/ %1$.2f o más</string>
+    <string name="cliente_sin_opiniones">Este hotel todavía no tiene opiniones</string>
+    <string name="detalle_calificacion_general_valor">%1$.1f</string>
+    <string name="cliente_elige_fechas">Elige tus fechas</string>
+    <string name="cliente_habitacion_descripcion">%1$s para %2$s</string>
+    <string name="cliente_habitacion_area">%1$d m²</string>
+    <string name="cliente_maximo_noches">Una reserva puede tener como máximo %1$d noches</string>
+    <string name="cliente_conflicto_habitacion">La habitación ya está reservada en alguna de esas noches. Prueba otras fechas u otra habitación.</string>
+    <string name="cliente_conflicto_cliente">Ya tienes otra reserva activa en esas fechas</string>
+    <string name="cliente_fechas_invalidas">Revisa las fechas de tu reserva</string>
+    <string name="pago_hint_titular">Nombre del titular</string>
+    <string name="pago_hint_numero">Número de tarjeta</string>
+    <string name="pago_hint_caducidad">Caducidad (MM/AA)</string>
+    <string name="pago_hint_cvc">CVC</string>
+    <string name="pago_error_numero">Ingresa entre 13 y 19 dígitos</string>
+    <string name="pago_error_caducidad">Usa el formato MM/AA</string>
+    <string name="pago_error_cvc">El CVC tiene 3 o 4 dígitos</string>
+    <string name="cliente_sin_reservas">Aún no tienes reservas</string>
+    <string name="cliente_reserva_resumen">%1$s · %2$s al %3$s · %4$s</string>
+    <string name="cliente_hacer_checkout">Hacer checkout</string>
+    <string name="cliente_checkout_enviado">Checkout enviado</string>
+    <string name="cliente_reserva_finalizada">Finalizada</string>
+    <string name="cliente_ver_taxi">Ver mi taxi</string>
+    <string name="cliente_reserva_no_encontrada">No se encontró la reserva</string>
+    <string name="cliente_checkout_no_disponible">El checkout de esta reserva no está disponible</string>
+    <string name="cliente_checkout_banner_total">Total de tu estadía: %1$s. El hotel confirmará el cobro final.</string>
+    <string name="cliente_checkout_falta_valoracion">Elige una valoración de 1 a 5 estrellas</string>
+    <string name="cliente_checkout_falta_observaciones">Las observaciones de la estadía son obligatorias</string>
+    <string name="cliente_checkout_enviado_detalle">Checkout enviado. Te avisaremos cuando el hotel realice el cobro.</string>
+    <string name="cliente_taxi_no_encontrado">No se encontró el servicio de taxi</string>
+    <string name="cliente_taxi_estado">Estado: %1$s</string>
+    <string name="cliente_taxi_buscando">Buscando taxista…</string>
+    <string name="cliente_taxi_finalizado">Servicio de taxi finalizado. ¡Buen viaje!</string>
+    <string name="cliente_perfil_no_encontrado">No se encontró tu perfil</string>
+    <string-array name="cliente_aeropuertos">
+        <item>Aeropuerto Jorge Chávez</item>
+    </string-array>
+    <plurals name="cliente_opiniones">
+        <item quantity="one">%1$d opinión</item>
+        <item quantity="other">%1$d opiniones</item>
+    </plurals>
+    <plurals name="cliente_precio_noches">
+        <item quantity="one">%1$d noche · %2$s al %3$s</item>
+        <item quantity="other">%1$d noches · %2$s al %3$s</item>
+    </plurals>
+    <plurals name="cliente_checkout_resumen">
+        <item quantity="one">Resumen de estadía: %1$d noche en %2$s (%3$s)</item>
+        <item quantity="other">Resumen de estadía: %1$d noches en %2$s (%3$s)</item>
+    </plurals>
+    <string name="detalle_calificacion_general">Calificación general</string>
+</resources>

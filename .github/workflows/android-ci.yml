@@ -1,0 +1,66 @@
+# CI de la app Android: corre las pruebas unitarias, compila y corre lint en una máquina limpia de GitHub.
+# Si aquí falla, no importa que "en mi compu funcione": el PR no se debe mergear.
+name: Android CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, buena-integracion, Edusitos-version]
+
+concurrency:
+  group: android-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Compilar y lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+
+      # JDK 21: el lint de AGP 8.7.3 no corre sobre JDK 25.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      # Cachea Gradle y dependencias entre ejecuciones.
+      - uses: gradle/actions/setup-gradle@v6
+
+      # Desde el Lab 6 el plugin google-services exige app/google-services.json, que no se versiona
+      # (.gitignore). El CI lo crea desde el secreto GOOGLE_SERVICES_JSON del repositorio
+      # (Settings > Secrets and variables > Actions). Ver docs/manual-instalacion.md, sección 5.
+      - name: Crear google-services.json desde el secreto
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          if [ -z "$GOOGLE_SERVICES_JSON" ]; then
+            echo "::error::Falta el secreto GOOGLE_SERVICES_JSON. Ver docs/manual-instalacion.md, seccion 5."
+            exit 1
+          fi
+          printf '%s' "$GOOGLE_SERVICES_JSON" > app/google-services.json
+
+      - name: Pruebas unitarias
+        run: ./gradlew testDebugUnitTest --stacktrace
+
+      - name: Compilar (assembleDebug)
+        run: ./gradlew assembleDebug --stacktrace
+
+      - name: Lint (falla si hay errores; las advertencias no bloquean)
+        run: ./gradlew lintDebug
+
+      - name: Subir reporte de lint
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: reporte-lint
+          path: app/build/reports/lint-results-debug.html
+          if-no-files-found: ignore
+
+      - name: Subir APK de debug
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-debug
+          path: app/build/outputs/apk/debug/app-debug.apk

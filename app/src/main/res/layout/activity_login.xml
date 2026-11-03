@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Login único (Lab 6): Firebase Authentication con FirebaseUI. El rol se lee de Firestore. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="28dp"
+    android:background="@color/fondo_pantalla">
+
+    <!-- Título Principal -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/texto_principal"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_bienvenido"
+        android:textSize="18sp"
+        android:textColor="@color/texto_secundario"
+        android:layout_marginBottom="36dp" />
+
+    <TextView
+        android:id="@+id/tvAyudaLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:gravity="center"
+        android:text="@string/login_ayuda"
+        android:textColor="@color/texto_secundario"
+        android:textSize="13sp"
+        android:fontFamily="@font/poppins_regular" />
+
+    <!-- Abre FirebaseUI (correo y contraseña o Google) -->
+    <Button
+        android:id="@+id/btnIniciarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/login_iniciar_sesion"
+        style="@style/Boton.Primario" />
+
+    <!-- Mientras se valida la cuenta en Firebase -->
+    <ProgressBar
+        android:id="@+id/progressLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:indeterminate="true"
+        android:visibility="gone" />
+
+    <!-- Enlace a registro de cliente (RF-CL-01) -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_sin_cuenta"
+            android:textColor="@color/texto_secundario"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_regular" />
+
+        <TextView
+            android:id="@+id/tvRegistrarse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_registrate"
+            android:textColor="@color/turquesa"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
+
+</LinearLayout>
