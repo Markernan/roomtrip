@@ -21,6 +21,7 @@ public class SesionTaxistaManager {
     private static final String KEY_ID = "idTaxista";
     private static final String KEY_NOMBRE = "nombre";
     private static final String KEY_DISPONIBLE = "disponible";
+    private static final String KEY_ID_API = "idTaxistaApi";
 
     private final SharedPreferences prefs;
 
@@ -55,6 +56,15 @@ public class SesionTaxistaManager {
         prefs.edit().putString(KEY_NOMBRE, nombre).apply();
     }
 
+    /** Id del taxista en la API de taxistas (distinto del uid de Firebase); vacío si aún no se resolvió. */
+    public String getIdTaxistaApi() {
+        return prefs.getString(KEY_ID_API, "");
+    }
+
+    public void setIdTaxistaApi(String id) {
+        prefs.edit().putString(KEY_ID_API, id).apply();
+    }
+
     public boolean isDisponible() {
         return prefs.getBoolean(KEY_DISPONIBLE, true);
     }
@@ -70,6 +80,7 @@ public class SesionTaxistaManager {
                 .remove(KEY_ID)
                 .remove(KEY_NOMBRE)
                 .remove(KEY_DISPONIBLE)
+                .remove(KEY_ID_API)
                 .apply();
     }
 }

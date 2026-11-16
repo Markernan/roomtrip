@@ -348,8 +348,14 @@ public class LoginActivity extends AppCompatActivity {
                                        boolean inicioExplicito) {
         mostrarCargando(true);
         TaxiServicios.repositorio().buscarPorCorreo(usuario.getEmail(),
-                taxista -> resolverAccesoTaxista(AccesoTaxista.desdeTaxista(taxista), usuario, perfil, nombre,
-                        inicioExplicito),
+                taxista -> {
+                    AccesoTaxista.Resultado resultado = AccesoTaxista.desdeTaxista(taxista);
+                    if (resultado == AccesoTaxista.Resultado.PERMITIDO) {
+                        // Se guarda el id de la API: hace falta para actualizar su disponibilidad
+                        new SesionTaxistaManager(this).setIdTaxistaApi(taxista.getId());
+                    }
+                    resolverAccesoTaxista(resultado, usuario, perfil, nombre, inicioExplicito);
+                },
                 e -> {
                     ApiException error = e instanceof ApiException
                             ? (ApiException) e : ApiException.desdeFallo(e);

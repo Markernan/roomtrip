@@ -101,3 +101,18 @@ probarlos en dispositivo):
 
 Desde Android Studio o por línea de comandos: `./gradlew testDebugUnitTest`. Las pruebas de `data/api` usan
 un servidor simulado (MockWebServer) y no necesitan internet ni la credencial real.
+
+## Pantallas conectadas
+
+| Pantalla | Qué hace con la API |
+|---|---|
+| `LoginActivity` (taxista) | Busca al taxista por correo (`GET /api/taxistas/buscar`). Solo entra si está `APROBADO` en el portal; pendiente, rechazado, no registrado o API caída muestran un aviso (`AccesoTaxista`). Guarda el id de la API en la sesión. Sin `local.properties` configurado usa la aprobación de Firestore (solo desarrollo) |
+| `SolicitadoActivity` | Al aceptar un pedido envía `EN_SERVICIO`; el interruptor de disponibilidad envía `DISPONIBLE` / `NO_DISPONIBLE` |
+| `EscaneoActivity` | Al finalizar el servicio con el QR envía `DISPONIBLE` |
+
+La sincronización de disponibilidad (`SincronizadorDisponibilidad`) es de mejor esfuerzo: si la API no responde
+se registra en `logs` (`API_TAXISTAS_NO_DISPONIBLE`) y el pedido sigue funcionando por Firestore.
+
+**Limitación conocida:** `firestore.rules` sigue exigiendo `estadoAprobacion == APROBADO` en `usuarios/{uid}` para
+aceptar pedidos, y solo el Superadmin de la app puede cambiarlo. Un taxista aprobado en el portal debe ser aprobado
+también en la app hasta que el equipo decida cómo sincronizarlo.

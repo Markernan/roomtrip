@@ -8,10 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
+import com.example.roomtrip.data.api.TaxistaApi;
 import com.example.roomtrip.data.model.RolUsuario;
 import com.example.roomtrip.databinding.ActivityEscaneoBinding;
 import com.example.roomtrip.data.firebase.ServicioTaxiRepository;
 import com.example.roomtrip.taxista.data.SesionTaxistaManager;
+import com.example.roomtrip.taxista.data.SincronizadorDisponibilidad;
 import com.example.roomtrip.taxista.notificaciones.TaxiNotificationHelper;
 import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.utils.RegistroEventos;
@@ -68,6 +70,7 @@ public class EscaneoActivity extends AppCompatActivity {
                         "Servicio " + finalizado.getId() + " finalizado con QR");
                 new TaxiNotificationHelper(this).mostrarServicioFinalizado(finalizado);
                 new SesionTaxistaManager(this).setDisponible(true);
+                SincronizadorDisponibilidad.enviar(this, TaxistaApi.DISPONIBLE);
 
                 startActivity(new Intent(EscaneoActivity.this, FinalizadoActivity.class));
                 finish();
