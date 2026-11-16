@@ -267,6 +267,9 @@
     <string name="login_solicitud_creada">Registramos tu solicitud como taxista. El Superadmin debe aprobarla; vuelve a iniciar sesión cuando te habilite.</string>
     <string name="login_solicitud_pendiente">Tu solicitud como taxista está pendiente de aprobación por el Superadmin.</string>
     <string name="login_solicitud_rechazada">Tu solicitud como taxista fue rechazada. Comunícate con el administrador del sistema.</string>
+    <string name="login_taxista_no_registrado">Tu correo no está registrado en el portal de taxistas. Regístrate en el portal web con este mismo correo y espera la aprobación del Superadmin.</string>
+    <string name="login_taxista_servicio_no_disponible">El servicio de gestión de taxistas no está disponible en este momento. Inténtalo nuevamente en unos minutos.</string>
+    <string name="login_taxista_error_api">No pudimos verificar tu habilitación como taxista. Inténtalo más tarde o avisa al equipo.</string>
     <string name="login_cuenta_desactivada">Tu cuenta está desactivada. Comunícate con el administrador del sistema.</string>
     <string name="login_no_es_taxista">Esta cuenta no está registrada como taxista.</string>
     <!-- Lab 6: Cloud Firestore (taxista) -->

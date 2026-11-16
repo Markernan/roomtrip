@@ -29,6 +29,7 @@ public final class RegistroEventos {
     public static final String TAXISTA_INICIO_SESION = "TAXISTA_INICIO_SESION";
     public static final String TAXISTA_CIERRE_SESION = "TAXISTA_CIERRE_SESION";
     public static final String TAXISTA_SOLICITUD_HABILITACION = "TAXISTA_SOLICITUD_HABILITACION";
+    public static final String API_TAXISTAS_NO_DISPONIBLE = "API_TAXISTAS_NO_DISPONIBLE";
     public static final String SERVICIO_TAXI_ACEPTADO = "SERVICIO_TAXI_ACEPTADO";
     public static final String SERVICIO_TAXI_CAMBIO_ESTADO = "SERVICIO_TAXI_CAMBIO_ESTADO";
     public static final String SERVICIO_TAXI_FINALIZADO = "SERVICIO_TAXI_FINALIZADO";

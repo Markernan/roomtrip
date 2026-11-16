@@ -16,6 +16,9 @@ import com.example.roomtrip.adminhotel.AdminSession;
 import com.example.roomtrip.cliente.HomeActivity;
 import com.example.roomtrip.cliente.RegistroActivity;
 import com.example.roomtrip.cliente.data.SesionClienteManager;
+import com.example.roomtrip.data.api.AccesoTaxista;
+import com.example.roomtrip.data.api.ApiException;
+import com.example.roomtrip.data.api.TaxiServicios;
 import com.example.roomtrip.data.firebase.UsuarioRepository;
 import com.example.roomtrip.data.model.EstadoAprobacion;
 import com.example.roomtrip.data.model.EstadoCuenta;
@@ -306,22 +309,9 @@ public class LoginActivity extends AppCompatActivity {
         Intent destino;
         switch (perfil.getRol()) {
             case TAXISTA:
-                if (perfil.getEstadoAprobacion() == EstadoAprobacion.RECHAZADO) {
-                    rechazar(R.string.login_solicitud_rechazada);
-                    return;
-                }
-                if (!perfil.puedeOperar()) {
-                    rechazar(R.string.login_solicitud_pendiente);
-                    return;
-                }
-                SesionTaxistaManager sesionTaxista = new SesionTaxistaManager(this);
-                if (usuario.getUid().equals(sesionTaxista.getIdTaxista())) {
-                    sesionTaxista.setNombre(nombre);                       // conserva su disponibilidad
-                } else {
-                    sesionTaxista.iniciarSesion(usuario.getUid(), nombre); // SharedPreferences (Lab 5)
-                }
-                destino = new Intent(this, SolicitadoActivity.class);
-                break;
+                // La habilitación la decide la API (portal web); no se abre ninguna pantalla hasta saberla
+                verificarTaxistaEnApi(usuario, perfil, nombre, inicioExplicito);
+                return;
 
             case ADMIN_HOTEL:
                 if (!perfil.puedeOperar()) {
@@ -348,6 +338,77 @@ public class LoginActivity extends AppCompatActivity {
             RegistroEventos.registrar(RegistroEventos.INICIO_SESION, perfil.getRol(), "Inicio de sesión");
         }
         startActivity(destino);
+        finish();
+    }
+
+    // ---------- Taxista: la API manda ----------
+
+    /** Consulta al portal de taxistas (por el correo de la cuenta) y entra solo si está APROBADO. */
+    private void verificarTaxistaEnApi(FirebaseUser usuario, PerfilUsuario perfil, String nombre,
+                                       boolean inicioExplicito) {
+        mostrarCargando(true);
+        TaxiServicios.repositorio().buscarPorCorreo(usuario.getEmail(),
+                taxista -> resolverAccesoTaxista(AccesoTaxista.desdeTaxista(taxista), usuario, perfil, nombre,
+                        inicioExplicito),
+                e -> {
+                    ApiException error = e instanceof ApiException
+                            ? (ApiException) e : ApiException.desdeFallo(e);
+                    Log.w(TAG, "No se pudo consultar al taxista en la API: " + error.getMessage());
+                    if (error.esNoDisponible()) {
+                        RegistroEventos.registrar(RegistroEventos.API_TAXISTAS_NO_DISPONIBLE, RolUsuario.TAXISTA,
+                                "Login del taxista sin respuesta de la API de taxistas");
+                    }
+                    resolverAccesoTaxista(AccesoTaxista.desdeError(error), usuario, perfil, nombre,
+                            inicioExplicito);
+                });
+    }
+
+    private void resolverAccesoTaxista(AccesoTaxista.Resultado resultado, FirebaseUser usuario,
+                                       PerfilUsuario perfil, String nombre, boolean inicioExplicito) {
+        switch (resultado) {
+            case PERMITIDO:
+                abrirPanelTaxista(usuario, nombre, inicioExplicito);
+                break;
+            case SIN_CONFIGURAR:
+                // Solo builds de desarrollo sin local.properties: se usa la aprobación de Firestore
+                if (perfil.getEstadoAprobacion() == EstadoAprobacion.RECHAZADO) {
+                    rechazar(R.string.login_solicitud_rechazada);
+                } else if (!perfil.puedeOperar()) {
+                    rechazar(R.string.login_solicitud_pendiente);
+                } else {
+                    abrirPanelTaxista(usuario, nombre, inicioExplicito);
+                }
+                break;
+            case PENDIENTE:
+                rechazar(R.string.login_solicitud_pendiente);
+                break;
+            case RECHAZADO:
+                rechazar(R.string.login_solicitud_rechazada);
+                break;
+            case NO_REGISTRADO:
+                rechazar(R.string.login_taxista_no_registrado);
+                break;
+            case SERVICIO_NO_DISPONIBLE:
+                rechazar(R.string.login_taxista_servicio_no_disponible);
+                break;
+            case ERROR:
+            default:
+                rechazar(R.string.login_taxista_error_api);
+                break;
+        }
+    }
+
+    private void abrirPanelTaxista(FirebaseUser usuario, String nombre, boolean inicioExplicito) {
+        SesionTaxistaManager sesionTaxista = new SesionTaxistaManager(this);
+        if (usuario.getUid().equals(sesionTaxista.getIdTaxista())) {
+            sesionTaxista.setNombre(nombre);                       // conserva su disponibilidad
+        } else {
+            sesionTaxista.iniciarSesion(usuario.getUid(), nombre); // SharedPreferences (Lab 5)
+        }
+        if (inicioExplicito) {
+            RegistroEventos.registrar(RegistroEventos.INICIO_SESION, RolUsuario.TAXISTA, "Inicio de sesión");
+        }
+        startActivity(new Intent(this, SolicitadoActivity.class));
         finish();
     }
 
