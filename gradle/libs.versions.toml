@@ -18,6 +18,9 @@ googleServices = "4.4.2"
 # Lab 7: mapa del taxi y ubicación del taxista
 playServicesMaps = "19.0.0"
 playServicesLocation = "21.3.0"
+# Lab 7: API de taxistas (gateway). Retrofit 2.11 usa OkHttp 4.12 y Gson 2.10, que ya estan en el proyecto
+retrofit = "2.11.0"
+okhttp = "4.12.0"
 
 [libraries]
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
@@ -37,6 +40,10 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 firebase-ui-auth = { group = "com.firebaseui", name = "firebase-ui-auth", version.ref = "firebaseUiAuth" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "okhttp" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -10,7 +10,7 @@ Este documento contiene la información técnica, reglas de arquitectura y está
 * **Tipo de Proyecto:** Aplicación nativa Android
 * **Lenguaje:** Java (restricción del enunciado: nada de Kotlin, Flutter ni React Native)
 * **Módulo Principal:** `:app`
-* **Estado:** los **cuatro roles** usan Firebase Authentication (FirebaseUI) y Cloud Firestore desde el Lab 6. `data/MockData.java` queda para los datos de demostración que carga el Superadmin y para pantallas aún sin backend. Retrofit (API de taxistas) llega en el Lab 7 y Google Maps en el Lab 7.
+* **Estado:** los **cuatro roles** usan Firebase Authentication (FirebaseUI) y Cloud Firestore desde el Lab 6. `data/MockData.java` queda para los datos de demostración que carga el Superadmin y para pantallas aún sin backend. La capa de **Retrofit** hacia la API de taxistas está en `data/api/` (Lab 7; ver `docs/integracion-api-taxistas.md`) y falta conectarla a las pantallas; Google Maps ya está.
 
 ---
 

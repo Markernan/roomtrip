@@ -4,7 +4,13 @@ plugins {
     alias(libs.plugins.google.services)
 }
 
-// Clave de Google Maps (Lab 7): se lee de local.properties (MAPS_API_KEY=...), que no se versiona.
+// Claves del Lab 7 que se leen de local.properties, que no se versiona:
+//   MAPS_API_KEY        clave de Google Maps. Sin ella el mapa sale en gris.
+//   TAXI_API_URL        URL del gateway de la API de taxistas (por defecto, la desplegada en Cloud Run).
+//   TAXI_API_CORREO     correo de la credencial de servicio APP_MOVIL de la API.
+//   TAXI_API_PASSWORD   su contrasena (solo letras y numeros: va dentro de un texto de Java). La pasa por
+//                       privado quien administra la nube; sin ella la app funciona, pero avisa que la
+//                       conexion con el servicio de taxistas no esta configurada.
 // Sin clave la app compila y funciona, pero el mapa sale en gris.
 def propiedadesLocales = new Properties()
 def archivoLocal = rootProject.file('local.properties')
@@ -16,6 +22,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        buildConfig true   // BuildConfig.TAXI_API_* (ver data/api/TaxiServicios)
     }
 
     defaultConfig {
@@ -28,6 +35,13 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [MAPS_API_KEY: propiedadesLocales.getProperty('MAPS_API_KEY', '')]
+
+        buildConfigField "String", "TAXI_API_URL",
+                "\"${propiedadesLocales.getProperty('TAXI_API_URL', 'https://gateway-service-7oe536zvqa-uc.a.run.app')}\""
+        buildConfigField "String", "TAXI_API_CORREO",
+                "\"${propiedadesLocales.getProperty('TAXI_API_CORREO', '')}\""
+        buildConfigField "String", "TAXI_API_PASSWORD",
+                "\"${propiedadesLocales.getProperty('TAXI_API_PASSWORD', '')}\""
     }
 
     buildTypes {
@@ -69,4 +83,10 @@ dependencies {
     // Lab 7: mapa (Google Maps SDK) y ubicación periódica del taxista (Fused Location Provider)
     implementation libs.play.services.maps
     implementation libs.play.services.location
+
+    // Lab 7: API REST de taxistas (gateway en Cloud Run). Ver docs/integracion-api-taxistas.md
+    implementation libs.retrofit
+    implementation libs.retrofit.converter.gson
+    implementation libs.okhttp
+    testImplementation libs.okhttp.mockwebserver
 }
