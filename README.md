@@ -29,6 +29,8 @@ RoomTrip está compuesto por **dos aplicaciones con dos persistencias separadas*
 | Pantallas de los 4 roles (cliente, admin de hotel, taxista, superadmin) | Implementadas con navegación y listas `RecyclerView` sobre datos de prueba |
 | Almacenamiento local y notificaciones (Lab 5) | No iniciado |
 | Firebase Authentication y base de datos (Lab 6) | **Implementado para los 4 roles:** login único con FirebaseUI (correo o Google) y verificación de correo; hoteles, habitaciones, reservas, checkout y cobro, chat, valoraciones, taxis y auditoría en Cloud Firestore; reglas por rol en `firestore.rules` |
+| Mapa del taxi y ubicación del taxista (Lab 7) | **Implementado, sin probar en dispositivo:** Google Maps en las pantallas del taxista y del cliente, ubicación del taxista cada 10 s en Firestore. Detalle y pendientes en [`docs/avance-lab7.md`](docs/avance-lab7.md) |
+| Firebase Storage para fotos (Lab 7) | No iniciado |
 | Consumo de la API de taxistas con Retrofit (Lab 7) | No iniciado |
 | Servicio web de taxistas | Implementado en la rama [`web-taxis`](https://github.com/Markernan/roomtrip/tree/web-taxis) (ver [`taxi-service/`](taxi-service/README.md)) |
 | Integración continua | GitHub Actions compila, corre lint y las pruebas unitarias en cada PR |
@@ -128,6 +130,7 @@ el usuario sale de `getEtiqueta()`.
 | JDK | El que trae Android Studio (17 o superior) | No hace falta instalar otro. El proyecto no fija un JDK |
 | Dispositivo o emulador | **Android 14 (API 34) o superior** | `minSdk` es 34 |
 | Docker Desktop, JDK 21 y Maven 3.9 | Solo para el servicio de taxistas | Ver [`taxi-service/README.md`](taxi-service/README.md) |
+| `MAPS_API_KEY` en `local.properties` | Desde el Lab 7 | Clave de Google Maps del equipo (se pasa por privado). Sin ella la app funciona, pero el mapa sale gris |
 | `app/google-services.json` | Desde el Lab 6 | **Obligatorio para compilar.** No se versiona: ver [`docs/manual-instalacion.md`](docs/manual-instalacion.md), sección 5 |
 
 ### App móvil

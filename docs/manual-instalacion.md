@@ -28,7 +28,17 @@ git clone https://github.com/Markernan/roomtrip.git
    (el archivo no se versiona).
 3. Copiar `google-services.json` en la carpeta `app/` (sección 5). **Sin ese archivo el proyecto
    no compila**: el plugin `google-services` lo exige.
-4. Ejecutar sobre un dispositivo o emulador con **API 34 o superior** y con Google Play
+4. Agregar la clave de Google Maps (Lab 7) en `local.properties`, que no se versiona. La pasa por
+   privado quien administra el proyecto de Firebase:
+
+   ```
+   MAPS_API_KEY=AIza...
+   ```
+
+   Sin ella la app compila y funciona, pero los mapas del taxi salen grises. La clave está
+   restringida por SHA-1: si a alguien le sale gris, falta registrar la SHA-1 de su PC
+   (`./gradlew signingReport`) o usar el `debug.keystore` compartido del equipo.
+5. Ejecutar sobre un dispositivo o emulador con **API 34 o superior** y con Google Play
    (lo necesitan Firebase y el inicio con Google). La app necesita internet.
 
 Por línea de comandos, desde la raíz:

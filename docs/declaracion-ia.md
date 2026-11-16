@@ -19,6 +19,8 @@ y, si el prompt fue extenso o determinante, se transcribe en el anexo.
 | 2 | 02/11/2026 | Claude (Anthropic) | Lab 6 del rol taxista: Firebase Authentication con FirebaseUI, Cloud Firestore (perfil, pedidos, estados, historial), reglas de seguridad y documentación | `app/build.gradle`, `gradle/libs.versions.toml`, `login/LoginActivity`, `taxista/**`, `data/model/{ServicioTaxi,RolUsuario,EstadoAprobacion}`, `utils/{RegistroEventos,ErroresFirebase,SesionFirebase}`, `firestore.rules`, `docs/*` | *(completar)* | Compilación contra las firmas públicas de Firestore y FirebaseUI 9.1.1; pruebas unitarias; pendiente la prueba en dispositivo con el proyecto de Firebase del equipo |
 | 3 | 02/11/2026 | Claude (Anthropic) | Lab 6 para todos los roles: login único con FirebaseUI y rol desde Firestore; cliente (registro, hoteles, reservas con transacción, pago simulado, checkout, chat, taxi, perfil), admin de hotel (configuración, inventario, checkouts y cobro, chats, traslados, valoraciones, reportes), superadmin (usuarios, aprobación de taxistas, hoteles con invitación del administrador, reportes, auditoría, datos de demostración); reglas de seguridad de todas las colecciones y documentación | `login/**`, `cliente/**`, `adminhotel/**`, `superadmin/**`, `data/firebase/**`, `data/model/**`, `utils/**`, `res/layout/*`, `res/values/strings.xml`, `firestore.rules`, `README.md`, `PROJECT_CONTEXT.md`, `docs/*` | *(completar)* | Compilación de toda la app contra las firmas públicas de Firestore y FirebaseUI 9.1.1; pruebas unitarias (`ServicioTaxiTest`, `PerfilUsuarioTest`, `ReservaTest`); pendiente la prueba en dispositivo con el proyecto de Firebase del equipo y en el *Rules Playground* de la consola |
 
+| 4 | 15/11/2026 | Claude (Anthropic) | Lab 7: mapa del taxi con Google Maps (taxista y cliente), ubicación periódica del taxista en Firestore, regla de seguridad de la ubicación y documento de avance y pendientes | `taxista/{RastreoUbicacionTaxista,MapaTaxista,EnCaminoActivity,EnTrasladoActivity}`, `cliente/SeguimientoTaxiActivity`, `utils/{MapaServicioTaxi,MapaHelper}`, `data/model/ServicioTaxi`, `data/firebase/ServicioTaxiRepository`, layouts del taxi, `app/build.gradle`, `gradle/libs.versions.toml`, `AndroidManifest.xml`, `firestore.rules`, `README.md`, `docs/*` | *(completar)* | Compilación y pruebas unitarias; la app se instaló en el emulador y el login con Google funciona; pendiente probar el mapa con una cuenta de taxista aprobada |
+
 ## Criterios de uso adoptados por el equipo
 
 - La IA se usa como apoyo para andamiaje, redacción y revisión. **Las decisiones de
@@ -92,3 +94,24 @@ PROJECT_CONTEXT, arquitectura, manuales).
 (`api.txt`) y de FirebaseUI 9.1.1; pruebas unitarias (`ServicioTaxiTest`, `PerfilUsuarioTest`,
 `ReservaTest`). Pendiente: correr la app con el `google-services.json` del equipo y probar las
 reglas en el *Rules Playground*.
+
+### Prompt 4 — 15/11/2026 — Lab 7: mapa y ubicación del taxista
+
+**Herramienta:** Claude (Anthropic)
+
+**Contexto entregado:** el repositorio en la rama `firebase-crud`, el plan de proyecto del curso y
+las clases 11 (Firebase Storage) y 12 (microservicios).
+
+**Solicitud:** revisar qué le falta al proyecto para el entregable prefinal e implementar el mapa
+del taxi y la ubicación del taxista, dejando para después Storage y la API de taxistas.
+
+**Decisiones tomadas:** Google Maps SDK (la clave se lee de `local.properties`); la ubicación se
+guarda en el mismo documento `serviciosTaxi/{id}` (GeoPoint) en lugar de Realtime Database, para
+no sumar otro servicio antes de la entrega; el rastreo funciona mientras la pantalla del servicio
+está visible; las coordenadas del hotel y del aeropuerto se obtienen del texto con `Geocoder`.
+
+**Resultado:** mapa en las pantallas *En camino*, *En traslado* y *Seguimiento del taxi*, rastreo
+cada 10 s, regla de seguridad nueva y `docs/avance-lab7.md` con lo hecho y lo pendiente.
+
+**Verificación realizada:** `assembleDebug` y `testDebugUnitTest` correctos; instalación en el
+emulador y login con Google. Pendiente: probar el mapa con una cuenta de taxista aprobada.

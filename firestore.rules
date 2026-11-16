@@ -301,6 +301,14 @@ service cloud.firestore {
         && transicionValida(resource.data.estado, request.resource.data.estado)
         && soloCambian(['estado', 'fechaActualizacion', 'fechaFinalizacion']);
 
+      // Lab 7: el taxista asignado reporta su ubicación mientras el servicio está en curso
+      allow update: if esTaxistaHabilitado()
+        && resource.data.get('taxistaId', null) == request.auth.uid
+        && resource.data.estado in ['ASIGNADO', 'EN_CAMINO', 'EN_TRASLADO']
+        && request.resource.data.ubicacionTaxista is latlng
+        && request.resource.data.fechaUbicacion == request.time
+        && soloCambian(['ubicacionTaxista', 'fechaUbicacion']);
+
       allow delete: if esSuperadmin();
     }
 

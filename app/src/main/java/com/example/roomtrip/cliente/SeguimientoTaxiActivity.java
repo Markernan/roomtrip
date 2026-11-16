@@ -15,12 +15,14 @@ import com.example.roomtrip.databinding.ActivitySeguimientoTaxiBinding;
 import com.example.roomtrip.utils.Constants;
 import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.utils.InsetsHelper;
+import com.example.roomtrip.utils.MapaServicioTaxi;
 import com.example.roomtrip.utils.SesionFirebase;
 import com.google.firebase.firestore.ListenerRegistration;
 
 /**
  * Seguimiento del taxi en tiempo real (RF-CL-09) con el documento de {@code serviciosTaxi}:
- * nombre del taxista, origen, destino y estado. El mapa con la ubicación llega en el Lab 7.
+ * nombre del taxista, origen, destino y estado. Lab 7: mapa con el hotel, el aeropuerto y el taxi,
+ * que se mueve con la ubicación que el taxista reporta en el campo {@code ubicacionTaxista}.
  */
 public class SeguimientoTaxiActivity extends AppCompatActivity {
 
@@ -30,6 +32,7 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
     private String servicioId;
     private ListenerRegistration registro;
     private EstadoServicioTaxi ultimoEstado;
+    private MapaServicioTaxi mapa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,7 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
 
         binding.btnVolverMapa.setOnClickListener(v -> finish());
         InsetsHelper.empujarBajoBarraEstado(binding.btnVolverMapa);
+        mapa = new MapaServicioTaxi(this, R.id.mapa);
         binding.btnMostrarQr.setEnabled(false);
         binding.btnMostrarQr.setOnClickListener(v -> {
             Intent intent = new Intent(this, MostrarQrActivity.class);
@@ -79,6 +83,7 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
     }
 
     private void mostrar(ServicioTaxi servicio) {
+        mapa.actualizar(servicio);
         binding.tvOrigen.setText(servicio.getHotelNombre());
         binding.tvDestino.setText(servicio.getAeropuerto());
 

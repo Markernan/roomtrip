@@ -5,22 +5,18 @@
     android:orientation="vertical"
     android:background="@color/fondo_pantalla">
 
-    <!-- MapView real o contenedor de mapa -->
+    <!-- Lab 7: mapa con el taxi en tiempo real (Google Maps SDK) -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="#E3E8EF">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Mapa en tiempo real\n(Google Maps SDK — Lab 7)"
-            android:gravity="center"
-            android:textColor="@color/texto_secundario"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium" />
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapa"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <ImageView
             android:id="@+id/btnVolverMapa"

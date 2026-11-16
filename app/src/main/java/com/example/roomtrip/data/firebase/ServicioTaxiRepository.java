@@ -13,6 +13,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -237,6 +238,21 @@ public class ServicioTaxiRepository {
             actual.setFechaFinalizacion(new Date());
             return actual;
         }).addOnSuccessListener(exito::onExito).addOnFailureListener(fallo::onFallo);
+    }
+
+    // ---------- Ubicación del taxista (Lab 7) ----------
+
+    /**
+     * Guarda la posición actual del taxista en su servicio en curso. Es un {@code update} simple (no
+     * transacción): se llama cada pocos segundos y basta con que gane la última escritura. Las reglas
+     * solo lo permiten al taxista asignado y mientras el servicio no haya terminado.
+     */
+    public void actualizarUbicacion(@NonNull String servicioId, double latitud, double longitud,
+                                    @NonNull Callbacks.Fallo fallo) {
+        servicios().document(servicioId)
+                .update(ServicioTaxi.CAMPO_UBICACION_TAXISTA, new GeoPoint(latitud, longitud),
+                        ServicioTaxi.CAMPO_FECHA_UBICACION, FieldValue.serverTimestamp())
+                .addOnFailureListener(fallo::onFallo);
     }
 
     // ---------- Historial ----------

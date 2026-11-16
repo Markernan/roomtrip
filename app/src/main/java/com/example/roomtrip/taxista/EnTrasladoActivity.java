@@ -14,7 +14,10 @@ import com.example.roomtrip.utils.NavegacionHelper;
 import com.example.roomtrip.utils.SesionFirebase;
 import com.google.firebase.firestore.ListenerRegistration;
 
-/** Estado EN_TRASLADO: el pasajero va en el taxi rumbo al aeropuerto. */
+/**
+ * Estado EN_TRASLADO: el pasajero va en el taxi rumbo al aeropuerto. Lab 7: mapa con la ruta al
+ * aeropuerto y reporte periódico de la ubicación del taxista.
+ */
 public class EnTrasladoActivity extends AppCompatActivity {
 
     private static final String TAG = "EnTrasladoActivity";
@@ -22,6 +25,7 @@ public class EnTrasladoActivity extends AppCompatActivity {
     private ActivityEnTrasladoBinding binding;
     private ServicioTaxiRepository repositorio;
     private ListenerRegistration registroServicio;
+    private MapaTaxista mapa;
     private String uid;
 
     @Override
@@ -38,6 +42,7 @@ public class EnTrasladoActivity extends AppCompatActivity {
         NavegacionHelper.configurarBarra(this, "TRABAJO");
 
         repositorio = new ServicioTaxiRepository();
+        mapa = new MapaTaxista(this, R.id.mapa, repositorio);
 
         binding.btnEscanear.setOnClickListener(v -> {
             Intent intent = new Intent(EnTrasladoActivity.this, EscaneoActivity.class);
@@ -55,6 +60,7 @@ public class EnTrasladoActivity extends AppCompatActivity {
                 finish();
                 return;
             }
+            mapa.mostrar(servicio);
             binding.tvNombrePasajero.setText(servicio.getClienteNombre());
             binding.tvRatingPasajero.setText(getString(R.string.en_camino_rating, servicio.getCalificacionCliente()));
             binding.tvOrigen.setText(getString(R.string.pedido_origen, servicio.getHotelNombre()));
@@ -69,6 +75,7 @@ public class EnTrasladoActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        if (mapa != null) mapa.detener();
         if (registroServicio != null) {
             registroServicio.remove();
             registroServicio = null;

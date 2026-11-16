@@ -195,7 +195,6 @@
     <string name="perfil_taxista_guardar_cambios">Guardar cambios</string>
     <string name="perfil_taxista_cerrar_sesion">Cerrar sesión</string>
     <!-- en_camino -->
-    <string name="en_camino_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta hacia el pasajero)</string>
     <string name="en_camino_en_camino_al_punto_de">En camino al punto de recojo</string>
     <string name="en_camino_carlos_mendoza">Carlos Mendoza</string>
     <string name="en_camino_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
@@ -204,7 +203,6 @@
     <string name="en_camino_tiempo_estimado_al_encuentro_8">Tiempo estimado al encuentro: 8 min</string>
     <string name="en_camino_llegue_al_encuentro">Llegué al encuentro</string>
     <!-- en_traslado -->
-    <string name="en_traslado_navegacion_gps_en_tiempo_real">Navegación GPS en tiempo real\n(Ruta al destino del pasajero)</string>
     <string name="en_traslado_en_traslado">En traslado</string>
     <string name="en_traslado_carlos_mendoza">Carlos Mendoza</string>
     <string name="en_traslado_n4_9_pasajero_frecuente">★ 4.9 · Pasajero Frecuente</string>
@@ -471,4 +469,11 @@
         <item quantity="other">Resumen de estadía: %1$d noches en %2$s (%3$s)</item>
     </plurals>
     <string name="detalle_calificacion_general">Calificación general</string>
+
+    <!-- Lab 7: mapa del taxi y ubicación del taxista -->
+    <string name="mapa_taxi">Taxi: %1$s</string>
+    <string name="mapa_taxi_sin_nombre">Tu taxi</string>
+    <string name="mapa_recojo">Recojo: %1$s</string>
+    <string name="mapa_destino">Destino: %1$s</string>
+    <string name="mapa_permiso_ubicacion">Activa el permiso de ubicación para que el cliente pueda seguir tu taxi en el mapa</string>
 </resources>

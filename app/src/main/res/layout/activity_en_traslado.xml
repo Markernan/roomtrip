@@ -12,15 +12,12 @@
         android:layout_weight="1"
         android:background="#E3E8EF">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/en_traslado_navegacion_gps_en_tiempo_real"
-            android:gravity="center"
-            android:textColor="@color/texto_secundario"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium" />
+        <!-- Lab 7: Google Maps SDK -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapa"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <!-- Insignia de Estado Superior -->
         <LinearLayout

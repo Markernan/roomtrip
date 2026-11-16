@@ -1,6 +1,7 @@
 package com.example.roomtrip.data.model;
 
 import com.google.firebase.firestore.DocumentId;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
@@ -27,6 +28,8 @@ public class ServicioTaxi {
     public static final String CAMPO_FECHA_ASIGNACION = "fechaAsignacion";
     public static final String CAMPO_FECHA_ACTUALIZACION = "fechaActualizacion";
     public static final String CAMPO_FECHA_FINALIZACION = "fechaFinalizacion";
+    public static final String CAMPO_UBICACION_TAXISTA = "ubicacionTaxista";
+    public static final String CAMPO_FECHA_UBICACION = "fechaUbicacion";
 
     /** El id del documento: también es el contenido del código QR que muestra el cliente (RN-011). */
     @DocumentId
@@ -46,6 +49,13 @@ public class ServicioTaxi {
 
     private String taxistaId;       // uid de Firebase Auth del taxista; null mientras está SOLICITADO
     private String taxistaNombre;
+
+    /**
+     * Última posición del taxista mientras el servicio está en curso (Lab 7). La escribe el teléfono
+     * del taxista cada pocos segundos; el cliente la lee para mover el marcador del taxi en el mapa.
+     */
+    private GeoPoint ubicacionTaxista;
+    private Date fechaUbicacion;
 
     @ServerTimestamp
     private Date fechaSolicitud;
@@ -153,6 +163,12 @@ public class ServicioTaxi {
 
     public String getTaxistaNombre() { return taxistaNombre; }
     public void setTaxistaNombre(String taxistaNombre) { this.taxistaNombre = taxistaNombre; }
+
+    public GeoPoint getUbicacionTaxista() { return ubicacionTaxista; }
+    public void setUbicacionTaxista(GeoPoint ubicacionTaxista) { this.ubicacionTaxista = ubicacionTaxista; }
+
+    public Date getFechaUbicacion() { return fechaUbicacion; }
+    public void setFechaUbicacion(Date fechaUbicacion) { this.fechaUbicacion = fechaUbicacion; }
 
     public Date getFechaSolicitud() { return fechaSolicitud; }
     public void setFechaSolicitud(Date fechaSolicitud) { this.fechaSolicitud = fechaSolicitud; }

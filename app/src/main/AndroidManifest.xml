@@ -20,6 +20,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RoomTrip">
 
+        <!-- Google Maps SDK (Lab 7). La clave sale de MAPS_API_KEY en local.properties -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <!-- Actividad de Login (Pantalla de Inicio / Launcher) -->
         <activity
             android:name=".login.LoginActivity"

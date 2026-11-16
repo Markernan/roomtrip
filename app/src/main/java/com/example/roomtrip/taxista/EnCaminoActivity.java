@@ -22,6 +22,7 @@ import com.google.firebase.firestore.ListenerRegistration;
 /**
  * Cubre dos estados: ASIGNADO (aún no sale) y EN_CAMINO (yendo al hotel a recoger al pasajero).
  * La pantalla se dibuja con lo que llega del listener de Firestore, así siempre muestra el estado real.
+ * Lab 7: muestra el mapa (taxi, hotel y aeropuerto) y reporta la ubicación del taxista mientras está visible.
  */
 public class EnCaminoActivity extends AppCompatActivity {
 
@@ -31,6 +32,7 @@ public class EnCaminoActivity extends AppCompatActivity {
     private ServicioTaxiRepository repositorio;
     private TaxiNotificationHelper notificaciones;
     private ListenerRegistration registroServicio;
+    private MapaTaxista mapa;
     private ServicioTaxi servicio;
     private String uid;
     private boolean saliendo;
@@ -50,6 +52,7 @@ public class EnCaminoActivity extends AppCompatActivity {
 
         repositorio = new ServicioTaxiRepository();
         notificaciones = new TaxiNotificationHelper(this);
+        mapa = new MapaTaxista(this, R.id.mapa, repositorio);
 
         binding.btnLlegueAlEncuentro.setEnabled(false);
         binding.btnLlegueAlEncuentro.setOnClickListener(v -> avanzarEstado());
@@ -67,6 +70,7 @@ public class EnCaminoActivity extends AppCompatActivity {
                 return;
             }
             servicio = s;
+            mapa.mostrar(s);
             if (s.getEstado() == EstadoServicioTaxi.EN_TRASLADO) {
                 saliendo = true;
                 startActivity(new Intent(EnCaminoActivity.this, EnTrasladoActivity.class));
@@ -83,6 +87,7 @@ public class EnCaminoActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        if (mapa != null) mapa.detener();
         if (registroServicio != null) {
             registroServicio.remove();
             registroServicio = null;
