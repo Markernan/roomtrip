@@ -2,8 +2,13 @@ package com.example.roomtrip.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -37,7 +42,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -87,9 +92,22 @@ public class LoginActivity extends AppCompatActivity {
 
         usuarios = new UsuarioRepository();
 
-        binding.btnIniciarSesion.setOnClickListener(v -> abrirFirebaseUi());
+        // Splash Screen animation
+        binding.layoutSplash.postDelayed(() ->
+            binding.layoutSplash.animate()
+                    .alpha(0f)
+                    .setDuration(400)
+                    .withEndAction(() -> binding.layoutSplash.setVisibility(View.GONE))
+                    .start(),
+                1500
+        );
+
+        binding.btnContinuarEmail.setOnClickListener(v -> abrirFirebaseUiEmail());
+        binding.btnContinuarGoogle.setOnClickListener(v -> abrirFirebaseUiGoogle());
         binding.tvRegistrarse.setOnClickListener(v ->
                 startActivity(new Intent(LoginActivity.this, RegistroActivity.class)));
+
+        configurarTextoLegal();
 
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             // Firebase recuerda la sesión aunque se cierre la app (Clase 10, "Usuario logueado")
@@ -100,24 +118,56 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // ---------- Firebase Authentication (FirebaseUI) ----------
+    private void configurarTextoLegal() {
+        TextView tvLegal = findViewById(R.id.tvLegal);
+        if (tvLegal == null) return;
+        String texto = "Al iniciar sesión o al crear una cuenta, aceptas nuestros términos y condiciones y la política de privacidad";
+        SpannableString ss = new SpannableString(texto);
 
-    /** Lanza las pantallas de FirebaseUI con los proveedores habilitados en la consola. */
-    private void abrirFirebaseUi() {
-        List<AuthUI.IdpConfig> proveedores = new ArrayList<>();
-        proveedores.add(new AuthUI.IdpConfig.EmailBuilder().build());
-        try {
-            proveedores.add(new AuthUI.IdpConfig.GoogleBuilder().build());
-        } catch (IllegalStateException e) {
-            // google-services.json se descargó antes de habilitar Google en la consola: falta
-            // default_web_client_id. Se ofrece solo correo (ver docs/manual-instalacion.md, sección 5)
-            Log.w(TAG, "Inicio con Google no configurado; solo se ofrece correo y contraseña", e);
+        int startTerminos = texto.indexOf("términos y condiciones");
+        int endTerminos = startTerminos + "términos y condiciones".length();
+        if (startTerminos >= 0) {
+            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.turquesa)), startTerminos, endTerminos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new UnderlineSpan(), startTerminos, endTerminos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
 
+        int startPolitica = texto.indexOf("política de privacidad");
+        int endPolitica = startPolitica + "política de privacidad".length();
+        if (startPolitica >= 0) {
+            ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.turquesa)), startPolitica, endPolitica, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            ss.setSpan(new UnderlineSpan(), startPolitica, endPolitica, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        }
+
+        tvLegal.setText(ss);
+    }
+
+    // ---------- Firebase Authentication (FirebaseUI) ----------
+
+    private void abrirFirebaseUiEmail() {
+        List<AuthUI.IdpConfig> proveedores = Collections.singletonList(
+                new AuthUI.IdpConfig.EmailBuilder().build()
+        );
+        lanzarFirebaseUi(proveedores);
+    }
+
+    private void abrirFirebaseUiGoogle() {
+        List<AuthUI.IdpConfig> proveedores;
+        try {
+            proveedores = Collections.singletonList(
+                    new AuthUI.IdpConfig.GoogleBuilder().build()
+            );
+        } catch (IllegalStateException e) {
+            Log.w(TAG, "Inicio con Google no configurado", e);
+            Toast.makeText(this, "Inicio con Google no disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        lanzarFirebaseUi(proveedores);
+    }
+
+    private void lanzarFirebaseUi(List<AuthUI.IdpConfig> proveedores) {
         Intent intent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAvailableProviders(proveedores)
-                // En FirebaseUI 9.x reemplaza a setIsSmartLockEnabled(false) de la Clase 10
                 .setCredentialManagerEnabled(false)
                 .setTheme(R.style.Theme_RoomTrip_FirebaseUI)
                 .build();
@@ -329,7 +379,7 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 AdminSession.guardarHotel(this, perfil.getHotelId(), perfil.getHotelNombre());
-                // MainActivity es el contenedor del admin de hotel (nav_graph con sus fragments)
+                // MainActivity is the contenedor del admin de hotel (nav_graph con sus fragments)
                 destino = new Intent(this, MainActivity.class);
                 break;
 
@@ -384,7 +434,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void mostrarCargando(boolean cargando) {
         binding.progressLogin.setVisibility(cargando ? View.VISIBLE : View.GONE);
-        binding.btnIniciarSesion.setEnabled(!cargando);
+        binding.btnContinuarEmail.setEnabled(!cargando);
+        binding.btnContinuarGoogle.setEnabled(!cargando);
         binding.tvRegistrarse.setEnabled(!cargando);
     }
 }

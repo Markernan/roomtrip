@@ -107,7 +107,48 @@ public class HotelesActivity extends AppCompatActivity {
 
     /** Lab 6: todos los hoteles de Firestore. */
     private void cargarHoteles() {
-        repositorio.obtenerTodos(hoteles -> adapter.actualizar(hoteles), this::mostrarError);
+        repositorio.obtenerTodos(hoteles -> {
+            if (hoteles.isEmpty()) {
+                adapter.actualizar(hoteles);
+                return;
+            }
+            com.example.roomtrip.data.firebase.UsuarioRepository usuarioRepo = new com.example.roomtrip.data.firebase.UsuarioRepository();
+            final int[] contador = {0};
+            for (Hotel hotel : hoteles) {
+                if (hotel.getId() == null) {
+                    contador[0]++;
+                    if (contador[0] == hoteles.size()) {
+                        adapter.actualizar(hoteles);
+                    }
+                    continue;
+                }
+                usuarioRepo.obtenerAdminsDeHotel(hotel.getId(), admins -> {
+                    if (!admins.isEmpty()) {
+                        com.example.roomtrip.data.model.PerfilUsuario admin = admins.get(0);
+                        String nombre = admin.nombreCompleto();
+                        if (nombre != null && !nombre.isEmpty()) {
+                            hotel.setAdminNombre(nombre);
+                        } else if (admin.getCorreo() != null) {
+                            hotel.setAdminNombre(admin.getCorreo());
+                        }
+                    } else if (hotel.getAdminEmail() != null && !hotel.getAdminEmail().isEmpty()) {
+                        if (hotel.getAdminNombre() == null || hotel.getAdminNombre().isEmpty()) {
+                            hotel.setAdminNombre(hotel.getAdminEmail());
+                        }
+                    }
+                    contador[0]++;
+                    if (contador[0] == hoteles.size()) {
+                        adapter.actualizar(hoteles);
+                    }
+                }, e -> {
+                    Log.e("HotelesActivity", "Error al cargar admin del hotel " + hotel.getId(), e);
+                    contador[0]++;
+                    if (contador[0] == hoteles.size()) {
+                        adapter.actualizar(hoteles);
+                    }
+                });
+            }
+        }, this::mostrarError);
     }
 
     /** RF-USR-007: activar o desactivar el hotel (un hotel INACTIVO no aparece al cliente). */

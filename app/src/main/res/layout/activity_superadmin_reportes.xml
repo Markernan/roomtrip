@@ -56,6 +56,7 @@
                 app:boxBackgroundColor="@color/blanco">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etBuscarHotelReporte"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -81,6 +82,7 @@
                         app:singleSelection="true">
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chipEsteMes"
                             style="@style/Widget.MaterialComponents.Chip.Action"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -90,6 +92,7 @@
                             app:chipStrokeWidth="1dp" />
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chipTrimestre"
                             style="@style/Widget.MaterialComponents.Chip.Action"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -97,6 +100,7 @@
                             app:chipBackgroundColor="@color/blanco" />
 
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/chipAnual"
                             style="@style/Widget.MaterialComponents.Chip.Action"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -107,6 +111,7 @@
                 </HorizontalScrollView>
 
                 <ImageButton
+                    android:id="@+id/btnCalendario"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_calendar"
@@ -145,6 +150,7 @@
                             android:textSize="10sp"
                             android:textColor="@color/texto_secundario" />
                         <TextView
+                            android:id="@+id/tvIngresosGlobal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="S/ 45.2K"
@@ -175,6 +181,7 @@
                             android:textSize="10sp"
                             android:textColor="@color/texto_secundario" />
                         <TextView
+                            android:id="@+id/tvReservasGlobal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1,240"
@@ -205,6 +212,7 @@
                             android:textSize="10sp"
                             android:textColor="@color/texto_secundario" />
                         <TextView
+                            android:id="@+id/tvHotelTopGlobal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Marriott"
@@ -219,10 +227,21 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tvFechaFiltroActivo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/turquesa"
+                android:layout_marginTop="12dp"
+                android:visibility="gone" />
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Desempeño por Hotel"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="12dp"
                 android:fontFamily="@font/poppins_semibold"
                 android:textColor="@color/texto_secundario" />

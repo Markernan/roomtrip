@@ -1,85 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Login único (Lab 6): Firebase Authentication con FirebaseUI. El rol se lee de Firestore. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="28dp"
-    android:background="@color/fondo_pantalla">
+    android:background="@color/blanco">
 
-    <!-- Título Principal -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/app_name"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="@color/texto_principal"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/login_bienvenido"
-        android:textSize="18sp"
-        android:textColor="@color/texto_secundario"
-        android:layout_marginBottom="36dp" />
-
-    <TextView
-        android:id="@+id/tvAyudaLogin"
+    <!-- Login Content -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:gravity="center"
-        android:text="@string/login_ayuda"
-        android:textColor="@color/texto_secundario"
-        android:textSize="13sp"
-        android:fontFamily="@font/poppins_regular" />
+        android:layout_height="match_parent"
+        android:background="@color/blanco"
+        android:padding="24dp">
 
-    <!-- Abre FirebaseUI (correo y contraseña o Google) -->
-    <Button
-        android:id="@+id/btnIniciarSesion"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:text="@string/login_iniciar_sesion"
-        style="@style/Boton.Primario" />
+        <!-- 1. Cabecera -->
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="RoomTrip.com"
+            android:textColor="@color/texto_principal"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Mientras se valida la cuenta en Firebase -->
-    <ProgressBar
-        android:id="@+id/progressLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:indeterminate="true"
-        android:visibility="gone" />
+        <!-- 2. Ilustración -->
+        <ImageView
+            android:id="@+id/ivIlustracionLogin"
+            android:layout_width="180dp"
+            android:layout_height="155dp"
+            android:layout_marginTop="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ilustracion_login"
+            android:contentDescription="Ilustración de bienvenida"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAppName" />
 
-    <!-- Enlace a registro de cliente (RF-CL-01) -->
+        <!-- 3 & 4. Título y Subtítulo -->
+        <LinearLayout
+            android:id="@+id/layoutMainBlock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivIlustracionLogin">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:gravity="center"
+                android:text="Hospedaje y movilidad conectados en cada destino"
+                android:textColor="@color/texto_principal"
+                android:textSize="21sp"
+                android:lineSpacingExtra="2dp" />
+
+            <TextView
+                android:id="@+id/tvAyudaLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:text="Inicia sesión para gestionar tus reservas, hoteles o traslados."
+                android:textColor="@color/texto_secundario"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- 5. Botones de Acceso -->
+        <LinearLayout
+            android:id="@+id/layoutButtons"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutMainBlock">
+
+            <!-- Botón Continuar con Google -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContinuarGoogle"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:backgroundTint="@color/blanco"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="Continuar con Google"
+                android:textAllCaps="false"
+                android:textColor="@color/texto_principal"
+                android:textSize="15sp"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_google_logo"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@null"
+                app:strokeColor="#CBD5E1"
+                app:strokeWidth="1dp" />
+
+            <!-- Botón Continuar con Email -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnContinuarEmail"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="14dp"
+                android:backgroundTint="@color/turquesa"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="Continuar con email"
+                android:textAllCaps="false"
+                android:textColor="@color/blanco"
+                android:textSize="15sp"
+                app:cornerRadius="12dp"
+                app:icon="@drawable/ic_email"
+                app:iconGravity="textStart"
+                app:iconPadding="12dp"
+                app:iconTint="@color/blanco" />
+
+        </LinearLayout>
+
+        <!-- ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutButtons" />
+
+        <!-- 6. Registro -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressLogin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="@string/login_sin_cuenta"
+                android:textColor="@color/texto_secundario"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvRegistrarse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/login_registrate"
+                android:textColor="@color/turquesa"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- 7. Pie de página anclado abajo -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/tvLegal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center"
+                android:textColor="@color/texto_secundario"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="© 2026 RoomTrip.com"
+                android:textColor="@color/texto_secundario"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Splash Screen Overlay -->
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal">
+        android:id="@+id/layoutSplash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/turquesa"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:clickable="true"
+        android:focusable="true"
+        android:elevation="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login_sin_cuenta"
-            android:textColor="@color/texto_secundario"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_regular" />
+            android:fontFamily="@font/poppins_bold"
+            android:text="RoomTrip.com"
+            android:textColor="@color/blanco"
+            android:textSize="34sp" />
 
-        <TextView
-            android:id="@+id/tvRegistrarse"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/login_registrate"
-            android:textColor="@color/turquesa"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_semibold"
-            android:clickable="true"
-            android:focusable="true" />
     </LinearLayout>
 
-</LinearLayout>
+</FrameLayout>

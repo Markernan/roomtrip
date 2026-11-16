@@ -45,6 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "superadmin_alerts";
     private static final int NOTIFICATION_ID = 101;
+    private static final String URL_WEB_TAXISTAS = "https://roomtrip-taxistas.web.app/pendientes";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +181,7 @@ public class DashboardActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://roomtrip-taxistas.web.app/pendientes"));
+        Intent webIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(URL_WEB_TAXISTAS));
         PendingIntent webPendingIntent = PendingIntent.getActivity(this, 1, webIntent, PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -218,7 +219,8 @@ public class DashboardActivity extends AppCompatActivity {
         cardHotelesRegistrados.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));
         cardUsuariosTotales.setOnClickListener(v -> startActivity(new Intent(this, UsuariosActivity.class)));
         cardHotelesActivos.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));
-        cardTaxistasAprobar.setOnClickListener(v -> startActivity(new Intent(this, TaxistasActivity.class)));
+        cardTaxistasAprobar.setOnClickListener(v ->
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(URL_WEB_TAXISTAS))));
 
         // Redirecciones Accesos rápidos
         cardGestionHoteles.setOnClickListener(v -> startActivity(new Intent(this, HotelesActivity.class)));

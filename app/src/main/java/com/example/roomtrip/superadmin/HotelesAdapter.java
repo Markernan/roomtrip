@@ -71,7 +71,16 @@ public class HotelesAdapter extends RecyclerView.Adapter<HotelesAdapter.HotelVie
         holder.tvNombreHotel.setText(hotel.getNombre());
         holder.tvDireccionHotel.setText(hotel.getUbicacion());
         holder.tvRatingHotel.setText(String.valueOf(hotel.getCalificacion()));
-        holder.tvAdminHotel.setText("Admin: " + (hotel.getAdminNombre() != null ? hotel.getAdminNombre() : "Sin asignar"));
+        
+        String adminText;
+        if (hotel.getAdminNombre() != null && !hotel.getAdminNombre().isEmpty()) {
+            adminText = hotel.getAdminNombre();
+        } else if (hotel.getAdminEmail() != null && !hotel.getAdminEmail().isEmpty()) {
+            adminText = hotel.getAdminEmail();
+        } else {
+            adminText = "Sin asignar";
+        }
+        holder.tvAdminHotel.setText("Admin: " + adminText);
 
         if (hotel.getImagenResId() != 0) {
             Glide.with(holder.itemView.getContext())

@@ -43,7 +43,7 @@
                 android:id="@+id/fabAddHotel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_spa"
+                android:src="@drawable/ic_add"
                 app:tint="@color/blanco"
                 app:backgroundTint="@color/turquesa"
                 app:fabSize="mini"

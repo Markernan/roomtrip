@@ -75,11 +75,12 @@
                 android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/tvPercentageTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="+12% este mes"
+                android:text="0% del total"
                 android:textSize="10sp"
-                android:textColor="@color/verde_exito" />
+                android:textColor="@color/texto_secundario" />
         </LinearLayout>
 
     </LinearLayout>
