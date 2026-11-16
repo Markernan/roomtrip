@@ -116,3 +116,14 @@ se registra en `logs` (`API_TAXISTAS_NO_DISPONIBLE`) y el pedido sigue funcionan
 **Limitación conocida:** `firestore.rules` sigue exigiendo `estadoAprobacion == APROBADO` en `usuarios/{uid}` para
 aceptar pedidos, y solo el Superadmin de la app puede cambiarlo. Un taxista aprobado en el portal debe ser aprobado
 también en la app hasta que el equipo decida cómo sincronizarlo.
+
+### Calificación del taxista (RF-TAX-017)
+
+Al aceptar un pedido, el servicio en Firestore guarda `taxistaApiId` (el id del taxista en la API). Con él,
+`SeguimientoTaxiActivity` muestra el vehículo y la placa (`GET /api/taxistas/{id}`) y, cuando el servicio está
+`FINALIZADO`, habilita las estrellas: al elegir una puntuación envía `POST /api/calificaciones`. La API acepta una
+sola calificación por servicio; si ya existe (409) la app lo avisa y bloquea las estrellas.
+
+**Reglas de Firestore:** se agregó `taxistaApiId` a los campos que el taxista puede escribir al aceptar un pedido.
+Hay que **volver a publicar `firestore.rules`** en la consola; sin eso, aceptar un pedido desde una build con la API
+configurada fallará con "No tienes permiso".

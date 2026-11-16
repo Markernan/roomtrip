@@ -454,6 +454,9 @@
     <string name="cliente_taxi_no_encontrado">No se encontró el servicio de taxi</string>
     <string name="cliente_taxi_estado">Estado: %1$s</string>
     <string name="cliente_taxi_buscando">Buscando taxista…</string>
+    <string name="cliente_taxi_calificacion_enviada">¡Gracias por calificar a tu conductor!</string>
+    <string name="cliente_taxi_ya_calificado">Ya calificaste este servicio.</string>
+    <string name="cliente_taxi_calificacion_error">No se pudo enviar tu calificación. Inténtalo de nuevo.</string>
     <string name="cliente_taxi_finalizado">Servicio de taxi finalizado. ¡Buen viaje!</string>
     <string name="cliente_perfil_no_encontrado">No se encontró tu perfil</string>
     <string-array name="cliente_aeropuertos">

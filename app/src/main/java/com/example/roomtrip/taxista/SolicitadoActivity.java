@@ -213,7 +213,7 @@ public class SolicitadoActivity extends AppCompatActivity {
                 abrirPantallaDelServicio(actual);
                 return;
             }
-            repositorio.aceptarPedido(pedido.getId(), uid, sesion.getNombre(), aceptado -> {
+            repositorio.aceptarPedido(pedido.getId(), uid, sesion.getNombre(), sesion.getIdTaxistaApi(), aceptado -> {
                 aceptando = false;
                 if (!aceptado) {
                     Toast.makeText(this, R.string.toast_taxista_pedido_ya_tomado, Toast.LENGTH_SHORT).show();

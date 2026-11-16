@@ -8,6 +8,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.api.ApiException;
+import com.example.roomtrip.data.api.TaxiServicios;
 import com.example.roomtrip.data.firebase.ServicioTaxiRepository;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
 import com.example.roomtrip.data.model.ServicioTaxi;
@@ -33,6 +35,10 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
     private ListenerRegistration registro;
     private EstadoServicioTaxi ultimoEstado;
     private MapaServicioTaxi mapa;
+    private String taxistaApiId;      // id del taxista en la API, cuando ya hay uno asignado
+    private String datosCargadosDe;   // taxistaApiId cuyos datos ya se pidieron a la API
+    private boolean yaCalificado;
+    private boolean calificando;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,10 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
         InsetsHelper.empujarBajoBarraEstado(binding.btnVolverMapa);
         mapa = new MapaServicioTaxi(this, R.id.mapa);
         binding.btnMostrarQr.setEnabled(false);
+        binding.ratingBarTaxista.setIsIndicator(true); // solo se puede calificar con el servicio FINALIZADO
+        binding.ratingBarTaxista.setOnRatingBarChangeListener((barra, puntos, delUsuario) -> {
+            if (delUsuario && puntos >= 1) calificar(Math.round(puntos));
+        });
         binding.btnMostrarQr.setOnClickListener(v -> {
             Intent intent = new Intent(this, MostrarQrActivity.class);
             intent.putExtra(Constants.EXTRA_SERVICIO_TAXI_ID, servicioId);
@@ -93,6 +103,12 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
         binding.tvNombreTaxista.setText(servicio.getTaxistaNombre() != null
                 ? servicio.getTaxistaNombre() : getString(R.string.cliente_taxi_buscando));
 
+        taxistaApiId = servicio.getTaxistaApiId();
+        cargarDatosDelTaxista(servicio);
+        // Calificar solo es posible con el servicio terminado y un taxista conocido por la API
+        binding.ratingBarTaxista.setIsIndicator(estado != EstadoServicioTaxi.FINALIZADO
+                || taxistaApiId == null || yaCalificado || calificando);
+
         // El QR sirve mientras el taxista lo tiene asignado; él lo escanea al llegar (RN-011)
         binding.btnMostrarQr.setEnabled(servicio.estaEnCurso());
 
@@ -101,5 +117,49 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.cliente_taxi_finalizado, Toast.LENGTH_LONG).show();
         }
         ultimoEstado = estado;
+    }
+
+    /** Vehículo, placa y valoración del taxista asignado, tomados de la API. */
+    private void cargarDatosDelTaxista(ServicioTaxi servicio) {
+        String id = servicio.getTaxistaApiId();
+        if (id == null || id.equals(datosCargadosDe)) return;
+        datosCargadosDe = id;
+        TaxiServicios.repositorio().obtenerTaxista(id, taxista -> {
+            String nombre = servicio.getTaxistaNombre() != null ? servicio.getTaxistaNombre()
+                    : taxista.nombreCompleto();
+            String detalle = taxista.descripcionVehiculo();
+            if (taxista.getPlaca() != null && !taxista.getPlaca().isEmpty()) {
+                detalle = detalle.isEmpty() ? taxista.getPlaca() : detalle + " · " + taxista.getPlaca();
+            }
+            binding.tvNombreTaxista.setText(detalle.isEmpty() ? nombre : nombre + "\n" + detalle);
+        }, e -> {
+            // La API puede estar dormida: se queda con el nombre de Firestore y se reintenta al volver
+            Log.w(TAG, "No se pudieron cargar los datos del taxista", e);
+            datosCargadosDe = null;
+        });
+    }
+
+    /** RF-TAX-017: el cliente califica al taxista al terminar el servicio (una sola vez por servicio). */
+    private void calificar(int puntuacion) {
+        if (taxistaApiId == null || servicioId == null || calificando || yaCalificado) return;
+        calificando = true;
+        binding.ratingBarTaxista.setIsIndicator(true);
+        TaxiServicios.repositorio().calificar(taxistaApiId, servicioId, puntuacion, null, calificacion -> {
+            calificando = false;
+            yaCalificado = true;
+            Toast.makeText(this, R.string.cliente_taxi_calificacion_enviada, Toast.LENGTH_LONG).show();
+        }, e -> {
+            calificando = false;
+            ApiException error = e instanceof ApiException ? (ApiException) e : ApiException.desdeFallo(e);
+            if (error.getTipo() == ApiException.Tipo.REGLA_NEGOCIO) {
+                yaCalificado = true; // este servicio ya tenía calificación
+                Toast.makeText(this, R.string.cliente_taxi_ya_calificado, Toast.LENGTH_LONG).show();
+            } else {
+                binding.ratingBarTaxista.setRating(0);
+                binding.ratingBarTaxista.setIsIndicator(false);
+                Toast.makeText(this, error.esNoDisponible() ? ApiException.MENSAJE_NO_DISPONIBLE
+                        : getString(R.string.cliente_taxi_calificacion_error), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
