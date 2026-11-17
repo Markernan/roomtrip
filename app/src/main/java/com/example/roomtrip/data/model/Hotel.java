@@ -16,6 +16,9 @@ import java.util.List;
  * traduce a una foto incluida en la app (mientras se decide Storage o Cloudinary).
  */
 public class Hotel implements Serializable {
+
+    /** Cantidad mínima de fotos que debe subir el administrador (RF-AH-02). */
+    public static final int FOTOS_MINIMAS = 4;
     public static final String COLECCION = "hoteles";
     public static final String SUBCOLECCION_HABITACIONES = "habitaciones";
     public static final String SUBCOLECCION_SERVICIOS = "servicios";
@@ -34,6 +37,8 @@ public class Hotel implements Serializable {
     private double montoMinimoTaxi = MONTO_MINIMO_TAXI_POR_DEFECTO;
     private int numValoraciones;
     private List<String> lugaresCercanos = new ArrayList<>();
+    /** URLs de las fotos del hotel en Firebase Storage ({@code hoteles/{id}/...}); la primera es la principal. */
+    private List<String> fotos = new ArrayList<>();
     // Solo para el reporte del Superadmin: se calculan, no se guardan
     private int reservasReporte;
     private double montoReporte;
@@ -91,6 +96,20 @@ public class Hotel implements Serializable {
 
     public int getNumValoraciones() { return numValoraciones; }
     public void setNumValoraciones(int numValoraciones) { this.numValoraciones = numValoraciones; }
+
+    public List<String> getFotos() { return fotos; }
+    public void setFotos(List<String> fotos) { this.fotos = fotos == null ? new ArrayList<>() : fotos; }
+
+    /** Foto con la que se muestra el hotel en listas y detalle, o null si aún no subió ninguna (RF-AH-02). */
+    @Exclude
+    public String fotoPrincipal() {
+        return fotos == null || fotos.isEmpty() ? null : fotos.get(0);
+    }
+
+    /** RF-AH-02: el hotel necesita al menos {@link #FOTOS_MINIMAS} fotos para guardar su configuración. */
+    public static boolean tieneFotosSuficientes(List<String> fotos) {
+        return fotos != null && fotos.size() >= FOTOS_MINIMAS;
+    }
 
     public List<String> getLugaresCercanos() { return lugaresCercanos; }
     public void setLugaresCercanos(List<String> lugaresCercanos) { this.lugaresCercanos = lugaresCercanos; }

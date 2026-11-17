@@ -48,9 +48,10 @@ Superadmin se crea desde la consola de Firebase. La sesión queda abierta hasta 
 ## Administrador de hotel
 
 - **Acceso:** con el correo que el Superadmin registró para el hotel (ver *Acceso*).
-- **Configuración del hotel:** ubicación, lugares históricos cercanos y monto mínimo para el taxi
-  gratis. Las fotos son, por ahora, imágenes de demostración incluidas en la app (subir fotos
-  propias requiere Firebase Storage).
+- **Configuración del hotel:** fotos, ubicación, lugares históricos cercanos y monto mínimo para el taxi
+  gratis. En *Fotos del hotel*, *Agregar foto* abre la galería (se pueden elegir varias), se suben a
+  Firebase Storage y la X de cada miniatura la quita. **No se puede guardar con menos de 4 fotos.** La
+  primera foto es la que ve el cliente en el listado y en el detalle del hotel.
 - **Inventario:** registrar habitaciones (tipo, capacidad, área, precio) y servicios.
 - **Traslados:** estado en tiempo real de los taxis que salen del hotel.
 - **Checkouts:** cobrar los checkouts pendientes, con cobro adicional por daños (monto, motivo y

@@ -165,3 +165,15 @@ Si algo no aparece, revisar en *Firestore › Reglas* que se haya publicado la v
 - **Servicio de taxistas:** Google Cloud Run con MongoDB Atlas M0. El procedimiento está en
   `docs/DESPLIEGUE.md` de la rama `web-taxis`.
 - **App móvil:** por completar.
+
+## Storage (fotos de hoteles y de perfil)
+
+Lo hace **una sola persona** con acceso al proyecto de Firebase (no necesita código):
+
+1. *Storage › Comenzar*. Ubicación `us-east1` (la ubicación sin costo), clase *Standard*, **modo de producción**.
+2. Pestaña *Reglas*: reemplazar todo por el contenido de [`storage.rules`](../storage.rules) y **Publicar**.
+   Las reglas consultan Firestore (`usuarios/{uid}`) para saber si quien sube es el administrador de ese hotel;
+   si la consola pide permisos para *Firebase Rules*, aceptar.
+3. Recomendado: en *Google Cloud › Facturación › Presupuestos*, crear una alerta (por ejemplo S/ 20) porque el proyecto está en Blaze.
+4. Probar: iniciar sesión como administrador de hotel → *Configuración del hotel* → *Agregar foto* (4 como mínimo) → *Guardar*.
+   En *Storage › Archivos* deben aparecer `hoteles/{hotelId}/…jpg`, y en el listado del cliente la foto nueva del hotel.

@@ -128,7 +128,7 @@ A2 y A3), pendiente de confirmar con el coordinador del curso.
 
 ### Pendientes
 
-- [ ] **Storage de imágenes de la app:** Firebase Storage vs. Cloudinary (impacta el OPEX). La web
+- [x] **Storage de imágenes de la app (decidido en el Lab 7): Firebase Storage.** El proyecto ya está en plan Blaze, comparte autenticación y reglas con el resto y tiene cuota gratuita (bucket regional en `us-east1`). Rutas: `hoteles/{hotelId}/…` (escribe el administrador de ese hotel o el Superadmin) y `perfiles/{uid}.jpg` (escribe el propio usuario); reglas en `storage.rules`. La web de taxistas sigue usando Cloudinary para sus fotos.
       de taxistas ya usa Cloudinary.
 - [ ] **Ubicación y estado del servicio de taxi.** El ERS (RF-API-003 y RF-API-004) pide que la API
       los exponga, pero la API actual no tiene esos endpoints y el diseño de la app usa Realtime

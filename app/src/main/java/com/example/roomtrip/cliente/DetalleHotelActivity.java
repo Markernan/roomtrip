@@ -26,6 +26,7 @@ import com.example.roomtrip.data.model.Servicio;
 import com.example.roomtrip.data.model.ValoracionHotel;
 import com.example.roomtrip.databinding.ItemFullReviewCardBinding;
 import com.example.roomtrip.utils.Constants;
+import com.example.roomtrip.utils.ImagenesHotel;
 import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.utils.InsetsHelper;
 import com.example.roomtrip.utils.NavegacionClienteHelper;
@@ -165,7 +166,7 @@ public class DetalleHotelActivity extends AppCompatActivity {
             hotel = h;
             ((TextView) findViewById(R.id.tvNombreHotel)).setText(h.getNombre());
             ((TextView) findViewById(R.id.tvCalificacionDetalle)).setText(String.format(Locale.US, "%.1f", h.getCalificacion()));
-            ((ImageView) findViewById(R.id.ivFotoHotel)).setImageResource(h.getImagenResId());
+            ImagenesHotel.mostrar((ImageView) findViewById(R.id.ivFotoHotel), h);
             ubicacionHotel.mostrar(h);
             actualizarResumen();
         }, this::mostrarError);

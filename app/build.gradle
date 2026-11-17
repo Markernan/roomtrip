@@ -79,6 +79,7 @@ dependencies {
     implementation platform(libs.firebase.bom)
     implementation libs.firebase.auth
     implementation libs.firebase.firestore
+    implementation libs.firebase.storage
     // FirebaseUI: pantallas de login con correo y Google ya hechas (Clase 10)
     implementation libs.firebase.ui.auth
 
