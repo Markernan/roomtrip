@@ -1,6 +1,6 @@
 # Avance y pendientes — Lab 7 (presentación prefinal 85 %)
 
-Estado al **15/11/2026**, rama `firebase-crud`. Este documento lista lo que ya está en el
+Estado al **16/11/2026**, rama `firebase-crud` (incluye la API de taxistas de `lab7-api-taxistas`). Este documento lista lo que ya está en el
 repositorio para el Lab 7, cómo se verificó y lo que falta para cerrar el proyecto.
 
 ## 1. Hecho: mapa del taxi y ubicación del taxista
@@ -31,7 +31,10 @@ deberá actualizarse periódicamente"*.
 
 1. Poner `MAPS_API_KEY=...` en `local.properties` y `google-services.json` en `app/`
    (ver [`manual-instalacion.md`](manual-instalacion.md)).
-2. El Superadmin aprueba la cuenta del taxista de prueba (*Taxistas → detalle → Aprobar*).
+2. El taxista de prueba debe estar **aprobado en el portal web** de taxistas (con el mismo correo de su cuenta de
+   Firebase) y, por ahora, también en la app (*Superadmin → Taxistas → detalle → Aprobar*): ver la limitación
+   en [`integracion-api-taxistas.md`](integracion-api-taxistas.md). Además, `TAXI_API_CORREO` y
+   `TAXI_API_PASSWORD` en `local.properties`.
 3. Taxista: *Simular nuevo pedido* → aceptar → permitir ubicación. Debe verse el mapa con calles.
 4. En el emulador, *Extended controls → Location* para mover al taxista; en el teléfono del
    cliente el marcador del taxi se mueve en unos 10 s.
@@ -42,15 +45,15 @@ deberá actualizarse periódicamente"*.
 
 | # | Pendiente | Estado | Notas |
 |---|---|---|---|
-| 1 | Probar en dispositivo el mapa y el rastreo | Bloqueado | Falta que el Superadmin apruebe una cuenta de taxista de prueba |
+| 1 | Probar en dispositivo el mapa, el rastreo y la API | Bloqueado | Falta una cuenta de taxista aprobada (portal web + app), la credencial `APP_MOVIL` en `local.properties` y volver a publicar `firestore.rules` (campo `taxistaApiId`) |
 | 2 | **Firebase Storage** (Clase 11): fotos del hotel (mínimo 4), habitaciones, servicios y foto de perfil | No iniciado | Hoy las fotos de hotel son imágenes incluidas en la app. Falta decidir si se usa Firebase Storage o el servicio de AWS que ofreció el curso |
-| 3 | **API de taxistas con Retrofit** (Clase 12): taxistas disponibles, datos y valoración del asignado, disponibilidad, calificación | No iniciado | El servicio web existe en la rama `web-taxis` (gateway + microservicios). Falta `TaxiRepository` en la app y el aviso de *"API no disponible"* sin romper el resto |
+| 3 | **API de taxistas con Retrofit** (Clase 12) | Hecho, sin probar en dispositivo | Integrado desde `lab7-api-taxistas`: login del taxista según la API, disponibilidad, datos del taxista y aviso de *API no disponible*. Detalle en [`integracion-api-taxistas.md`](integracion-api-taxistas.md). Pendiente: sincronizar la aprobación del portal con Firestore |
 | 4 | **QR real** con la cámara | Simulado | `EscaneoActivity` usa el id del servicio en vez de leer el QR (`TODO lab 7`) |
-| 5 | Calificar al taxista al finalizar el servicio | No iniciado | Depende del punto 3 (`POST /api/calificaciones`) |
+| 5 | Calificar al taxista al finalizar el servicio | Hecho, sin probar en dispositivo | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
 | 6 | Ubicación del hotel en un mapa (detalle del hotel y configuración del admin) | No iniciado | Hoy la ubicación del hotel es solo texto |
 | 7 | Ubicación del taxista con la pantalla apagada | Mejora | Ahora se reporta solo con la pantalla del servicio visible; para segundo plano hace falta un *foreground service* de tipo `location` |
 | 8 | Notificaciones entre dispositivos (FCM): cobro, taxi asignado, alerta de checkout | No iniciado | Hoy son notificaciones locales |
-| 9 | Desplegar el servicio de taxistas en la nube | No iniciado | Plan en `docs/DESPLIEGUE.md` de la rama `web-taxis` (Cloud Run + MongoDB Atlas) |
+| 9 | Desplegar el servicio de taxistas en la nube | Hecho | Gateway en Cloud Run (`TAXI_API_URL` por defecto) |
 | 10 | Documentos finales: esquema de BD, arquitectura, OPEX, manuales | Parcial | Actualizar con lo de Lab 7 |
 | 11 | Error de lint que rompe el CI | Pendiente | `res/layout/campo_tipo_documento.xml:36` usa `android:tint`; debe ser `app:tint` |
 | 12 | Ramas del repositorio | Pendiente | `main` está desactualizada y no comparte historia con `firebase-crud`; acordar cuál queda como rama principal |
