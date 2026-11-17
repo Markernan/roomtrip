@@ -19,7 +19,6 @@
     <string name="qr_error_generacion">No pudimos generar tu código QR. Vuelve a abrir esta pantalla e inténtalo de nuevo.</string>
 
     <!-- Taxista: pedidos disponibles y en camino -->
-    <string name="solicitado_mapa_placeholder">Mapa en tiempo real\n(Google Maps SDK — Lab 7)</string>
     <string name="solicitado_estado_buscando">Buscando pasajeros</string>
     <string name="solicitado_titulo_lista">Pasajeros solicitando viaje</string>
     <string name="pedido_origen">Origen: %1$s</string>
@@ -494,6 +493,7 @@
     <string name="mapa_taxi_sin_nombre">Tu taxi</string>
     <string name="mapa_recojo">Recojo: %1$s</string>
     <string name="mapa_destino">Destino: %1$s</string>
+    <string name="mapa_pasajero">Pasajero: %1$s</string>
     <string name="detalle_tab_ubicacion">Ubicación</string>
     <string name="detalle_ubicacion_titulo">Ubicación</string>
     <string name="detalle_lugares_titulo">Lugares históricos cercanos</string>

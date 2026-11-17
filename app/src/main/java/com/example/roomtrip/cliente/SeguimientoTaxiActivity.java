@@ -38,6 +38,9 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
     private MapaServicioTaxi mapa;
     private String taxistaApiId;      // id del taxista en la API, cuando ya hay uno asignado
     private String datosCargadosDe;   // taxistaApiId cuyos datos ya se pidieron a la API
+    // Nombre, vehículo y valoración que dio la API. Se guarda porque el servicio cambia cada ~10 s
+    // (ubicación del taxista) y cada cambio vuelve a pintar la tarjeta
+    private String textoTaxistaApi;
     private boolean yaCalificado;
     private boolean calificando;
 
@@ -101,8 +104,15 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
         EstadoServicioTaxi estado = servicio.getEstado();
         String etiqueta = estado != null ? estado.getEtiqueta() : "";
         binding.tvEstadoServicio.setText(getString(R.string.cliente_taxi_estado, etiqueta));
-        binding.tvNombreTaxista.setText(servicio.getTaxistaNombre() != null
-                ? servicio.getTaxistaNombre() : getString(R.string.cliente_taxi_buscando));
+        if (servicio.getTaxistaApiId() == null || !servicio.getTaxistaApiId().equals(datosCargadosDe)) {
+            textoTaxistaApi = null; // cambió el taxista (o aún no hay): no sirven los datos anteriores
+        }
+        if (textoTaxistaApi != null) {
+            binding.tvNombreTaxista.setText(textoTaxistaApi);
+        } else {
+            binding.tvNombreTaxista.setText(servicio.getTaxistaNombre() != null
+                    ? servicio.getTaxistaNombre() : getString(R.string.cliente_taxi_buscando));
+        }
 
         taxistaApiId = servicio.getTaxistaApiId();
         cargarDatosDelTaxista(servicio);
@@ -133,7 +143,9 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
                 detalle = detalle.isEmpty() ? taxista.getPlaca() : detalle + " · " + taxista.getPlaca();
             }
             String texto = detalle.isEmpty() ? nombre : nombre + "\n" + detalle;
-            binding.tvNombreTaxista.setText(texto + "\n" + taxista.descripcionValoracion());
+            if (!id.equals(datosCargadosDe)) return; // llegó tarde: ya hay otro taxista
+            textoTaxistaApi = texto + "\n" + taxista.descripcionValoracion();
+            binding.tvNombreTaxista.setText(textoTaxistaApi);
             binding.tvAvisoApi.setVisibility(View.GONE);
         }, e -> {
             // La API puede estar dormida: se queda con el nombre de Firestore, se avisa y se reintenta al volver

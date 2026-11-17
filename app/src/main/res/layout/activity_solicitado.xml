@@ -14,15 +14,12 @@
         android:layout_weight="1"
         android:background="#E3E8EF">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/solicitado_mapa_placeholder"
-            android:gravity="center"
-            android:textColor="@color/texto_secundario"
-            android:textSize="14sp"
-            android:fontFamily="@font/poppins_medium" />
+        <!-- Lab 7: posición del taxista y hotel de recojo de cada pedido disponible (MapaPedidos) -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/mapaPedidos"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="wrap_content"
