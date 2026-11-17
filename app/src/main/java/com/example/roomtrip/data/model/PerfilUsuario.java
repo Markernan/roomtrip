@@ -43,6 +43,8 @@ public class PerfilUsuario {
     private String fechaNacimiento;
     private String correo;
     private String telefono;
+    /** URL de la foto de perfil en Firebase Storage ({@code perfiles/{uid}.jpg}); puede faltar. */
+    private String fotoUrl;
     private String domicilio;
 
     private String placa;              // solo taxista
@@ -151,6 +153,8 @@ public class PerfilUsuario {
     public String getCorreo() { return correo; }
     public void setCorreo(String correo) { this.correo = correo; }
 
+    public String getFotoUrl() { return fotoUrl; }
+    public void setFotoUrl(String fotoUrl) { this.fotoUrl = fotoUrl; }
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }
 

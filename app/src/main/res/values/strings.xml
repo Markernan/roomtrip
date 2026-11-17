@@ -84,6 +84,12 @@
     <!-- config_hotel -->
     <string name="config_hotel_configuracion_del_hotel">Configuración del Hotel</string>
     <string name="config_hotel_fotos_del_hotel">Fotos del hotel.</string>
+    <string name="config_hotel_fotos_contador">Fotos cargadas: %1$d (mínimo %2$d)</string>
+    <string name="config_hotel_fotos_faltan">Sube al menos %1$d fotos del hotel para guardar (tienes %2$d).</string>
+    <string name="config_hotel_fotos_subiendo">Espera a que termine la subida de las fotos.</string>
+    <string name="config_hotel_foto_error">No se pudo subir la foto: %1$s</string>
+    <string name="config_hotel_foto_quitar">Quitar foto</string>
+    <string name="config_hotel_foto_quitar_pregunta">¿Quitar esta foto del hotel? Se borra al guardar.</string>
     <string name="config_hotel_fotos_cargadas">"Fotos cargadas: "</string>
     <string name="config_hotel_n2_4">2/4</string>
     <string name="config_hotel_agregar_foto">Agregar foto</string>

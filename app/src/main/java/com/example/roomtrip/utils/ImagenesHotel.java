@@ -1,9 +1,13 @@
 package com.example.roomtrip.utils;
 
+import android.widget.ImageView;
+
 import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 
+import com.bumptech.glide.Glide;
 import com.example.roomtrip.R;
+import com.example.roomtrip.data.model.Hotel;
 
 /**
  * Fotos de hotel incluidas en la app. En Firestore cada hotel guarda una clave ({@code imagen}) y
@@ -41,5 +45,16 @@ public final class ImagenesHotel {
             default:
                 return R.drawable.hotel_placeholder;
         }
+    }
+
+    /** Pinta la foto del hotel: la primera subida a Storage o, si aún no tiene, la imagen incluida en la app. */
+    public static void mostrar(ImageView vista, Hotel hotel) {
+        String url = hotel.fotoPrincipal();
+        if (url == null) {
+            vista.setImageResource(hotel.getImagenResId());
+            return;
+        }
+        Glide.with(vista).load(url).placeholder(hotel.getImagenResId()).error(hotel.getImagenResId())
+                .centerCrop().into(vista);
     }
 }

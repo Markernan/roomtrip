@@ -1,0 +1,35 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Fotos del hotel: las ve cualquier usuario con sesión; solo suben el administrador de ese hotel o el Superadmin.
+    match /hoteles/{hotelId}/{archivo} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*')
+                   && (esSuperadmin() || esAdminDe(hotelId));
+      allow delete: if request.auth != null && (esSuperadmin() || esAdminDe(hotelId));
+    }
+
+    // Foto de perfil: cada usuario solo escribe la suya (perfiles/<uid>.jpg).
+    match /perfiles/{archivo} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && archivo == request.auth.uid + '.jpg'
+                   && request.resource.size < 5 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+      allow delete: if request.auth != null && archivo == request.auth.uid + '.jpg';
+    }
+
+    function perfil() {
+      return firestore.get(/databases/(default)/documents/usuarios/$(request.auth.uid)).data;
+    }
+    function esSuperadmin() {
+      return perfil().rol == 'SUPERADMIN';
+    }
+    function esAdminDe(hotelId) {
+      return perfil().rol == 'ADMIN_HOTEL' && perfil().hotelId == hotelId;
+    }
+  }
+}

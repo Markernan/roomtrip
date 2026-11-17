@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.model.Hotel;
+import com.example.roomtrip.utils.ImagenesHotel;
 
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class HotelAdapter extends RecyclerView.Adapter<HotelAdapter.HotelViewHol
         holder.tvUbicacion.setText(hotel.getUbicacion());
         holder.tvPrecio.setText(hotel.getPrecio());
         holder.tvCalificacion.setText(String.valueOf(hotel.getCalificacion()));
-        holder.ivFotoHotel.setImageResource(hotel.getImagenResId());
+        ImagenesHotel.mostrar(holder.ivFotoHotel, hotel);
         holder.btnVerDetalles.setOnClickListener(v -> listener.onVerDetalles(hotel));
     }
 
