@@ -51,6 +51,7 @@ public class SolicitadoActivity extends AppCompatActivity {
 
     private final List<ServicioTaxi> pedidos = new ArrayList<>();
     private PedidoTaxiAdapter adapter;
+    private MapaPedidos mapa;
 
     // Listener de Firestore: se registra en onStart y se quita en onStop (Clase 9.2, consumo de batería)
     private ListenerRegistration registroPedidos;
@@ -88,6 +89,7 @@ public class SolicitadoActivity extends AppCompatActivity {
 
         pedirPermisoNotificaciones();
         configurarDisponibilidad();
+        mapa = new MapaPedidos(this, R.id.mapaPedidos);
 
         adapter = new PedidoTaxiAdapter(pedidos, this::aceptarPedido);
         binding.rvPedidos.setLayoutManager(new LinearLayoutManager(this));
@@ -168,6 +170,7 @@ public class SolicitadoActivity extends AppCompatActivity {
         pedidos.addAll(disponibles);
         adapter.notifyDataSetChanged();
         binding.tvSinPedidos.setVisibility(pedidos.isEmpty() ? View.VISIBLE : View.GONE);
+        mapa.mostrar(pedidos);
     }
 
     private void simularPedido() {

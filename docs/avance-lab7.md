@@ -25,8 +25,9 @@ Arreglos que salieron de la prueba:
 calificación al finalizar), porque el pedido simulado no tiene un cliente real: hace falta una reserva con
 checkout y *Solicitar taxi* desde otra cuenta. También la pestaña *Ubicación* del hotel.
 
-**Pendiente visible en la demo:** la pantalla *Buscando pasajeros* del taxista todavía muestra el recuadro
-"Mapa en tiempo real (Google Maps SDK — Lab 7)" en lugar de un mapa.
+**Mapa en *Buscando pasajeros*:** la pantalla principal del taxista ya no tiene el recuadro de ejemplo: muestra su
+posición y el hotel de recojo de cada pedido disponible, y pide ahí el permiso de ubicación (`taxista/MapaPedidos.java`).
+Probado en el emulador con un pedido simulado.
 
 **Configuración para probar el flujo del taxi** (ya hecha para la cuenta a20220851@pucp.edu.pe):
 
