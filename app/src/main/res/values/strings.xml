@@ -212,8 +212,11 @@
     <string name="en_traslado_escanear">Escanear</string>
     <!-- escaneo -->
     <string name="escaneo_escanea_el_codigo_qr_del">Escanea el código QR del pasajero</string>
-    <string name="escaneo_area_de_camara">[ Área de cámara ]</string>
-    <string name="escaneo_escanear_codigo_qr">Validar QR (simulado)</string>
+    <string name="escaneo_area_de_camara">Toca el botón para abrir la cámara y apunta al QR que muestra el pasajero</string>
+    <string name="escaneo_escanear_codigo_qr">Escanear código QR</string>
+    <string name="escaneo_prompt_camara">Apunta al código QR que muestra el pasajero</string>
+    <string name="escaneo_cancelado">Escaneo cancelado</string>
+    <string name="escaneo_simulado_debug">Prueba en emulador: se usó el código del servicio en curso</string>
     <!-- finalizado -->
     <string name="finalizado_trayecto_finalizado">¡Trayecto Finalizado!</string>
     <string name="finalizado_recuerda_verificar_que_el_pasaje">Recuerda verificar que el pasajero no haya olvidado sus pertenencias en el vehículo.</string>
@@ -481,5 +484,11 @@
     <string name="mapa_taxi_sin_nombre">Tu taxi</string>
     <string name="mapa_recojo">Recojo: %1$s</string>
     <string name="mapa_destino">Destino: %1$s</string>
+    <string name="detalle_tab_ubicacion">Ubicación</string>
+    <string name="detalle_ubicacion_titulo">Ubicación</string>
+    <string name="detalle_lugares_titulo">Lugares históricos cercanos</string>
+    <string name="detalle_sin_lugares">El hotel aún no registró lugares cercanos.</string>
+    <string name="detalle_sin_direccion">Dirección no registrada</string>
+    <string name="mapa_lugar_cercano">Lugar cercano: %1$s</string>
     <string name="mapa_permiso_ubicacion">Activa el permiso de ubicación para que el cliente pueda seguir tu taxi en el mapa</string>
 </resources>

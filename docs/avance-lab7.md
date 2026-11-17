@@ -11,8 +11,8 @@ funciona con el `google-services.json` del equipo. Las reglas de Firestore con `
 publicadas.
 
 **Listo en código, sin probar en dispositivo:** mapa del taxi y rastreo del taxista, login del taxista según la
-API, disponibilidad sincronizada con la API, datos del taxista en el seguimiento del cliente y calificación del
-taxista.
+API, disponibilidad sincronizada con la API, datos del taxista en el seguimiento del cliente, calificación del
+taxista, lectura del QR con la cámara y la pestaña *Ubicación* del hotel.
 
 **Qué falta para probar el flujo completo del taxi** (es configuración, no código):
 
@@ -73,14 +73,14 @@ deberá actualizarse periódicamente"*.
 | 1 | Probar en dispositivo el mapa, el rastreo y la API | Bloqueado | Falta una cuenta de taxista aprobada (portal web + app), la credencial `APP_MOVIL` en `local.properties` y volver a publicar `firestore.rules` (campo `taxistaApiId`) |
 | 2 | **Firebase Storage** (Clase 11): fotos del hotel (mínimo 4), habitaciones, servicios y foto de perfil | No iniciado | Hoy las fotos de hotel son imágenes incluidas en la app. Falta decidir si se usa Firebase Storage o el servicio de AWS que ofreció el curso |
 | 3 | **API de taxistas con Retrofit** (Clase 12) | Hecho, sin probar en dispositivo | Integrado desde `lab7-api-taxistas`: login del taxista según la API, disponibilidad, datos del taxista y aviso de *API no disponible*. Detalle en [`integracion-api-taxistas.md`](integracion-api-taxistas.md). Pendiente: sincronizar la aprobación del portal con Firestore |
-| 4 | **QR real** con la cámara | Simulado | `EscaneoActivity` usa el id del servicio en vez de leer el QR (`TODO lab 7`) |
+| 4 | **QR real** con la cámara | Hecho, sin probar en dispositivo | `EscaneoActivity` lee el QR del cliente con `zxing-android-embedded`. En compilaciones de depuración, una pulsación larga del botón simula la lectura (emulador sin cámara) |
 | 5 | Calificar al taxista al finalizar el servicio | Hecho, sin probar en dispositivo | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
-| 6 | Ubicación del hotel en un mapa (detalle del hotel y configuración del admin) | No iniciado | Hoy la ubicación del hotel es solo texto |
+| 6 | Ubicación del hotel en un mapa | Hecho (cliente), sin probar en dispositivo | Pestaña *Ubicación* en el detalle del hotel: dirección, mapa (lite mode) con el hotel y los lugares históricos cercanos. Falta un selector de ubicación en el mapa para el admin (hoy la escribe como texto) |
 | 7 | Ubicación del taxista con la pantalla apagada | Mejora | Ahora se reporta solo con la pantalla del servicio visible; para segundo plano hace falta un *foreground service* de tipo `location` |
 | 8 | Notificaciones entre dispositivos (FCM): cobro, taxi asignado, alerta de checkout | No iniciado | Hoy son notificaciones locales |
 | 9 | Desplegar el servicio de taxistas en la nube | Hecho | Gateway en Cloud Run (`TAXI_API_URL` por defecto) |
 | 10 | Documentos finales: esquema de BD, arquitectura, OPEX, manuales | Parcial | Actualizar con lo de Lab 7 |
-| 11 | Error de lint que rompe el CI | Pendiente | `res/layout/campo_tipo_documento.xml:36` usa `android:tint`; debe ser `app:tint` |
+| 11 | Error de lint que rompe el CI | Hecho | `campo_tipo_documento.xml` usa `app:tint`; `lintDebug` pasa sin errores |
 | 12 | Ramas del repositorio | Pendiente | `main` está desactualizada y no comparte historia con `firebase-crud`; acordar cuál queda como rama principal |
 
 ## 3. Configuración compartida del equipo

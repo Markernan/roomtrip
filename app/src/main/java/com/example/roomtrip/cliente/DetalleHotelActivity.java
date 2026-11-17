@@ -52,8 +52,9 @@ public class DetalleHotelActivity extends AppCompatActivity {
     private static final String TAG = "DetalleHotelActivity";
     private static final DateTimeFormatter FORMATO_CORTO = DateTimeFormatter.ofPattern("d MMM", Locale.forLanguageTag("es-PE"));
 
-    private View contenidoOpiniones, contenidoDetalles, contenidoServicios;
-    private TextView tabOpiniones, tabDetalles, tabServicios;
+    private View contenidoOpiniones, contenidoDetalles, contenidoServicios, contenidoUbicacion;
+    private TextView tabOpiniones, tabDetalles, tabServicios, tabUbicacion;
+    private UbicacionHotel ubicacionHotel;
     private TextView tvFechaEntrada, tvFechaSalida, tvAlertaConflicto, tvDescripcionHabitacion,
             tvAreaHabitacion, tvDetallePrecio, tvPrecioTotal;
     private View btnReservar;
@@ -86,13 +87,20 @@ public class DetalleHotelActivity extends AppCompatActivity {
         contenidoOpiniones = findViewById(R.id.contenidoOpiniones);
         contenidoDetalles = findViewById(R.id.contenidoDetalles);
         contenidoServicios = findViewById(R.id.contenidoServicios);
+        contenidoUbicacion = findViewById(R.id.contenidoUbicacion);
         tabOpiniones = findViewById(R.id.tabOpiniones);
         tabDetalles = findViewById(R.id.tabDetalles);
         tabServicios = findViewById(R.id.tabServicios);
+        tabUbicacion = findViewById(R.id.tabUbicacion);
 
         tabOpiniones.setOnClickListener(v -> mostrarPestana(0));
         tabDetalles.setOnClickListener(v -> mostrarPestana(1));
         tabServicios.setOnClickListener(v -> mostrarPestana(2));
+        tabUbicacion.setOnClickListener(v -> {
+            mostrarPestana(3);
+            ubicacionHotel.alMostrar();
+        });
+        ubicacionHotel = new UbicacionHotel(this, contenidoUbicacion);
         mostrarPestana(0);
 
         tvFechaEntrada = contenidoDetalles.findViewById(R.id.tvFechaEntrada);
@@ -127,10 +135,12 @@ public class DetalleHotelActivity extends AppCompatActivity {
         contenidoOpiniones.setVisibility(indice == 0 ? View.VISIBLE : View.GONE);
         contenidoDetalles.setVisibility(indice == 1 ? View.VISIBLE : View.GONE);
         contenidoServicios.setVisibility(indice == 2 ? View.VISIBLE : View.GONE);
+        contenidoUbicacion.setVisibility(indice == 3 ? View.VISIBLE : View.GONE);
 
         activarPestana(tabOpiniones, indice == 0);
         activarPestana(tabDetalles, indice == 1);
         activarPestana(tabServicios, indice == 2);
+        activarPestana(tabUbicacion, indice == 3);
     }
 
     private void activarPestana(TextView tab, boolean activa) {
@@ -156,6 +166,7 @@ public class DetalleHotelActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.tvNombreHotel)).setText(h.getNombre());
             ((TextView) findViewById(R.id.tvCalificacionDetalle)).setText(String.format(Locale.US, "%.1f", h.getCalificacion()));
             ((ImageView) findViewById(R.id.ivFotoHotel)).setImageResource(h.getImagenResId());
+            ubicacionHotel.mostrar(h);
             actualizarResumen();
         }, this::mostrarError);
     }

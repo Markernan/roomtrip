@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Lab 7: ubicación del hotel y lugares históricos cercanos (detalle del hotel, cliente) -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detalle_ubicacion_titulo"
+        android:textColor="@color/texto_principal"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_bold" />
+
+    <TextView
+        android:id="@+id/tvDireccionDetalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/texto_secundario"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        android:drawableStart="@drawable/ic_location" />
+
+    <!-- Lite mode: imagen estática del mapa, adecuada dentro de un ScrollView -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mapaHotel"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:layout_marginTop="12dp"
+        map:liteMode="true"
+        map:mapType="normal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/detalle_lugares_titulo"
+        android:textColor="@color/texto_principal"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppins_semibold" />
+
+    <LinearLayout
+        android:id="@+id/contenedorLugares"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical" />
+
+</LinearLayout>

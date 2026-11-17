@@ -11,6 +11,8 @@ navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 glide = "4.16.0"
 zxing = "3.5.3"
+# Lab 7: lector de QR con la cámara (usa el mismo zxing-core)
+zxingEmbedded = "4.3.0"
 # Firebase (Lab 6): las mismas versiones de la Clase 10. Compatibles con AGP 8.7.3 y compileSdk 35
 firebaseBom = "34.13.0"
 firebaseUiAuth = "9.1.1"
@@ -25,6 +27,7 @@ okhttp = "4.12.0"
 [libraries]
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 zxing-core = { group = "com.google.zxing", name = "core", version.ref = "zxing" }
+zxing-android-embedded = { group = "com.journeyapps", name = "zxing-android-embedded", version.ref = "zxingEmbedded" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }

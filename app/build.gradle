@@ -65,6 +65,8 @@ dependencies {
     implementation libs.navigation.fragment.ktx
     implementation libs.navigation.ui.ktx
     implementation 'com.google.zxing:core:3.5.3'
+    // Lab 7: el taxista lee el QR del cliente con la cámara (RN-011)
+    implementation libs.zxing.android.embedded
     testImplementation libs.junit
     androidTestImplementation libs.espresso.core
     androidTestImplementation libs.ext.junit

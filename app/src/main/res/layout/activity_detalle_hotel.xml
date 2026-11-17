@@ -120,6 +120,21 @@
             android:fontFamily="@font/poppins_semibold"
             android:clickable="true"
             android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tabUbicacion"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:gravity="center"
+            android:paddingVertical="10dp"
+            android:text="@string/detalle_tab_ubicacion"
+            android:textColor="@color/texto_secundario"
+            android:textSize="13sp"
+            android:fontFamily="@font/poppins_semibold"
+            android:clickable="true"
+            android:focusable="true" />
     </LinearLayout>
 
     <ScrollView
@@ -134,6 +149,7 @@
             <include layout="@layout/tab_opiniones" android:id="@+id/contenidoOpiniones" />
             <include layout="@layout/tab_detalles" android:id="@+id/contenidoDetalles" />
             <include layout="@layout/tab_servicios" android:id="@+id/contenidoServicios" />
+            <include layout="@layout/tab_ubicacion" android:id="@+id/contenidoUbicacion" />
 
         </FrameLayout>
     </ScrollView>
