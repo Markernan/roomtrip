@@ -1,7 +1,32 @@
 # Avance y pendientes — Lab 7 (presentación prefinal 85 %)
 
-Estado al **16/11/2026**, rama `firebase-crud` (incluye la API de taxistas de `lab7-api-taxistas`). Este documento lista lo que ya está en el
+Estado al **17/11/2026**, rama `firebase-crud` (incluye la API de taxistas de `lab7-api-taxistas`). Este documento lista lo que ya está en el
 repositorio para el Lab 7, cómo se verificó y lo que falta para cerrar el proyecto.
+
+## 0. Estado para la presentación del 85 % (17/11/2026)
+
+**Listo y verificado:** la rama compila (`assembleDebug`) y pasan todas las pruebas unitarias
+(`testDebugUnitTest`, incluidas las 26 de `data/api`). La app se instala en el emulador y el login con Google
+funciona con el `google-services.json` del equipo. Las reglas de Firestore con `taxistaApiId` ya están
+publicadas.
+
+**Listo en código, sin probar en dispositivo:** mapa del taxi y rastreo del taxista, login del taxista según la
+API, disponibilidad sincronizada con la API, datos del taxista en el seguimiento del cliente y calificación del
+taxista.
+
+**Qué falta para probar el flujo completo del taxi** (es configuración, no código):
+
+| # | Paso | Quién |
+|---|---|---|
+| 1 | Registrar la cuenta de taxista de prueba en el portal web (`https://portal-web-7oe536zvqa-uc.a.run.app`) **con el mismo correo** con el que entra a la app (Firebase). Si los correos no coinciden, la app dice que el taxista no está registrado | Quien hace la demo |
+| 2 | Aprobar esa cuenta en el portal web | Superadmin del portal |
+| 3 | Aprobarla también en la app (*Superadmin → Taxistas → Aprobar*), porque `firestore.rules` todavía exige `estadoAprobacion == APROBADO` para aceptar pedidos. Si nadie tiene la cuenta Superadmin de la app, crearla según [`manual-instalacion.md`](manual-instalacion.md), sección 5.4, o poner `estadoAprobacion = APROBADO` en `usuarios/{uid}` desde la consola | Superadmin de la app o dueño del proyecto de Firebase |
+| 4 | Cada integrante que compile: `MAPS_API_KEY`, `TAXI_API_CORREO` y `TAXI_API_PASSWORD` en `local.properties` (se pasan por privado) y `google-services.json` en `app/` | Cada integrante |
+
+**Recomendación para la demo:** si los pasos 1–3 no están listos a tiempo, mostrar el flujo de reservas, el
+checkout con el pedido de taxi y los reportes (que ya funcionan sobre Firebase), y presentar el mapa y la API con
+el código, las pruebas unitarias y este documento como evidencia, marcados como *pendientes de prueba en
+dispositivo*.
 
 ## 1. Hecho: mapa del taxi y ubicación del taxista
 
