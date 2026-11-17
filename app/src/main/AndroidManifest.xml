@@ -163,6 +163,11 @@
             android:name=".taxista.EscaneoActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+        <!-- Lector QR de zxing: por defecto queda en horizontal; así sigue la orientación del teléfono -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation" />
         <activity
             android:name=".taxista.FinalizadoActivity"
             android:exported="false"

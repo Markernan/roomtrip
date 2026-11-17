@@ -1,6 +1,7 @@
 package com.example.roomtrip.utils;
 
 import android.annotation.SuppressLint;
+import android.location.Location;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -33,6 +34,7 @@ import com.google.firebase.firestore.GeoPoint;
 public class MapaServicioTaxi {
 
     private static final String TAG = "MapaServicioTaxi";
+    private static final float DISTANCIA_REENCUADRE_M = 1_000f;
 
     private final AppCompatActivity activity;
     private final HotelRepository hoteles = new HotelRepository();
@@ -52,7 +54,13 @@ public class MapaServicioTaxi {
     private String lugaresBuscadosDe;
     @Nullable
     private EstadoServicioTaxi estadoEncuadrado;
-    private boolean taxiEncuadrado;
+    /**
+     * Posición del taxi la última vez que se encuadró la cámara. Si el taxi se aleja más de
+     * {@link #DISTANCIA_REENCUADRE_M} de ahí (o la primera posición era mala, como la que da el emulador
+     * antes de fijar el GPS), se vuelve a encuadrar.
+     */
+    @Nullable
+    private LatLng taxiEncuadrado;
     private boolean miUbicacionPendiente;
 
     public MapaServicioTaxi(@NonNull AppCompatActivity activity, int idFragmentoMapa) {
@@ -165,13 +173,21 @@ public class MapaServicioTaxi {
         marcadorTaxi = MapaHelper.ponerMarcador(mapa, marcadorTaxi, puntoTaxi, tituloTaxi,
                 BitmapDescriptorFactory.HUE_YELLOW);
 
-        boolean primerTaxi = puntoTaxi != null && !taxiEncuadrado;
+        boolean primerTaxi = puntoTaxi != null && taxiEncuadrado == null;
+        boolean taxiLejos = puntoTaxi != null && taxiEncuadrado != null
+                && distanciaMetros(puntoTaxi, taxiEncuadrado) > DISTANCIA_REENCUADRE_M;
         boolean cambioEstado = servicio.getEstado() != estadoEncuadrado;
-        if (cambioDeLugares || primerTaxi || cambioEstado) {
-            if (puntoTaxi != null) taxiEncuadrado = true;
+        if (cambioDeLugares || primerTaxi || taxiLejos || cambioEstado) {
+            if (puntoTaxi != null) taxiEncuadrado = puntoTaxi;
             estadoEncuadrado = servicio.getEstado();
             MapaHelper.encuadrar(mapa, puntoTaxi, objetivo());
         }
+    }
+
+    private static float distanciaMetros(@NonNull LatLng a, @NonNull LatLng b) {
+        float[] resultado = new float[1];
+        Location.distanceBetween(a.latitude, a.longitude, b.latitude, b.longitude, resultado);
+        return resultado[0];
     }
 
     /** A dónde va el taxi ahora: al hotel a recoger, o al aeropuerto con el pasajero. */

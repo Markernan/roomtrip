@@ -10,11 +10,25 @@ repositorio para el Lab 7, cómo se verificó y lo que falta para cerrar el proy
 funciona con el `google-services.json` del equipo. Las reglas de Firestore con `taxistaApiId` ya están
 publicadas.
 
-**Listo en código, sin probar en dispositivo:** mapa del taxi y rastreo del taxista, login del taxista según la
-API, disponibilidad sincronizada con la API, datos del taxista en el seguimiento del cliente, calificación del
-taxista, lectura del QR con la cámara y la pestaña *Ubicación* del hotel.
+**Probado en el emulador (17/11/2026, cuenta de taxista aprobada en el portal y en la app):** login del taxista
+según la API, pedido simulado → aceptar → *En camino* → *Llegué al encuentro* → *En traslado* → escaneo →
+*Trayecto finalizado*. El mapa carga con la clave de Maps, ubica el hotel y el aeropuerto con el geocoder, muestra
+el taxi y lo mueve al cambiar el GPS del emulador; la ubicación se guarda en Firestore sin errores de reglas. El
+lector QR abre la cámara (en el emulador no hay QR real; se cerró el servicio con la lectura simulada de depuración).
 
-**Qué falta para probar el flujo completo del taxi** (es configuración, no código):
+Arreglos que salieron de la prueba:
+- La cámara del mapa quedaba alejada (nivel continente) si la primera posición del GPS era mala, como la del
+  emulador antes de fijarla; ahora reencuadra cuando el taxi se mueve más de 1 km (`MapaServicioTaxi`).
+- El lector QR se abría en horizontal; ahora sigue la orientación del teléfono (`AndroidManifest.xml`).
+
+**Listo en código, falta probar:** el lado del cliente (taxi moviéndose en *Ver mi taxi*, datos del taxista y
+calificación al finalizar), porque el pedido simulado no tiene un cliente real: hace falta una reserva con
+checkout y *Solicitar taxi* desde otra cuenta. También la pestaña *Ubicación* del hotel.
+
+**Pendiente visible en la demo:** la pantalla *Buscando pasajeros* del taxista todavía muestra el recuadro
+"Mapa en tiempo real (Google Maps SDK — Lab 7)" en lugar de un mapa.
+
+**Configuración para probar el flujo del taxi** (ya hecha para la cuenta a20220851@pucp.edu.pe):
 
 | # | Paso | Quién |
 |---|---|---|
@@ -49,8 +63,8 @@ deberá actualizarse periódicamente"*.
 - `./gradlew assembleDebug testDebugUnitTest`: compila y pasan las pruebas unitarias.
 - La app se instaló y abrió en el emulador (Pixel 4, API 34) con el `google-services.json` del
   equipo; el inicio de sesión con Google funciona.
-- **No verificado todavía:** que el mapa cargue y que el taxi se mueva. La cuenta de prueba de
-  taxista quedó *pendiente de aprobación* y nadie con Superadmin la aprobó a tiempo.
+- 17/11/2026: con la cuenta de taxista ya aprobada, el mapa carga, ubica hotel y aeropuerto, y el taxi se
+  mueve al cambiar la ubicación del emulador (*Extended controls → Location* o `adb emu geo fix <lng> <lat>`).
 
 ### Para probarlo (cualquier integrante)
 
@@ -70,10 +84,10 @@ deberá actualizarse periódicamente"*.
 
 | # | Pendiente | Estado | Notas |
 |---|---|---|---|
-| 1 | Probar en dispositivo el mapa, el rastreo y la API | Bloqueado | Falta una cuenta de taxista aprobada (portal web + app), la credencial `APP_MOVIL` en `local.properties` y volver a publicar `firestore.rules` (campo `taxistaApiId`) |
+| 1 | Probar en dispositivo el mapa, el rastreo y la API | Hecho (taxista), falta el cliente | Flujo del taxista probado en el emulador el 17/11 (ver sección 0). Falta probar el seguimiento y la calificación desde una cuenta de cliente real |
 | 2 | **Firebase Storage** (Clase 11): fotos del hotel (mínimo 4), habitaciones, servicios y foto de perfil | No iniciado | Hoy las fotos de hotel son imágenes incluidas en la app. Falta decidir si se usa Firebase Storage o el servicio de AWS que ofreció el curso |
 | 3 | **API de taxistas con Retrofit** (Clase 12) | Hecho, sin probar en dispositivo | Integrado desde `lab7-api-taxistas`: login del taxista según la API, disponibilidad, datos del taxista y aviso de *API no disponible*. Detalle en [`integracion-api-taxistas.md`](integracion-api-taxistas.md). Pendiente: sincronizar la aprobación del portal con Firestore |
-| 4 | **QR real** con la cámara | Hecho, sin probar en dispositivo | `EscaneoActivity` lee el QR del cliente con `zxing-android-embedded`. En compilaciones de depuración, una pulsación larga del botón simula la lectura (emulador sin cámara) |
+| 4 | **QR real** con la cámara | Hecho; la cámara abre en el emulador, falta leer un QR real en un teléfono | `EscaneoActivity` lee el QR del cliente con `zxing-android-embedded`. En compilaciones de depuración, una pulsación larga del botón simula la lectura (emulador sin cámara) |
 | 5 | Calificar al taxista al finalizar el servicio | Hecho, sin probar en dispositivo | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
 | 6 | Ubicación del hotel en un mapa | Hecho (cliente), sin probar en dispositivo | Pestaña *Ubicación* en el detalle del hotel: dirección, mapa (lite mode) con el hotel y los lugares históricos cercanos. Falta un selector de ubicación en el mapa para el admin (hoy la escribe como texto) |
 | 7 | Ubicación del taxista con la pantalla apagada | Mejora | Ahora se reporta solo con la pantalla del servicio visible; para segundo plano hace falta un *foreground service* de tipo `location` |
