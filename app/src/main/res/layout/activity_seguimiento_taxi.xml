@@ -112,6 +112,19 @@
             </LinearLayout>
         </LinearLayout>
 
+        <!-- RNF-06: aviso cuando la API de taxistas no responde; el resto de la pantalla sigue funcionando -->
+        <TextView
+            android:id="@+id/tvAvisoApi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@color/rojo_alerta_fondo"
+            android:padding="10dp"
+            android:textColor="@color/rojo_alerta_texto"
+            android:textSize="12sp"
+            android:fontFamily="@font/poppins_regular"
+            android:visibility="gone" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

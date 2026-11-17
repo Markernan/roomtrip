@@ -53,7 +53,8 @@ public class RastreoUbicacionTaxista {
     @Nullable
     private String servicioId;
     private boolean activo;
-    private long ultimoEnvioMs;
+    /** Compartido entre instancias: la pantalla y el servicio en primer plano no escriben a la vez. */
+    private static volatile long ultimoEnvioMs;
 
     private final LocationCallback callback = new LocationCallback() {
         @Override
@@ -90,7 +91,6 @@ public class RastreoUbicacionTaxista {
             return;
         }
         this.servicioId = servicioId;
-        this.ultimoEnvioMs = 0;
 
         LocationRequest pedido = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, INTERVALO_MS)
                 .setMinUpdateIntervalMillis(INTERVALO_MINIMO_MS)

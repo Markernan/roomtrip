@@ -55,4 +55,16 @@ public class TaxistaApiTest {
         assertFalse(inhabilitado.estaAprobado());
         assertFalse(inhabilitado.estaDisponible());
     }
+
+    @Test
+    public void muestraLaValoracionDelTaxista() {
+        assertEquals("★ 4.8 (14)", taxista.descripcionValoracion());
+    }
+
+    @Test
+    public void sinCalificacionesMuestraUnTextoNeutro() {
+        TaxistaApi nuevoTaxista = new Gson().fromJson("{\"nombres\":\"Ana\"}", TaxistaApi.class);
+
+        assertEquals("Sin calificaciones todavía", nuevoTaxista.descripcionValoracion());
+    }
 }

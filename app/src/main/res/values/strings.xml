@@ -460,6 +460,10 @@
     <string name="cliente_taxi_calificacion_enviada">¡Gracias por calificar a tu conductor!</string>
     <string name="cliente_taxi_ya_calificado">Ya calificaste este servicio.</string>
     <string name="cliente_taxi_calificacion_error">No se pudo enviar tu calificación. Inténtalo de nuevo.</string>
+    <string name="cliente_taxi_datos_error">No se pudieron cargar el vehículo y la valoración del taxista. Reintentaremos en unos segundos.</string>
+    <string name="ubicacion_canal">Ubicación durante el servicio</string>
+    <string name="ubicacion_titulo">Servicio de taxi en curso</string>
+    <string name="ubicacion_texto">Compartiendo tu ubicación con el cliente</string>
     <string name="cliente_taxi_finalizado">Servicio de taxi finalizado. ¡Buen viaje!</string>
     <string name="cliente_perfil_no_encontrado">No se encontró tu perfil</string>
     <string-array name="cliente_aeropuertos">

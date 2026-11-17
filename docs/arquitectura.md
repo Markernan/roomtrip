@@ -139,9 +139,11 @@ A2 y A3), pendiente de confirmar con el coordinador del curso.
       `RECHAZADO`, los mismos valores de la API). Mientras no exista la integración (Lab 7), el
       Superadmin aprueba cambiando ese campo. **Pendiente para el Lab 7:** vincular el uid con el
       id del taxista en `taxi-service` (campo `idTaxistaApi`) y tomar la aprobación de la API.
-- [ ] **Generación y validación del código QR.** Decidido: el contenido del QR es el id del documento
-      `serviciosTaxi`. El cliente lo genera y el taxista lo valida contra Firestore (Lab 6,
-      `ServicioTaxiRepository.finalizarConQr`). Falta leerlo con la cámara en vez de simularlo (RN-011).
+- [x] **Generación y validación del código QR (Lab 7).** El contenido del QR es el id del documento
+      `serviciosTaxi`. El cliente lo genera con ZXing y el taxista lo lee con la cámara
+      (`EscaneoActivity`, `zxing-android-embedded`) y lo valida contra Firestore
+      (`ServicioTaxiRepository.finalizarConQr`). En compilaciones de depuración, una pulsación larga
+      del botón simula la lectura (emulador sin cámara). Pendiente: probarlo en un dispositivo real (RN-011).
 - [ ] **Dónde vive el código de `taxi-service`:** integrarlo a la carpeta `taxi-service/` o dejarlo
       en la rama `web-taxis`.
 - [ ] **Estados de checkout y de habitación:** el ERS no los define. Hoy son los `enum` `EstadoCheckout`
@@ -162,7 +164,9 @@ Lo que existe hoy en el código, frente al diseño de arriba:
 | Listas | `RecyclerView` con su adapter en los cuatro roles |
 | Vistas | ViewBinding en casi todo el admin de hotel, en el flujo del taxista, en Registrar hotel y en el checkout y taxi del cliente; el resto de cliente y superadmin sigue con `findViewById` y se migra de forma progresiva |
 | Estados | `enum` (`EstadoServicioTaxi`, `EstadoReserva`, `EstadoCuenta`, `EstadoCheckout`, `EstadoHabitacion`, `EstadoAprobacion`) en `data/model/`, con pruebas unitarias, guardados por su nombre en Firestore |
-| QR | El cliente genera con ZXing el QR con el id del documento de `serviciosTaxi`. El taxista lo valida contra Firestore en una transacción; la lectura con cámara todavía es simulada |
+| QR | El cliente genera con ZXing el QR con el id del documento de `serviciosTaxi`. El taxista lo lee con la cámara y lo valida contra Firestore en una transacción (Lab 7); falta probarlo en dispositivo |
+| API de taxistas (Lab 7) | `data/api/`: Retrofit con `TaxiRepository` como única puerta de la app hacia `taxi-service` (RNF-09). El cliente lee vehículo, placa y valoración del taxista y lo califica (`POST /api/calificaciones`); el taxista inicia sesión según la API y sincroniza su disponibilidad. Si la API no responde (`ApiException.NO_DISPONIBLE`) la app muestra un aviso y las reservas y el mapa siguen funcionando (RNF-06) |
+| Mapas y ubicación (Lab 7) | Google Maps SDK y Fused Location Provider. El taxista guarda su posición cada 10 s en `serviciosTaxi/{id}.ubicacionTaxista`; el cliente la escucha con un listener de Firestore y mueve el marcador. La clave de Maps va en `local.properties` (`MAPS_API_KEY`), fuera del repositorio |
 | Imágenes | Los hoteles guardan una clave (`imagen`) de una foto incluida en la app (`ImagenesHotel`). Subir fotos propias depende de la decisión de Storage |
 | Notificaciones | Taxista: pedidos nuevos (listener). Cliente: aviso de cobro cuando el hotel procesa el checkout, mientras la app está abierta (listener en `AvisosCobro`). Con la app cerrada hace falta Cloud Messaging |
 | Calidad | Pruebas unitarias, `lintDebug` y compilación en cada PR (GitHub Actions) |

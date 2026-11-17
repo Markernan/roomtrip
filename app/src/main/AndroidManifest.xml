@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
 
     <uses-feature android:name="android.hardware.camera" android:required="false" />
 
@@ -172,6 +174,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+    
+        <!-- Sigue reportando la ubicación del taxista con la pantalla apagada (RNF-05) -->
+        <service
+            android:name=".taxista.UbicacionTaxistaService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
     </application>
 
 </manifest>

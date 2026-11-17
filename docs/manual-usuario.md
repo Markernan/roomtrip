@@ -34,8 +34,15 @@ Superadmin se crea desde la consola de Firebase. La sesión queda abierta hasta 
 - **Checkout:** desde el día de entrada. Valoración (1 a 5 estrellas) y observaciones obligatorias.
   Si el total alcanza el monto mínimo del hotel, se puede pedir el **taxi gratis** al aeropuerto.
   El cobro final lo confirma el hotel y llega una notificación.
-- **Taxi:** *Ver mi taxi* muestra el estado y el taxista asignado; al llegar, *Mostrar QR* para
-  que el taxista cierre el servicio. El mapa en tiempo real llega en el Lab 7.
+- **Taxi:** *Ver mi taxi* abre el seguimiento: un mapa con el hotel (recojo), el aeropuerto (destino)
+  y el taxi, que se mueve cuando el taxista reporta su ubicación (cada ~10 s). Debajo se ven el
+  nombre, el vehículo, la placa y la **valoración** del taxista (datos que llegan de la API de
+  taxistas). Si esa API no responde, aparece un aviso rojo y el resto de la pantalla (estado y
+  mapa) sigue funcionando. Al llegar, *Mostrar QR* para que el taxista lo escanee con la cámara y
+  cierre el servicio. Cuando el servicio queda en *Finalizado* se habilitan las estrellas de
+  *Califica a tu conductor* (una sola vez por servicio).
+- **Ubicación del hotel:** en el detalle del hotel, la pestaña *Ubicación* muestra la dirección y un
+  mapa con el hotel y los lugares históricos cercanos.
 - **Perfil:** editar datos personales (el correo no se cambia) y cerrar sesión.
 
 ## Administrador de hotel
