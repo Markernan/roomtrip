@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.MetadataChanges;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -187,13 +188,19 @@ public class ServicioTaxiRepository {
     public ListenerRegistration escucharServicioEnCurso(@NonNull String uidTaxista,
                                                         @NonNull Callbacks.Exito<ServicioTaxi> cambio,
                                                         @NonNull Callbacks.Fallo fallo) {
+        // INCLUDE: avisa también cuando la respuesta pasa de la caché al servidor sin cambiar los datos
         return servicios().whereEqualTo(ServicioTaxi.CAMPO_TAXISTA_ID, uidTaxista)
-                .addSnapshotListener((snapshot, error) -> {
+                .addSnapshotListener(MetadataChanges.INCLUDE, (snapshot, error) -> {
                     if (error != null) {
                         fallo.onFallo(error);
                         return;
                     }
-                    cambio.onExito(enCurso(snapshot));
+                    ServicioTaxi actual = enCurso(snapshot);
+                    // Al aceptar, la transacción no se refleja en la caché local hasta que responde el
+                    // servidor: un "no hay servicio" que viene solo de la caché se ignora, porque cerraría
+                    // la pantalla del servicio recién aceptado.
+                    if (actual == null && snapshot != null && snapshot.getMetadata().isFromCache()) return;
+                    cambio.onExito(actual);
                 });
     }
 
