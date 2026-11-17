@@ -125,6 +125,14 @@ public final class MapaHelper {
         return actual;
     }
 
+    /** Menos de ~200 m entre las esquinas: para el encuadre cuentan como un solo punto. */
+    private static boolean casiIguales(@NonNull LatLngBounds limites) {
+        float[] metros = new float[1];
+        android.location.Location.distanceBetween(limites.southwest.latitude, limites.southwest.longitude,
+                limites.northeast.latitude, limites.northeast.longitude, metros);
+        return metros[0] < 200f;
+    }
+
     /** Ajusta la cámara para que entren todos los puntos no nulos. Sin puntos, deja Lima. */
     public static void encuadrar(@NonNull GoogleMap mapa, @Nullable LatLng... puntos) {
         LatLngBounds.Builder limites = new LatLngBounds.Builder();
@@ -140,8 +148,10 @@ public final class MapaHelper {
         }
         if (cantidad == 0) {
             mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(LIMA, ZOOM_CIUDAD));
-        } else if (cantidad == 1) {
-            mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(unico, ZOOM_CALLE));
+        } else if (cantidad == 1 || casiIguales(limites.build())) {
+            // Un punto, o varios casi en el mismo sitio: encuadrarlos dejaría el mapa en el zoom máximo
+            LatLng centro = cantidad == 1 ? unico : limites.build().getCenter();
+            mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(centro, ZOOM_CALLE));
         } else {
             try {
                 mapa.animateCamera(CameraUpdateFactory.newLatLngBounds(limites.build(), MARGEN_ENCUADRE_PX));

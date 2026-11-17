@@ -105,8 +105,9 @@ class UbicacionHotel {
             }
             List<String> lugares = h.getLugaresCercanos();
             if (lugares == null) return;
+            String zona = zonaDe(direccion);
             for (String lugar : lugares) {
-                String consulta = direccion != null && !direccion.trim().isEmpty() ? lugar + ", " + direccion : lugar;
+                String consulta = zona != null ? lugar + ", " + zona : lugar;
                 MapaHelper.buscarLugar(activity, consulta, punto -> {
                     if (mapa == null || hotel != h || punto == null) return;
                     MapaHelper.ponerMarcador(mapa, null, punto,
@@ -115,6 +116,18 @@ class UbicacionHotel {
                 });
             }
         });
+    }
+
+    /**
+     * Distrito y ciudad de la dirección del hotel, sin la calle: de "Av. Larco 245, Miraflores, Lima" queda
+     * "Miraflores, Lima". Con la calle, el geocoder devuelve la dirección del hotel para cualquier lugar.
+     */
+    @Nullable
+    static String zonaDe(@Nullable String direccion) {
+        if (direccion == null || direccion.trim().isEmpty()) return null;
+        int coma = direccion.indexOf(',');
+        String zona = coma >= 0 ? direccion.substring(coma + 1).trim() : direccion.trim();
+        return zona.isEmpty() ? null : zona;
     }
 
     /**

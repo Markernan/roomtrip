@@ -21,9 +21,20 @@ Arreglos que salieron de la prueba:
   emulador antes de fijarla; ahora reencuadra cuando el taxi se mueve más de 1 km (`MapaServicioTaxi`).
 - El lector QR se abría en horizontal; ahora sigue la orientación del teléfono (`AndroidManifest.xml`).
 
-**Listo en código, falta probar:** el lado del cliente (taxi moviéndose en *Ver mi taxi*, datos del taxista y
-calificación al finalizar), porque el pedido simulado no tiene un cliente real: hace falta una reserva con
-checkout y *Solicitar taxi* desde otra cuenta. También la pestaña *Ubicación* del hotel.
+**Flujo del cliente probado (17/11/2026, dos emuladores: cliente y taxista a la vez):** registro de un cliente nuevo,
+pestaña *Ubicación* del hotel, reserva de la Junior Suite (S/ 220, pago simulado), checkout con valoración,
+*Solicitar taxi* (supera el mínimo de S/ 200) → el taxista lo acepta → en *Ver mi taxi* el cliente ve el taxi
+moverse en el mapa, los datos de la API (vehículo, placa y valoración), el QR y, al finalizar, califica al taxista
+(la API pasó a "★ 5.0 (1)").
+
+Arreglos que salieron de esta prueba:
+- *Ver mi taxi* perdía el vehículo, la placa y la valoración a los ~10 s: cada actualización de ubicación
+  volvía a pintar solo el nombre. Ahora se guarda el texto de la API (`SeguimientoTaxiActivity`).
+- Pestaña *Ubicación*: los lugares cercanos caían encima del hotel (se buscaban con la calle del hotel) y el mapa
+  quedaba en el zoom máximo. Ahora se buscan con el distrito y la ciudad, y el encuadre tiene un zoom mínimo
+  (`UbicacionHotel.zonaDe`, `MapaHelper.encuadrar`).
+- *En camino* se cerraba sola a veces al aceptar un pedido: la caché local todavía no tenía el servicio
+  aceptado (`ServicioTaxiRepository.escucharServicioEnCurso`).
 
 **Mapa en *Buscando pasajeros*:** la pantalla principal del taxista ya no tiene el recuadro de ejemplo: muestra su
 posición y el hotel de recojo de cada pedido disponible, y pide ahí el permiso de ubicación (`taxista/MapaPedidos.java`).
@@ -85,12 +96,12 @@ deberá actualizarse periódicamente"*.
 
 | # | Pendiente | Estado | Notas |
 |---|---|---|---|
-| 1 | Probar en dispositivo el mapa, el rastreo y la API | Hecho (taxista), falta el cliente | Flujo del taxista probado en el emulador el 17/11 (ver sección 0). Falta probar el seguimiento y la calificación desde una cuenta de cliente real |
+| 1 | Probar en dispositivo el mapa, el rastreo y la API | Hecho | Taxista y cliente probados en el emulador el 17/11 (ver sección 0). Falta solo leer un QR real con la cámara de un teléfono |
 | 2 | **Firebase Storage** (Clase 11): fotos del hotel (mínimo 4), habitaciones, servicios y foto de perfil | No iniciado | Hoy las fotos de hotel son imágenes incluidas en la app. Falta decidir si se usa Firebase Storage o el servicio de AWS que ofreció el curso |
 | 3 | **API de taxistas con Retrofit** (Clase 12) | Hecho, sin probar en dispositivo | Integrado desde `lab7-api-taxistas`: login del taxista según la API, disponibilidad, datos del taxista y aviso de *API no disponible*. Detalle en [`integracion-api-taxistas.md`](integracion-api-taxistas.md). Pendiente: sincronizar la aprobación del portal con Firestore |
 | 4 | **QR real** con la cámara | Hecho; la cámara abre en el emulador, falta leer un QR real en un teléfono | `EscaneoActivity` lee el QR del cliente con `zxing-android-embedded`. En compilaciones de depuración, una pulsación larga del botón simula la lectura (emulador sin cámara) |
-| 5 | Calificar al taxista al finalizar el servicio | Hecho, sin probar en dispositivo | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
-| 6 | Ubicación del hotel en un mapa | Hecho (cliente), sin probar en dispositivo | Pestaña *Ubicación* en el detalle del hotel: dirección, mapa (lite mode) con el hotel y los lugares históricos cercanos. Falta un selector de ubicación en el mapa para el admin (hoy la escribe como texto) |
+| 5 | Calificar al taxista al finalizar el servicio | Hecho y probado (17/11) | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
+| 6 | Ubicación del hotel en un mapa | Hecho (cliente) y probado (17/11) | Pestaña *Ubicación* en el detalle del hotel: dirección, mapa (lite mode) con el hotel y los lugares históricos cercanos. Falta un selector de ubicación en el mapa para el admin (hoy la escribe como texto) |
 | 7 | Ubicación del taxista con la pantalla apagada | Hecho, sin probar en dispositivo | `taxista/UbicacionTaxistaService` (servicio en primer plano de tipo `location`, con notificación fija). Lo arranca `MapaTaxista` desde la pantalla visible y se detiene solo cuando el servicio deja de estar en curso. Permisos `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_LOCATION` |
 | 8 | Notificaciones entre dispositivos (FCM): cobro, taxi asignado, alerta de checkout | No iniciado | Hoy son notificaciones locales |
 | 9 | Desplegar el servicio de taxistas en la nube | Hecho | Gateway en Cloud Run (`TAXI_API_URL` por defecto) |
