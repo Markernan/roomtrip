@@ -57,6 +57,7 @@ public class MapaTaxista {
         }
         if (RastreoUbicacionTaxista.tienePermiso(activity)) {
             rastreo.iniciar(nuevo.getId());
+            UbicacionTaxistaService.iniciar(activity, nuevo.getId()); // sigue con la pantalla apagada
         } else if (!permisoPedido) {
             permisoPedido = true;
             pedirPermiso.launch(new String[]{
@@ -75,6 +76,7 @@ public class MapaTaxista {
             mapa.activarMiUbicacion();
             if (servicio != null && servicio.getId() != null && servicio.estaEnCurso()) {
                 rastreo.iniciar(servicio.getId());
+                UbicacionTaxistaService.iniciar(activity, servicio.getId());
             }
         } else {
             Toast.makeText(activity, R.string.mapa_permiso_ubicacion, Toast.LENGTH_LONG).show();

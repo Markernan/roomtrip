@@ -91,7 +91,7 @@ deberá actualizarse periódicamente"*.
 | 4 | **QR real** con la cámara | Hecho; la cámara abre en el emulador, falta leer un QR real en un teléfono | `EscaneoActivity` lee el QR del cliente con `zxing-android-embedded`. En compilaciones de depuración, una pulsación larga del botón simula la lectura (emulador sin cámara) |
 | 5 | Calificar al taxista al finalizar el servicio | Hecho, sin probar en dispositivo | Estrellas en el seguimiento del cliente al quedar `FINALIZADO` (`POST /api/calificaciones`) |
 | 6 | Ubicación del hotel en un mapa | Hecho (cliente), sin probar en dispositivo | Pestaña *Ubicación* en el detalle del hotel: dirección, mapa (lite mode) con el hotel y los lugares históricos cercanos. Falta un selector de ubicación en el mapa para el admin (hoy la escribe como texto) |
-| 7 | Ubicación del taxista con la pantalla apagada | Mejora | Ahora se reporta solo con la pantalla del servicio visible; para segundo plano hace falta un *foreground service* de tipo `location` |
+| 7 | Ubicación del taxista con la pantalla apagada | Hecho, sin probar en dispositivo | `taxista/UbicacionTaxistaService` (servicio en primer plano de tipo `location`, con notificación fija). Lo arranca `MapaTaxista` desde la pantalla visible y se detiene solo cuando el servicio deja de estar en curso. Permisos `FOREGROUND_SERVICE` y `FOREGROUND_SERVICE_LOCATION` |
 | 8 | Notificaciones entre dispositivos (FCM): cobro, taxi asignado, alerta de checkout | No iniciado | Hoy son notificaciones locales |
 | 9 | Desplegar el servicio de taxistas en la nube | Hecho | Gateway en Cloud Run (`TAXI_API_URL` por defecto) |
 | 10 | Documentos finales: esquema de BD, arquitectura, OPEX, manuales | Parcial | Actualizar con lo de Lab 7 |
@@ -104,3 +104,22 @@ deberá actualizarse periódicamente"*.
   `com.example.roomtrip` y a las SHA-1 registradas. Se pasa por privado y va en `local.properties`.
 - **SHA-1:** cada PC firma con su propio `debug.keystore`. Para no registrar la de cada integrante,
   el equipo puede usar un mismo `debug.keystore` compartido por privado (nunca en el repositorio).
+
+## 4. Cierre del módulo cliente (rama `cliente-lab7`)
+
+Auditoría de los requerimientos del cliente contra el código, sobre `firebase-crud`:
+
+| Requerimiento | Resultado |
+|---|---|
+| RF-CL-01 a RF-CL-07, RF-GN-01, RF-GN-02, RF-GN-04 | Ya cubiertos (registro, búsqueda, reserva sin cruces, historial, checkout obligatorio, chat solo con la reserva activa). |
+| RF-CL-08 | Cubierto: el taxi gratis solo aparece si el total alcanza el monto mínimo del hotel y si no se pidió antes. |
+| RF-CL-09 | **Completado:** faltaba la **valoración del taxista** en el seguimiento. Ahora se muestra `★ 4.8 (14)` o *Sin calificaciones todavía* (`TaxistaApi.descripcionValoracion`). |
+| RF-CL-10, RF-CL-11 | Cubiertos (QR del servicio y calificación al pasar a `FINALIZADO`). |
+| RNF-06 | **Completado:** si la API de taxistas falla al cargar los datos del taxista, antes solo se escribía en el log. Ahora el cliente ve un aviso rojo (`tvAvisoApi`) y el resto de la pantalla sigue funcionando. |
+
+Verificación: `assembleDebug`, `testDebugUnitTest` (91 pruebas, 0 fallos; 2 nuevas en `TaxistaApiTest`) y
+`lintDebug` pasan. **Sin probar en dispositivo** (necesita las claves y cuentas del punto 0).
+
+**Servicio en primer plano (pendiente 7).** `RastreoUbicacionTaxista` guarda ahora su último envío en un campo
+compartido, de modo que la pantalla y el servicio no escriban a la vez en Firestore. Para probarlo: con un servicio
+en curso, apagar la pantalla unos 30 s y comprobar en la consola de Firestore que `fechaUbicacion` sigue cambiando.

@@ -3,6 +3,7 @@ package com.example.roomtrip.cliente;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -131,11 +132,17 @@ public class SeguimientoTaxiActivity extends AppCompatActivity {
             if (taxista.getPlaca() != null && !taxista.getPlaca().isEmpty()) {
                 detalle = detalle.isEmpty() ? taxista.getPlaca() : detalle + " · " + taxista.getPlaca();
             }
-            binding.tvNombreTaxista.setText(detalle.isEmpty() ? nombre : nombre + "\n" + detalle);
+            String texto = detalle.isEmpty() ? nombre : nombre + "\n" + detalle;
+            binding.tvNombreTaxista.setText(texto + "\n" + taxista.descripcionValoracion());
+            binding.tvAvisoApi.setVisibility(View.GONE);
         }, e -> {
-            // La API puede estar dormida: se queda con el nombre de Firestore y se reintenta al volver
+            // La API puede estar dormida: se queda con el nombre de Firestore, se avisa y se reintenta al volver
             Log.w(TAG, "No se pudieron cargar los datos del taxista", e);
             datosCargadosDe = null;
+            ApiException error = e instanceof ApiException ? (ApiException) e : ApiException.desdeFallo(e);
+            binding.tvAvisoApi.setText(error.esNoDisponible() ? ApiException.MENSAJE_NO_DISPONIBLE
+                    : getString(R.string.cliente_taxi_datos_error));
+            binding.tvAvisoApi.setVisibility(View.VISIBLE);
         });
     }
 

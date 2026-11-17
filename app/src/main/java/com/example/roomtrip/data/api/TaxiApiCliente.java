@@ -39,7 +39,8 @@ public class TaxiApiCliente {
     private long venceEnMs;
 
     public TaxiApiCliente(String urlBase, String correo, String password) {
-        this(urlBase, correo, password, 15, 30);
+        // 45 s de lectura: el gateway en Cloud Run puede tardar ~30 s en despertar tras un rato sin uso
+        this(urlBase, correo, password, 15, 45);
     }
 
     /**

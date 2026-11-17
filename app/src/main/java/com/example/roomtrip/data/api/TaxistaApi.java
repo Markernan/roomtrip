@@ -126,6 +126,14 @@ public class TaxistaApi {
         return sb.toString();
     }
 
+    /** "★ 4.7 (12)", o un texto neutro si todavía no tiene calificaciones (RF-CL-09). */
+    public String descripcionValoracion() {
+        if (totalCalificaciones <= 0) {
+            return "Sin calificaciones todavía";
+        }
+        return String.format(java.util.Locale.US, "★ %.1f (%d)", valoracionPromedio, totalCalificaciones);
+    }
+
     /** Solo un taxista aprobado puede prestar servicios (RF-WTX-003). */
     public boolean estaAprobado() {
         return HABILITACION_APROBADO.equals(estadoHabilitacion);
