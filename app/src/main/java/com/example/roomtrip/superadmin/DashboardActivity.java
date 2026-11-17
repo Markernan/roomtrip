@@ -45,7 +45,7 @@ public class DashboardActivity extends AppCompatActivity {
 
     private static final String CHANNEL_ID = "superadmin_alerts";
     private static final int NOTIFICATION_ID = 101;
-    private static final String URL_WEB_TAXISTAS = "https://roomtrip-taxistas.web.app/pendientes";
+    private static final String URL_WEB_TAXISTAS = "https://portal-web-7oe536zvqa-uc.a.run.app/login";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
