@@ -38,7 +38,18 @@ git clone https://github.com/Markernan/roomtrip.git
    Sin ella la app compila y funciona, pero los mapas del taxi salen grises. La clave está
    restringida por SHA-1: si a alguien le sale gris, falta registrar la SHA-1 de su PC
    (`./gradlew signingReport`) o usar el `debug.keystore` compartido del equipo.
-5. Ejecutar sobre un dispositivo o emulador con **API 34 o superior** y con Google Play
+5. Agregar también, en `local.properties`, los datos de la **API de taxistas** (Lab 7). La URL ya viene por
+   defecto; lo que hay que poner es la credencial de servicio de la app, que se lee del Secret Manager
+   de la nube y la pasa por privado quien administra el despliegue (nunca por el chat ni por el repositorio):
+
+   ```
+   TAXI_API_CORREO=app-movil@roomtrip.pe
+   TAXI_API_PASSWORD=...
+   ```
+
+   Sin ellos la app funciona, pero las pantallas que consultan taxistas avisan que la conexión no
+   está configurada. Detalle en [`integracion-api-taxistas.md`](integracion-api-taxistas.md).
+6. Ejecutar sobre un dispositivo o emulador con **API 34 o superior** y con Google Play
    (lo necesitan Firebase y el inicio con Google). La app necesita internet.
 
 Por línea de comandos, desde la raíz:

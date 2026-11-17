@@ -110,9 +110,10 @@ public class ServicioTaxiRepository {
     /**
      * Acepta un pedido: SOLICITADO → ASIGNADO y queda a nombre del taxista. Es una transacción:
      * lee el pedido y solo escribe si sigue libre. Devuelve {@code false} si otro taxista lo tomó
-     * primero (en ese caso no se escribe nada).
+     * primero (en ese caso no se escribe nada). {@code idTaxistaApi} (opcional) es su id en la API de taxistas.
      */
     public void aceptarPedido(@NonNull String servicioId, @NonNull String uidTaxista, @NonNull String nombreTaxista,
+                              String idTaxistaApi,
                               @NonNull Callbacks.Exito<Boolean> exito, @NonNull Callbacks.Fallo fallo) {
         DocumentReference ref = servicios().document(servicioId);
         db.runTransaction(tx -> {
@@ -124,6 +125,9 @@ public class ServicioTaxiRepository {
             cambios.put(ServicioTaxi.CAMPO_ESTADO, EstadoServicioTaxi.ASIGNADO.name());
             cambios.put(ServicioTaxi.CAMPO_TAXISTA_ID, uidTaxista);
             cambios.put(ServicioTaxi.CAMPO_TAXISTA_NOMBRE, nombreTaxista);
+            if (idTaxistaApi != null && !idTaxistaApi.isEmpty()) {
+                cambios.put(ServicioTaxi.CAMPO_TAXISTA_API_ID, idTaxistaApi);
+            }
             cambios.put(ServicioTaxi.CAMPO_FECHA_ASIGNACION, FieldValue.serverTimestamp());
             cambios.put(ServicioTaxi.CAMPO_FECHA_ACTUALIZACION, FieldValue.serverTimestamp());
             tx.update(ref, cambios);

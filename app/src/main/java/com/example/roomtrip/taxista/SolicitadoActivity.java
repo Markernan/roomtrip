@@ -17,11 +17,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.roomtrip.R;
 import com.example.roomtrip.data.MockData;
 import com.example.roomtrip.data.model.EstadoServicioTaxi;
+import com.example.roomtrip.data.api.TaxistaApi;
 import com.example.roomtrip.data.model.RolUsuario;
 import com.example.roomtrip.data.model.ServicioTaxi;
 import com.example.roomtrip.databinding.ActivitySolicitadoBinding;
 import com.example.roomtrip.data.firebase.ServicioTaxiRepository;
 import com.example.roomtrip.taxista.data.SesionTaxistaManager;
+import com.example.roomtrip.taxista.data.SincronizadorDisponibilidad;
 import com.example.roomtrip.taxista.notificaciones.TaxiNotificationHelper;
 import com.example.roomtrip.utils.ErroresFirebase;
 import com.example.roomtrip.utils.NavegacionHelper;
@@ -54,6 +56,9 @@ public class SolicitadoActivity extends AppCompatActivity {
     private ListenerRegistration registroPedidos;
     // La primera respuesta del listener trae todos los pedidos: no son "nuevos", no se notifican
     private boolean primeraCarga;
+    // true mientras la app (y no el taxista) mueve el interruptor de disponibilidad
+    private boolean cambioInterno;
+
     // Evita aceptar dos pedidos por tocar dos veces seguidas
     private boolean aceptando;
 
@@ -147,6 +152,9 @@ public class SolicitadoActivity extends AppCompatActivity {
         binding.switchDisponible.setOnCheckedChangeListener((boton, marcado) -> {
             sesion.setDisponible(marcado);
             actualizarBadgeEstado(marcado);
+            if (!cambioInterno) { // si lo cambia la app al aceptar un pedido, se informa EN_SERVICIO aparte
+                SincronizadorDisponibilidad.enviar(this, marcado ? TaxistaApi.DISPONIBLE : TaxistaApi.NO_DISPONIBLE);
+            }
         });
     }
 
@@ -205,7 +213,7 @@ public class SolicitadoActivity extends AppCompatActivity {
                 abrirPantallaDelServicio(actual);
                 return;
             }
-            repositorio.aceptarPedido(pedido.getId(), uid, sesion.getNombre(), aceptado -> {
+            repositorio.aceptarPedido(pedido.getId(), uid, sesion.getNombre(), sesion.getIdTaxistaApi(), aceptado -> {
                 aceptando = false;
                 if (!aceptado) {
                     Toast.makeText(this, R.string.toast_taxista_pedido_ya_tomado, Toast.LENGTH_SHORT).show();
@@ -213,7 +221,10 @@ public class SolicitadoActivity extends AppCompatActivity {
                 }
                 RegistroEventos.registrar(RegistroEventos.SERVICIO_TAXI_ACEPTADO, RolUsuario.TAXISTA,
                         "Servicio " + pedido.getId() + " aceptado");
+                cambioInterno = true;
                 binding.switchDisponible.setChecked(false); // el listener del switch guarda disponible = false
+                cambioInterno = false;
+                SincronizadorDisponibilidad.enviar(this, TaxistaApi.EN_SERVICIO);
 
                 pedido.setEstado(EstadoServicioTaxi.ASIGNADO);
                 pedido.setTaxistaId(uid);

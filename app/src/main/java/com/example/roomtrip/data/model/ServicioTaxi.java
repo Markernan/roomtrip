@@ -25,6 +25,7 @@ public class ServicioTaxi {
     public static final String CAMPO_TAXISTA_ID = "taxistaId";
     public static final String CAMPO_HOTEL_ID = "hotelId";
     public static final String CAMPO_TAXISTA_NOMBRE = "taxistaNombre";
+    public static final String CAMPO_TAXISTA_API_ID = "taxistaApiId";
     public static final String CAMPO_FECHA_ASIGNACION = "fechaAsignacion";
     public static final String CAMPO_FECHA_ACTUALIZACION = "fechaActualizacion";
     public static final String CAMPO_FECHA_FINALIZACION = "fechaFinalizacion";
@@ -49,6 +50,7 @@ public class ServicioTaxi {
 
     private String taxistaId;       // uid de Firebase Auth del taxista; null mientras está SOLICITADO
     private String taxistaNombre;
+    private String taxistaApiId;    // id del taxista en la API de taxistas; sirve para mostrar sus datos y calificarlo
 
     /**
      * Última posición del taxista mientras el servicio está en curso (Lab 7). La escribe el teléfono
@@ -160,6 +162,9 @@ public class ServicioTaxi {
 
     public String getTaxistaId() { return taxistaId; }
     public void setTaxistaId(String taxistaId) { this.taxistaId = taxistaId; }
+
+    public String getTaxistaApiId() { return taxistaApiId; }
+    public void setTaxistaApiId(String taxistaApiId) { this.taxistaApiId = taxistaApiId; }
 
     public String getTaxistaNombre() { return taxistaNombre; }
     public void setTaxistaNombre(String taxistaNombre) { this.taxistaNombre = taxistaNombre; }

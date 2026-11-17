@@ -292,7 +292,7 @@ service cloud.firestore {
         && resource.data.get('taxistaId', null) == null
         && request.resource.data.estado == 'ASIGNADO'
         && request.resource.data.taxistaId == request.auth.uid
-        && soloCambian(['estado', 'taxistaId', 'taxistaNombre', 'fechaAsignacion', 'fechaActualizacion']);
+        && soloCambian(['estado', 'taxistaId', 'taxistaNombre', 'taxistaApiId', 'fechaAsignacion', 'fechaActualizacion']);
 
       // El taxista asignado avanza el estado sin saltarse ninguno
       allow update: if esTaxistaHabilitado()
